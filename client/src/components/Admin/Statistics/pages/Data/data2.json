@@ -1,0 +1,27 @@
+[  
+   
+    {
+        "id" : 1,
+        "day": 1,
+        "reason":"내용부적합",
+        "application":60,
+        "note" :"비고"
+           
+    },
+    {
+        "id":2,
+        "day":2,
+        "reason":"필수내용누락",
+        "application":30,
+        "note" :"비고"
+            
+    },
+     {
+        "id":3,
+        "day":3,
+        "reason":"서비스진행불가",
+        "application":10,
+        "note" :"비고"
+     }
+     
+ ]

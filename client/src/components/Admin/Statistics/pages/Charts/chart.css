@@ -1,0 +1,36 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+body {
+  font-family: Roboto, sans-serif;
+}
+#chartsReserve{
+}
+#chartsReserve::-webkit-scrollbar-thumb{
+  background-color: #393939;
+  border:1px transparent;
+  border-radius: 10px 10px 10px 10px;
+}
+#chartsReserve::-webkit-scrollbar{
+  width:2px;
+}
+#chart {
+  height: 100px;
+  margin: 35px 40px auto;
+}
+#chart2 {
+  width: 600px;
+  min-width: 30%;
+}
+#chart3 {
+  min-width: 30%;
+  margin-left: 60px;
+}
+.fontCharacter {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande";
+  font-weight: bold;
+  text-align: start;
+  text-decoration: darkblue;
+  margin-left: 80px;
+}
+.actions{display: flex; width:250px; height:30px; position:absolute;margin-top:23%;right:5%;}
+.actions > button{width:50px;background-color: aquamarine;font-size: 11px;border-style:solid;border-radius: 4px 4px;}

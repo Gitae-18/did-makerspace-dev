@@ -1,0 +1,146 @@
+'use strict';
+
+const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+const mkdirp = require('mkdirp');
+const nodemailer = require('nodemailer');
+
+exports.isLoggedIn = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        next();
+    } else {
+        res.status(403).send('로그인 필요'); }
+}
+
+exports.isNotLoggedIn = (req, res, next) => {
+    if (!req.isAuthenticated()) {
+        next();
+    } else {
+        res.redirect('/');
+    }
+}
+
+exports.verifyToken = (req, res, next) => {
+    //return next();
+    try {
+        req.decoded = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
+        return next();
+    } catch (error) {j
+        if (error.name === 'TokenExpiredError') { // 유효기간 초과
+            return res.status(this.errorCode.unauthorized).json({
+                code: this.errorCode.unauthorized,
+                message: '토큰이 만료되었습니다',
+            });
+        }
+
+        return res.status(this.errorCode.unauthorized).json({
+            code: this.errorCode.unauthorized,
+            message: '유효하지 않은 토큰입니다',
+        });
+    }
+};
+
+let last_name;
+exports.upload = multer({
+    storage: multer.diskStorage({
+        destination(req, file, cb) {
+            cb(null, 'upload/temp');
+        },
+        filename(req, file, cb) {
+            let datenow = Date.now();
+            let hrtime = process.hrtime();
+            let temp_name = datenow.toString() + hrtime[1].toString();;
+            // console.log(file);
+            // const ext = path.extname(file.originalname);
+            // cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+            cb(null, temp_name);
+        },
+    }),
+    limits: {
+        files: 10,
+        fileSize: 50 * 1024 * 1024
+    },
+});
+
+exports.makedir = (path) => {
+    if (!fs.existsSync(path)) {
+        mkdirp.sync(path, (error) => {
+            if (error) {
+                console.error(error);
+            }
+        });
+    }
+}
+
+exports.errorCode = {
+    ok: 200,
+    created: 201,
+    noContent: 204,
+    resetContent: 205,
+    badRequest: 400,
+    unauthorized: 401,
+    notFound: 404,
+    methodNotAllowed: 405,
+    notAcceptable: 406,
+    internalServerError: 500,
+    serviceUnavailable: 503
+};
+
+exports.authLevel = {
+    user : 1,
+    partner : 10,
+    scheduler : 50,
+    manager : 70,
+    superAdmin : 90,
+    system : 100
+};
+
+exports.getErrMsg = (errors) => {
+    let err = {};
+    switch (errors.validatorKey) {
+        case "not_unique":
+            err.message = { message : errors.value + "가(이) 이미 등록되어 있습니다." };
+            err.code = this.errorCode.badRequest;
+            break;
+        default:
+            err.message = { message : errors.value };
+            err.code = this.errorCode.internalServerError;
+            break;
+    }
+
+    return err;
+};
+
+exports.SendMail = (email, subject, content) => {
+    /*
+    console.log('send-mail');
+    console.log(email);
+    console.log(subject);
+    console.log(content);
+    */
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.SYSTEM_EMAIL, // gmail id
+            pass: process.env.SYSTEM_EMAILPW // gmail pw
+        }
+    });
+
+    let mailOptions = {
+        from: process.env.SYSTEM_EMAIL,    // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
+        to: email ,                     // 수신 메일 주소
+        subject: '[DID 기술융합공작소] ' + subject ,   // 제목
+        text: content  // 내용
+    };
+
+    transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+}
