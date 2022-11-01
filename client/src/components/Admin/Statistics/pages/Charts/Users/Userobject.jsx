@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Chart from "react-apexcharts";
 function Userobject() {
   const series = [
@@ -12,6 +12,7 @@ function Userobject() {
     },
   ];
   const options = {
+    colors: ["#57E9DF", "#0f2750"],
     chart: {
       type: "radar",
       dropShadow: {
@@ -47,7 +48,7 @@ function Userobject() {
       series={series}
       type="radar"
       width={900}
-      height={330}
+      height={500}
     />
   );
 }

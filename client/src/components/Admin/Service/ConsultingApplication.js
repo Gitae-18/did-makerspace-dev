@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector } from "react-redux";
+import { useLocation, useNavigate} from 'react-router';
 import {
 	CommonHeader, PreUri, Method, getRspMsg, AuthLevel, MaxFileCount, MB, LIMIT,
 	ConvertPhoneNumber/*, ConvertDate*/
@@ -9,11 +10,12 @@ import SideNavi from './SideNavi';
 
 import $ from 'jquery';
 
-import '../../../css/common.css';
-import '../../../css/style.css';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
 
-export default ({ history, no }) => {
+export default ({ no }) => {
 	const mountedRef = useRef(true);
+    const history = useNavigate();
 	const { token, authority_level } = useSelector(state => state.user);
 	const viewState = useSelector(state => state.managerService);
     const [consultingFlag, setConsultingFlag] = useState(true);
@@ -66,7 +68,7 @@ export default ({ history, no }) => {
 			alert(getRspMsg(response.status));
 			return;
 		}
-
+        let cons  = await response.json();
 		const consulting = await response.json();
 		let cResult = undefined;
             
@@ -83,7 +85,7 @@ export default ({ history, no }) => {
 			}
 			cResult = await response.json();
 		}
-
+        console.log(cons);
 		if (!mountedRef.current) { return }
         setConsultingFlag(true);
 		setStatus(consulting.progress === 'STEP_01' ? consulting.status : 'END');
@@ -109,7 +111,7 @@ export default ({ history, no }) => {
 			setMyFiles(cResult.attached_file);
 		}
 	}, [no, token, viewState]);
-
+    
 	useEffect(() => {
 		if (!no) {
 			alert('Error : Service Number');
@@ -140,7 +142,7 @@ export default ({ history, no }) => {
 			return;
 		}
 
-		history.replace('/mservice');
+		history('/mservice',{replace:true});
 	}, [rejectContent, history, no])
 
 	const onConfirm = useCallback(async (e, flag) => {
@@ -181,7 +183,7 @@ export default ({ history, no }) => {
 			return;
 		}
 
-		history.replace('/mservice');
+		history('/mservice',{replace:true});
 	}, [confirmContent, rejectContent, fileInfo, token, no, history]);
 
 	// DID 요청에 의해 관리자가 사용자 서비스 종료를 할 수 있게 수정	2021.05.25
@@ -199,7 +201,7 @@ export default ({ history, no }) => {
             return;
         }
 
-        history.replace('/mservice');
+        history('/mservice',{replace:true});
     }, [no, token, history]);
 
 	const onEdit = useCallback(async (e) => {
@@ -335,7 +337,7 @@ export default ({ history, no }) => {
 					key={i} />);
 		};
 	}
-
+    
 	return (
         (consultingFlag === false)
             ? <div id="wrap" className="wrap service2">
@@ -348,7 +350,7 @@ export default ({ history, no }) => {
                         <div className="form">
                             <h2>상담없이 서비스 이용을 신청하였습니다.</h2>
                         </div>
-                        <div className="btn_box"><button onClick={() => { history.go(-1) }}>확인</button></div>
+                        <div className="btn_box"><button onClick={() => { history(-1) }}>확인</button></div>
                     </div>
                 </div>
             </div>
@@ -497,28 +499,28 @@ export default ({ history, no }) => {
                         </div>
                         {viewState.currentView === viewState.progress ?
                             authority_level < AuthLevel.scheduler ?
-                                <div className="btn_box"><button onClick={() => { history.go(-1) }}>뒤로 가기</button></div>
+                                <div className="btn_box"><button onClick={() => { history(-1) }}>뒤로 가기</button></div>
                                 : (status === 'URD') ?
                                     <div className="btn_box">
-                                        <button className="back" onClick={() => { history.go(-1) }}>뒤로 가기</button>
+                                        <button className="back" onClick={() => { history(-1) }}>뒤로 가기</button>
                                         <button className="reject" onClick={() => { $('.pop').css('display', 'block'); }} >반려</button>
                                         <button className="complete" onClick={(e) => onReserv(e, 'Y')}>신청 확인</button>
                                     </div>
                                     : (status === 'RUN') ?
                                         <div className="btn_box">
-                                            <button className="back" onClick={() => { history.go(-1) }}>뒤로 가기</button>
+                                            <button className="back" onClick={() => { history(-1) }}>뒤로 가기</button>
                                             <button className="reject" onClick={() => { $('.pop').css('display', 'block'); }} >반려</button>
                                             <button className="complete" onClick={(e) => onConfirm(e, 'Y')}>상담 완료</button>
                                         </div>
                                         : (status === 'RES') ?
                                             <div className="btn_box">
-                                                <button className="back" onClick={() => { history.go(-1) }}>뒤로 가기</button>
+                                                <button className="back" onClick={() => { history(-1) }}>뒤로 가기</button>
                                                 <button onClick={() => { $('.pop').css('display', 'block'); }}>사용자 종료</button>
                                             </div>
                                             : <div className="btn_box">
-                                                <button className="back" onClick={() => { history.go(-1) }}>뒤로 가기</button>
+                                                <button className="back" onClick={() => { history(-1) }}>뒤로 가기</button>
                                             </div>
-                            : <div className="btn_box"><button onClick={() => { history.go(-1) }}>확인</button></div>
+                            : <div className="btn_box"><button onClick={() => { history(-1) }}>확인</button></div>
                         }
                     </div>
                     {authority_level < AuthLevel.scheduler ? <></>

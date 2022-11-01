@@ -1,16 +1,31 @@
 @charset "utf-8";
+@import url(/css/NanumGothic.css);
 
 /* reset */
+html::-webkit-scrollbar {
+  background-color: #ffffff;
+  width: 10px;
+  height: 10px; }
+
+html::-webkit-scrollbar-thumb {
+  background-color: rgba(50, 50, 50, 0.25);
+  border: 2px solid transparent;
+  border-radius: 10px;
+  margin-right: 10px;
+  background-clip: padding-box; }
+
+html::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(50, 50, 50, 0.5); }
+
+html::-webkit-scrollbar-track {
+  background-color: transparent;
+  width: 1px;}
+
 * {
  margin:0;
  padding:0;
- -webkit-text-size-adjust: none; }
-body {
- color:#222;
- font-size:100%;
- line-height:1.25em;
- word-break:break-all;
- }
+ -webkit-text-size-adjust:none; }
+
 img, fieldset { border:0 }
 ul, ol, li, dl { list-style:none; }
 h1, h2, h3, h4, h5, h6 {
@@ -21,7 +36,7 @@ a { color:inherit; }
 a, a:link {
  color:#333;
  text-decoration:none; }
-a:visited { color:#333; }
+a:visited { color:#fff; }
 a:hover, a:active {
  color:#333;
  text-decoration:none; }
@@ -37,16 +52,7 @@ input, textarea, select, button, table {
  line-height:inherit; }
 section, nav, article, aside, hgroup, header, footer { display:block }
 textarea, input {
- background:url('');	/*none*/
- -webkit-border-radius:1px;
+ -border-radius:1px;
  -webkit-apprearance:none; }
 textarea { resize:none; }
 label { cursor:pointer; }
-.w-ful{display: flex; justify-content: space-between ;transition-duration: 20; border-radius: 4px; border: white; }
-@media print{
-    header,footer,.no-print{display:none}
-    *{
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-    }
-}

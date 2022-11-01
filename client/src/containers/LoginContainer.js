@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { LoginForm, LoggedInForm } from "../components/LoginForm";
 import { CHANGE_INPUT, LOGIN_START, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, LOAD_USER } from "../store/user";
 import { CommonHeader, PreUri, Method } from '../CommonCode';
-import { Redirect } from 'react-router-dom';
-
+import {useNavigate} from 'react-router';
+import { redirect } from 'react-router';
 export const LoginContainer = () => {
     const { userId, password, isAutoLogin,
         isLoginStart, isLoggedIn, userName } = useSelector(state => state.user);
@@ -60,7 +60,7 @@ export const LoginContainer = () => {
     const logout = useCallback(async (e) => {
         e.preventDefault();
         dispatch({ type: LOGOUT });
-        return <Redirect to='/' />
+        return <redirect to='/' />
     }, [dispatch]);
 
     const onChange = useCallback((e) => {

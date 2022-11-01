@@ -2,16 +2,18 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { CommonHeader, PreUri, Method, StatusCode, ConvertPhoneNumber } from '../../../CommonCode';
 import { useSelector, useDispatch } from "react-redux";
 import { CHANGE_CATEGORY, SET_RECORD, SET_MATERIAL_PAGEINFO, SET_LIST_PAGEINFO } from "../../../store/material";
-
+import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import SideNavi from './SideNavi';
 
-import '../../../css/common.css';
-import '../../../css/style.css';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
 
-export default function ({ location, history }) {
+export default function () {
 	const PageMax = 10;
 	const mountedRef = useRef(true);
 	const dispatch = useDispatch();
+	const location = useLocation();
+    const history = useNavigate();
 	const { token } = useSelector(state => state.user);
 	const { material, listPageNo, listPageOffset, listSearchYear, listSearchMonth } = useSelector(state => state.material);
     const [year, setYear] = useState(0);
@@ -109,7 +111,7 @@ export default function ({ location, history }) {
 			if (listSearchYear) { setYear(listSearchYear) }
 			if (listSearchMonth) { setMonth(listSearchMonth) }
         } else {
-            history.replace('/mmaterial')
+            history('/mmaterial',{replace:true})
 		}
 
 		return () => {
@@ -130,7 +132,7 @@ export default function ({ location, history }) {
         };
 
 		dispatch({ type: SET_RECORD, target: copy });
-        history.push('/mmaterial?view=item');
+        history('/mmaterial?view=item');
         // dispatch({ type: CHANGE_PAGE, target: PAGE_VIEW.EDIT });
     }, [items, material, history, dispatch]);
 
@@ -170,7 +172,7 @@ export default function ({ location, history }) {
         dispatch({ type: SET_MATERIAL_PAGEINFO, target: { pageNo: 1, pageOffset: 0, search: '' } });
 		dispatch({ type: SET_LIST_PAGEINFO, target: { pageNo: 1, pageOffset: 0, year: '0', month: '0' } });
 
-		history.push('/mmaterial');
+		history('/mmaterial');
 	}, [dispatch, history]);
 
     const ItemRow = useCallback((props) => {
@@ -308,7 +310,7 @@ export default function ({ location, history }) {
 								{ItemRows}
 							</tbody>
 						</table>
-                        <button className="btn_apply" onClick={() => history.push('/mmaterial?view=reg')} >자재 신청</button>
+                        <button className="btn_apply" onClick={() => history('/mmaterial?view=reg')} >자재 신청</button>
 						<div className="page_num">
 							<span className="inner_num">
                                 <a href='#!' className="first" onClick={(e) => onPage(e, 1)}> </a>

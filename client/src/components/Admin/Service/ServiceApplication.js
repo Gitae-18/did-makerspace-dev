@@ -1,18 +1,21 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector } from "react-redux";
+import { useNavigate, useLocation } from 'react-router-dom';
 import { CommonHeader, PreUri, Method, getRspMsg, AuthLevel, ConvertPhoneNumber/*, MaxFileCount, MB, LIMIT*/ } from '../../../CommonCode';
 import TopNavi from './TopNavi';
 import SideNavi from './SideNavi';
 
-import $ from 'jquery';
+import $, { data } from 'jquery';
 
-import '../../../css/common.css';
-import '../../../css/style.css';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
 
-export default ({ history, no }) => {
+
+export default ({ no }) => {
 	const mountedRef = useRef(true);
 	const { token, authority_level } = useSelector(state => state.user);
     const viewState = useSelector(state => state.managerService);
+    const history = useNavigate();
 
     const [categoryItems, setCategoryItems] = useState({
         count: 0,
@@ -32,9 +35,14 @@ export default ({ history, no }) => {
 		requirement: '',
 		categoriesNo: '',
 		created_at:'',
+        memo:'',
 		attachedFile: [],
 	});
-
+    const [info,setInfo] = useState("");
+    const [clicked,setClicked] = useState(true);
+    const [memo,setMemo] = useState("");
+    const [insert,setInsert] = useState([]);
+    const [text,setText] = useState("");
 	const [status, setStatus] = useState('URD');
 	const [confirmContent, setConfirmContent] = useState('');
 	const [rejectContent, setRejectContent] = useState('');
@@ -52,6 +60,7 @@ export default ({ history, no }) => {
 		}
 
         const json = await response.json();
+        
         if (!mountedRef.current) { return }
         const count = Number(json.count);
         let arrayInit = new Array(count);
@@ -68,8 +77,15 @@ export default ({ history, no }) => {
             console.log('response error');
             return;
 		}
-
+        
         const serviceApp = await response.json();
+        console.log(serviceApp);
+        setInfo(info=> ({
+            ...info,
+            serviceNo: serviceApp.service_no,
+            categoriesNo: serviceApp.categories,
+        }));
+       
         if (serviceApp.categories.length > 0) {
             const split = serviceApp.categories.split(',');
             for (let j = 0; j < split.length; j++ ) {
@@ -80,12 +96,15 @@ export default ({ history, no }) => {
                 }
             }
 		}
-
+   
+    
+        
 		let confirm;
 		if (serviceApp.status === 'EVA' || serviceApp.status === 'REJ') {
 			response = await fetch(PreUri + '/service/' + no + '/service_confirm', {
 				method: Method.get,
 				headers: CommonHeader,
+               
 			});
 
 			if (!response.ok) {
@@ -103,7 +122,7 @@ export default ({ history, no }) => {
             count,
             items: json.items,
 		}));
-
+        console.log(serviceAppItem);
 		setServiceAppItem(serviceAppItem =>({
 			...serviceAppItem,
 			serviceNo: serviceApp.service_no,
@@ -119,6 +138,7 @@ export default ({ history, no }) => {
 			categoriesNo: serviceApp.categories,
 			created_at: serviceApp.created_at,
 			attachedFile: serviceApp.attached_file,
+            memo: serviceApp.memo,
 		}));
 
 		//setProgress(serviceApp.progress);
@@ -126,14 +146,15 @@ export default ({ history, no }) => {
 		if (confirm) {
 			setConfirmContent((serviceApp.status === 'EVA') ? confirm.request_content : confirm.reject_content);
 		}
+        
     }, [no, token]);
-
+  
     useEffect(() => {
 		if (!no) {
 			alert('Error : Service Number');
 			return;
 		}
-
+        
         getCategory();
         return () => {
             mountedRef.current = false
@@ -160,7 +181,7 @@ export default ({ history, no }) => {
             return;
 		}
         //const json = await response.json();
-        history.replace('/mservice');
+        history('/mservice',{replace:true});
 	}, [no, token, confirmContent, history]);
 
     const responseConfirm = useCallback(async (confirmFlag) => {
@@ -183,7 +204,7 @@ export default ({ history, no }) => {
 		if (!response.ok) {
 			alert(getRspMsg(response.status));
 			if (response.status === 400) {
-				history.replace('/mservice');
+				history('/mservice',{replace:true});
 			}
             return;
 		}
@@ -228,12 +249,12 @@ export default ({ history, no }) => {
 		if (!response.ok) {
 			alert(getRspMsg(response.status));
 			if (response.status === 400) {
-				history.replace('/mservice');
+				history('/mservice',{replace:true});
 			}
             return;
 		}
 
-        history.replace('/mservice');
+        history('/mservice',{replace:true});
 	}, [no, token, history])
 
 	const onReject = useCallback((e) => {
@@ -271,6 +292,83 @@ export default ({ history, no }) => {
         setCheckValue(temp);
     }, [checkValue]);
 
+    /*const ServiceCheck = async() =>{
+        try{
+     const response = await fetch(PreUri + '/service/check_service',{
+         method:Method.get,
+         headers: CommonHeader
+     })       
+     const data = await response.json();
+     setCheck(data);
+    }catch (e){
+            console.log(e);
+    }
+    if (serviceAppItem.serviceNo.include(check.service_no))
+    {
+        
+    }
+    
+    };*/
+    const onMemoChange = (e) =>{ 
+       setText(e.target.value);
+    };
+    const checkClick = (e)=>{
+        setClicked(!clicked);
+    }
+    const memoClick = async (e) => {
+        setClicked(!clicked);
+        CommonHeader.authorization = token;
+        let categories = '';
+        for (let i = 0; i < checkValue.length; i++) {
+            if (checkValue[i] === true) {
+                if (categories.length > 0) { categories += ','; }
+                categories += categoryItems.items[i].service_category_no;
+            }
+        }
+        try {
+
+            let option = {
+                method: "put",
+                headers: {
+                    "content-type": "application/json;charset=UTF-8",
+                },
+                body: JSON.stringify({
+                    memo:text,
+                    service_categories_no: categories,
+                    product_name: serviceAppItem.productName,
+                    content: serviceAppItem.content,
+                    business_plan: serviceAppItem.businessPlan,
+                })
+            };  
+            const memo_response = await fetch(PreUri + '/service/' + no + '/memo'
+                , option);
+            const response = await memo_response.json();
+            setMemo({...memo,response});
+        }
+        catch (error) {
+            console.log(error);
+        }
+  
+    };
+    const getData = async () => {
+        try {
+            const memolize = await fetch(PreUri + '/service/' + no + '/memolize', {
+                method: Method.get,
+                headers: CommonHeader
+            });
+            const response = await memolize.json();
+            console.log(response);
+            setInsert(response.memo)
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    useEffect(() => {
+      getData();
+    }, [no,memo,clicked]);
+   
+    
 	const onEdit = useCallback(async (e) => {
 		e.preventDefault();
         let categories = '';
@@ -295,7 +393,7 @@ export default ({ history, no }) => {
                 product_name: serviceAppItem.productName,
                 content: serviceAppItem.content,
                 business_plan: serviceAppItem.businessPlan,
-                requirement: serviceAppItem.requirement
+                requirement: serviceAppItem.requirement,
             })
         });
 
@@ -322,7 +420,6 @@ export default ({ history, no }) => {
 
         setStatus('RUN');
 	}, [no, token]);
-
 	const onFileDownload = useCallback(async (e, fileInfo) => {
         e.preventDefault();
         CommonHeader.authorization = token;
@@ -336,6 +433,7 @@ export default ({ history, no }) => {
 
 		if (!response.ok) {
 			alert(getRspMsg(response.status));
+            console.log(response.status);
             return;
 		}
 
@@ -352,7 +450,7 @@ export default ({ history, no }) => {
 			</tr>
 		</>);
 	}, []);
-
+    
     let DownloadFileItems = [];
 	if (serviceAppItem.attachedFile && serviceAppItem.attachedFile.length > 0) {
 		const files = serviceAppItem.attachedFile;
@@ -493,7 +591,6 @@ export default ({ history, no }) => {
                 key={row} />
         )
     }
-
 	return (
 		<div id="wrap" className="wrap service3">
 			<div className="content_wrap">
@@ -586,6 +683,19 @@ export default ({ history, no }) => {
 										</td>
 									</tr>
 									{DownloadFileItems}
+                                    <tr className="enter"></tr>
+                                    <tr>
+                                        <th className='textarea'>관리자메모</th>
+                                        <td colSpan="3" className="noborder">
+                                            <div>
+                                            {clicked===true?<textarea onClick={checkClick} readOnly={true} value={insert}/>
+                                            :<textarea  rows='5' cols='10'className="textmemo"  onChange={onMemoChange} >{insert}</textarea>
+                                            }
+                                            <button type="button" onClick={memoClick} className="button1"><span>메모</span></button>
+                                            </div>
+                                        </td>
+                                        
+                                    </tr>
 								</tbody>
 							</table>
                             {status !== 'URD' ? <p className="border"></p> : <></>}
@@ -637,13 +747,16 @@ export default ({ history, no }) => {
 							</table>
 						</div>
 					</div>
+                    <div>
+                      
+                    </div>
 					{viewState.currentView === viewState.progress ?
 						(status === 'CXL' || status === 'REJ' || (status === "EVA" && authority_level < AuthLevel.superAdmin))
-							? <div className="btn_box"><button onClick={() => { history.go(-1); }}>뒤로가기</button></div>
+							? <div className="btn_box"><button onClick={() => { /*history.go(-1);*/ history(-1) }}>뒤로가기</button></div>
 							: authority_level < AuthLevel.manager ? <></>
                                 : status === 'URD'
                                     ? <div className="btn_box">
-                                        <button className="reject" onClick={()=>{ history.go(-1); }} >뒤로가기</button>
+                                        <button className="reject" onClick={()=>{/*  history.go(-1); */history(-1) }} >뒤로가기</button>
                                         <button className="ask" onClick={onEdit}>내용 수정</button>
                                         <button className="success" onClick={onCheck}>신청서 확인</button>
                                     </div>
@@ -659,7 +772,7 @@ export default ({ history, no }) => {
                                             <button className="reject" onClick={() => { $('.pop').css('display', 'block'); }} >반려</button>
                                             <button className="success" onClick={onResponseConfirm}>수락</button>
                                         </div>
-						: <div className="btn_box"><button className="success" onClick={() => { history.go(-1) }}>확인</button></div>
+						: <div className="btn_box"><button className="success" onClick={() => { history(-1) }}>확인</button></div>
 					}
 				</div>
 				{authority_level < AuthLevel.manager ? <></> :

@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { CommonHeader, PreUri, Method, PageMax } from '../../../CommonCode';
 import SideNavi from './SideNavi';
-
+import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { MATERIAL_ITEM } from "../../../store/management";
 
-import '../../../css/common.css';
-import '../../../css/style.css';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
 
-export default function ({ location, history, query }) {
+export default function ({ query }) {
     const { token } = useSelector(state => state.user);
+    const location = useLocation();
+    const history = useNavigate();
     const dispatch = useDispatch();
     const [search, setSearch] = useState('');
     const [items, setItems] = useState({
@@ -60,7 +62,7 @@ export default function ({ location, history, query }) {
     const onPage = useCallback((e, newPageNumber) => {
         e.preventDefault();
         const querySearch = (search.length > 0) ? ("&search=" + search) : "";
-        history.push(window.location.pathname + '?page=' + newPageNumber + querySearch);
+        history(location.pathname + '?page=' + newPageNumber + querySearch);
     }, [history, search]);
 
     const onPagePrev = useCallback((e) => {
@@ -68,7 +70,7 @@ export default function ({ location, history, query }) {
         const curPageGrp = Math.ceil(items.pageOffset / PageMax);
         if (curPageGrp > 0) {
             const querySearch = (search.length > 0) ? ("&search=" + search) : "";
-            history.push(window.location.pathname + '?page=' + items.pageOffset + querySearch);
+            history(location.pathname + '?page=' + items.pageOffset + querySearch);
         }
     }, [history, items, search]);
 
@@ -80,19 +82,19 @@ export default function ({ location, history, query }) {
 
         if (curPageGrp < totPageGrp) {
             const querySearch = (search.length > 0) ? ("&search=" + search) : "";
-            history.push(window.location.pathname + '?page=' + (newPageOffset + 1) + querySearch);
+            history(location.pathname + '?page=' + (newPageOffset + 1) + querySearch);
         }
     }, [history, items, search]);
 
     const onSelectItem = useCallback((e, i) => {
         e.preventDefault();
         dispatch({ type: MATERIAL_ITEM, target: items.items[i] });
-        history.push(window.location.pathname + '?edit=7');
+        history(location.pathname + '?edit=7');
     }, [items, dispatch, history]);
 
     const onSearch = useCallback((e) => {
         const addQuery = (search.length > 0) ? ("?search=" + search) : "";
-        history.push(window.location.pathname + addQuery);
+        history(location.pathname + addQuery);
     }, [search, history]);
 
     const ItemRow = useCallback((props) => {
@@ -174,7 +176,7 @@ export default function ({ location, history, query }) {
                                 {ItemRows}
                             </tbody>
                         </table>
-                        <button className="btn_apply" onClick={() => { history.push('/management?reg=7') }}>신규 등록</button>
+                        <button className="btn_apply" onClick={() => { history('/management?reg=7') }}>신규 등록</button>
                         <div className="page_num">
                             <span className="inner_num">
                                 <a href='#!' className="first" onClick={(e) => onPage(e, 1)}> </a>

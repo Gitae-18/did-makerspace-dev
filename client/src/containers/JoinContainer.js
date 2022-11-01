@@ -1,5 +1,6 @@
 import React, { useCallback, /* useMemo */ } from 'react';
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import PersonalInfo from "../components/PersonalInfo";
 import JoinForm from "../components/JoinForm";
 import JoinSuccess from "../components/JoinSuccess";
@@ -11,10 +12,11 @@ import {
 import { CommonHeader, PreUri, Method } from '../CommonCode';
 import qs from 'qs';
 
-export const JoinContainer = ({ location, history }) => {
+export const JoinContainer = (props) => {
     const value = useSelector(state => state.userInfo);
     const dispatch = useDispatch();
-
+    const { location } = useLocation;
+    const history = useNavigate();
     const onCheckEmail = useCallback(async (e) => {
         e.preventDefault();
         dispatch({ type: CHECK_EMAIL_SUCCESS, value: false });
@@ -140,7 +142,7 @@ export const JoinContainer = ({ location, history }) => {
         const json = await response.json();
         console.log(json);
         dispatch({ type: CLEAR });
-        return history.replace('/join?type=join_success');
+        return history('/join?type=join_success',{replace:true});
     }, [value, dispatch, history]);
 
     const onInputChange = useCallback((e) => {
@@ -169,7 +171,7 @@ export const JoinContainer = ({ location, history }) => {
             alert('체크필요');
             return;
         } else {
-            return history.push('/join?type=join_form');
+            return history('/join?type=join_form');
         }
     }, [value, history]);
 
@@ -198,9 +200,7 @@ export const JoinContainer = ({ location, history }) => {
         }
     }, [dispatch]);
 
-    const query = qs.parse(location.search, {
-        ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
-    });
+    const query = location ==='?detail=true';
 
     const JoinPage = () => {
         switch (query.type) {
@@ -212,7 +212,7 @@ export const JoinContainer = ({ location, history }) => {
                         onChangeCheckbox={onChangeCheckbox} value={value} />
                 } else {
                     //alert('채크해');
-                    history.replace('/join');
+                    history('/join',{replace:true});
                 }
                 break;
             case 'join_success':

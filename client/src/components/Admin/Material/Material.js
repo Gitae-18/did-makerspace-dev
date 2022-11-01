@@ -2,15 +2,17 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { CommonHeader, PreUri, Method/*, StatusCode, ConvertPhoneNumber, ConvertDate2, getFormatDate*/ } from '../../../CommonCode';
 import { useSelector, useDispatch } from "react-redux";
 import { CHANGE_CATEGORY, SET_MATERIAL, SET_MATERIAL_PAGEINFO, SET_LIST_PAGEINFO } from "../../../store/material";
-
+import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import SideNavi from './SideNavi';
 
-import '../../../css/common.css';
-import '../../../css/style.css';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
 
-export default function ({ location, history }) {
+export default function () {
     const PageMax = 10;
     const mountedRef = useRef(true);
+    const location = useLocation();
+    const history = useNavigate();
     const dispatch = useDispatch();
     const { token } = useSelector(state => state.user);
     const { categoryList, categoryIndex, materialPageNo, materialPageOffset, materialSearch } = useSelector(state => state.material);
@@ -119,7 +121,7 @@ export default function ({ location, history }) {
         e.preventDefault();
         dispatch({ type: SET_MATERIAL, target: item });
 		dispatch({ type: SET_LIST_PAGEINFO, target: { pageNo: 1, pageOffset: 0, year: '0', month: '0' } });
-        history.push('/mmaterial?view=list');
+        history('/mmaterial?view=list');
     }, [dispatch, history]);
 
     const onChange = useCallback((e) => {
@@ -205,7 +207,7 @@ export default function ({ location, history }) {
 								{ItemRows}
 							</tbody>
 						</table>
-                        <button className="btn_apply" onClick={() => history.push('/mmaterial?view=reg')} >자재 신청</button>
+                        <button className="btn_apply" onClick={() => history('/mmaterial?view=reg')} >자재 신청</button>
 						<div className="page_num">
 							<span className="inner_num">
                                 <a href='#!' className="first" onClick={(e) => onPage(e, 1)}> </a>

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 
-import '../../css/common.css';
-import '../../css/style.css';
+import '../../css/common-s.css';
+import '../../css/style-s.css';
 
 export default ({ step }) => {
     // const title = ['상담 신청서 작성', '전문가 상담', '서비스 신청서 작성', '서비스 진행', '이용 결과서 확인']

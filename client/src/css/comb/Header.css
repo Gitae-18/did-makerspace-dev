@@ -1,0 +1,181 @@
+/*@font-face {
+  font-family: "VITRO CORE";
+  src: url(/public/font/font_01.ttf);
+}
+
+header.header_change {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-bottom-color: #313f4f;
+}
+
+header.header_change a, header.header_change span {
+  color: #313f4f;
+}
+
+header.header_change a:hover, header.header_change span:hover {
+  color: #313f4f;
+}
+
+header.header_change .wrap1 .logo a {
+  background-image: url(/public/images/logo_bk.png);
+}
+
+
+header a, header span {
+  display: block;
+  height: 60px;
+  line-height: 60px;
+  color: #fff;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+header a:hover, header span:hover {
+  color: #fff;
+}
+
+header .wrap1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header .wrap1 .logo {
+  width: 200px;
+}
+
+header .wrap1 .logo a {
+  display: block;
+  width: 100%;
+  background-image: url(/public/images/logo_wh.png);
+  background-size: 100%;
+  background-position: 50% 50%;
+}
+
+header ol.gnb {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+header ol.gnb .page_target {
+  padding: 0 12px;
+}
+
+header ol.gnb .page_target::after {
+  content: '';
+  display: block;
+  width: 0;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+header ol.gnb .page_target.on {
+  position: relative;
+}
+
+header ol.gnb .page_target.on::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 12px;
+  width: 100%;
+  height: 3px;
+  background-color: #5272c3;
+}
+
+header ol.header_info2 {
+  display: none;
+}
+
+header ol.header_info2 .myName > b {
+  color: #5272c3;
+  font-weight: 700;
+}
+
+header ol.header_info1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+header ol.header_info {
+  width: 200px;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+header ol.header_info li:first-of-type {
+  position: relative;
+}
+
+header ol.header_info li:first-of-type::after {
+  content: '';
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 20px;
+  width: 1px;
+  height: 20px;
+  background-color: #2d2d2d;
+}
+
+header ol.header_info li > * {
+  display: block;
+  width: 100%;
+  padding: 0 12px;
+}
+
+.gnb_dep2 {
+  z-index: -5;
+  position: absolute;
+  left: 0;
+  top: 60px;
+  width: 100%;
+  height: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 30px;
+  overflow: hidden;
+  background-color: #313f4f;
+  opacity: 0.8;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.gnb > li:hover .gnb_dep2 {
+  z-index: 99;
+  height: 60px;
+}
+
+.gnb > li:hover .gnb_dep2 a {
+  color: #fff;
+}
+
+.gnb > li:hover .gnb_dep2 a:hover {
+  background: #fff;
+  color: #313f4f;
+}
+
+.user_login header ol.header_info2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.user_login header ol.header_info1 {
+  display: none;
+}
+/*# sourceMappingURL=Header.css.map */

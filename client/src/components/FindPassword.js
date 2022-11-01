@@ -1,9 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector } from "react-redux";
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { CommonHeader, PreUri, Method, getRspMsg, } from '../CommonCode';
 
-import '../css/common.css';
-import '../css/style.css';
+
+import '../css/common-s.css';
+import '../css/style-s.css';
 
 export default function ({ history }) {
 	const { token } = useSelector(state => state.user);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback, /* useMemo */ } from 'react';
 import { useSelector } from "react-redux";
+import { useLocation, useNavigate } from 'react-router-dom';
 import MyInfo from "../components/MyInfo";
 import { MyInfoChangePWContainer as MyInfoChangePW } from "./MyInfoChangePWContainer";
 import { MyInfoDropContainer as MyInfoDrop } from "./MyInfoDropContainer";
@@ -9,8 +10,10 @@ import { CommonHeader, PreUri, Method } from '../CommonCode';
 import qs from 'qs';
 //import user from '../store/user';
 
-export const MyInfoContainer = ({ location, history }) => {
+export const MyInfoContainer = ({  }) => {
     const loginUser = useSelector(state => state.user);
+    const location = useLocation();
+    const history = useNavigate();
     //const dispatch = useDispatch();
 
     let header = CommonHeader;
@@ -81,7 +84,7 @@ export const MyInfoContainer = ({ location, history }) => {
         }
 
         if (!loginUser.isLoggedIn) {
-            return history.push('/notmember');
+            return history('/notmember');
         }
 
         header.authorization = loginUser.token;
@@ -153,7 +156,7 @@ export const MyInfoContainer = ({ location, history }) => {
 
         // console.log(json);
         alert('수정되었습니다.');
-        history.go(0);
+        history(0);
     }, [value, history]);
 
     const onInputChange = useCallback((e) => {
@@ -234,17 +237,15 @@ export const MyInfoContainer = ({ location, history }) => {
 
     const onBtnChpw = useCallback((e) => {
         e.preventDefault();
-        return history.push('/myinfo?type=chpw');
+        return history('/myinfo?type=chpw');
     }, [history]);
 
     const onBtnDrop = useCallback((e) => {
         e.preventDefault();
-        return history.push('/myinfo?type=drop');
+        return history('/myinfo?type=drop');
     }, [history]);
 
-    const query = qs.parse(location.search, {
-        ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
-    });
+    const query = location ==='?detail=true';
 
     const CurrentPage = () => {
         switch (query.type) {

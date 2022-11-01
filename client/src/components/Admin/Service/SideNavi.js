@@ -1,17 +1,19 @@
 import React, { useCallback } from 'react';
 import { useSelector } from "react-redux";
+import {useLocation,useNavigate,useParams} from 'react-router-dom';
+import Sidebar from './Sidebar';
 
-import '../../../css/common.css';
-import '../../../css/style.css';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
 
-export default function ({ history }) {
+export default function () {
 	const { sideNaviPos } = useSelector(state => state.management);
-
+	const history = useNavigate();
 	const onClick = useCallback((e, index) => {
 		e.preventDefault();
 		if (history) {
 			if (index === 0) {
-				history.push('/mservice');
+				history('/mservice');
 			}
 		}
 	}, [history]);
@@ -26,9 +28,8 @@ export default function ({ history }) {
 	return (
 		<div className="side_menu">
 			<div className="inner_menu">
-				<h2>서비스 관리</h2>
 				<ul>
-					{menus}
+					<Sidebar/>
 				</ul>
 			</div>
 		</div>

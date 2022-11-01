@@ -4,11 +4,8 @@ import { Link} from 'react-router-dom';
 //import { CommonHeader, PreUri, Method } from '../CommonCode';
 //import { useDispatch, useSelector } from 'react-redux'
 
-import '../css/common.css';
-import '../css/style.css'; 
 import '../css/common-s.css';
 import '../css/style-s.css'; 
-import { FaToggleOn } from 'react-icons/fa';
 
 export function LoginForm({onLoginStart, onChange, userId, password, isAutoLogin}) {
    
@@ -17,7 +14,7 @@ export function LoginForm({onLoginStart, onChange, userId, password, isAutoLogin
 		<div className="login_box">
             <Link className="join" to="/join">회원가입</Link>
             <Link className="find_pw" to="/findpw">비밀번호 찾기</Link>
-            <p className="id"><span/><input type="text" value={userId} name="userId" placeholder="아이디" onChange={onChange} /></p>
+            <p className="id"><span/><input type="text" value= { userId } name="userId" placeholder="아이디" onChange={onChange} /></p>
             <p className="pw"><span/><input type="password" value={password} name="password" placeholder="비밀번호" onChange={onChange} /></p>
 			<p className="chkBox"><label htmlFor="chk"><input type="checkbox" id="chk" checked={isAutoLogin} name="isAutoLogin" onChange={onChange}/><span className="checkmark"></span>자동로그인</label></p>
             <button className="login" type="submit">로그인</button>
@@ -37,21 +34,10 @@ export function LoggedInForm({onLogout, username}) {
     return (
         <form onSubmit={onLogout}>
             
-		<div className="member_box"alarm={alarm} onClick={showAlarm}>
-			<span className="alarm on" onClick={showList}>
-            
-            </span>
+		<div className="member_box" alarm={false} onClick={showAlarm}>
 			<span className={alarmOn}><strong>{username}</strong> 님</span>
 			<span className="my_info"><Link to="/myinfo">내 정보</Link></span>
             <button className="logout" type="submit">로그아웃</button>
-            <div className={show ?"alarm_list on":"alarm_list off"} >
-            <p>알림</p>
-				    <ul>
-					    <li><span className="time">New!</span><span class="txt">새로운 멘토 신청</span><a href="#">이동하기</a></li>
-					    <li><span className="time">1시간 전</span><span class="txt">멘토 신청</span><a href="#">이동하기</a></li>
-					    <li><span className="time">어제</span><span class="txt">멘토 신청</span><a href="#">이동하기</a></li>
-				    </ul>
-            </div>
 		
         </div>
         </form>

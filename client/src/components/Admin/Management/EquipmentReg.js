@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { CommonHeader, PreUri, Method } from '../../../CommonCode';
 import SideNavi from './SideNavi';
-
+import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import { useSelector } from "react-redux";
 
-import '../../../css/common.css';
-import '../../../css/style.css';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
 
-export default function ({ location, history }) {
+export default function () {
     const mountedRef = useRef(true)
     const { token } = useSelector(state => state.user);
+
+    const location = useLocation();
+    const history = useNavigate();
     const [categoryItems, setCategoryItems] = useState({
         count: 0,
         items: [],
@@ -105,7 +108,7 @@ export default function ({ location, history }) {
             return;
         }
 
-        history.replace('/management');
+        history('/management',{replace:true});
     }, [regItem, partnerItems, categoryItems, token, history]);
 
     let PartnerOptions = [];
@@ -178,7 +181,7 @@ export default function ({ location, history }) {
                         </table>
                     </div>
                     <div className="btn_box">
-                        <button className="btn_cancel" onClick={() => { history.go(-1) }}>취소</button>
+                        <button className="btn_cancel" onClick={() => { history(-1) }}>취소</button>
                         <button className="btn_apply" onClick={onReg}>등록</button>
                     </div>
                 </div>

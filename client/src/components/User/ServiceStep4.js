@@ -2,12 +2,15 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector } from "react-redux";
 import { CommonHeader, PreUri, Method, getRspMsg, /*AuthLevel,*/ MaxFileCount/*, MB, LIMIT*/ } from '../../CommonCode';
 import UServiceNavi from './ServiceNavi';
-import '../../css/common.css';
-import '../../css/style.css';
+import { useLocation,useNavigate } from 'react-router';
+import '../../css/common-s.css';
+import '../../css/style-s.css';
 
-export default function ({ history, no }) {
+export default function ({ no }) {
     const mountedRef = useRef(true);
     const { token } = useSelector(state => state.user);
+    const location = useLocation();
+    const history = useNavigate();
     const [categoryItems, setCategoryItems] = useState({
         count: 0,
         items: [],
@@ -201,7 +204,7 @@ export default function ({ history, no }) {
 
     const onDone = useCallback(async (e) => {
         e.preventDefault();
-        history.go(-1);
+        history(-1);
     }, [history]);
 
     const onFileDownload = useCallback(async (e, fileInfo) => {

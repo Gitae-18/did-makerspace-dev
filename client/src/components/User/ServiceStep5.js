@@ -2,13 +2,15 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector } from "react-redux";
 import { CommonHeader, PreUri, Method, getRspMsg, /*AuthLevel, MaxFileCount, MB, LIMIT*/ } from '../../CommonCode';
 import UServiceNavi from './ServiceNavi';
-import '../../css/common.css';
-import '../../css/style.css';
+import { useLocation,useNavigate } from 'react-router';
+import '../../css/common-s.css';
+import '../../css/style-s.css';
 
-export default function ({ history, no }) {
+export default function ({ no }) {
     const mountedRef = useRef(true);
     const { token } = useSelector(state => state.user);
-
+    const location = useLocation();
+    const history = useNavigate();
     const [isSurveyDone, setIsSurveyDone] = useState(false); 
     const [surveyList, setSurveyList] = useState([{
         ask_text: "본 서비스 자원이 필요하다고 느껴지는 정도는?",
@@ -98,7 +100,7 @@ export default function ({ history, no }) {
 
         if (isSurveyDone) {
             //alert("이미 작성을 완료하셨습니다.");
-            history.go(-1);
+            history(-1);
             return;
         }
 
@@ -131,7 +133,7 @@ export default function ({ history, no }) {
         }
 
         setIsSurveyDone(true);
-        history.go(-1);
+        history(-1);
     }, [surveyList, surveyText, isSurveyDone, token, no, history]);
 
     const AskItem = useCallback(({index, item, onChange}) => {

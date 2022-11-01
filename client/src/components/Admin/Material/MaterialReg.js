@@ -2,17 +2,19 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { CommonHeader, PreUri, Method } from '../../../CommonCode';
 import { useSelector, useDispatch } from "react-redux";
 import { CHANGE_CATEGORY, SET_MATERIAL_PAGEINFO } from "../../../store/material";
-
+import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import SideNavi from './SideNavi';
 
 import $ from "jquery";
 
-import '../../../css/common.css';
-import '../../../css/style.css';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
 
-export default function ({ location, history }) {
+export default function () {
     const dispatch = useDispatch();
     const mountedRef = useRef(true)
+    const location = useLocation();
+    const history = useNavigate();
     const { token } = useSelector(state => state.user);
     const { categoryList } = useSelector(state => state.material);
     const [requestForm, setRequestForm] = useState({
@@ -124,13 +126,13 @@ export default function ({ location, history }) {
             return;
         }
 
-        history.go(-1);
+        history(-1);
     }, [token, MaterialListOptions, materialList, requestForm, history]);
 
     const onCategory = useCallback((e, index) => {
         dispatch({ type: CHANGE_CATEGORY, target: index });
         dispatch({ type: SET_MATERIAL_PAGEINFO, target: { pageNo: 1, pageOffset: 0, search: '' } });
-        history.push('/mmaterial');
+        history('/mmaterial');
     }, [dispatch, history]);
 
     if (categoryList) {
@@ -188,7 +190,7 @@ export default function ({ location, history }) {
                         </table>
                     </div>
                     <div className="btn_box">
-                        <button onClick={() => { history.go(-1) }} className="btn_left">뒤로 가기</button>
+                        <button onClick={() => { history(-1) }} className="btn_left">뒤로 가기</button>
                         <button onClick={() => { $('.pop').css('display', 'block') }} className="reject">자재 신청</button>
                     </div>
                 </div>

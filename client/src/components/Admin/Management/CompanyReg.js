@@ -1,13 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import { CommonHeader, PreUri, Method } from '../../../CommonCode';
 import SideNavi from './SideNavi';
-
+import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import { useSelector } from "react-redux";
 
-import '../../../css/common.css';
-import '../../../css/style.css';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
 
-export default function ({ location, history }) {
+export default function () {
 	const { token } = useSelector(state => state.user);
 	const [regItem, setRegItem] = useState({
 		name: '',
@@ -15,7 +15,8 @@ export default function ({ location, history }) {
 		registrationNumber: '',
 		phoneNumber: '',
 	});
-
+	const location = useLocation();
+	const history = useNavigate();
 	const onChange = useCallback((e) => {
 		e.preventDefault();
 		const re = /^[0-9\b]+$/;
@@ -57,7 +58,7 @@ export default function ({ location, history }) {
 			return;
 		}
 
-		history.replace('/management');
+		history('/management',{replace:true});
 	}, [regItem, token, history]);
 
 	return (
@@ -94,7 +95,7 @@ export default function ({ location, history }) {
 						</table>
 					</div>
 					<div className="btn_box">
-						<button className="btn_cancel" onClick={() => { history.go(-1) }}>취소</button>
+						<button className="btn_cancel" onClick={() => { history(-1) }}>취소</button>
 						<button className="btn_apply" onClick={onReg}>등록</button>
 					</div>
 				</div>

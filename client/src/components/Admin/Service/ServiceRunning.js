@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector } from "react-redux";
+import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import { CommonHeader, PreUri, Method, getRspMsg, AuthLevel, MaxFileCount, MB, LIMIT } from '../../../CommonCode';
 import TopNavi from './TopNavi';
 import SideNavi from './SideNavi';
 
 import $ from 'jquery';
 
-import '../../../css/common.css';
-import '../../../css/style.css';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
 
 const ElementSec = 0;
 const AttemptSec = 1;
 const EquipSec = 2;
-
 function StringToDate(str) {
     var y = str.substr(0, 4);
     var m = str.substr(5, 2);
@@ -20,9 +20,10 @@ function StringToDate(str) {
     return new Date(y, m - 1, d);
 }
 
-export default ({ history, no }) => {
+export default ({ no }) => {
     const mountedRef = useRef(true);
     const { token, authority_level } = useSelector(state => state.user);
+    const history = useNavigate();
     const [serviceAppItem, setServiceAppItem] = useState({});
     const viewState = useSelector(state => state.managerService);
 
@@ -480,7 +481,7 @@ export default ({ history, no }) => {
         }
 
         alert("진행이 완료 되었습니다");
-        history.go(-1);
+        history(-1);
         //history.replace('/mservice');
     }, [no, token, history]);
 
@@ -870,7 +871,7 @@ export default ({ history, no }) => {
                         authority_level < AuthLevel.manager
                             ? <></>
                             : <button className="btn_modify" onClick={() => { $('.pop').css('display', 'block'); }}>진행 완료</button>
-                        : <button className="btn_modify" onClick={() => { history.go(-1) }}>확인</button>
+                        : <button className="btn_modify" onClick={() => { history(-1) }}>확인</button>
                     }
                 </div>
             </div>

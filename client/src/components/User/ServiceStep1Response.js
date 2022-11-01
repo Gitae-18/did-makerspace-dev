@@ -4,14 +4,15 @@ import UServiceNavi from './ServiceNavi';
 import { useSelector } from "react-redux";
 
 //import $ from 'jquery';
+import { useLocation,useNavigate } from 'react-router';
+import '../../css/common-s.css';
+import '../../css/style-s.css';
 
-import '../../css/common.css';
-import '../../css/style.css';
-
-export default function ({ history, no }) {
+export default function ({ no }) {
     const mountedRef = useRef(true);
     const { token } = useSelector(state => state.user);
-
+    const location = useLocation();
+    const history = useNavigate();
     const [consultingResult, setConsultingResult] = useState({
         serviceNo: '',
         content: '',
@@ -75,7 +76,7 @@ export default function ({ history, no }) {
     const onNextClick = useCallback(async (e) => {
         e.preventDefault();
 
-        history.push('/uservice?step=2&next=app&no=' + no);
+        history('/uservice?step=2&next=app&no=' + no);
     }, [no, history]);
 
     const onFileDownload = useCallback(async (e, fileInfo) => {
@@ -142,7 +143,7 @@ export default function ({ history, no }) {
                         </table>
                     </div>
                     <div className="btn_box">
-                        <button className="btn_back" onClick={() => {history.go(-1)}} >뒤로 가기</button>
+                        <button className="btn_back" onClick={() => {history(-1)}} >뒤로 가기</button>
                         {/* <button className="btn_quit" onClick={() => { $('.pop').css('display', 'block'); }}>이용 종료</button> */}
                         <button className="btn_next" onClick={onNextClick}>서비스 신청서 작성</button>
                     </div>

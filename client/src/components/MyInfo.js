@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react'
 import DaumPostcode from 'react-daum-postcode';
 
-import '../css/common.css';
-import '../css/style.css';
+import '../css/common-s.css';
+import '../css/style-s.css';
 
 export default function ({
 	onSubmit, onCompletePostcode, onInputChange,

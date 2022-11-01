@@ -4,12 +4,13 @@ import { CommonHeader, PreUri, Method } from '../../CommonCode';
 
 import $ from 'jquery';
 
-import '../../css/common.css';
-import '../../css/style.css';
-
-export default function ({ history, no }) {
+import '../../css/common-s.css';
+import '../../css/style-s.css';
+import { useLocation,useNavigate } from 'react-router';
+export default function ({ no }) {
     const { token } = useSelector(state => state.user);
-
+    const location = useLocation();
+    const history = useNavigate();
     const onClick = useCallback(async (e) => {
         e.preventDefault();
         CommonHeader.authorization = token;
@@ -23,7 +24,7 @@ export default function ({ history, no }) {
             return;
         }
 
-        history.replace('/uservice');
+        history('/uservice',{replace:true});
     }, [token, history, no]);
 
     return (
@@ -36,7 +37,7 @@ export default function ({ history, no }) {
                         <span>신청해 주신 상담 내용을 확인하고 있습니다.</span>
                     </div>
                     <div className="btn_box">
-                        <button className="back" onClick={(e) => {history.replace('/uservice')}} >뒤로 가기</button>
+                        <button className="back" onClick={(e) => {history('/uservice',{replace:true})}} >뒤로 가기</button>
                         <button onClick={(e) => { $('.pop').css('display', 'block'); }}>상담예약 취소</button>
                     </div>
                     {/* <button type="button" className="btn_cancel" onClick={onClick}>상담 취소</button> */}

@@ -1,13 +1,15 @@
 import React, { /*useEffect,*/ useState, useCallback, /* useMemo */ } from 'react';
 import { /*useSelector,*/ useDispatch } from "react-redux";
 import MyInfoDrop from "../components/MyInfoDrop";
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CommonHeader, PreUri, Method } from '../CommonCode';
 import { LOGOUT } from "../store/user";
 
-export const MyInfoDropContainer = ({ location, history, email }) => {
+export const MyInfoDropContainer = ({  email }) => {
     //const loginUser = useSelector(state => state.user);
     const dispatch = useDispatch();
-
+    const { location } = useLocation;
+    const history = useNavigate();
     const [value, setValues] = useState({
         password: '',
     });
@@ -51,7 +53,7 @@ export const MyInfoDropContainer = ({ location, history, email }) => {
         });
 
         alert('탈퇴가 완료 되었습니다.');
-        history.replace('/');
+        history('/',{replace:true});
     }, [value, history, dispatch]);
 
     const onInputChange = useCallback((e) => {
@@ -64,7 +66,7 @@ export const MyInfoDropContainer = ({ location, history, email }) => {
 
     const onBtnCancel = useCallback((e) => {
         e.preventDefault();
-        return history.go(-1);
+        return history(-1);
     }, [history]);
 
     return (

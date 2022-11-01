@@ -4,17 +4,19 @@ import {
 	CommonHeader, PreUri, Method, getRspMsg, MaxFileCount, MB, LIMIT,
 	ConvertPhoneNumber
 } from '../../CommonCode';
-
+import { useLocation,useNavigate } from 'react-router';
 import { useSelector } from "react-redux";
 
 import $ from 'jquery';
 
-import '../../css/common.css';
-import '../../css/style.css';
+import '../../css/common-s.css';
+import '../../css/style-s.css';
 
-export default function ({ history, no }) {
+export default function ({ no }) {
 	const mountedRef = useRef(true);
 	const { token } = useSelector(state => state.user);
+    const location = useLocation();
+    const history = useNavigate();
 
  	const [consultingItem, setConsultingItem] = useState({
 		serviceNo: '',
@@ -130,7 +132,7 @@ export default function ({ history, no }) {
 
         if (Object.keys(body).length > 0 || file_count > 0) {
             alert("수정되었습니다.");
-            history.go(0)
+            history(0)
         }
     }, [no, token, consultingItem, editTitle, editContent, history]);
 
@@ -286,7 +288,7 @@ export default function ({ history, no }) {
                         </div>
                     </div>
                     <div className="btn_box">
-                        <button className="btn_left" onClick={() => { history.go(-1) }} >뒤로 가기</button>
+                        <button className="btn_left" onClick={() => { history(-1) }} >뒤로 가기</button>
                         <button type="button" className="btn_book" onClick={(e) => onEdit(e)}>내용 수정</button>
                     </div>
                 </div>

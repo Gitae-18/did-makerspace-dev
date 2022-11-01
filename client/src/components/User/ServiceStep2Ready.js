@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { CommonHeader, PreUri, Method, getRspMsg, MaxFileCount, MB, LIMIT } from '../../CommonCode';
 import { useSelector } from "react-redux"; import UServiceNavi from './ServiceNavi';
-
+import { useLocation,useNavigate } from 'react-router';
 import $ from 'jquery';
 
-import '../../css/common.css';
-import '../../css/style.css';
+import '../../css/common-s.css';
+import '../../css/style-s.css';
 
-export default function ({ history, no }) {
+export default function ({ no }) {
     const mountedRef = useRef(true);
     const { token } = useSelector(state => state.user);
+    const location = useLocation();
+    const history = useNavigate();
     const [categoryItems, setCategoryItems] = useState({
         count: 0,
         items: [],
@@ -162,7 +164,7 @@ export default function ({ history, no }) {
 
         if (!response.ok) {
             alert(getRspMsg(response.status));
-            history.go(0)
+            history(0)
         }
 
         let file_count = 0
@@ -192,7 +194,7 @@ export default function ({ history, no }) {
         }
 
         alert("수정되었습니다.");
-        history.go(0)
+        history(0)
     }, [categoryItems, checkValue, value, token, no, history]);
 
     const onFileUpload = useCallback((e, i) => {
@@ -478,7 +480,7 @@ export default function ({ history, no }) {
                         </div>
                     </div>
                     <div className="btn_box">
-                        <button className="btn_left" onClick={() => { history.go(-1) }}>뒤로 가기</button>
+                        <button className="btn_left" onClick={() => { history(-1) }}>뒤로 가기</button>
                         {isReadonly ? <></> : <button className="btn_cancel" onClick={(e) => { onEdit(e) }}>내용 수정</button>}
                         {/* <button className="btn_cancel" onClick={(e) => { $('.pop').css('display', 'block'); }}>서비스 신청 취소</button> */}
                     </div>

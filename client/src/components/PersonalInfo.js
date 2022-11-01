@@ -1,7 +1,7 @@
 import React from 'react'
 import $ from 'jquery';
-import '../css/common.css';
-import '../css/style.css';
+import '../css/common-s.css';
+import '../css/style-s.css';
 import {TermsPolicy} from './Terms';
 import {PrivacyPolicy} from './Privacy';
 

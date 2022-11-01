@@ -1,14 +1,17 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector } from "react-redux";
+import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import { CommonHeader, PreUri, Method, getRspMsg, ConvertPhoneNumber, ConvertRegNumber } from '../../../CommonCode';
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css'
 
-import '../../../css/common.css';
-import '../../../css/style.css';
-
-export default ({ history, query }) => {
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
+export default ({ query }) => {
     const mountedRef = useRef(true);
     const { token } = useSelector(state => state.user);
-
+    const history = useNavigate();
+    const [show,setShow] = useState('');
     const [userInfo, setUserInfo] = useState({
         name: '',
         email: '',
@@ -106,19 +109,19 @@ export default ({ history, query }) => {
 		}
 
 		let json = await response.json();
+        
         if (!mountedRef.current) { return }
-
         const progress = json.progress;
         const status = json.status;
         const consulting_flag = json.consulting_flag === 'Y' ? true : false;
         setConsultingFlag(consulting_flag);
-
+     
         if (consulting_flag) {
             response = await fetch(PreUri + '/service/' + no + '/consulting', {
                 method: Method.get,
                 headers: CommonHeader
             });
-
+           
             if (!response.ok) {
                 console.log('response error');
                 return;
@@ -144,7 +147,7 @@ export default ({ history, query }) => {
                 created_at: json.created_at,
                 attachedFile: json.attached_file,
             }));
-
+            
             response = await fetch(PreUri + '/service/' + no + '/consulting/result', {
                 method: Method.get,
                 headers: CommonHeader
@@ -214,7 +217,7 @@ export default ({ history, query }) => {
             console.log('response error');
             return;
         }
-
+       
         const serviceJson = await response.json();
         if (serviceJson.categories.length > 0) {
             const split = serviceJson.categories.split(',');
@@ -415,7 +418,7 @@ export default ({ history, query }) => {
             mountedRef.current = false
         }
     }, [query, getData])
-
+   
     const CategoryItem = useCallback((props) => {
         return (
             <tr>
@@ -951,6 +954,7 @@ export default ({ history, query }) => {
                         </table>
                         {CategoryElements}
                     </div>
+                   
                     <Footer dateText={'서비스 완료'} date={application.updated_at ? application.updated_at.substring(0, 10) : ''} partner={partner} />
                 </div>
             </div>
@@ -1017,6 +1021,11 @@ export default ({ history, query }) => {
             {isDrop ? <></> : <Application item={userInfo} application={serviceAppItem} date={serviceAppConfirm.updatedAt} partner={supportPartner} />}
             {isDrop ? <></> : <ApplicationResult item={userInfo} application={serviceAppItem} partner={supportPartner} />}
             {isSurveyDone ? <Survey item={userInfo} date={surveyDate} partner={supportPartner} /> : <></>}
+            <ReactQuill className="shadow-sm" theme="snow" style={{height:350,marginTop:'1rem',display:'flex',flexDirection:'column'}}
+                    value ={show} modules={{toolbar:[
+                    ["image"]
+                ],}}formats={['header','font','size','bold','italic','underline','strike','blockquote','color','background','list','bullet','indent','link','video','image',"code-block","align"]}
+                onchange={(val)=>{setShow(val)}}></ReactQuill>
         </>
     );
 }

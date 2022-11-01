@@ -1,0 +1,122 @@
+@import ../../setting.sass
+
+header.header_change
+  background-color: rgba(255,255,255,0.8)
+  border-bottom-color: $point1
+  a, span
+    color: $point1
+    &:hover
+      color: $point1
+  .wrap1
+    .logo
+      a
+        background-image: url(/public/images/logo_bk.png)
+header
+  z-index: 100
+  position: fixed
+  left: 0
+  top: 0
+  width: 100%
+  height: 60px
+  border-bottom: 1px solid rgba(255,255,255,0)
+  background-color: rgba(0,0,0,0.2)
+  transition: 0.5s
+  a, span
+    display: block
+    height: 60px
+    line-height: 60px
+    color: #fff
+    transition: 0.5s
+    &:hover
+      color: #fff
+  .wrap1
+    display: flex
+    justify-content: space-between
+    align-items: center
+    .logo
+      width: 200px
+      a
+        display: block
+        width: 100%
+        background-image: url(/public/images/logo_wh.png)
+        background-size: 100%
+        background-position: 50% 50%
+  ol.gnb
+    display: flex
+    .page_target
+      padding: 0 12px
+      &::after
+        content: ''
+        display: block
+        width: 0
+        transition: 0.5s
+    .page_target.on
+      position: relative
+      &::after
+        content: ''
+        display: block
+        position: absolute
+        left: 0
+        bottom: 12px
+        width: 100%
+        height: 3px
+        background-color: $point2
+  ol.header_info2
+    display: none
+    .myName
+      >b
+        color: $point2
+        font-weight: 700
+  ol.header_info1
+    display: flex
+  ol.header_info
+    width: 200px
+    justify-content: flex-end
+    li
+      &:first-of-type
+        position: relative
+        &::after
+          content: ''
+          display: block
+          position: absolute
+          right: 0
+          top: 20px
+          width: 1px
+          height: 20px
+          background-color: $gray1
+      >*
+        display: block
+        width: 100%
+        padding: 0 12px
+.gnb_dep2
+  z-index: -5
+  position: absolute
+  left: 0
+  top: 60px
+  width: 100%
+  height: 0
+  display: flex
+  justify-content: center
+  gap: 30px
+  overflow: hidden
+  background-color: $point1
+  opacity: 0.8
+  transition: 0.4s
+.gnb
+  >li
+    &:hover
+      .gnb_dep2
+        z-index: 99
+        height: 60px
+        a
+          color: #fff
+          &:hover
+            background: #fff
+            color: $point1
+    
+.user_login
+  header
+    ol.header_info2
+      display: flex
+    ol.header_info1
+      display: none

@@ -3,26 +3,22 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 
 import App from './App';
-
+import * as ReactDOMClient from 'react-dom/client';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux' 
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './store'
 
-import { BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import 'swiper/swiper-bundle.css';
 //import { MemoryRouter as Router } from 'react-router';
-
 const store = createStore(rootReducer, composeWithDevTools()) // 스토어 생성
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Router>
+const root = ReactDOMClient.createRoot(document.getElementById("root")); 
+root.render(
       <Provider store={store}>
       <App />
-    </Provider>
-    </Router>
-  </React.StrictMode>,
-  document.getElementById('root')
+     </Provider>
 );
 
 

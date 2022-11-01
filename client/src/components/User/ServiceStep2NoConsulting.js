@@ -2,15 +2,17 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { CommonHeader, PreUri, Method, getRspMsg, MaxFileCount, MB, LIMIT } from '../../CommonCode';
 import { useSelector } from "react-redux"; import UServiceNavi from './ServiceNavi';
-
+import { useLocation,useNavigate } from 'react-router';
 import $ from 'jquery';
 
-import '../../css/common.css';
-import '../../css/style.css';
+import '../../css/common-s.css';
+import '../../css/style-s.css';
 
-export default function ({ history }) {
+export default function () {
     const mountedRef = useRef(true);
     const { token } = useSelector(state => state.user);
+    const location = useLocation();
+    const history = useNavigate();
     const [categoryItems, setCategoryItems] = useState({
         count: 0,
         items: [],
@@ -146,7 +148,7 @@ export default function ({ history }) {
             }
         }
 
-        history.replace('/uservice');
+        history('/uservice',{replace:true});
     }, [categoryItems, checkValue, value, fileInfo, token, history]);
 
     const onFileRemove = useCallback((e, idx) => {

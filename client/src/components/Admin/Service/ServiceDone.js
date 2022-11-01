@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector } from "react-redux";
+import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import { CommonHeader, PreUri, Method, getRspMsg, /*AuthLevel,*/ MaxFileCount/*, MB, LIMIT*/ } from '../../../CommonCode';
 import TopNavi from './TopNavi';
 import SideNavi from './SideNavi';
 
-import '../../../css/common.css';
-import '../../../css/style.css';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
 
-export default ({ history, no }) => {
+export default ({  no }) => {
     const mountedRef = useRef(true);
     const { token } = useSelector(state => state.user);
+    const history = useNavigate();
     const [categoryItems, setCategoryItems] = useState({
         count: 0,
         items: [],
@@ -44,12 +46,12 @@ export default ({ history, no }) => {
 
         if (!response.ok) {
             alert(getRspMsg(response.status));
-            return history.go(-1);
+            return history(-1);
 		}
 
 		if (response.status === 204) {
 			alert('해당 데이터를 찾을 수 없습니다.');
-            return history.go(-1);
+            return history(-1);
 		}
 
         const serviceJson = await response.json();
@@ -208,7 +210,7 @@ export default ({ history, no }) => {
 
     const onDone = useCallback(async (e) => {
         e.preventDefault();
-        history.go(-1);
+        history(-1);
     }, [history]);
 
     const onFileDownload = useCallback(async (e, fileInfo) => {

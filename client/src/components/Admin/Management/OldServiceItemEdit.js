@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { CommonHeader, PreUri, Method, getRspMsg, MaxFileCount, MB, LIMIT } from '../../../CommonCode';
 import SideNavi from './SideNavi';
-
+import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import { useSelector } from "react-redux";
 
 import $ from 'jquery';
 
-import '../../../css/common.css';
-import '../../../css/style.css';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
 
 function StringToDate(str) {
     var y = str.substr(0, 4);
@@ -18,9 +18,11 @@ function StringToDate(str) {
 
 const fieldList = ['없음', '3D프린팅', 'CNC', '기구설계', '모션캡쳐', '회로설계', '영상제작', '유투브라이브', '크라우드펀딩', '교육장대관', '제품제작', '레이저가공'];
 
-export default function ({ location, history }) {
+export default function () {
     const mountedRef = useRef(true)
     const { token } = useSelector(state => state.user);
+    const location = useLocation();
+    const history = useNavigate();
     const { oldServiceItem } = useSelector(state => state.management);
     const [partnerItems, setPartnerItems] = useState({
         count: 0,
@@ -99,7 +101,7 @@ export default function ({ location, history }) {
         if (oldServiceItem) {
             getPreInfo();
         } else {
-            history.replace('/management')
+            history('/management',{replace:true})
         }
 
         return () => {
@@ -174,7 +176,7 @@ export default function ({ location, history }) {
         }
 
         // dispatch({ type: CHANGE_PAGE, target: PAGE_VIEW.LIST });
-        history.go(-1);
+        history(-1);
     }, [token, partnerItems, regItem, oldServiceItem, history]);
 
     // const onChangeView = useCallback((e, index) => {
@@ -360,7 +362,7 @@ export default function ({ location, history }) {
                         </table>
                     </div>
                     <div className="btn_box">
-                        <button className="btn_cancel" onClick={() => { history.go(-1) }}>취소</button>
+                        <button className="btn_cancel" onClick={() => { history(-1) }}>취소</button>
                         <button className="btn_apply" onClick={onUpdate}>수정</button>
                     </div>
                 </div>

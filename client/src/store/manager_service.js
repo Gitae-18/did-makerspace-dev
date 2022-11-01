@@ -1,6 +1,7 @@
 export const M_SERVICE_SET = "manager_service/SET";
 export const M_SERVICE_RESET = "manager_service/RESET";
 export const M_SERVICE_VIEW_CHANGE = "manager_service/VIEW_CHANGE";
+export const M_SERVICE_DELETE = "manager_service/VIEW_DELETE";
 const initialState = {
     serviceNo: 0,
     progress: '',
@@ -24,6 +25,14 @@ export default (state = initialState, action) => {
                 progress: action.target.progress,
                 status: action.target.status,
                 currentView: action.target.progress,
+            }
+        case M_SERVICE_DELETE:
+            return{
+                ...state,
+                username:'',
+                title : '',
+                progress: '',
+                status: '',
             }
         case M_SERVICE_VIEW_CHANGE:
             if (progressValue[state.progress]

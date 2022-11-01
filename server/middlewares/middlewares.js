@@ -6,6 +6,9 @@ const path = require('path');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const nodemailer = require('nodemailer');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 exports.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -120,15 +123,58 @@ exports.SendMail = (email, subject, content) => {
     console.log(subject);
     console.log(content);
     */
-    let transporter = nodemailer.createTransport({
+    const{
+        OAUTH_USER,
+        OAUTH_CLIENT_ID,
+        OAUTH_CLIENT_SECRET,
+        OAUTH_REFRESH_TOKEN,
+    } = process.env;
+    if(
+        !OAUTH_USER ||
+        !OAUTH_CLIENT_ID ||
+        !OAUTH_CLIENT_SECRET ||
+        !OAUTH_REFRESH_TOKEN
+    ){
+        throw Error('OAuth 인증에 필요한 환경변수가 없습니다.');
+    }
+    
+    /*let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
             user: process.env.SYSTEM_EMAIL, // gmail id
             pass: process.env.SYSTEM_EMAILPW // gmail pw
         }
+    });*/
+    async function main(receiverEmail) {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        host: 'smtp.google.com',
+        port: 587,
+        secure: true,
+        auth:{
+            type: 'OAuth2',
+            user: OAUTH_USER,
+            clientId: OAUTH_CLIENT_ID,
+            clientSecret: OAUTH_CLIENT_SECRET,
+            refreshToken: OAUTH_REFRESH_TOKEN,
+        },
     });
-
-    let mailOptions = {
+    const message = {
+        from : OAUTH_USER,
+        to: receiverEmail,
+        subject: '[DID 기술융합공작소] ' + subject,
+        text: content,
+    };
+    try{
+        await transporter.sendMail(message);
+        logger.http('http message, 메일을 성공적으로 발송했습니다');
+        //console.log('메일을 성공적으로 발송했습니다.');
+    }
+    catch(e){
+        console.log(e);
+    }
+    }main(body.email)
+    /*let mailOptions = {
         from: process.env.SYSTEM_EMAIL,    // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
         to: email ,                     // 수신 메일 주소
         subject: '[DID 기술융합공작소] ' + subject ,   // 제목
@@ -142,5 +188,6 @@ exports.SendMail = (email, subject, content) => {
         else {
             console.log('Email sent: ' + info.response);
         }
-    });
+    });*/
+    
 }

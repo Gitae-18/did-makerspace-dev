@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { CommonHeader, PreUri, Method } from '../../../CommonCode';
 import SideNavi from './SideNavi';
-
+import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import { useSelector } from "react-redux";
 
-import '../../../css/common.css';
-import '../../../css/style.css';
-
-export default function ({ location, history }) {
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
+export default function () {
     const mountedRef = useRef(true);
+    const location = useLocation();
+    const history = useNavigate();
     const { token } = useSelector(state => state.user);
     const { companyItem } = useSelector(state => state.management);
     const [userItems, setUserItems] = useState([]);
@@ -59,7 +60,7 @@ export default function ({ location, history }) {
 
             getUserList();
         } else {
-            history.replace('/management')
+            history('/management',{replace:true})
         }
 
         return () => {
@@ -114,7 +115,7 @@ export default function ({ location, history }) {
             return;
         }
 
-        history.go(-1);
+        history(-1);
     }, [regItem, token, companyItem, userItems, history]);
 
     let UserOptions = [];
@@ -166,7 +167,7 @@ export default function ({ location, history }) {
                         </table>
                     </div>
                     <div className="btn_box">
-                        <button className="btn_delete" onClick={() => { history.go(-1) }}>취소</button>
+                        <button className="btn_delete" onClick={() => { history(-1) }}>취소</button>
                         <button className="btn_modify" onClick={onUpdate}>수정</button>
                     </div>
                 </div>

@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { CommonHeader, PreUri, Method, getFormatDate } from '../../../CommonCode';
 import { useSelector } from "react-redux";
-
+import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import FullCalendar/*, { formatDate }*/ from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 
 import $ from "jquery";
 
-import '../../../css/common.css';
-import '../../../css/style.css';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
 
 /*
 const colorTable = ['#0790e1', '#e3b7c9', '#fbc7ba', '#e0bd3c', '#0e753b', '#3747ac',

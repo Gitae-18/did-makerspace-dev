@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { CommonHeader, PreUri, Method } from '../../../CommonCode';
 import SideNavi from './SideNavi';
-
+import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import { useSelector } from "react-redux";
 
-import '../../../css/common.css';
-import '../../../css/style.css';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
 
-export default function ({ location, history }) {
+export default function () {
     const authLevelList = [{ name: "일반 사용자", level: 1 },
     { name: "파트 담당자", level: 10 }, { name: '스케줄 관리자', level: 50 },
     { name: '운영자', level: 70 }, { name: '최고관리자', level: 90 }];
     const mountedRef = useRef(true)
     const { token } = useSelector(state => state.user);
     const { userItem } = useSelector(state => state.management);
+    const location = useLocation();
+    const history = useNavigate();
     const [regItem, setRegItem] = useState({
         name: '',
         email: '',
@@ -46,7 +48,7 @@ export default function ({ location, history }) {
         if (userItem) {
             getPreInfo();
         } else {
-            history.replace('/management')
+            history('/management',{replace:true})
         }
 
         return () => {
@@ -176,7 +178,7 @@ export default function ({ location, history }) {
             return;
         }
 
-        history.go(-1);
+        history(-1);
     }, [token, userItem, regItem, authLevelList, history]);
 
     const onDrop = useCallback(async (e) => {
@@ -198,7 +200,7 @@ export default function ({ location, history }) {
             return;
         }
 
-        history.replace('/management');
+        history('/management',{replace:true});
     }, [token, userItem, history]);
 
     let AuthLevelOptions = [];

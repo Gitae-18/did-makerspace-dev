@@ -1,0 +1,50 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\debug\\.b7d30435ec2c4dca93e6cfe04e10934da76dd537-audit.json",
+    "files": [
+        {
+            "date": 1666688304323,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\debug\\2022-10-25.debug.log",
+            "hash": "2323a5749fe39717896cb4998c7865af8fd22071b154c079bd7cb1c44fb0f65b"
+        },
+        {
+            "date": 1666743178968,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\debug\\2022-10-26.debug.log",
+            "hash": "2252eb9fb67b0fc01b42dde47c761050008f6fb003e5654f7f7a894e91e474ba"
+        },
+        {
+            "date": 1666850233722,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\debug\\2022-10-27.debug.log",
+            "hash": "2cba780c5965301ffea56aaaee7085448d0ad9de13123b528ffde29ee6a436cd"
+        },
+        {
+            "date": 1666926689213,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\debug\\2022-10-28.debug.log",
+            "hash": "4e384aec98e52ac6a469742f18d312d202c1939d068d270199faf15ac6a93004"
+        },
+        {
+            "date": 1667039166052,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\debug\\2022-10-29.debug.log",
+            "hash": "eae1e84793c46ced94270458e3eea0affdaacc4a7baafbd268489a05e922af39"
+        },
+        {
+            "date": 1667104957241,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\debug\\2022-10-30.debug.log",
+            "hash": "724446a3e0fd603c2b92772cab2376415bf9a5ee7692333b751de13a54e0f997"
+        },
+        {
+            "date": 1667180519283,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\debug\\2022-10-31.debug.log",
+            "hash": "fcef54920826aae8af237c7068a736f138abc89e4af853a8c259aab049f6353b"
+        },
+        {
+            "date": 1667264721209,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\debug\\2022-11-01.debug.log",
+            "hash": "7caa174510c8a68547ba465be7ab3190e066da408af35459019d138ed2db4e26"
+        }
+    ],
+    "hashType": "sha256"
+}

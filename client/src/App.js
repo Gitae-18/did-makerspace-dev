@@ -1,7 +1,7 @@
 // import Test from './Test';
 import qs from 'qs';
-import React from 'react';
-import {Link, Route, Switch, withRouter ,Router} from 'react-router-dom';
+import React,{useEffect} from 'react';
+import {Link, Route, Routes,BrowserRouter,useLocation} from 'react-router-dom';
 import './App.css';
 import FindPassword from './components/FindPassword';
 import Home from './components/Home';
@@ -10,10 +10,26 @@ import NotAuthorized from './components/NotAuthorized';
 import NotFound from './components/NotFound';
 import NotMember from './components/NotMember';
 import Privacy from './components/Privacy';
-import StaticsAnalyze from './components/Admin/Statistics/StaticsAnalyze';
 import Terms from './components/Terms';
 import UGuide from './components/User/Guide';
-import Sidebar from './components/Admin/Statistics/Sidebar';
+import {CookiesProvider} from 'react-cookie';
+import PageSub01b2 from './components/pages/PageSub01/PageSub01b2';
+import PageSub01b3 from './components/pages/PageSub01/PageSub01b3';
+import PageSub01b4 from './components/pages/PageSub01/PageSub01b4';
+import PageSub01c from './components/pages/PageSub01/PageSub01c';
+import PageSub01d from './components/pages/PageSub01/PageSub01d';
+import PageSub02a1 from './components/pages/PageSub02/PageSub02a1';
+import PageSub02a2 from './components/pages/PageSub02/PageSub02a2';
+import PageSub02a3 from './components/pages/PageSub02/PageSub02a3';
+import PageSub02a4 from './components/pages/PageSub02/PageSub02a4';
+import PageSub02a5 from './components/pages/PageSub02/PageSub02a5';
+import PageSub02a6 from './components/pages/PageSub02/PageSub02a6';
+import PageSub02a7 from './components/pages/PageSub02/PageSub02a7';
+import PageSub03a1 from './components/pages/PageSub03/PageSub03a1';
+import PageSub03a2 from './components/pages/PageSub03/PageSub03a2';
+import TableType1a from './components/contents/TableType1a';
+import TableType1b from './components/contents/TableType1b';
+import TableType1c from './components/contents/TableType1c';
 import { JoinContainer as Join } from './containers/JoinContainer';
 import { LoginContainer as Login } from './containers/LoginContainer';
 import { ManagementContainer as Management } from './containers/ManagementContainer';
@@ -24,96 +40,122 @@ import { MServiceDetailContainer as MServiceDetail } from './containers/MService
 import { MyInfoContainer as MyInfo } from './containers/MyInfoContainer';
 import { ScheduleContainer as Schedule } from './containers/ScheduleContainer';
 import { UServiceContainer as UService } from './containers/UServiceContainer';
-import './css/common.css';
-import './css/style.css';
+import './css/common-s.css';
+import './css/style-s.css';
 import Materials, { Materials1, Materials2, Materials3 } from './components/Admin/Statistics/pages/Materials';
-import Service, { Service1, Service2, Service3, Service4 } from './components/Admin/Statistics/pages/Service';
+import Service, { Service1, Service2, Service3, Service4 ,StaticsAnalyze} from './components/Admin/Statistics/pages/Service';
 import Users, { Users1, Users2 } from './components/Admin/Statistics/pages/Users';
+import Footer from './css/comb/Footer';
+import DidInfo,{DidInfo2,DidInfo3,DidInfo4,DidInfo5,DidInfo6,DidInfo7,DidInfo8,DidInfo9,DidInfo1Detail} from './components/pages/PageSub';
+import ListType1a from './components/contents/ListType1a';
+import DidReservation,{DidReservation2,DidReservation3,DidReservation4} from './components/pages/PageSub2';
+import ClassEdu_Program,{ClassEdu_Program2} from './components/pages/PageSub3';
+import Contact,{Contact2,Contact3,Contact4,Contact5} from './components/pages/PageSub4';
+import Mentoring from './components/pages/PageSub5';
 
 
+export const ScrollToTop = () =>{
+  const { pathname } = useLocation();
 
-
-const App = ({location}) => {
-  const query = qs.parse(location.search, {
-    ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
-  });
-
-  const hidden = (window.location.pathname === '/mservice' && query.report_no) ? true : false;
-  // console.log(window.location.pathname);
-  // console.log(query.step);
-  // console.log(hidden);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  setTimeout(() => {  window.scrollTo(0, 0);  }, 300);
+}
+const App = () => {
+  
   return (
-    
+ 
+    <BrowserRouter>
     <React.Fragment>
-     
-      <div id="wrap" className="wrap intro" hidden={hidden}>
+    <CookiesProvider>
+      <div id="wrap" className="wrap intro" >
         <div id="header">
-          <Link to="/"><h1><img src="/images/logo.png" alt="로고" /></h1></Link>
+          <Link to="/"><span className='logo2'><img src="/images/logo_wh.png" alt="로고"/></span></Link>
           <Menu />
           <Login />
         </div>
       </div>
-   
-      <Sidebar/>
-    
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/join" component={Join} />
-        <Route path="/uguide" component={UGuide} />
-        <Route path="/uservice" component={UService} />
-        <Route exact path="/mservice" component={MService} />
-        <Route exact path="/mservice/detail" component={MServiceDetail} />
-        <Route path="/mschedule" component={Schedule} />
-        <Route path="/mmaterial" component={Material} />
-        <Route path="/management" component={Management} />
-        <Route path="/findpw" component={FindPassword} />
-        <Route path="/private" component={FindPassword} />
-        <Route path="/privacy" component={Privacy} />
-        <Route path="/terms" component={Terms} />
-        <Route path="/myinfo" component={MyInfo} />
-        <Route path="/notmember" component={NotMember} />
-        <Route path="/notauthhorized" component={NotAuthorized} />
-        <Route path="/mnthschd" component={MonthlySchedule} />
-        <Route path="/statics" component={StaticsAnalyze}/>
-        <Route path="/service/counsel"  component={Service}/>
-        <Route path="/service/application"  component={Service1}/>
-        <Route path="/service/process"  component={Service2}/>
-        <Route path="/service/reject"  component={Service3}/>
-        <Route path="/service/company"  component={Service4}/>
-   
-        <Route path="/materials/items"  component={Materials}/>
-        <Route path="/materials/imports"  component={Materials1}/>
-        <Route path="/materials/amount"  component={Materials2}/>
-        <Route path="/materials/equipment"  component={Materials3}/>
+      
+      <ScrollToTop/>
+      <Routes>
+        <Route exact path="/"  element = {<Home/>}/>
+        <Route path="/join" element = {<Join/>} />
+        <Route path="/uguide"  element = {<UGuide/>} />
+        <Route path="/uservice"  element = {<UService/>} />
+        <Route exact path="/mservice"  element = {<MService/>} />
+        <Route exact path="/mservice/*"  element = {<MServiceDetail/>} />
+        <Route path="/mschedule" element = {<Schedule/>} />
+        <Route path="/mmaterial" element = {<Material/>} />
+        <Route path="/management" element = {<Management/>} />
+        <Route path="/findpw" element = {<FindPassword/>} />
+        <Route path="/private" element = {<FindPassword/>} />
+        <Route path="/privacy" element = {<Privacy/>} />
+        <Route path="/terms" element = {<Terms/>} />
+        <Route path="/myinfo" element = {<MyInfo/>} />
+        <Route path="/notmember" element = {<NotMember/>} />
+        <Route path="/notauthhorized" element = {<NotAuthorized/>} />
+        <Route path="/mnthschd" element = {<MonthlySchedule/>} />
         
-        <Route path="/users/stastics"  component={Users}/>
-        <Route path="/users/service"  component={Users1}/>
-        <Route path="/users/purpose"  component={Users2}/>
+        <Route path="/didinfo" element = {<DidInfo/>}/>
+        <Route path="/info/spaceinfo" element = {<DidInfo/>}/>
+        <Route path="/info/equipinfo" element = {<DidInfo2/>}/>
+        <Route path="/info/workerinfo" element = {<DidInfo3/>}/>
+        <Route path="/info/greetings" element = {<DidInfo4/>}/>
+        <Route path="/info/vision" element = {<DidInfo5/>}/>
+        <Route path="/info/organization" element = {<DidInfo6/>}/>
+        <Route path="/info/partner" element = {<DidInfo7/>}/>
+        <Route path="/info/way" element = {<DidInfo8/>}/>
+        <Route path="/info/faq/*" element = {<DidInfo9/>}/>
+        <Route path="/info/faq/faq1" element = {<DidInfo1Detail/>}/>
 
+        <Route path="/didreservation" element = {<DidReservation/>}/>
+        <Route path="/reservation/space" element = {<DidReservation2/>}/>
+        <Route path="/reservation/lab" element = {<DidReservation3/>}/>
+        <Route path="/reservation/myvation" element = {<DidReservation4/>}/>
+
+        <Route path="/mentoring" element = {<Mentoring/>}/>
+
+        <Route path="/classprogram" element = {<ClassEdu_Program/>}/>
+        <Route path="/eduprogram" element = {<ClassEdu_Program2/>}/>
+
+        <Route path="/contact" element = {<Contact/>}/>
+        <Route path="/archivecontact/video" element = {<Contact2/>}/>
+        <Route path="/archivecontact/text" element = {<Contact3/>}/>
+        <Route path="/archivecontact/basic" element = {<Contact4/>}/>
+        <Route path="/noticecontact/notice" element = {<Contact5/>}/>
+
+        <Route path="/prototype/management" element = {<MService/>}/>
+        <Route path="/prototype/application" element = {<UService/>}/>
+        <Route exact path="/statics" element = {<Service/>}/>
+        <Route path="/service/counsel"   element = {<StaticsAnalyze/>}/>
+        <Route path="/service/application"  element = {<Service1/>}/>
+        <Route path="/service/process"  element = {<Service2/>}/>
+        <Route path="/service/reject"  element = {<Service3/>}/>
+        <Route path="/service/company"  element = {<Service4/>}/>
+        <Route path="/materials/items"  element = {<Materials/>}/>
+        <Route path="/materials/imports"   element = {<Materials1/>}/>
+        <Route path="/materials/amount"   element = {<Materials2/>}/>
+        <Route path="/materials/equipment"   element = {<Materials3/>}/>
+        <Route path="/users/stastics"   element = {<Users/>}/>
+        <Route path="/users/service"  element = {<Users1/>}/>
+        <Route path="/users/purpose"  element = {<Users2/>}/>
+      
 
 
         {/* <Route path="/test" component={Test} /> */}
-        <Route component={NotFound} />
-      </Switch>
-   
-
-      <div id="wrap" className="wrap intro" hidden={hidden}>
-        <div id="footer">
-          <div className="inner_footer">
-            <span className="first">문의전화 <strong className="eng"> 042-385-4200</strong></span>
-            <span><Link to="/terms">이용약관</Link></span>
-            <span><Link to="/privacy">개인정보처리방침</Link></span>
-            <span className="last">ⓒ 2020. DID 기술융합공작소 <strong className="eng">all rights reserved</strong></span>
-          </div>
-        </div>
-      </div>
-      
+        <Route element = {<NotFound/>} />
+      </Routes>
+    
+      <Footer/>
+      </CookiesProvider>
     </React.Fragment>
+    </BrowserRouter>
+    
     );
 }
 
-export default withRouter(App);
+export default (App);
 
 /*
 function App() {

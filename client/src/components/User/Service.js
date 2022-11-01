@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector } from "react-redux";
+import { useLocation,useNavigate } from 'react-router';
 import { CommonHeader, PreUri, Method, ProgressCode,StatusCode } from '../../CommonCode';
 import UServiceNavi from './ServiceNavi';
-import '../../css/common.css';
-import '../../css/style.css';
-
-export default function ({ history }) {
+import '../../css/common-s.css';
+import '../../css/style-s.css';
+import SubSideMenu from '../contents/SubSideMenu';
+export default function () {
     const PageMax = 5;
     const { token } = useSelector(state => state.user);
+    const location = useLocation();
+    const history = useNavigate();
     let ServiceItemRows = [];
     let PageList = [];
 
@@ -95,27 +98,27 @@ export default function ({ history }) {
         switch (item.progress) {
             case 'STEP_01':
                 if (item.status === 'URD') {
-                    history.push('/uservice?step=1&next=reserv&no=' + item.service_no);
+                    history('/uservice?step=1&next=reserv&no=' + item.service_no);
                 } else if (item.status === 'RUN') {
-                    history.push('/uservice?step=1&next=notyet&no=' + item.service_no);
+                    history('/uservice?step=1&next=notyet&no=' + item.service_no);
                 } else if (item.status === 'RES') {
-                    history.push('/uservice?step=1&next=res&no=' + item.service_no);
+                    history('/uservice?step=1&next=res&no=' + item.service_no);
                 } else if (item.status === 'REJ') {
-                    history.push('/uservice?step=1&next=rej&no=' + item.service_no);
+                    history('/uservice?step=1&next=rej&no=' + item.service_no);
                 }
                 break;
             case 'STEP_02':
                 if (item.status === 'URD' || item.status === 'RUN' || item.status === 'EVA') {
-                    history.push('/uservice?step=2&next=urd&no='+item.service_no);
+                    history('/uservice?step=2&next=urd&no='+item.service_no);
                 } else if (item.status === 'REJ'){
-                    history.push('/uservice?step=2&next=rej&no='+item.service_no);
+                    history('/uservice?step=2&next=rej&no='+item.service_no);
                 }
                 break;
             case 'STEP_03':
-                    history.push('/uservice?step=3&no='+item.service_no);
+                    history('/uservice?step=3&no='+item.service_no);
                 break;
             case 'STEP_04':
-                    history.push('/uservice?step=4&no='+item.service_no);
+                    history('/uservice?step=4&no='+item.service_no);
                 break;
             default:
         }
@@ -126,7 +129,7 @@ export default function ({ history }) {
         e.preventDefault();
         const item = serviceItems.items[index];
         if (item.progress === 'STEP_04') {
-            history.push('/uservice?step=5&no=' + item.service_no);
+            history('/uservice?step=5&no=' + item.service_no);
         }
     }, [serviceItems.items, history]);
 
@@ -134,11 +137,11 @@ export default function ({ history }) {
         e.preventDefault();
         const item = serviceItems.items[index];
         if (item.progress === 'STEP_01' && item.status === 'RES') {
-            history.push('/uservice?step=2&next=app&no=' + item.service_no);
+            history('/uservice?step=2&next=app&no=' + item.service_no);
         } else if (item.progress === 'STEP_01' && item.status === 'URD') {
-            history.push('/uservice?step=1&next=edit&no=' + item.service_no);
+            history('/uservice?step=1&next=edit&no=' + item.service_no);
         } else if (item.progress === 'STEP_02' && item.status === 'URD') {
-            history.push('/uservice?step=2&next=urd&no=' + item.service_no);
+            history('/uservice?step=2&next=urd&no=' + item.service_no);
         }
     }, [serviceItems.items, history]);
 
@@ -238,8 +241,7 @@ export default function ({ history }) {
                         </div>
                     </div>
                     <div className="btn_box">
-                        <button type="button" onClick={() => { history.push('/uservice?step=1'); }} className="btn_left">상담 신청</button>
-                        <button type="button" onClick={() => { history.push('/uservice?step=2&next=app'); }} className="btn_right">서비스 신청</button>
+                        <button type="button" onClick={() => { history('/uservice?step=1'); }} className="btn_left">상담 신청</button>
                         {/* <button className="back" onClick={(e) => {history.replace('/uservice')}} >뒤로 가기</button>
                         <button onClick={(e) => { $('.pop').css('display', 'block'); }}>상담예약 취소</button> */}
                     </div>

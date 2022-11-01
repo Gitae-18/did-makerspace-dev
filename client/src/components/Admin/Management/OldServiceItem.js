@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { CommonHeader, PreUri, Method, getFormatDate, PageMax } from '../../../CommonCode';
 import SideNavi from './SideNavi';
-
+import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { OLD_SERVICE_ITEM } from "../../../store/management";
 
-import '../../../css/common.css';
-import '../../../css/style.css';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
 
 function makeQuery(search, dateType, year, month) {
 
@@ -27,8 +27,10 @@ function makeQuery(search, dateType, year, month) {
     return query;
 }
 
-export default function ({ location, history, query }) {
+export default function ({  query }) {
 	const { token } = useSelector(state => state.user);
+    const {location} = useLocation;
+    const history = useNavigate();
     const dispatch = useDispatch();
     const [search, setSearch] = useState('');
     const [dateType, setDateType] = useState(0);
@@ -101,7 +103,7 @@ export default function ({ location, history, query }) {
         e.preventDefault();
         let addQuery = makeQuery(search, dateType, year, month);
         addQuery = (addQuery.length > 0) ? "&" + addQuery : "";
-        history.push(window.location.pathname + '?page=' + newPageNumber + addQuery);
+        history(location.pathname + '?page=' + newPageNumber + addQuery);
     }, [history, search, dateType, year, month]);
 
     const onPagePrev = useCallback((e) => {
@@ -110,7 +112,7 @@ export default function ({ location, history, query }) {
         if (curPageGrp > 0) {
             let addQuery = makeQuery(search, dateType, year, month);
             addQuery = (addQuery.length > 0) ? "&" + addQuery : "";
-            history.push(window.location.pathname + '?page=' + items.pageOffset + addQuery);
+            history(location.pathname + '?page=' + items.pageOffset + addQuery);
         }
     }, [history, items, search, dateType, year, month]);
 
@@ -123,20 +125,20 @@ export default function ({ location, history, query }) {
         if (curPageGrp < totPageGrp) {
             let addQuery = makeQuery(search, dateType, year, month);
             addQuery = (addQuery.length > 0) ? "&" + addQuery : "";
-            history.push(window.location.pathname + '?page=' + (newPageOffset + 1) + addQuery);
+            history(location.pathname + '?page=' + (newPageOffset + 1) + addQuery);
         }
     }, [history, items, search, dateType, year, month]);
 
     const onSelectItem = useCallback((e, i) => {
         e.preventDefault();
         dispatch({ type: OLD_SERVICE_ITEM, target: items.items[i] });
-        history.push(window.location.pathname + '?edit=8');
+        history(location.pathname + '?edit=8');
     }, [items, dispatch, history]);
 
     const onSearch = useCallback((e) => {
         let addQuery = makeQuery(search, dateType, year, month);
         addQuery = (addQuery.length > 0) ? "?" + addQuery : "";
-        history.push(window.location.pathname + addQuery);
+        history(location.pathname + addQuery);
     }, [search, dateType, year, month, history]);
 
     const dt = new Date();
@@ -245,7 +247,7 @@ export default function ({ location, history, query }) {
 								{ItemRows}
 							</tbody>
 						</table>
-                        <button className="btn_apply" onClick={() => { history.push('/management?reg=8') }}>신규 등록</button>
+                        <button className="btn_apply" onClick={() => { history('/management?reg=8') }}>신규 등록</button>
 						<div className="page_num">
                             <span className="inner_num">
                                 <a href='#!' className="first" onClick={(e) => onPage(e, 1)}> </a>

@@ -1,6 +1,6 @@
 import React from 'react'
-import '../css/common.css';
-import '../css/style.css';
+import '../css/common-s.css';
+import '../css/style-s.css';
 
 export function PrivacyPolicy() {
     return (

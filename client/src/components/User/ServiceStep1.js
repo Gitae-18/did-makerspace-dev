@@ -1,16 +1,19 @@
 import React, { useState, useCallback } from 'react';
 import UServiceNavi from './ServiceNavi';
+import { useLocation,useNavigate } from 'react-router';
 import { PreUri, Method, MaxFileCount, MB, LIMIT} from '../../CommonCode';
 import { useSelector } from "react-redux";
 
 import $ from 'jquery';
 
-import '../../css/common.css';
-import '../../css/style.css';
+import '../../css/common-s.css';
+import '../../css/style-s.css';
 
-export default function ({ history }) {
+export default function () {
 	const { token } = useSelector(state => state.user);
-
+    const location = useLocation();
+    const history = useNavigate();
+    const [btnClick,setBtnClick] = useState("");
     const [value, setValue] = useState({
         title: '',
         content: '',
@@ -118,7 +121,7 @@ export default function ({ history }) {
                         <UServiceNavi step={1} />
                     </div>
                     <h2>상담 신청서 작성</h2>
-                    <p className="info">상담 신청을 하시면 내용을 확인 후 관련 담당자가 연락을 드립니다.</p>
+                    <p className="info">처음 사용하시는 분들은 반드시 상담신청 먼저 해주시길 바랍니다. <span className="bold">(단,사용이 익숙할시 건너뛰기 가능 <span className='star'>*</span>건너뛰기 클릭 시 서비스신청으로 이동)</span></p>
                     <div className="reservation">
                         <div className="text_box">
                             <table className="t2">
@@ -141,7 +144,20 @@ export default function ({ history }) {
                             </table>
                         </div>
                     </div>
+                    <div className='btn_sector'>
+                    <button type="button" onClick={() => {setBtnClick("click");$('.pop').css('display', 'block');}} className="btn_right">상담 건너뛰기</button>
                     <button type="button" onClick={onSubmit} className="btn_book">상담 신청</button>
+                    
+                    {
+                        <div className="pop">
+                        <p><span className='notice'>처음 이용하신다면 반드시<br/> 상담 신청을 먼저 해주시길 바랍니다.</span></p>
+                        <ul>
+                                    <li className="no"><button onClick={() => { $('.pop').css('display', 'none'); }}>취소</button></li>
+                                    <li className="yes"><button onClick={() => {history('/uservice?step=2&next=app');}}>확인</button></li>
+                        </ul>
+                     </div>
+                    }
+                    </div>
                 </div>
             </div>
             <div className="loading" />

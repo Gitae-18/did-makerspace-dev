@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 7
+    },
+    "auditLog": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\all\\.45ac5e42c7d5cd6dc72120a759d4fbdead826825-audit.json",
+    "files": [
+        {
+            "date": 1666687827286,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\all\\2022-10-25.all.log",
+            "hash": "e5133410a02fa6f5c925991fe9173ce0a715ad1f4dfaaa250e6c79ebf8d92dab"
+        }
+    ],
+    "hashType": "sha256"
+}

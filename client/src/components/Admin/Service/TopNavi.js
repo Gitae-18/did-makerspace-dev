@@ -2,8 +2,8 @@ import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { M_SERVICE_VIEW_CHANGE } from "../../../store/manager_service";
 
-import '../../../css/common.css';
-import '../../../css/style.css';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
 
 export default ({ step }) => {
 

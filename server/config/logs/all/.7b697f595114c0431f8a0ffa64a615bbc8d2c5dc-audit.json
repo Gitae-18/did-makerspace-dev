@@ -1,0 +1,45 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 7
+    },
+    "auditLog": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\all\\.7b697f595114c0431f8a0ffa64a615bbc8d2c5dc-audit.json",
+    "files": [
+        {
+            "date": 1666743178982,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\all\\2022-10-26.all.log",
+            "hash": "4da178073a81dd1aa0ca5ec65cd1e08482e9714312e3f718a05e90bf97a07991"
+        },
+        {
+            "date": 1666850233737,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\all\\2022-10-27.all.log",
+            "hash": "f8b40bcc2acb33aa32dcc654b9627139c81c2430a77b1ea9cb7324bd017e5ba9"
+        },
+        {
+            "date": 1666926689229,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\all\\2022-10-28.all.log",
+            "hash": "e98c7e47b90a68c3e4113944d039bbfb2c647e8f55c2359dcde178f90191621c"
+        },
+        {
+            "date": 1667039166068,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\all\\2022-10-29.all.log",
+            "hash": "93a362ade048382f7c2b9df716f6439a1f5fd560640b8f2cb445e7074e0db200"
+        },
+        {
+            "date": 1667104957255,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\all\\2022-10-30.all.log",
+            "hash": "925a1ddb8ed50046d3af650927375b930ca1baa8b991ea18125b0d02a506810b"
+        },
+        {
+            "date": 1667180519299,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\all\\2022-10-31.all.log",
+            "hash": "31e4096323ac16c3deace2ca22240e4c6769652a2de3e12c93c74c8c5732d241"
+        },
+        {
+            "date": 1667264721220,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\config\\logs\\all\\2022-11-01.all.log",
+            "hash": "0aeb4bffb7e180984d3984e98c03d9f52edd64bfa0458602d228c43fe9cb7f2c"
+        }
+    ],
+    "hashType": "sha256"
+}

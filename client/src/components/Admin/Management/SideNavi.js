@@ -1,21 +1,21 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { CHANGE_MENU, } from "../../../store/management";
-
-import '../../../css/common.css';
-import '../../../css/style.css';
-
-export default function ({history, viewDepth}) {
+import {useLocation,useNavigate,useParams} from 'react-router-dom';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
+export default function ({ viewDepth}) {
 	const { sideNaviPos } = useSelector(state => state.management);
 	const dispatch = useDispatch();
-
+	const location = useLocation();
+    const history = useNavigate();
 	const onClick = useCallback((e, index) => {
 		e.preventDefault();
 		dispatch({ type: CHANGE_MENU, target: index });
 		if (viewDepth && viewDepth === 2) {
-			history.go(-1);
+			history(-1);
 		} else {
-			history.push('/management')
+			history('/management')
 		}
 	}, [dispatch, history, viewDepth]);
 

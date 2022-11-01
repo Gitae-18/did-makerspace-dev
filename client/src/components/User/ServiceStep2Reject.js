@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { CommonHeader, PreUri, Method } from '../../CommonCode'
 import { useSelector } from "react-redux";
-import '../../css/common.css';
-import '../../css/style.css';
-
-export default function ({ history, no }) {
+import '../../css/common-s.css';
+import '../../css/style-s.css';
+import { useLocation,useNavigate } from 'react-router';
+export default function ({ no }) {
     const mountedRef = useRef(true);
     const { token } = useSelector(state => state.user);
-
+    const location = useLocation();
+    const history = useNavigate();
     const [rejectText, setRejectText] = useState('');
     const getPreInfo = useCallback(async () => {
         CommonHeader.authorization = token;
@@ -47,7 +48,7 @@ export default function ({ history, no }) {
                         <p>서비스 신청이 취소되었습니다.</p>
                         <span>[취소 사유]{rejectText.split('\n').map((line, index) => { return (<span key={index}>{line}<br /></span>) })}</span>
                     </div>
-                    <button type="button" className="btn_ok" onClick={()=>{history.go(-1)}}>확인</button>
+                    <button type="button" className="btn_ok" onClick={()=>{history(-1)}}>확인</button>
                 </div>
             </div>
         </div>

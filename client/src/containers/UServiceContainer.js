@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { useSelector } from "react-redux";
+import { useLocation, useNavigate } from 'react-router-dom';
 import Service from '../components/User/Service';
 import ServiceStep1 from '../components/User/ServiceStep1';
 import ServiceStep1Confirm from '../components/User/ServiceStep1Confirm';
@@ -17,12 +18,11 @@ import ServiceStep4 from '../components/User/ServiceStep4';
 import ServiceStep5 from '../components/User/ServiceStep5';
 import qs from 'qs';
 
-export const UServiceContainer = ({ location, history }) => {
+export const UServiceContainer = () => {
      const { isLoading, isLoggedIn } = useSelector(state => state.user);
-
-    const query = qs.parse(location.search, {
-        ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
-    });
+     const { location } = useLocation;
+     const history = useNavigate();
+     const query = location ==='?detail=true';
 
     const CurrentPage = useCallback(() => {
         if (isLoading) {
@@ -30,7 +30,7 @@ export const UServiceContainer = ({ location, history }) => {
         }
 
         if (!isLoggedIn) {
-            history.replace('/notmember');
+            history('/notmember',{replace:true});
             return <></>;
         }
 

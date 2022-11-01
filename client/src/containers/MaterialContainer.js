@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from "react-redux";
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Material from '../components/Admin/Material/Material';
 import MaterialList from '../components/Admin/Material/MaterialList';
 import MaterialReg from '../components/Admin/Material/MaterialReg';
@@ -7,13 +8,12 @@ import MaterialItem from '../components/Admin/Material/MaterialItem';
 import { AuthLevel } from '../CommonCode';
 import qs from 'qs';
 
-export const MaterialContainer = ({ location, history }) => {
+export const MaterialContainer = (props) => {
     const { isLoading, isLoggedIn, authority_level } = useSelector(state => state.user);
-
-    const query = qs.parse(location.search, {
-        ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
-    });
-
+    const location = useLocation();
+    
+    const query = location ==='?detail=true';
+    const history = useNavigate();
     useEffect(() => {
         if (isLoading) { return; }
         if (!isLoggedIn) { return history.replace('/notmember'); }

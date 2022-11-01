@@ -1,0 +1,157 @@
+@font-face {
+  font-family: "VITRO CORE";
+  src: url(/public/font/font_01.ttf);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  line-height: 1.6em;
+}
+
+body, a, a:hover {
+  color: #2d2d2d;
+  text-decoration: none;
+}
+
+body {
+  font-size: 16px;
+}
+
+ol, ul {
+  list-style-type: none;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.flex_wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.flex_wrap_type1 {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.flex_wrap_type1 > * {
+  width: calc( 50% - 20px);
+}
+
+.wrap1 {
+  width: 90%;
+  margin: auto;
+}
+
+.wrap2 {
+  padding-top: 120px;
+}
+
+.wrap2, .section_inner_wrap {
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.wrap2 .wrap2, .section_inner_wrap .wrap2 {
+  padding-top: 0;
+}
+
+section {
+  overflow: hidden;
+}
+
+section:first-of-type .section_inner_wrap {
+  padding-top: 120px;
+}
+
+.blind {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+}
+
+.blind_ti {
+  overflow: hidden;
+  text-indent: -9999px;
+}
+
+.dp_ib {
+  display: inline-block;
+}
+
+.App {
+  min-height: 100vh;
+}
+
+.input_checkbox {
+  accent-color: #313f4f;
+  -webkit-transform: scale(1.6);
+          transform: scale(1.6);
+}
+
+.text_point1 {
+  color: #313f4f;
+}
+
+.text_point2 {
+  color: #5272c3;
+}
+
+.text_point3 {
+  color: #344a84;
+}
+
+.text_red {
+  color: #c23c31;
+}
+
+.text_gray1 {
+  color: #2d2d2d;
+}
+
+.text_gray2 {
+  color: #7f7f7f;
+}
+
+.text_gray3 {
+  color: #a4a4a4;
+}
+
+.text_gray4 {
+  color: #c8c8c8;
+}
+
+.text_gray5 {
+  color: #ececec;
+}
+
+.fw_700 {
+  font-weight: 700;
+}
+
+.fw_600 {
+  font-weight: 600;
+}
+
+.fw_300 {
+  font-weight: 300;
+}
+
+.highlight {
+  color: #313f4f;
+  font-weight: 700;
+}
+/*# sourceMappingURL=reset.css.map */

@@ -1,12 +1,13 @@
 import React, { /*useEffect,*/ useState, useCallback, /* useMemo */ } from 'react';
 //import { useSelector } from "react-redux";
+import { useLocation,useNavigate } from 'react-router-dom';
 import MyInfoChangePW from "../components/MyInfoChangePW";
 import { CommonHeader, PreUri, Method } from '../CommonCode';
 
-export const MyInfoChangePWContainer = ({ location, history }) => {
+export const MyInfoChangePWContainer = () => {
     // const loginUser = useSelector(state => state.user, []);
     //const dispatch = useDispatch();
-
+    const history = useNavigate();
     const [value, setValues] = useState({
         password: '',
         newPassword: '',
@@ -59,7 +60,7 @@ export const MyInfoChangePWContainer = ({ location, history }) => {
         });
          //console.log(json);
         alert('수정되었습니다.');
-        return history.go(-1);
+        return history(-1);
     }, [value, history]);
 
     const onInputChange = useCallback((e) => {
@@ -72,7 +73,7 @@ export const MyInfoChangePWContainer = ({ location, history }) => {
 
     const onBtnCancel = useCallback((e) => {
         e.preventDefault();
-        return history.go(-1);
+        return history(-1);
     }, [history]);
 
     return (

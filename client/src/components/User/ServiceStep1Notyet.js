@@ -3,13 +3,13 @@ import { useSelector } from "react-redux";
 import { CommonHeader, PreUri, Method } from '../../CommonCode';
 
 import $ from 'jquery';
-
-import '../../css/common.css';
-import '../../css/style.css';
-
-export default function ({ history, no }) {
+import { useLocation,useNavigate } from 'react-router';
+import '../../css/common-s.css';
+import '../../css/style-s.css';
+export default function ({  no }) {
     const { token } = useSelector(state => state.user);
-
+    const location = useLocation();
+    const history = useNavigate();
     const onClick = useCallback(async (e) => {
         e.preventDefault();
         CommonHeader.authorization = token;
@@ -23,7 +23,7 @@ export default function ({ history, no }) {
             return;
         }
 
-        history.replace('/uservice');
+        history('/uservice',{replace:true});
     }, [token, history, no]);
 
     return (
@@ -36,7 +36,7 @@ export default function ({ history, no }) {
                         <span>담당자와 상담 후 결과를 보내드립니다.<br/>이 후 서비스 이용 신청서를 작성하실 수 있습니다.</span>
                     </div>
                     <div className="btn_box">
-                        <button className="back" onClick={(e) => {history.replace('/uservice')}} >뒤로 가기</button>
+                        <button className="back" onClick={(e) => {history('/uservice',{replace:true})}} >뒤로 가기</button>
                         <button onClick={(e) => { $('.pop').css('display', 'block'); }}>상담예약 취소</button>
                     </div>
                     {/* <button type="button" className="btn_cancel" onClick={onClick}>상담 취소</button> */}

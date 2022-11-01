@@ -1,22 +1,22 @@
 import React, { useCallback } from 'react';
 import { useSelector } from "react-redux";
+import { useLocation, useNavigate } from 'react-router-dom';
 import Schedule from '../components/Admin/Schedule/Schedule';
 import qs from 'qs';
 
 
-export const ScheduleContainer = ({ location, history }) => {
+export const ScheduleContainer = () => {
      const { isLoading, isLoggedIn } = useSelector(state => state.user);
-
-    const query = qs.parse(location.search, {
-        ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
-    });
+     const { location } = useLocation;
+     const history = useNavigate();
+     const query = location ==='?detail=true';
 
     const CurrentPage = useCallback(() => {
         if (isLoading) {
             return <></>;
         }
         if (!isLoggedIn) {
-            history.push('/notmember');
+            history('/notmember');
             return <></>;
         }
 

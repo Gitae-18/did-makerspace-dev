@@ -1,0 +1,987 @@
+@import ../setting.sass
+
+// image_part 임시 레이아웃 시작
+.image_part
+  border: 1px solid $gray3
+  height: 100%
+  background-color: $gray4
+// image_part 임시 레이아웃 끝
+
+// button 시작
+.tp_btn
+  cursor: pointer
+  a
+    display: block
+    width: 100%
+    height: 100%
+.btn_type1
+  width: 150px
+  height: 50px
+  margin: auto
+  border: 1px solid transparent
+  background-color: $point1
+  text-align: center
+  transition: 0.4s
+  a
+    line-height: 50px
+    color: #fff
+    transition: 0.4s
+  &:hover
+    border-color: $point1
+    background-color: transparent
+    a
+      color: $point1
+.btn_type2
+  width: 120px
+  height: 40px
+  margin: auto
+  background-color: $point1
+  border: 1px solid transparent
+  text-align: center
+  transition: 0.3s
+  a
+    line-height: 40px
+    color: #fff
+    font-size: $size1
+    transition: 0.3s
+  &:hover
+    background-color: transparent
+    border-color: $point1
+    a
+      color: $point1
+      font-weight: 600
+.btn_type2.btn_type2_small
+  width: 80px
+  a
+    font-size: $size0
+.btn_type3
+  display: inline-block
+  width: 100px
+  height: 30px
+  border: 1px solid $gray1
+  border-radius: 4px
+  line-height: 30px
+  text-align: center
+.tp_btn.btn_white
+  border: 2px solid $point1
+  background-color: #fff
+  a
+    color: $point1
+    font-weight: 600
+.btn_type4
+  height: 50px
+  [class^="hex-icon"]
+    width: 42px
+    height: 100%
+    margin: 0 10px
+    display: inline-block
+    transition: all 0.2s cubic-bezier(0.215, 0.610, 0.355, 1.000)
+    svg
+      display: block 
+      width: 100%
+      height: 100%
+  path
+    transition: 0.4s
+    &:first-of-type
+      fill: $point1
+    &:last-of-type
+      fill: $gray6
+      transform-origin: 21px 25px
+      // animation: hex-icon-heart-beat 1s linear infinite
+  &:hover
+    transform: scale3d(1.12, 1.12, 1)
+    transition: all 0.4s cubic-bezier(0.000, 1.270, 0.460, 1.650)
+    transform: invert(100%)
+    path
+      &:first-of-type
+        fill: transparent
+      &:last-of-type
+        fill: $point1
+// @keyframes hex-icon-heart-beat
+//   0%
+//     transform: scale3d(1, 1, 1)
+//   30%
+//     transform: scale3d(0.9, 0.9, 1)
+//   60%
+//     transform: scale3d(1, 1, 1)  
+
+.btn_gray
+  background-color: $gray2
+  &:hover
+    border-color: $gray2
+    background-color: transparent
+    a
+      color: $gray2
+// button 끝
+
+// 체크박스 시작
+.checkbox_type1
+  >input
+    position: relative
+    top: 2px
+    width: 15px
+    height: 15px
+    margin-right: 10px
+// 체크박스 끝
+
+// 스크롤 박스 시작
+.scr_box_type1
+  >h3
+    text-align: center
+    margin-bottom: 20px
+  >div
+//  스크롤 박스 끝
+
+// 공지 팝업 시작
+.notice_popup_wrap.closed
+  display: none
+.notice_popup_wrap
+  position: fixed
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
+  background-color: rgba(0,0,0,0.6)
+  .notice_inner
+    position: relative
+    width: 80%
+    height: 60%
+    margin: 20vh 10%
+    padding: 50px
+    background-color: #fff
+    h1
+      text-align: center
+    p
+      margin: 50px 0
+    .btns_pop_up
+      position: absolute
+      right: 20px
+      bottom: 20px
+      display: flex
+      justify-content: flex-end
+      >div
+        position: relative
+        padding: 0 10px
+        height: 20px
+        font-size: 14px
+        line-height: 20px
+        cursor: pointer
+        &::after
+          content: ''
+          display: block
+          position: absolute
+          right: 0
+          top: 5px
+          width: 1px
+          height: 10px
+          background-color: $gray1
+        &:last-of-type
+          &::after
+            display: none
+// 공지 팝업 끝
+
+// main 컴포넌트 기본 설정 시작
+main
+  min-height: calc( 100vh - 280px )
+  margin: auto
+  padding-bottom: 100px
+// main 컴포넌트 기본 설정 끝
+
+
+// Boxes 시작
+.boxes_type1
+  display: flex
+  justify-content: space-between
+  >dl
+    width: calc( 50% - 20px )
+    min-height: 240px
+    dt
+      height: 36px
+      line-height: 36px
+    .border_box_type1
+      height: calc( 100% - 36px )
+// Boxes 끝
+
+// box 시작
+.shadow_box
+  box-shadow: 2px 6px 12px $point1
+.border_box_type1
+  padding: 24px 48px
+  border: 1px solid $gray1
+  margin-bottom: 20px
+// box 끝
+
+// swiper 시작
+.swiper_wrap
+  height: 100%
+  .swiper
+    height: 100%
+    margin-bottom: 100px
+    
+.swiper_type1
+  height: calc(100% + 100px)
+  overflow: hidden
+  .swiper
+    overflow: visible
+  .swiper-button-next, .swiper-rtl .swiper-button-prev
+    right: 2px
+  .swiper-button-prev, .swiper-rtl .swiper-button-next
+    left: auto
+    right: 72px
+  .swiper-button-next, .swiper-button-prev
+    color: #fff
+  .swiper-button-next, .swiper-button-prev
+    top: auto
+    bottom: 20px
+  .swiper-horizontal>.swiper-pagination-progressbar, .swiper-pagination-progressbar.swiper-pagination-horizontal, .swiper-pagination-progressbar.swiper-pagination-vertical.swiper-pagination-progressbar-opposite, .swiper-vertical>.swiper-pagination-progressbar.swiper-pagination-progressbar-opposite
+    top: auto
+    left: 10px
+    bottom: 80px
+    width: calc( 100% - 20px )
+    height: 4px
+  .swiper-pagination-progressbar
+    background-color: #fff
+  .swiper-pagination-progressbar .swiper-pagination-progressbar-fill
+    width: 101%
+    background-color: $point1
+    
+
+.swiper_type2
+  height: 50px
+  text-align: center
+  overflow: hidden
+  .swiper  
+    padding: 0 50px
+    .swiper-slide
+      line-height: 50px
+    .swiper-button-next, .swiper-button-prev
+      color: $point1
+
+// swiper 끝
+
+//Input 시작
+.input_wrap
+  width: 400px
+.input_wrap_type1
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: flex-start
+  .input_wrap
+    height: 50px
+.input_wrap.input_type_text1_check
+  width: 580px
+  input
+    width: 300px
+  .tp_btn
+    height: 36px
+    margin-top: auto
+    margin-left: 30px
+    a
+      line-height: 36px
+.input_wrap
+  display: flex
+  align-items: center
+  span
+    display: inline-block
+    width: 100px
+    color: $gray2
+  input
+    width: calc( 100% - 100px )
+    border: 1px solid $gray2
+    padding: 4px 12px
+    &::placeholder
+      color: $gray3
+//Input 끝
+
+// Title 시작
+h3.title_type1
+  position: relative
+  left: -8px
+  display: inline-block
+  margin-bottom: 30px
+  padding: 4px 10px 0 8px
+  font-size: $size4
+  color: $point1
+  line-height: 1em
+  overflow: hidden
+  &::before
+    content: ''
+    display: block
+    position: absolute
+    left: -5px
+    top: -6px
+    width: 10px
+    height: 12px
+    transform: rotate(45deg)
+    background-color: $point1
+  &:after
+    content: ''
+    display: block
+    position: absolute
+    right: -5px
+    bottom: -6px
+    width: 10px
+    height: 12px
+    transform: rotate(45deg)
+    background-color: $point1
+.title_type2_wrap
+  width:  100%
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 0 36px
+  background-color: $point1
+  *
+    color: #fff
+  h3.title_type2
+    height: 72px
+    line-height: 72px
+    font-size: $size4
+  .title_info
+    display: flex
+    justify-content: flex-end
+    gap: 12px
+    *
+  
+// Title 끝
+
+// Table 시작
+.table_extra
+  display: flex
+  justify-content: space-between
+  align-items: flex-end
+  >p
+    >span
+      font-weight: 800
+  .table_search
+    display: flex
+    gap: 8px
+  select, input
+    min-width: 100px
+    padding: 0 12px
+    border: 1px solid $point1
+.table_wrap
+  table
+    margin-top: 12px
+    td, th
+      min-width: 40px
+      padding: 12px
+      text-align: center
+      word-break: keep-all
+    td.btns_wrap
+      display: flex
+      justify-content: center
+      gap: 12px
+      .btn_type2_small
+        margin: 0
+    thead
+      background-color: $point1
+      color:#fff
+      th
+        font-weight: 500
+    tbody
+      tr
+        border-bottom: 1px solid $gray4
+      dl
+        display: flex
+        flex-wrap: wrap
+        padding: 0 16px
+        *
+          text-align: left
+        dt
+          width: 100px
+          padding-right: 12px
+        dd
+          width: calc( 100% - 100px )
+          &::before
+            content: ':'
+            display: inline-block
+            margin-right: 12px
+  .page_control
+    margin: 24px
+    display: flex
+    justify-content: center
+    gap: 4px
+    *
+      line-height: 30px
+      font-size: $size3
+    >div
+      border: 2px solid transparent
+      cursor: pointer
+      transition: 0.4s
+      &:hover
+        border-color: $point1
+      img
+        width: 12px
+        margin: 0 8px
+        vertical-align: middle
+    >div.btn-s
+      img
+        width: 18px
+    >ol
+      display: flex
+      margin: 0 8px
+      >li
+        padding: 0 12px
+        border: 2px solid transparent
+        cursor: pointer
+        transition: 0.4s
+        &:hover
+          border-color: $point1
+      >li.on
+        margin: 0 4px
+        background-color: $point1
+        color: #fff
+.table_type1.table_type1f
+  table
+    tbody
+      dl
+        padding: 0
+        dt
+          width: 60px
+        dd
+          width: calc( 100% - 60px )
+.table_type1.table_type1h
+  .btns
+    display: flex
+    justify-content: center
+    gap: 24px
+    .tp_btn
+      width: 200px
+      margin: 0
+
+.table_type2.table_wrap
+  .table_extra
+    .tp_btn
+      margin-left: 0
+    select
+      height: 40px
+  table
+    margin-top: 12px
+    tbody
+      dl
+        dt, dd
+          width: auto
+.table_type3
+  text-align: center
+  ol
+    li
+      display: flex
+      flex-wrap: wrap
+      border-bottom: 2px solid $point1
+      .part_title
+        width: 30%
+        display: flex
+        justify-content: center
+        align-items: center
+        border-right: 1px solid $point1
+      .part_desc
+        width: 70%
+        display: flex
+        flex-wrap: wrap
+        *
+          height: 50px
+          line-height: 50px
+        dt, dd
+          border-bottom: 1px solid $gray4
+          &:last-of-type
+            border-bottom: 0
+        dt
+          width: 40%
+        dd
+          width: 60%
+          border-left: 1px solid $gray2
+      &:first-of-type
+        border-top: 2px solid $point1
+        .part_title
+          background-color: $point1
+          color: #fff
+.table_type3.table_type3b
+  ol
+    margin-bottom: 48px
+    li
+      &:last-of-type
+        .part_title
+          &::after
+            background-color: $point1
+      .part_title
+        position: relative
+        width: 240px
+        background-color: $point1
+        color: #fff
+        &::after
+          content: ''
+          display: block
+          position: absolute
+          left: 0
+          bottom: -2px
+          width: 100%
+          height: 2px
+          background-color: #fff
+      .part_desc
+        width: calc( 100% - 240px )
+        dt
+          width: 20%
+          &:nth-of-type(4), &:nth-of-type(5)
+            border-bottom: 0
+        dd
+          width: 30%
+          &:first-of-type
+            width: 80%
+          &:nth-of-type(2), &:nth-of-type(4)
+            border-right: 1px solid $gray2
+          &:nth-of-type(4), &:nth-of-type(5)
+            border-bottom: 0
+.table_type5
+  table
+    td
+      select
+        width: 80px
+        height: 40px
+        border: 1px solid $point1
+        background-color: transparent
+        text-align: center
+.table_type5.table_type5b
+  table
+    td.select_wrap
+      width: 124px
+      select
+        width: 100px
+    td.select_big_wrap
+      width: 174px
+      select
+        width: 150px
+        
+// Table 끝
+
+// List 시작
+.list_type1
+  h3.title_type1
+    margin-bottom: 0
+  ol
+    display: flex
+    flex-direction: column
+    gap: 24px
+    padding: 24px
+    >li
+      display: flex
+      justify-content: flex-start
+      .image_part
+        width: 300px
+        height: 150px
+      .text_part
+        margin-left: 50px
+        h5
+          font-size: $size3
+        p
+          padding-left: 16px
+  dl
+    display: flex
+    margin-top: 12px
+    padding-left: 12px
+    dt
+      position: relative
+      padding-right: 18px
+      &::after
+        content: ':'
+        display: block
+        position: absolute
+        right: 6px
+        top: 0
+  .btn_type1
+    margin-top: 24px
+.list_type1.list_type1c
+  dl
+    flex-direction: column
+    justify-content: center
+    margin-top: 0
+    dt
+      width: 0
+      height: 0
+    ul li
+      font-size: $size1
+      list-style: "- "
+      list-style-position: inside
+      &:last-of-type
+        list-style: none
+        font-weight: 700
+  ol
+    gap: 36px
+    >li
+      align-items: center
+.list_type2
+  >ol
+    display: flex
+    justify-content: center
+    flex-wrap: wrap
+    gap: 30px
+    >li
+      width: 220px
+      padding: 20px
+      border: 1px solid $point1
+      .image_part
+        height: 200px
+      .text_part
+        margin-top: 16px
+        h5
+          font-size: $size2
+          line-height: 1em
+        .tag
+          border-bottom: 1px solid $gray1
+          margin-bottom: 6px
+          padding-bottom: 6px
+          span
+            padding: 4px 16px
+            font-size: $size0
+            background-color: $point1
+            color: #fff
+        dl
+          display: flex
+          justify-content: flex-start
+          align-items: center
+          font-size: $size1
+          font-weight: 600
+          *
+            line-height: 1.3em
+          dt
+            &::after
+              content: ':'
+              display: inline-block
+              padding: 0 4px
+.list_type2.list_type2c
+  >ol
+    li
+      width: 280px
+      margin: 0
+      .image_part
+        height: 160px
+      .text_part
+        h5
+          margin-bottom: 20px
+          line-height: 1.6em
+        .dl_wrap
+          display: flex
+          justify-content: space-between
+          *
+            color: $gray2
+.list_type3
+  h3.title_type1
+    margin-bottom: 12px
+  ol
+    margin-bottom: 36px
+    li
+      dl
+        display: flex
+        flex-wrap: wrap
+        *
+          line-height: 40px
+        dt
+          width: 20%
+          background-color: $point1
+          color: #fff
+          text-align: center
+        dd
+          width: 30%
+          border-top: 1px solid $gray3
+          text-indent: 12px
+          &:nth-of-type(9), &:nth-of-type(10)
+            border-bottom: 1px solid $gray3
+  .project_wrap
+    padding: 24px
+    min-height: 120px
+    border: 1px solid $gray2
+    margin-bottom: 24px
+
+  .btns
+    display: flex
+    justify-content: center
+    gap: 24px
+    *
+      margin: 0
+// List 끝
+
+// Info 시작
+.info_type1
+  .info_inner_wrap
+    display: flex
+    flex-direction: column
+    align-items: center
+    .info_desc_wrap
+      width: 60%
+      min-width: 400px
+      >p
+        font-weight: 700
+        font-size: $size3
+        text-align: center
+      .images_wrap
+        width: 100%
+        .image_part
+          height: 150px
+          margin: 24px 0
+      .dl_wrap
+        margin-bottom: 24px
+        >dt
+          font-size: $size4
+          font-weight: 700
+          color: $point1
+        >dd
+          padding: 24px
+          >dl
+            display: flex
+            margin-bottom: 8px
+            >dt
+              position: relative
+              padding-right: 12px
+              &::before
+                content: ''
+                display: block
+                position: absolute
+                left: -16px
+                top: 8px
+                width: 8px
+                height: 8px
+                background-color: $point1
+              &::after
+                content: ':'
+                display: block
+                position: absolute
+                right: 0
+                top: 0
+                margin: 0 4px
+.info_type2
+  .title_part
+    display: flex
+    justify-content: space-between
+    align-items: flex-start
+    height: 320px
+    padding-bottom: 20px
+    margin-bottom: 20px
+    border-bottom: 2px solid $point1
+    .image_part
+      width: 240px
+      height: 100%
+    .info_part
+      display: flex
+      flex-direction: column
+      justify-content: flex-start
+      align-items: flex-start
+      width: calc( 100% - 300px )
+      height: 100%
+      dl
+        display: flex
+        flex-wrap: wrap
+        font-size: $size1
+        dt
+          &::after
+            content: ':'
+            display: inline-block
+            padding: 0 4px
+      .btns
+        display: flex
+        justify-content: flex-start
+        align-items: flex-end
+        gap: 24px
+        margin-top: auto
+        .tp_btn
+          margin: 0
+          height: 50px
+          a
+            line-height: 50px
+.info_type3
+  .info_desc_wrap
+    padding: 36px 0
+    .vedio_wrap
+      width: 400px
+      height: 240px
+    .dl_wrap
+      margin-top: 48px
+      border-bottom: 2px solid $point1
+      margin-bottom: 24px
+      dt
+        border-bottom: 1px solid $point1
+        font-size: $size3
+        color: $point1
+        font-weight: 700
+      dd
+        padding: 24px
+        margin-bottom: 24px
+        &:last-of-type
+          margin-bottom: 0
+.info_type3.info_type3b
+  .info_desc_wrap
+    .dl_wrap
+      margin-top: 0
+        
+// Info 끝
+
+// TextExtra 시작
+.text_extra_type1
+  padding: 24px
+  margin-bottom: 36px
+  background-color: $gray5
+  ul
+    list-style: "- "
+    list-style-position: inside
+// TextExtra 끝
+
+// Select 시작
+.select_date_type1
+  .calendar_month
+    display: flex
+    justify-content: center
+    align-items: center
+    gap: 12px
+    height: 30px
+    margin-bottom: 24px
+    h4
+      margin-top: 4px
+    >*
+      height: 30px
+      font-size: $size4
+      line-height: 30px
+      img
+        width: auto
+        height: 100%
+        padding: 0 8px
+        cursor: pointer
+  table
+    width: 400px
+    margin: auto
+    border: 2px solid $point1
+    text-align: center
+    tr
+      >*
+        width: 14.28%
+        padding: 4px 0
+        font-size: $size3
+    td.selected
+      background-color: $point1
+      color: #fff
+    thead
+      border-bottom: 2px solid $point1
+      background-color: $gray4
+    tbody
+      tr
+        >*
+          cursor: pointer
+        &:first-of-type
+          td
+            position: relative
+            padding-top: 12px
+            &::before
+              content: ''
+              display: block
+              position: absolute
+              left: 0
+              top: 0
+              width: 100%
+              height: 8px
+              background-color: $gray6
+        &:last-of-type
+          td
+            position: relative
+            padding-bottom: 12px
+            &::after
+              content: ''
+              display: block
+              position: absolute
+              left: 0
+              bottom: 0
+              width: 100%
+              height: 8px
+              background-color: $gray6
+.select_time_type1
+  ol.table_time
+    width: 160px
+    margin: auto
+    font-size: $size4
+    text-align: center
+    li
+      border: 2px solid $gray2
+      margin-bottom: 12px
+      padding: 8px 0
+      cursor: pointer
+    li.time_cant
+      background-color: $gray4
+      cursor: auto
+    li.time_selected
+      background-color: $point1
+      color: #fff
+// Select 끝
+
+// TableInfo 시작
+.table_info_type1
+  display: flex
+  justify-content: flex-end
+  width: 400px
+  margin: 16px auto
+  >div
+    position: relative
+    padding-left: 24px
+    margin-left: 20px
+    font-size: $size1
+    &::before
+      content: ''
+      display: block
+      position: absolute
+      left: 0
+      top: 0
+      width: 14px
+      height: 14px
+      border: 2px solid $gray2
+  >div.info_1
+    &::before
+      background-color: #fff
+  >div.info_2
+    &:before
+      background-color: $point1
+  >div.info_3
+    &::before
+      background-color: $gray4
+// TableInfo 끝
+
+// TableBtns 시작
+.table_btns
+  display: flex
+  justify-content: center
+  gap: 24px
+  .tp_btn
+    margin: 0
+// TableBtns 끝
+
+// Report 시작
+.report_type1
+  max-width: 800px
+  >h2
+    text-align: center
+  h3.title_type1
+    margin-bottom: 12px
+  dl
+    display: flex
+    flex-wrap: wrap
+    border: 2px solid $point1
+    margin-bottom: 24px
+    *
+      padding: 4px 12px
+      line-height: 40px
+    dt
+      width: 100px
+      border-right: 1px solid $gray1
+      border-top: 1px solid $gray1
+      &:nth-of-type(1),&:nth-of-type(2)
+        border-top-width: 0
+    dd
+      width: calc( 50% - 100px )
+      &:nth-of-type(2n-1)
+        border-right: 1px solid $gray1
+      &:nth-of-type(3),&:nth-of-type(4)
+        border-top: 1px solid $gray1
+      &:nth-of-type(5),&:nth-of-type(6)
+        width: calc( 100% - 100px )
+        border-right: 0
+        border-top: 1px solid $gray1
+        
+        
+        
+// Report 끝

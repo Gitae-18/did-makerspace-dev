@@ -4,13 +4,15 @@ import { CommonHeader, PreUri, Method, getRspMsg, MaxFileCount, MB, LIMIT } from
 import { useSelector } from "react-redux"; import UServiceNavi from './ServiceNavi';
 
 import $ from 'jquery';
+import { useLocation,useNavigate } from 'react-router';
+import '../../css/common-s.css';
+import '../../css/style-s.css';
 
-import '../../css/common.css';
-import '../../css/style.css';
-
-export default function ({ history, no }) {
+export default function ({ no }) {
     const mountedRef = useRef(true);
     const { token } = useSelector(state => state.user);
+    const location = useLocation();
+    const history = useNavigate();
     const [categoryItems, setCategoryItems] = useState({
         count: 0,
         items: [],
@@ -147,7 +149,7 @@ export default function ({ history, no }) {
             }
         }
 
-        history.replace('/uservice');
+        history('/uservice',{replace:true});
     }, [categoryItems, checkValue, value, fileInfo, token, no, history]);
 
     const onFileUpload = useCallback((e) => {

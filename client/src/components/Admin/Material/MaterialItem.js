@@ -2,21 +2,23 @@ import React, { useState, useEffect, /*useRef,*/ useCallback } from 'react';
 import { CommonHeader, PreUri, Method, AuthLevel, StatusCode, /*ConvertPhoneNumber, ConvertDate2, getFormatDate*/ } from '../../../CommonCode';
 import { useSelector, useDispatch } from "react-redux";
 import { CHANGE_CATEGORY/*, SET_MATERIAL*/ } from "../../../store/material";
-
+import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import SideNavi from './SideNavi';
 
 import $ from "jquery";
 
-import '../../../css/common.css';
-import '../../../css/style.css';
+import '../../../css/common-s.css';
+import '../../../css/style-s.css';
 
 const PopupType = {
     Reject : 0,
     Buy : 1,
 }
 
-export default function ({ location, history }) {
+export default function () {
     const dispatch = useDispatch();
+    const location = useLocation();
+    const history = useNavigate();
     const { token, authority_level } = useSelector(state => state.user)
     const { /*categoryList, categoryIndex, */record } = useSelector(state => state.material);
     const [requestForm, setRequestForm] = useState({
@@ -51,7 +53,7 @@ export default function ({ location, history }) {
                 reject: ''
             }));
         } else {
-            history.replace('/mmaterial')
+            history('/mmaterial',{replace:true})
         }
     }, [record, updateStatus, history])
 
@@ -94,13 +96,13 @@ export default function ({ location, history }) {
             return;
         }
 
-        history.go(-1);
+        history(-1);
     }, [token, requestForm, record, history]);
 
     const onCategory = useCallback((e, index) => {
         dispatch({ type: CHANGE_CATEGORY, target: index });
         // getItemList(1, 0, categoryList[index].no);
-        history.push('/mmaterial');
+        history('/mmaterial');
     }, [dispatch, /*categoryList,*/ history]);
 
     const RejectContent = useCallback((record) => {
@@ -124,7 +126,7 @@ export default function ({ location, history }) {
         let ButtonRows = [];
         let key = 0;
 
-        ButtonRows.push(<button onClick={() => { history.go(-1) }} className="btn_left" key={key++}> 뒤로 가기</button >)
+        ButtonRows.push(<button onClick={() => { history(-1) }} className="btn_left" key={key++}> 뒤로 가기</button >)
 
         if (authority_level >= AuthLevel.manager) {
             switch (record.status) {

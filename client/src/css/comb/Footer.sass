@@ -1,0 +1,35 @@
+@import ../setting.sass
+footer
+  position: relative
+  z-index: 10
+  height: 220px
+  padding: 36px 0
+  background-color: $point1
+  *, *:hover
+    color: #fff
+  .wrap2
+    padding-top: 0
+  .footer_inner_wrap
+    display: flex
+    >h3
+      width: 80%
+      margin-bottom: 20px
+      font-size: 1.5em
+    >.site_map_wrap
+      width: 20%
+      min-width: 150px
+      select
+        width: 100%
+        padding: 10px
+        background-color: #fff
+        color: $gray1
+  dl
+    display: flex
+    *
+      line-height: 1.25em
+    dt
+      margin-right: 10px
+      &::after
+        content: ':'
+        display: inline-block
+        padding-left: 10px
