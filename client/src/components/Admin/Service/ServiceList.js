@@ -170,7 +170,7 @@ export default function ({  query ,no }) {
             method: Method.get,
             headers: CommonHeader
         });
-  
+        
 
         if (!response.ok) {
             console.log('잘못된 접근입니다.');

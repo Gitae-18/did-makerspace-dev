@@ -7,16 +7,11 @@ import SubSideMenu from "./SubSideMenu";
 
 export default function TableType1a() {
   const { token } = useSelector(state => state.user);
-  const [spaceList,setSpaceList] = useState({
-    spaceNo:0,
-    name:"",
-    info:"",
-    location:""
-  });
+  const [spaceList,setSpaceList] = useState([]);
 
-  const getSpaceList = useCallback( async() =>{
-    const requri = PreUri + '/space/list';
-    const response = await fetch(requri,{
+  const getSpaceList = useCallback(async() =>{
+    let requri = PreUri + '/space/list';
+    const response = await fetch(requri, {
       method:Method.get,
       headers:CommonHeader
     });
@@ -26,13 +21,8 @@ export default function TableType1a() {
       return;
     }
     const json = await response.json();
-    setSpaceList(spaceList => ({
-      ...spaceList,
-      spaceNo:json.space_no,
-      name:json.space_name,
-      info:json.space_info,
-      location:json.location
-    }))
+    console.log(json.map(item=>item.space_no));
+    setSpaceList(json)
   
   },[token])
   console.log(spaceList);
@@ -59,184 +49,24 @@ export default function TableType1a() {
         <thead>
           <tr>
             <th>No</th>
-            <th>위치</th>
             <th>공간명</th>
-            <th>사진</th>
             <th>공간정보</th>
+            <th>사진</th>
+            <th>위치</th>
             <th>이용안내</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>20</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>19</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>18</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>17</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>16</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>15</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>14</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td>1층</td>
-            <td>목공식</td>
-            <td>Image</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          
-
+            {spaceList.map((item,i)=>(
+              <tr item={i}>
+              <td>{item.space_no}</td>
+              <td>{item.space_name}</td>
+              <td>{item.space_info}</td>
+              <td></td>
+              <td>{item.location}</td>
+              <td>월~금(09:00 - 18:00</td>
+              </tr>
+            ))}
         </tbody>
       </table>
       <div className="page_control">

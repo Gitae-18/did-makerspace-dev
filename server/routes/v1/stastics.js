@@ -22,14 +22,7 @@ router.get("/com", async (req, res, next) => {
     return;
 });
 router.get("/mat", async (req, res, next) => {
-    try {
-        const findMaterial = await MaterialItem.findAll({
-            attributes: ['material_item_no', 'name', 'quantity', 'material_category_no', 'equipment_category_no']
-        }); res.json({ data: findMaterial });
-
-    } catch (e) {
-        console.log(e);
-    }
+    
 });
 router.get("/eqi", async (req, res, next) => {
     try {

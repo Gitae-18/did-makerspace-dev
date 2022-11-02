@@ -4,13 +4,13 @@ const express = require('express');
 const { verifyToken, errorCode, getErrMsg, authLevel } = require('../../middlewares/middlewares');
 const { User ,Company, EquipmentElement,EquipmentCategory,Space } = require('../../models');
 const { Op } = require("sequelize");
-
+const path = require('path');
+const fs = require('fs');
 const router = express.Router();
 
 
-router.get('/list', verifyToken, async(res,req,next)=>{
-    
-    const { space_no,space_name,space_part } = req.body; 
+router.get("/list", async(req,res,next)=>{
+    const body = req.body; 
     
     let spacelist ;
     try{
@@ -21,13 +21,16 @@ router.get('/list', verifyToken, async(res,req,next)=>{
             ],
             required:false,
             raw:true,
-        }))
+            
+        }));  
+        res.json(spacelist);
     }
     catch(error){
         console.log(error);
-        return res.status(errorCode.internalServerError).json({});
     }
-   
+    next();
+    return 
+    
 });
 
 
