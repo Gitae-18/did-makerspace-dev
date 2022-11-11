@@ -30,6 +30,14 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(45),
             allowNull: true,
         },
+        reservation_available: {
+            type: DataTypes.CHAR(1),
+            allowNull: true,  
+        },
+        location : {
+            type: DataTypes.STRING(50),
+            allowNull: true,  
+        },
         model_specific_detail:{
             type: DataTypes.STRING(500),
             allowNull: true,

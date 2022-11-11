@@ -6,19 +6,21 @@ import App from './App';
 import * as ReactDOMClient from 'react-dom/client';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux' 
+
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './store'
-
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter ,Routes,Route} from 'react-router-dom';
 import 'swiper/swiper-bundle.css';
 //import { MemoryRouter as Router } from 'react-router';
 const store = createStore(rootReducer, composeWithDevTools()) // 스토어 생성
 
 const root = ReactDOMClient.createRoot(document.getElementById("root")); 
 root.render(
+      
       <Provider store={store}>
       <App />
      </Provider>
+     
 );
 
 

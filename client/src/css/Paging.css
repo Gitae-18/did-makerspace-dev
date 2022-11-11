@@ -1,0 +1,51 @@
+.pagination{
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+.button_wrap{
+    list-style: none;
+    padding: 0;
+}
+ .pagination div button {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #e2e2e2;
+    display: flexbox;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+ }
+ .pagination div button:first-child{
+    border-radius: 5px 0 0 5px;
+  }
+
+ .pagination div button:last-child{
+    border-radius: 0 5px 5px 0;
+  }
+  
+ .pagination div button span {
+    text-decoration: none;
+    color: #000000;
+    font-size: 1rem;
+  }
+  
+  .pagination div button.active span {
+    color: white;
+  }
+
+  .pagination div button.active {
+    background-color: #313f4f;
+  }
+  
+  .pagination div button span:hover,
+  .pagination div button span.active {
+    color: red;
+  }
+  
+  .button {
+    width: 48px;
+    height: 30px;
+    color: #313f4f;
+  }

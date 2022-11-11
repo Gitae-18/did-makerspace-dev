@@ -1,14 +1,19 @@
 import React,{useState,useCallback,useRef,useEffect}from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate,useLocation } from 'react-router-dom';
+import { useNavigate,useLocation,Link,Outlet} from 'react-router-dom';
 import { CommonHeader,PreUri,Method } from "../../CommonCode";
+import Pagination from "react-js-pagination";
+import '../../css/Paginate.css'
+import InfoType1a from "./InfoType1a";
 import ButtonType2 from "./ButtonType2";
 import SubSideMenu from "./SubSideMenu";
-
+import styled from "styled-components";
+import { stringify } from "qs";
 export default function TableType1a() {
   const { token } = useSelector(state => state.user);
   const [spaceList,setSpaceList] = useState([]);
-
+  const [spacename,setSpacename] = useState([]);
+  const [page,setPage] = useState(1);
   const getSpaceList = useCallback(async() =>{
     let requri = PreUri + '/space/list';
     const response = await fetch(requri, {
@@ -21,14 +26,19 @@ export default function TableType1a() {
       return;
     }
     const json = await response.json();
-    console.log(json.map(item=>item.space_no));
     setSpaceList(json)
-  
+    setSpacename(json.map((e,i,arr)=>(e.space_name)));
   },[token])
-  console.log(spaceList);
   useEffect(()=>{
     getSpaceList();
+   
   },[getSpaceList]);
+
+  const handlePageChange = (page) =>{
+    setPage(page);
+  }
+  console.log(spacename);
+
   return (
     <>
     <div className="table_wrap table_type1">
@@ -44,7 +54,7 @@ export default function TableType1a() {
           <ButtonType2 btnName="조회"></ButtonType2>
         </div>
       </div>
-      <table>
+      <table className="table_space">
         <caption className="blind">공간소개</caption>
         <thead>
           <tr>
@@ -58,39 +68,47 @@ export default function TableType1a() {
         </thead>
         <tbody>
             {spaceList.map((item,i)=>(
-              <tr item={i}>
+              <tr key={i}>
               <td>{item.space_no}</td>
-              <td>{item.space_name}</td>
-              <td>{item.space_info}</td>
-              <td></td>
+              <td><StyledLink to="/InfoType1a"><StyledSpan>{item.space_name}</StyledSpan></StyledLink></td>
+              <td><StyledLink to="/InfoType1a"><StyledSpan>{item.space_info}</StyledSpan></StyledLink></td>
+              <td><img alt="no imgae"/></td>
               <td>{item.location}</td>
-              <td>월~금(09:00 - 18:00</td>
+              <td>월~금(09:00 - 18:00)</td>
               </tr>
             ))}
         </tbody>
       </table>
       <div className="page_control">
-        <div className="btn_first btn-s">
-          <img src="/images/backward-solid.svg" alt="처음으로" />
-        </div>
-        <div className="btn_prev">
-          <img src="/images/caret-left-solid.svg" alt="이전으로" />
-        </div>
-        <ol className="btn_page_num">
-          <li className="on">1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
-        </ol>
-        <div className="btn_next">
-          <img src="/images/caret-right-solid.svg" alt="다음으로" />
-        </div>
-        <div className="btn_last btn-s">
-          <img src="/images/forward-solid.svg" alt="끝으로" />
-        </div>
+              <Pagination
+              activePage={page}
+              itemsCountPerPage={20}
+              totalItemsCount={spaceList.length}
+              pageRangeDisplayed={5}
+              prevPageText={"<"}
+              nextPageText={">"}
+              onChange={handlePageChange}
+              />
       </div>
     </div>
     </>
   );
 }
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    textDecoration:none;
+    cursor:pointer;
+    color:#000;
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+    }
+`;
+const StyledSpan = styled.span`
+    color:#000;
+    &:hover{
+      none;
+      text-decoration:none;
+      display:always;
+    }
+`

@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 const SidebarLink = styled(Link)`
   display: flex;
-  color: #fafafa;
-  background-color: #fff;
+  color: #000;
+  background-color: #e3e3e3;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
@@ -30,20 +30,19 @@ const SidebarLabel = styled.span`
 `;
 
 const DropdownLink = styled(Link)`
-
-  height: 40px;
-  padding-left: 2rem;
-  display: fixed;
-  align-items: center;
-  text-decoration: none;
-  color: #000;
-  font-size: 14px;
-  padding-right:20px;
-  &:hover {
-    
-    cursor: pointer;
-    border-left: 4px solid #632ce4;
-  }
+background: #fff;
+height: 40px;
+padding-left: 2rem;
+display: fixed;
+align-items: center;
+text-decoration: none;
+color: #000;
+font-size: 14px;
+padding-right:20px;
+&:hover {
+  background: #f5f5f5;
+  cursor: pointer;
+}
 `;
 
 const SubMenu = ({ item, handleSubNav, isOpened }) => {

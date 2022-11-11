@@ -72,8 +72,9 @@ const Sidebar = () => {
   );
 };
 const SidebarNav = styled.nav`
+  background: #f2f2f2;
   float:left;
-  width: 130px;
+  width: 140px;
   height:100%;
   min-height:100%;
   display: flex;
@@ -81,15 +82,15 @@ const SidebarNav = styled.nav`
   transition: 350ms;
   z-index: 10;
   box-sizing:border-box;
-  background-color:#fff;
   order:1;
   
 `;
 const Nav = styled.nav`
-
+background:#fafafa;
 `
 const SidebarWrap = styled.div`
-border-right: 1px solid #313f4f;
+
+
 `;
 
 export default Sidebar;

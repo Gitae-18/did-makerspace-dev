@@ -201,12 +201,28 @@ export default function SubSideMenu(location) {
         </ol>
       );
     };
+    const SubModal08 = () => {
+      return (
+        <ol>
+          <li>
+            <p onClick={Dep2Handler}>시제품제작관리</p>
+            <ol className="has_dep3">
+              <li onClick={Dep3Handler}><Link to ={'/mservice'}>상담신청</Link></li>
+              <li onClick={Dep3Handler}><Link to ={'/mservice/*'}>시제품제작신청</Link></li>
+            </ol>
+          </li>
+          <li>
+            <p onClick={Dep2Handler}><Link to ={'/noticecontact/notice'}>시제품제작안내</Link></p>
+          </li>
+        </ol>
+      );
+    };
   
   
     return (
       <>
       <div className="sub_modal">
-        {url.pathname.includes("info") === true ? <SubModal01></SubModal01> : url.pathname.includes("reservation") === true? <SubModal02></SubModal02>:url.pathname.includes("mentor") === true?<SubModal04></SubModal04>:url.pathname.includes("program")===true?<SubModal05></SubModal05>:url.pathname.includes("contact") === true?<SubModal07></SubModal07>:<SubModal06></SubModal06>}
+        {url.pathname.includes("info") === true ? <SubModal01></SubModal01> : url.pathname.includes("reservation") === true? <SubModal02></SubModal02>:url.pathname.includes("mentor") === true?<SubModal04></SubModal04>:url.pathname.includes("program")===true?<SubModal05></SubModal05>:url.pathname.includes("contact") === true?<SubModal07></SubModal07>:url.pathname.includes("mservice")===true?<SubModal08></SubModal08>:<SubModal06></SubModal06>}
       </div>
       </>
       )
@@ -214,7 +230,18 @@ export default function SubSideMenu(location) {
 
   
   // 페이지 이동시 아래의 SubBread 컨트롤 필요
-  const SubBread = () => {
+ 
+  return (
+    <div className="sub_side_menu">
+      <SubModal></SubModal>
+      
+    </div>
+  );
+  };
+
+  export const SubBread = (props) => {
+    const [currentTitle,setCurrentTitle] = useState('시설소개');
+    const [currentsubmenu,setCurrentSubmenu] = useState('공간소개');
     const dataLables = [
       {
         title: '시설 소개',
@@ -253,20 +280,18 @@ export default function SubSideMenu(location) {
             index : 4
            }
          ]
+      },
+      {
+        title : '오시는 길'
+      },
+      {
+        title : 'FAQ'
       }
     ]
     return (
       <div className="sub_bread">
-        <h2>시설소개</h2>
-        <h3>공간소개</h3>
+        <h2>{currentTitle}</h2>
+        <h3>{currentsubmenu}</h3>
       </div>
     );
   };
-  return (
-    <div className="sub_side_menu">
-      <SubModal></SubModal>
-      <SubBread></SubBread>
-    </div>
-  );
-  };
-

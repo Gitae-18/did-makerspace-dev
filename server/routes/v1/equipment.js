@@ -487,4 +487,54 @@ router.delete('/element/:id', verifyToken, async (req, res, next) => {
     });
 });
 
+router.get ('/equipmentlist',async(req,res,next)=>{
+    let body = req.body;
+    let equipment_category_no = req.params.equipment_category_no;
+
+    let equipment_list;
+    try{
+        equipment_list = await EquipmentCategory.findAll({
+            attributes:['model_name','equipment_category_no','model_number','model_specification','reservation_available','location'],
+            where:{
+                reservation_available : {[Op.or]:["Y","N"]} 
+            },
+            order:[
+                ['created_at','ASC']
+            ],
+            required:false,
+            raw:true,
+        })
+    }
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    return res.json(equipment_list);
+})
+
+router.get ('/categorylist',async(req,res,next)=>{
+    let body = req.body;
+    let equipment_category_no = req.params.equipment_category_no;
+    const page = (req.query.page === undefined) ? 1 : Number(req.query.page);
+    const limit = (req.query.limit === undefined) ? 7 : Number(req.query.limit);
+
+
+    let equipment_list;
+    try{
+        equipment_list = await EquipmentCategory.findAll({
+            attributes:['model_name','equipment_category_no','model_number','model_specification','reservation_available','location'],
+            order:[
+                ['equipment_category_no','ASC']
+            ],
+            required:false,
+            raw:true,
+        })
+    }
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    return res.json(equipment_list);
+})
+
 module.exports = router;

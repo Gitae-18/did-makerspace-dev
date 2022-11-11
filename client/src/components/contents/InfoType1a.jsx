@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import ButtonType1 from "./ButtonType1";
 import TitleType1 from "./TitleType1";
 export default function InfoType1a() {
+  const history = useNavigate();
   const Desc1 = () => {
     return <p>최상의 디테일과 3D 입체기술의 완벽함을 구현한 대형 3D프린터</p>;
   };
@@ -71,7 +73,7 @@ export default function InfoType1a() {
       <div className="info_inner_wrap">
         <TitleType1 title="SINDOH - 3DWOX 7X"></TitleType1>
         <InfoDescWrap></InfoDescWrap>
-        <ButtonType1 btnName="목록"></ButtonType1>
+        <ButtonType1 btnName="목록" onClick={history(-1)}></ButtonType1>
       </div>
     </div>
   );

@@ -1,8 +1,60 @@
-import React from "react";
-import ButtonType2, { ButtonType2small, ButtonType2test } from "./ButtonType2";
-import { Link } from "react-router-dom";
-
+import React,{useState,useEffect,useCallback} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate,useLocation } from 'react-router-dom';
+import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg } from '../../CommonCode';
+import ButtonType2, { ButtonType2small,ButtonType3small, ButtonType2test } from "./ButtonType2";
+import '../../css/ModalStyle.css';
+import { IoCloseOutline } from "react-icons/io5";
+import { BiLoaderAlt } from "react-icons/bi";
+import { NavLink,Link } from "react-router-dom";
+import Pagination from "react-js-pagination";
+import { Paging } from "./Paging";
+import '../../css/Paging.css'
 export default function TableType2a() {
+   const { token } = useSelector(state => state.user);
+   const [reservationList, setReservationList] = useState([]);
+   const [count,setCount] = useState(0);
+   const [loading,setLoading] = useState(false);
+   const [currentPage,setCurrentPage] = useState(1);
+   const [postPage, setPostPage] = useState(10);
+   const indexOfLastPost = currentPage * postPage
+   const indexOfFirstPost = indexOfLastPost - postPage
+   const currentPost = reservationList.slice(indexOfFirstPost, indexOfLastPost)
+   const location = useLocation();
+   const history = useNavigate();
+
+    
+    //let rowNumber = Array.from(1,reservationList.length);
+   const printerlink = "https://www.youtube.com/embed/QtZxg1LiilM";
+   const floterlink = "https://www.youtube.com/embed/qBw5-KbJ9Vs";
+   const fdmlink = "https://www.youtube.com/embed/c-pkmy2TEiw";
+   const xcutlink = "https://www.youtube.com/embed/zpf5MHCSkI8";
+   const elselink = "https://www.youtube.com/embed/1fqwqZlxJ-c";
+   const getItemList = useCallback(async(currentPage)=>{
+      setLoading(true);
+      let requri = PreUri + `/equipment/equipmentlist?_page=${currentPage}&_limit=10`;
+      const response = await fetch(requri, {
+        method:Method.get,
+        headers:CommonHeader
+      });
+      if (!response.ok) {
+        console.log('잘못된 접근입니다.');
+        return;
+      }
+      const json = await response.json();
+      setReservationList(json);
+      setLoading(false);
+      setCount(json.length);
+   },[token])
+
+   useEffect(()=>{
+    getItemList();
+   },[])
+
+   const setPage = (e) =>{
+     setCurrentPage(e);
+   }
+ 
   return (
     <div className="table_wrap table_type2">
       <div className="table_extra">
@@ -26,256 +78,29 @@ export default function TableType2a() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Image</td>
-            <td>X-CUT9060</td>
-            <td>CNC</td>
-            <td>
-              <dl>
-                <dt>출력</dt>
-                <dd>CO2 90W</dd>
-              </dl>
-            </td>
-            <td>1층</td>
-            <td className="btns_wrap">
-              <ButtonType2small btnName="동영상보기"></ButtonType2small>
-              <ButtonType2test test={false}></ButtonType2test>
-            </td>
-            <td>
-              <ButtonType2small btnName="예약하기"></ButtonType2small>
-            </td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>X-CUT9060</td>
-            <td>CNC</td>
-            <td>
-              <dl>
-                <dt>프린팅 방식</dt>
-                <dd>FDM</dd>
-              </dl>
-            </td>
-            <td>2층</td>
-            <td className="btns_wrap">
-              <ButtonType2small btnName="동영상보기"></ButtonType2small>
-              <ButtonType2test test={true}></ButtonType2test>
-            </td>
-            <td>
-              <ButtonType2small btnName="예약하기"></ButtonType2small>
-            </td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>X-CUT9060</td>
-            <td>CNC</td>
-            <td>
-              <dl>
-                <dt>출력</dt>
-                <dd>CO2 90W</dd>
-              </dl>
-            </td>
-            <td>1층</td>
-            <td className="btns_wrap">
-              <ButtonType2small btnName="동영상보기"></ButtonType2small>
-              <ButtonType2test test={false}></ButtonType2test>
-            </td>
-            <td>
-              <ButtonType2small btnName="예약하기"></ButtonType2small>
-            </td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>X-CUT9060</td>
-            <td>CNC</td>
-            <td>
-              <dl>
-                <dt>출력</dt>
-                <dd>CO2 90W</dd>
-              </dl>
-            </td>
-            <td>1층</td>
-            <td className="btns_wrap">
-              <ButtonType2small btnName="동영상보기"></ButtonType2small>
-              <ButtonType2test test={false}></ButtonType2test>
-            </td>
-            <td>
-              <ButtonType2small btnName="예약하기"></ButtonType2small>
-            </td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>X-CUT9060</td>
-            <td>CNC</td>
-            <td>
-              <dl>
-                <dt>출력</dt>
-                <dd>CO2 90W</dd>
-              </dl>
-            </td>
-            <td>1층</td>
-            <td className="btns_wrap">
-              <ButtonType2small btnName="동영상보기"></ButtonType2small>
-              <ButtonType2test test={false}></ButtonType2test>
-            </td>
-            <td>
-              <ButtonType2small btnName="예약하기"></ButtonType2small>
-            </td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>X-CUT9060</td>
-            <td>CNC</td>
-            <td>
-              <dl>
-                <dt>출력</dt>
-                <dd>CO2 90W</dd>
-              </dl>
-            </td>
-            <td>1층</td>
-            <td className="btns_wrap">
-              <ButtonType2small btnName="동영상보기"></ButtonType2small>
-              <ButtonType2test test={false}></ButtonType2test>
-            </td>
-            <td>
-              <ButtonType2small btnName="예약하기"></ButtonType2small>
-            </td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>X-CUT9060</td>
-            <td>CNC</td>
-            <td>
-              <dl>
-                <dt>출력</dt>
-                <dd>CO2 90W</dd>
-              </dl>
-            </td>
-            <td>1층</td>
-            <td className="btns_wrap">
-              <ButtonType2small btnName="동영상보기"></ButtonType2small>
-              <ButtonType2test test={false}></ButtonType2test>
-            </td>
-            <td>
-              <ButtonType2small btnName="예약하기"></ButtonType2small>
-            </td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>X-CUT9060</td>
-            <td>CNC</td>
-            <td>
-              <dl>
-                <dt>출력</dt>
-                <dd>CO2 90W</dd>
-              </dl>
-            </td>
-            <td>1층</td>
-            <td className="btns_wrap">
-              <ButtonType2small btnName="동영상보기"></ButtonType2small>
-              <ButtonType2test test={false}></ButtonType2test>
-            </td>
-            <td>
-              <ButtonType2small btnName="예약하기"></ButtonType2small>
-            </td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>X-CUT9060</td>
-            <td>CNC</td>
-            <td>
-              <dl>
-                <dt>출력</dt>
-                <dd>CO2 90W</dd>
-              </dl>
-            </td>
-            <td>1층</td>
-            <td className="btns_wrap">
-              <ButtonType2small btnName="동영상보기"></ButtonType2small>
-              <ButtonType2test test={false}></ButtonType2test>
-            </td>
-            <td>
-              <ButtonType2small btnName="예약하기"></ButtonType2small>
-            </td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>X-CUT9060</td>
-            <td>CNC</td>
-            <td>
-              <dl>
-                <dt>출력</dt>
-                <dd>CO2 90W</dd>
-              </dl>
-            </td>
-            <td>1층</td>
-            <td className="btns_wrap">
-              <ButtonType2small btnName="동영상보기"></ButtonType2small>
-              <ButtonType2test test={false}></ButtonType2test>
-            </td>
-            <td>
-              <ButtonType2small btnName="예약하기"></ButtonType2small>
-            </td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>X-CUT9060</td>
-            <td>CNC</td>
-            <td>
-              <dl>
-                <dt>출력</dt>
-                <dd>CO2 90W</dd>
-              </dl>
-            </td>
-            <td>1층</td>
-            <td className="btns_wrap">
-              <ButtonType2small btnName="동영상보기"></ButtonType2small>
-              <ButtonType2test test={false}></ButtonType2test>
-            </td>
-            <td>
-              <ButtonType2small btnName="예약하기"></ButtonType2small>
-            </td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>X-CUT9060</td>
-            <td>CNC</td>
-            <td>
-              <dl>
-                <dt>출력</dt>
-                <dd>CO2 90W</dd>
-              </dl>
-            </td>
-            <td>1층</td>
-            <td className="btns_wrap">
-              <ButtonType2small btnName="동영상보기"></ButtonType2small>
-              <ButtonType2test test={false}></ButtonType2test>
-            </td>
-            <td>
-              <ButtonType2small btnName="예약하기"></ButtonType2small>
-            </td>
-          </tr>
+          {currentPost && reservationList.length > 0 ? (currentPost.map((item,i)=>(
+            <tr key={i}>
+                <td></td>
+                <td>{item.model_name}</td>
+                <td></td>
+                <td>{item.model_specification}</td>
+                <td>{item.location}</td>
+               
+                <td className="btns_wrap">
+                <ButtonType2small modelName={item.model_name.includes("A0플로터") ? floterlink: item.model_name.includes("X-cut") ? xcutlink: item.model_name.includes("UV 프린터 : 329UV") ? printerlink:item.model_name.includes("FDM : 3DWOX") ? fdmlink:elselink} className="video_btn" btnName="동영상보기"/>
+                <ButtonType2test test={false}></ButtonType2test>
+                 </td>
+                 <td className="res_btn">
+                <NavLink to="/reservation/selectreserv"> <ButtonType3small btnName="예약하기"></ButtonType3small></NavLink>
+                </td>
+               
+            </tr>
+          ))
+          ):<div>게시물이 없습니다.</div>}
         </tbody>
       </table>
       <div className="page_control">
-        <div className="btn_first btn-s">
-          <img src="/images/backward-solid.svg" alt="처음으로" />
-        </div>
-        <div className="btn_prev">
-          <img src="/images/caret-left-solid.svg" alt="이전으로" />
-        </div>
-        <ol className="btn_page_num">
-          <li className="on">1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
-        </ol>
-        <div className="btn_next">
-          <img src="/images/caret-right-solid.svg" alt="다음으로" />
-        </div>
-        <div className="btn_last btn-s">
-          <img src="/images/forward-solid.svg" alt="끝으로" />
-        </div>
+            <Paging page={currentPage} count = {count} setPage={setPage}/>
       </div>
     </div>
   );

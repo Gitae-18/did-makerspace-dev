@@ -4,6 +4,7 @@ import userInfo from './userInfo'
 import management from './management'
 import material from './material'
 import managerService from './manager_service'
+import time from './time'
 
 
 export default combineReducers({
@@ -12,4 +13,5 @@ export default combineReducers({
   management,
   material,
   managerService,
+  time,
 })

@@ -281,7 +281,7 @@ export default function ({  query ,no }) {
         let addQuery = makeQuery(step, dateType, year, month, company);
         addQuery = (addQuery.length > 0) ? "&" + addQuery : "";
         history(location.pathname + '?page=' + newPageNumber + addQuery);
-    }, [history, step, dateType, year, month,company]);
+    }, [history,makeQuery, step, dateType, year, month,company]);
 
     const onPagePrev = useCallback((e) => {
         e.preventDefault();
@@ -292,7 +292,7 @@ export default function ({  query ,no }) {
             addQuery = (addQuery.length > 0) ? "&" + addQuery : "";
             history(location.pathname + '?page=' + serviceItems.pageOffset + addQuery);
         }
-    }, [history, serviceItems, step, dateType, year, month, company]);
+    }, [history, ,makeQuery,serviceItems, step, dateType, year, month, company]);
 
     const onPageNext = useCallback((e) => {
         e.preventDefault();
@@ -305,13 +305,13 @@ export default function ({  query ,no }) {
             addQuery = (addQuery.length > 0) ? "&" + addQuery : "";
             history(location.pathname + '?page=' + (newPageOffset + 1) + addQuery);
         }
-    }, [history, serviceItems, step, dateType, year, month,company]);
+    }, [history,,makeQuery, serviceItems, step, dateType, year, month,company]);
     const onSelectItem = useCallback((e, index) => {
         e.preventDefault();
         const item = serviceItems.items[index];
         dispatch({ type: M_SERVICE_SET, target: item });
         history('/mservice/detail');
-    }, [history, serviceItems, dispatch]);
+    }, [history, ,makeQuery,serviceItems, dispatch]);
    
     /*const onDelete = useCallback((e,index)=>{
         e.preventDefault();
@@ -333,7 +333,7 @@ export default function ({  query ,no }) {
         addQuery = (addQuery.length > 0) ? "?" + addQuery : "";
         //history.push(window.location.pathname + addQuery);
         history(location.pathname + addQuery,{replace:true});
-    }, [history, step, year, month,company]);
+    }, [history, ,makeQuery,step, year, month,company]);
 
     const onSelectStep = useCallback((e, selstep) => {
         e.preventDefault();
@@ -341,7 +341,7 @@ export default function ({  query ,no }) {
         addQuery = (addQuery.length > 0) ? "?" + addQuery : "";
         // history.push(window.location.pathname + addQuery);
        history(location.pathname + addQuery,{replace:true});
-    }, [history, dateType, year, month,company]);
+    }, [history, ,makeQuery,dateType, year, month,company]);
     const onSelect = (e) =>{
         setCompanyNo(e.target.value);
         setCompany(e.target.value);
@@ -352,7 +352,7 @@ export default function ({  query ,no }) {
         let addQuery = makeQuery(step,dateType, year, month, company)
         addQuery = (addQuery.length>0)?"?" + addQuery: "";
        history(location.pathname + addQuery,{replace:true});
-    },[history,step,dateType,year, month,company]);
+    },[history,makeQuery,step,dateType,year, month,company]);
     for (let i = 0; i < PageMax; i++) {
         let pageNum = i + 1 + serviceItems.pageOffset;
         if (pageNum > serviceItems.totalPage) { break; }

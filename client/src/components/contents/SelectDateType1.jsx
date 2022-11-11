@@ -1,86 +1,84 @@
-import React from "react";
+import React ,{useState,useRef,useEffect,createContext}from "react";
 import TableInfoType1a from "./TableInfoType1a";
+import TableInfoType1b from "./TableInfoType1b";
 import TitleType1 from "./TitleType1";
-
+import styled from "styled-components";
+import Calendar from 'react-calendar';
+import '../../css/Calendar.css';
+import { useNavigate } from "react-router";
+import ButtonType2 from "./ButtonType2";
+import moment from 'moment';
+import { format, formatDistanceToNow} from 'date-fns';
+import { addDays } from 'date-fns/fp'
+import { ko } from "date-fns/locale";
+import {useDispatch,useSelector}  from "react-redux";
+import create from 'zustand';
+import { SET_DATE } from "../../store/time";
+export const CurrentContext = createContext();
 export default function SelectDateType1() {
+  const [start, setStart] = useState(new Date());
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const [NewDate,setNewDate] = useState("");
+	const {date} = useSelector(state=>state.time)
+  const onSubmit = () =>{
+		dispatch({type:SET_DATE, target:NewDate})
+	}
+  const dateClick = () =>{
+    setNewDate(moment(start).format("YYYY-MM-DD"))
+  }
+  console.log(NewDate);
   return (
     <div className="select_date_type1 select_type1">
       <TitleType1 title="날짜 선택"></TitleType1>
       <div className="date_calendar">
         <div className="calendar_month">
-          <div className="btn_prev">
-            <img src="./images/caret-left-solid.svg" alt="이전달" />
-          </div>
-          <h4>2022. 07</h4>
-          <div className="btn_next">
-            <img src="./images/caret-right-solid.svg" alt="다음달" />
-          </div>
         </div>
         <div className="calendar_day">
-          <table>
-            <caption className="blind">날짜 선택 테이블</caption>
-            <thead>
-              <tr>
-                <th className="text_red">일</th>
-                <th>월</th>
-                <th>화</th>
-                <th>수</th>
-                <th>목</th>
-                <th>금</th>
-                <th>토</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="text_gray3">28</td>
-                <td className="text_gray3">29</td>
-                <td className="text_gray3">30</td>
-                <td>1</td>
-                <td className="selected">2</td>
-                <td>3</td>
-                <td>4</td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>10</td>
-                <td>11</td>
-              </tr>
-              <tr>
-                <td>12</td>
-                <td>13</td>
-                <td>14</td>
-                <td>15</td>
-                <td>16</td>
-                <td>17</td>
-                <td>18</td>
-              </tr>
-              <tr>
-                <td>19</td>
-                <td>20</td>
-                <td>21</td>
-                <td className="selected">22</td>
-                <td>23</td>
-                <td>24</td>
-                <td>25</td>
-              </tr>
-              <tr>
-                <td className="selected">26</td>
-                <td>27</td>
-                <td>28</td>
-                <td>29</td>
-                <td>30</td>
-                <td>31</td>
-                <td className="text_gray3">1</td>
-              </tr>
-            </tbody>
-          </table>
+         <Calendar 
+		  	onChange={setStart} 
+			  value={start}
+			  locale="ko"
+			  next2Label={null}
+			  prev2Label={null}
+			  formatDay={(locale, date) =>
+				date.toLocaleString('en', { day: 'numeric' })
+			  }
+			showNeighboringMonth={false}
+      onClickDay={(value,event)=>alert('Clicked : ',value)}
+			/>
           <TableInfoType1a></TableInfoType1a>
         </div>
       </div>
     </div>
   );
 }
+export  function SelectTimeType1(value) {
+  const [targetTime ,setTargetTime] = useState("");
+  const [btnActive,setBtnActive] = useState("");
+  const [reservStatus,setReservStatus] = useState(false);
+  const ref = useRef();
+  const timetable = ["10:00","14:00"];
+  const timeClick =(e,value) =>{
+   setTargetTime(e.target.value);
+   setBtnActive((prev)=>{
+     return e.target.value;
+   })
+ }
+ 
+ console.log(targetTime);
+ //time_can 선택가능 time_can't 선택불가 time_selected 선택중
+   return (
+     <div className="select_time_type1 select_type1">
+       <TitleType1 title="시간 선택"></TitleType1>
+       <ol className="table_time">
+          {timetable.map((item,idx,key)=>{
+           return(
+             <li value={idx} key={idx} className={"time_"+(idx == btnActive ? "selected" : "can")} onClick={timeClick}>{item}</li>
+           )
+          })}
+       </ol>
+       <TableInfoType1b></TableInfoType1b>
+     </div>
+   );
+ }

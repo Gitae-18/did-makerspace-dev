@@ -1,7 +1,7 @@
 import React from "react";
-import SelectDateType1 from "../../contents/SelectDateType1";
-import SelectTimeType1 from "../../contents/SelectTimeType1";
-import TableBtnsType1a from "../../contents/TableBtnsType1a";
+import { useNavigate } from "react-router";
+import SelectDateType1,{SelectTimeType1} from "../../contents/SelectDateType1";
+import ButtonType2,{ButtonType3,ButtonType4} from "../../contents/ButtonType2";
 import TextExtraType1a from "../../contents/TextExtraType1a";
 
 export default function PageSub02a3() {
@@ -19,5 +19,18 @@ export default function PageSub02a3() {
       <SelectWrap></SelectWrap>
       <TableBtnsType1a></TableBtnsType1a>
     </div>
+  );
+}
+export const TableBtnsType1a = () => {
+  const navigate = useNavigate();
+  const btnClick = () =>{
+
+  }
+  return (
+   
+    <div className="table_btns table_btns_type1">
+        <ButtonType3 btnName="예약" bgc="white" onClick={btnClick}></ButtonType3>
+       <ButtonType4 btnName="목록" onClick={navigate(-1)}></ButtonType4>
+      </div>
   );
 }

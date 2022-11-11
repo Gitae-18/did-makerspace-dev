@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useSelector } from "react-redux";
 import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import Sidebar from './Sidebar';
-
+import SubSideMenu from '../../contents/SubSideMenu';
 import '../../../css/common-s.css';
 import '../../../css/style-s.css';
 
@@ -26,12 +26,11 @@ export default function () {
 	}
 
 	return (
-		<div className="side_menu">
-			<div className="inner_menu">
-				<ul>
-					<Sidebar/>
-				</ul>
-			</div>
+		<>
+		<div id="sub_page_wrap">
+				<SubSideMenu />
 		</div>
+		</>
+					
 	);
 }

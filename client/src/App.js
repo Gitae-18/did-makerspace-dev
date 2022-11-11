@@ -1,7 +1,7 @@
 // import Test from './Test';
 import qs from 'qs';
 import React,{useEffect} from 'react';
-import {Link, Route, Routes,BrowserRouter,useLocation} from 'react-router-dom';
+import {Link, Route, Routes,BrowserRouter,useLocation, Outlet} from 'react-router-dom';
 import './App.css';
 import FindPassword from './components/FindPassword';
 import Home from './components/Home';
@@ -46,12 +46,14 @@ import Materials, { Materials1, Materials2, Materials3 } from './components/Admi
 import Service, { Service1, Service2, Service3, Service4 ,StaticsAnalyze} from './components/Admin/Statistics/pages/Service';
 import Users, { Users1, Users2 } from './components/Admin/Statistics/pages/Users';
 import Footer from './css/comb/Footer';
-import DidInfo,{DidInfo2,DidInfo3,DidInfo4,DidInfo5,DidInfo6,DidInfo7,DidInfo8,DidInfo9,DidInfo1Detail} from './components/pages/PageSub';
+import DidInfo,{DidInfo2,DidInfo3,DidInfo4,DidInfo5,DidInfo6,DidInfo7,DidInfo8,DidInfo9,DidInfo1Detail,DidInfo1Detail2} from './components/pages/PageSub';
+
 import ListType1a from './components/contents/ListType1a';
-import DidReservation,{DidReservation2,DidReservation3,DidReservation4} from './components/pages/PageSub2';
+import DidReservation,{DidReservation2,DidReservation3,DidReservation4,SelectReservation,TestReservation} from './components/pages/PageSub2';
 import ClassEdu_Program,{ClassEdu_Program2} from './components/pages/PageSub3';
 import Contact,{Contact2,Contact3,Contact4,Contact5} from './components/pages/PageSub4';
 import Mentoring from './components/pages/PageSub5';
+import { Select } from 'semantic-ui-react';
 
 
 export const ScrollToTop = () =>{
@@ -65,9 +67,8 @@ export const ScrollToTop = () =>{
 const App = () => {
   
   return (
- 
+    
     <BrowserRouter>
-    <React.Fragment>
     <CookiesProvider>
       <div id="wrap" className="wrap intro" >
         <div id="header">
@@ -99,6 +100,7 @@ const App = () => {
         
         <Route path="/didinfo" element = {<DidInfo/>}/>
         <Route path="/info/spaceinfo" element = {<DidInfo/>}/>
+        <Route path='/InfoType1a' element = {<DidInfo1Detail2/>}/>     
         <Route path="/info/equipinfo" element = {<DidInfo2/>}/>
         <Route path="/info/workerinfo" element = {<DidInfo3/>}/>
         <Route path="/info/greetings" element = {<DidInfo4/>}/>
@@ -113,6 +115,8 @@ const App = () => {
         <Route path="/reservation/space" element = {<DidReservation2/>}/>
         <Route path="/reservation/lab" element = {<DidReservation3/>}/>
         <Route path="/reservation/myvation" element = {<DidReservation4/>}/>
+        <Route path="/reservation/selectreserv" element = {<SelectReservation/>}/>
+        <Route path="/didreservation/test" element={<TestReservation/>}/>
 
         <Route path="/mentoring" element = {<Mentoring/>}/>
 
@@ -149,7 +153,6 @@ const App = () => {
     
       <Footer/>
       </CookiesProvider>
-    </React.Fragment>
     </BrowserRouter>
     
     );

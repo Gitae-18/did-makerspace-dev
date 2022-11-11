@@ -1,7 +1,49 @@
-import React from "react";
+import React,{useState,useCallback,useEffect}from "react";
 import ButtonType2 from "./ButtonType2";
-
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate,useLocation } from 'react-router-dom';
+import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg } from '../../CommonCode';
+import { Paging } from "./Paging";
+import Posts from "./Posts";
+import Pagination from "./Pagination";
 export default function TableType1b() {
+  const { token } = useSelector(state => state.user);
+  const [itemList,setItemList] = useState([]);
+  const location =useLocation();
+  const [page,setPage] = useState(1);
+  const [count,setCount] = useState(0);
+  const [loading,setLoading] = useState(false);
+  const [postPage, setPostPage] = useState(10);
+  const limit = 10;
+  const offset = (page-1)*limit;
+
+
+  const postsData = (posts) =>{
+    if(posts){
+      let result = posts.slice(offset,offset + limit);
+      return result;
+    }
+  }
+  const getItemList = useCallback(async(currentPage)=>{
+    setLoading(true);
+    let requri = PreUri + `/equipment/categorylist?location=${location}&offset=${(currentPage - 1) * postPage}&count=${postPage}`;
+    const response = await fetch(requri, {
+      method:Method.get,
+      headers:CommonHeader
+    });
+    if (!response.ok) {
+      console.log('잘못된 접근입니다.');
+      return;
+    }
+    const json = await response.json();
+    setItemList(json);
+    setLoading(false);
+    setCount(json.length);
+ },[token])
+ console.log(itemList);
+ useEffect(()=>{
+  getItemList();
+ },[])
   return (
     <div className="table_wrap table_type1">
       <div className="table_extra">
@@ -28,315 +70,10 @@ export default function TableType1b() {
             <th>이용안내</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>HEXAGON-AbsoluteArm</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>측정 범위</dt>
-                <dd>2.48m</dd>
-                <dt>RS6 정확도</dt>
-                <dd>0.026mm</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          <tr>
-            <td>58</td>
-            <td>1층</td>
-            <td>SINDOH - 3DWOX 1X(ABS전용)(12)</td>
-            <td>Image</td>
-            <td>
-              <dl>
-                <dt>프린팅방식</dt>
-                <dd>FDM</dd>
-                <dt>조형 크기(WxDxH)</dt>
-                <dd>200x100x100</dd>
-              </dl>
-            </td>
-            <td>월~금(09:00-18:00)</td>
-          </tr>
-          
-        </tbody>
+        <Posts info={postsData(itemList)}/>
       </table>
       <div className="page_control">
-        <div className="btn_first btn-s">
-          <img src="/images/backward-solid.svg" alt="처음으로" />
-        </div>
-        <div className="btn_prev">
-          <img src="/images/caret-left-solid.svg" alt="이전으로" />
-        </div>
-        <ol className="btn_page_num">
-          <li className="on">1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
-        </ol>
-        <div className="btn_next">
-          <img src="/images/caret-right-solid.svg" alt="다음으로" />
-        </div>
-        <div className="btn_last btn-s">
-          <img src="/images/forward-solid.svg" alt="끝으로" />
-        </div>
+        <Pagination limit={limit} page ={page} totalPosts={itemList.length} setPage={setPage}/>
       </div>
     </div>
   );

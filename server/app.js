@@ -24,6 +24,7 @@ const uploadRouter = require('./routes/v1/upload');
 const fileRouter = require('./routes/v1/file');
 const oldServiceRouter = require('./routes/v1/old_service');
 const stasticsRouter = require('./routes/v1/stastics');
+const reservationRouter = require('./routes/v1/reservation');
 const mentoringRouter = require('./routes/v1/mentoring');
 const classeduRouter = require('./routes/v1/classedu');
 const noticeRouter = require('./routes/v1/notice');

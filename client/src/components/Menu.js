@@ -29,8 +29,7 @@ const AdminMenu = () => {
       <Link to="/didinfo">DID기술융합공작소</Link>
       <Link to="/didreservation">장비 및 시설예약</Link>
       <Link to="/mservice">시제품 제작 관리</Link>
-      <Link to="/mnthschd">월간일정</Link>
-      <Link onClick={() => { dispatch({ type: CHANGE_CATEGORY, target: 0 }); }} to="/mmaterial">자재 관리</Link>
+      <Link to="/classprogram">교육/행사</Link>
       <Link onClick={() => { dispatch({ type: CHANGE_MENU, target: 0 }); }} to="/management">운영 관리</Link>
       <Link to="/contact">Contact</Link>
      

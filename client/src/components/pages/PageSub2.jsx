@@ -80,3 +80,37 @@ export default function DidReservation({location,history}) {
         </>
       );
   }
+
+  export const SelectReservation = ({location,history}) => {
+      
+    return (
+        <>
+        <div id="sub_page_wrap">
+          <SubSideMenu location={location} history={history}></SubSideMenu>
+          <div className="sub_page_inner_wrap">
+            <div className="sub_inner">
+              <PageSub02a3/>
+            </div>
+          </div>
+        </div>
+        <div className="sub_page_outer">
+        </div>
+        </>
+      );
+  }
+  export const TestReservation = ({location,history}) =>{
+    return (
+      <>
+      <div id="sub_page_wrap">
+        <SubSideMenu location={location} history={history}></SubSideMenu>
+        <div className="sub_page_inner_wrap">
+          <div className="sub_inner">
+            <PageSub02a5/>
+          </div>
+        </div>
+      </div>
+      <div className="sub_page_outer">
+      </div>
+      </>
+    );
+  }
