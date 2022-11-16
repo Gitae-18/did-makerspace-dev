@@ -32,6 +32,29 @@ router.get("/list", async(req,res,next)=>{
     return 
     
 });
+router.get('/reservation',async(req,res,next)=>{
+    const body = req.body;
 
+
+    // 공간정보 불러오기
+    let spacelist  = {
+        attributes:['space_name','space_info','location'],
+     order:[
+        ['created_at','DESC']
+     ],
+     required:false,
+     raw:true,
+    }
+    try{
+    let space = await Space.findAll(spacelist);
+    res.json(space);
+    }
+    catch(error){
+         console.error(error);
+         return res.status(errorCode.internalServerError);
+    }
+    
+    return 
+})
 
 module.exports = router;

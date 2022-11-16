@@ -688,7 +688,8 @@ router.post('/login', async (req, res, next) => {
     let findResult;
     try {
         findResult = await User.findOne({
-            //attributes: ['user_no', 'login_jwt', 'login_jwt_exfire'],
+            attributes: ['user_no', 'login_jwt', 'login_jwt_exfire','email','salt','name','zip','address','company_no','created_user_no','updated_user_no','authority_level',
+            'email_confirm_flag','created_at','updated_at','deleted_at','address_detail','password'],
             where: { email: user_id }
         });
     } catch (error) {
@@ -708,13 +709,12 @@ router.post('/login', async (req, res, next) => {
     let inputPassword = password;
     let salt = findResult.dataValues.salt;
     let hashPassword = crypto.createHash("sha512").update(inputPassword + salt.toString()).digest("hex");
-
     if (dbPassword != hashPassword) {
         return res.status(errorCode.badRequest).json({
             message: '사용자 정보가 잘못되었습니다.'
         });
     }
-
+ 
     /*
     let token = jwt.sign({
         user_no: findResult.dataValues.user_no,
