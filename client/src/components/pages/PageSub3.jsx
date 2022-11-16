@@ -12,10 +12,10 @@ export default function ClassEdu_Program({location,history}) {
     return (
       <>
       <div id="sub_page_wrap">
-        <SubSideMenu location={location} history={history}></SubSideMenu>
+        <SubSideMenu title={"교육프로그램"}></SubSideMenu>
         <div className="sub_page_inner_wrap">
           <div className="sub_inner">
-            <PageSub05a1/>
+            <PageSub05b1/>
           </div>
         </div>
       </div>
@@ -29,10 +29,10 @@ export default function ClassEdu_Program({location,history}) {
     return (
         <>
         <div id="sub_page_wrap">
-          <SubSideMenu location={location} history={history}></SubSideMenu>
+          <SubSideMenu title={"행사프로그램"}></SubSideMenu>
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
-              <PageSub05a2/>
+              <PageSub05a1/>
             </div>
           </div>
         </div>

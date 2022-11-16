@@ -18,7 +18,7 @@ export default function DidReservation({location,history}) {
     return (
       <>
       <div id="sub_page_wrap">
-        <SubSideMenu location={location} history={history}></SubSideMenu>
+        <SubSideMenu title={"장비예약"} ></SubSideMenu>
         <div className="sub_page_inner_wrap">
           <div className="sub_inner">
             <PageSub02a1/>
@@ -35,7 +35,7 @@ export default function DidReservation({location,history}) {
     return (
         <>
         <div id="sub_page_wrap">
-          <SubSideMenu location={location} history={history}></SubSideMenu>
+          <SubSideMenu title={"공간예약"}></SubSideMenu>
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
               <PageSub02b1/>
@@ -51,7 +51,7 @@ export default function DidReservation({location,history}) {
     return (
         <>
         <div id="sub_page_wrap">
-          <SubSideMenu location={location} history={history}></SubSideMenu>
+          <SubSideMenu title={"전문 랩 투어"}></SubSideMenu>
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
               <PageSub02c1/>

@@ -1,5 +1,7 @@
 import React ,{useState} from "react";
 import SubSideMenu,{SubSideMenu2} from "../contents/SubSideMenu";
+import TableType5c from "../contents/TableType5c";
+import SectionInputTextType1f from "../sections/sectionInputTextType1f";
 
 import PageSub04a1 from "./PageSub04/PageSub04a1";
 import PageSub04a2 from "./PageSub04/PageSub04a2";
@@ -10,7 +12,7 @@ export default function Mentoring({location,history}) {
     return (
       <>
       <div id="sub_page_wrap">
-        <SubSideMenu location={location} history={history}></SubSideMenu>
+        <SubSideMenu title={"멘토링관리"} ></SubSideMenu>
         <div className="sub_page_inner_wrap">
           <div className="sub_inner">
             <PageSub04a1/>
@@ -21,4 +23,20 @@ export default function Mentoring({location,history}) {
       </div>
       </>
     );
+  }
+  export const UMentoring = () =>{
+    return(
+      <>
+      <div id="sub_page_wrap">
+        <SubSideMenu title={"멘토링"} ></SubSideMenu>
+        <div className="sub_page_inner_wrap">
+          <div className="sub_inner">
+            <TableType5c/>
+          </div>
+        </div>
+      </div>
+      <div className="sub_page_outer">
+      </div>
+      </>
+    )
   }

@@ -20,7 +20,6 @@ export default function TableType1c() {
         <caption className="blind">운영인력소개</caption>
         <thead>
           <tr>
-            <th>No</th>
             <th>소속</th>
             <th>이름</th>
             <th>사진</th>
@@ -29,89 +28,41 @@ export default function TableType1c() {
         </thead>
         <tbody>
           <tr>
-            <td>10</td>
+
             <td>ETRI</td>
-            <td>홍길동</td>
-            <td>Image</td>
-            <td>재직 00년</td>
+            <td>이재기</td>
+            <td className="images"><img className="etri-image" src="/images/ico_member.png" alt="no-image"/></td>
+            <td>재직 35년</td>
           </tr>
           <tr>
-            <td>10</td>
+
             <td>ETRI</td>
-            <td>홍길동</td>
-            <td>Image</td>
-            <td>재직 00년</td>
+            <td>소운섭</td>
+            <td className="images"><img className="etri-image" src="/images/ico_member.png" alt="no-image"/></td>
+            <td>재직 33년</td>
           </tr>
           <tr>
-            <td>10</td>
+
             <td>ETRI</td>
-            <td>홍길동</td>
-            <td>Image</td>
-            <td>재직 00년</td>
+            <td>박영호</td>
+            <td className="images"><img className="etri-image" src="/images/ico_member.png" alt="no-image"/></td>
+            <td>재직 38년</td>
           </tr>
           <tr>
-            <td>10</td>
+
             <td>ETRI</td>
-            <td>홍길동</td>
-            <td>Image</td>
-            <td>재직 00년</td>
+            <td>양용석</td>
+            <td className="images"><img className="etri-image" src="/images/ico_member.png" alt="no-image"/></td>
+            <td>재직 25년</td>
           </tr>
           <tr>
-            <td>10</td>
+
             <td>ETRI</td>
-            <td>홍길동</td>
-            <td>Image</td>
-            <td>재직 00년</td>
+            <td>조원석</td>
+            <td className="images"><img className="etri-image" src="/images/ico_member.png" alt="no-image"/></td>
+            <td>재직 30년</td>
           </tr>
-          <tr>
-            <td>10</td>
-            <td>ETRI</td>
-            <td>홍길동</td>
-            <td>Image</td>
-            <td>재직 00년</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>ETRI</td>
-            <td>홍길동</td>
-            <td>Image</td>
-            <td>재직 00년</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>ETRI</td>
-            <td>홍길동</td>
-            <td>Image</td>
-            <td>재직 00년</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>ETRI</td>
-            <td>홍길동</td>
-            <td>Image</td>
-            <td>재직 00년</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>ETRI</td>
-            <td>홍길동</td>
-            <td>Image</td>
-            <td>재직 00년</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>ETRI</td>
-            <td>홍길동</td>
-            <td>Image</td>
-            <td>재직 00년</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>ETRI</td>
-            <td>홍길동</td>
-            <td>Image</td>
-            <td>재직 00년</td>
-          </tr>
+         
         </tbody>
       </table>
       <div className="page_control">

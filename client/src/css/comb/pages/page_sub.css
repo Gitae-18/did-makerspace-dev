@@ -127,13 +127,9 @@
   position: relative;top:10px;
 }
 
- .sub_side_menu .sub_bread h2::after {
-  content: '>';
-  display: block;
-  position: absolute;
-  top: 0;
-  right: -24px;
-  color: #7f7f7f;
+ .sub_side_menu .sub_bread span {
+  position: relative;
+  top: 10px;
 }
 
  .sub_page_wrap{
@@ -266,9 +262,10 @@
   border : 1px solid #000000;
 }
 #pageSub02a5 .testpage{
-  border: 2px solid #2d2d2d;
+  border: 1.5px solid #2d2d2d;
   width:auto;
-  height:50%;
+  height:300px;
+  max-height:100%;
   box-sizing: border-box;
   font-size: 0.6rem;
 }
@@ -278,7 +275,10 @@
   font-size:1.5rem;
   text-align: center;
 }
-
+#pageSub02a5 .test_3d tbody{
+  position:relative;
+  top:60px;
+}
 #pageSub02a5 .test_3d > tbody > tr >td{
   height:auto;
   padding: 10px 10px 10px 10px;
@@ -289,5 +289,8 @@
 #pageSub02a5 .tp_btn .resinfo a{
  position: relative;
  bottom:5px;
+}
+#pageSub02b1 .table_wrap {
+  min-height:800px;
 }
 /*# sourceMappingURL=page_sub.css.map */

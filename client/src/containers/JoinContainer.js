@@ -17,6 +17,7 @@ export const JoinContainer = (props) => {
     const dispatch = useDispatch();
     const { location } = useLocation;
     const history = useNavigate();
+    const { search } = useLocation();
     const onCheckEmail = useCallback(async (e) => {
         e.preventDefault();
         dispatch({ type: CHECK_EMAIL_SUCCESS, value: false });
@@ -200,7 +201,9 @@ export const JoinContainer = (props) => {
         }
     }, [dispatch]);
 
-    const query = location ==='?detail=true';
+    const query = qs.parse(search, {
+        ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
+    });
 
     const JoinPage = () => {
         switch (query.type) {

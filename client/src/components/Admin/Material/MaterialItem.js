@@ -15,7 +15,7 @@ const PopupType = {
     Buy : 1,
 }
 
-export default function () {
+export default function ({query}) {
     const dispatch = useDispatch();
     const location = useLocation();
     const history = useNavigate();

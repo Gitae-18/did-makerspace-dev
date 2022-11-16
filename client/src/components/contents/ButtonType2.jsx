@@ -11,6 +11,7 @@ export default function ButtonType2(props) {
   } else if (props.bgc === "white") {
     classNames += " btn_white";
   }
+
   return (
     <div className={classNames}>
       <span className="resinfo"><Link to="/reservation/myvation">{props.btnName}</Link></span>
@@ -46,6 +47,20 @@ export default function ButtonType2(props) {
           <span className="resinfo"><Link to="/didreservation">{props.btnName}</Link></span>
         </div>
       );
+}
+export  const ButtonType5=(props)=>{
+  let classNames = "btn_type2 tp_btn";
+  // 회색 버튼일 경우 props로 bgc="gray" 받아와서 해당 버튼에 class btn_gray 추가
+  if (props.bgc === "gray") {
+    classNames += " btn_gray";
+  } else if (props.bgc === "white") {
+    classNames += " btn_white";
+  }
+  return (
+    <div className={classNames}>
+      <span className="resinfo">{props.btnName}</span>
+    </div>
+  );
 }
 export function ButtonType2small(props) {
   const [modal,setModal] = useState(false);
@@ -124,14 +139,22 @@ export function ButtonType2small(props) {
   );
 }
 export function ButtonType3small(props) {
+  const [active,setActive] = useState(false);
+  const history = useNavigate();
+  const location = useLocation();
   let classNames = "btn_type2 tp_btn btn_type2_small";
   if (props.bgc === "gray") {
     classNames += " btn_gray";
   } else if (props.bgc === "white") {
     classNames += " btn_white";
   }
+  const ClickTest= useCallback(() =>{
+    if(props.active ==="active"){
+      history('/reservation/selectreserv')
+    }
+  },[history,location.pathname])
   return (
-    <div className={classNames}>
+    <div className={classNames} onClick={ClickTest}>
      {props.btnName}
     </div>
   );
@@ -140,15 +163,35 @@ export function ButtonType2test(props) {
   const location = useLocation();
   const now = location.pathname;
   const history = useNavigate();
+  const [active,setActive] = useState(false);
+  const names = props.name;
   let classNames = "btn_type2 tp_btn";
   if (props.bgc === "gray") {
     classNames += " btn_gray";
   } else if (props.bgc === "white") {
     classNames += " btn_white";
   }
+ /*  if(props.name === 'FDM : 3DWOX 1X' || props.name === 'A0플로터 : HP 디자인젯 Z6' || props.name === 'UV 프린터 : 329UV' || props.name === 'X-cut'){
+    setActive(true);
+  }
+  else{
+    setActive(false);
+  } */
+  const namescommit = useCallback(()=>{
+    if(names  === 'FDM : 3DWOX 1X' || 'A0플로터 : HP 디자인젯 Z6' || 'UV 프린터 : 329UV' || 'X-cut'){
+      setActive(true);
+    }
+    else{
+      setActive(false);
+    }
+  },[names])
   const ClickTest= useCallback(() =>{
-    history(now+"/test")
+    if(props.active ==="active"){
+      history(now+"/test")
+    }
   },[history,location.pathname])
+
+
   return (
     <div className={classNames} onClick={ClickTest}>
       {props.test ? "시험 결과보기" : "시험보기"}

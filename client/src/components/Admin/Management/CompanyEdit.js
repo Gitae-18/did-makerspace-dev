@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 import '../../../css/common-s.css';
 import '../../../css/style-s.css';
-export default function () {
+export default function ({query}) {
     const mountedRef = useRef(true);
     const location = useLocation();
     const history = useNavigate();

@@ -1,5 +1,6 @@
 import React from "react";
 export default function Posts({info}){
+  console.log(info)
     return(
     <tbody>
          

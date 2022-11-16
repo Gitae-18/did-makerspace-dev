@@ -15,7 +15,7 @@ export default function TableType5a() {
         </div>
       </div>
       <table>
-        <caption className="blind">장비 예약</caption>
+        <caption className="blind"></caption>
         <thead>
           <tr>
             <th>No.</th>

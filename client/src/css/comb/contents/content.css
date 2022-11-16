@@ -1626,5 +1626,13 @@ h3.title_type1:after {
 #pageSub07b6 .tp_btn{
   height:45px;
 }
+.table_type1 > table > tbody > tr > .images{
+  background: url(/images/ico_member.png) inherit ;
+  background-size:cover;
+}
+.etri-image{
+  width:35px;
+  height:max-content
+}
 
 /*# sourceMappingURL=content.css.map */

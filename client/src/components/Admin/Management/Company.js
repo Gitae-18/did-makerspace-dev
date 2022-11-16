@@ -62,7 +62,7 @@ export default function ({ query }) {
     const onPage = useCallback((e, newPageNumber) => {
         e.preventDefault();
         const querySearch = (search.length > 0) ? ("&search=" + search) : "";
-        history(location.pathname + '?page=' + newPageNumber + querySearch);
+        history((location.pathname+location.search+location.hash) + '?page=' + newPageNumber + querySearch);
     }, [history, search]);
 
     const onPagePrev = useCallback((e) => {
@@ -70,7 +70,7 @@ export default function ({ query }) {
         const curPageGrp = Math.ceil(items.pageOffset / PageMax);
         if (curPageGrp > 0) {
             const querySearch = (search.length > 0) ? ("&search=" + search) : "";
-            history(location.pathname + '?page=' + items.pageOffset + querySearch);
+            history((location.pathname+location.search+location.hash) + '?page=' + items.pageOffset + querySearch);
         }
     }, [history, items, search]);
 
@@ -82,19 +82,19 @@ export default function ({ query }) {
 
         if (curPageGrp < totPageGrp) {
             const querySearch = (search.length > 0) ? ("&search=" + search) : "";
-            history(location.pathname + '?page=' + (newPageOffset + 1) + querySearch);
+            history((location.pathname+location.search+location.hash)+ '?page=' + (newPageOffset + 1) + querySearch);
         }
     }, [history, items, search]);
 
     const onSelectItem = useCallback((e, i) => {
         e.preventDefault();
         dispatch({ type: COMPANY_ITEM, target: items.items[i] });
-        history(location.pathname + '?edit=1');
+        history((location.pathname+location.search+location.hash) + '?edit=1');
     }, [items, dispatch, history]);
 
     const onSearch = useCallback((e) => {
         const addQuery = (search.length > 0) ? ("?search=" + search) : "";
-        history(location.pathname + addQuery);
+        history((location.pathname+location.search+location.hash) + addQuery);
     }, [search, history]);
 
     const ItemRow = useCallback((props) => {
@@ -172,7 +172,7 @@ export default function ({ query }) {
                                 {ItemRows}
                             </tbody>
                         </table>
-                        <button className="btn_apply" onClick={() => { history.push('/management?reg=1') }}>신규 등록</button>
+                        <button className="btn_apply" onClick={() => { history('/management?reg=1',{replace:true}) }}>신규 등록</button>
                         <div className="page_num">
                             <span className="inner_num">
                                 <a href='#!' className="first" onClick={(e) => onPage(e, 1)}> </a>

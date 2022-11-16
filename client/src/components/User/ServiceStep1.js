@@ -58,7 +58,7 @@ export default function () {
             return;
         }
 
-        history.replace('/uservice?step=1&next=confirm');
+        history('/uservice?step=1&next=confirm',{replace:true});
     }, [/*reservDate, reservTime, */fileInfo, value, token, history]);
 
     const onFileUpload = useCallback((e) => {

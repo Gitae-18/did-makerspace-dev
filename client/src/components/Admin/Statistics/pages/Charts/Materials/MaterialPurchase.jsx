@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PreUri } from "../../../../../../CommonCode";
 import Chart from "react-apexcharts";
 import xlsx from "xlsx";
+import SearchBar from'../../Materials/SearchBar';
 import { saveAs } from "file-saver";
 
 const fileType =
@@ -164,6 +165,7 @@ function MaterialPurchase() {
         <div>
           <span>통계 및 분석</span> / <span>기자재,자재</span> /{" "}
           <span>자재 사용</span>
+          <SearchBar></SearchBar>
           <div class="download">
             <button  class="btn_print" onClick={printFunc}>
               프린트

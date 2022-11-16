@@ -1,14 +1,16 @@
 import React, { /*useState,*/ useEffect, useCallback, /*useMemo*/ } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { LoginForm, LoggedInForm } from "../components/LoginForm";
+import { useLocation,usenavigate } from 'react-router-dom';
 import { CHANGE_INPUT, LOGIN_START, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, LOAD_USER } from "../store/user";
 import { CommonHeader, PreUri, Method } from '../CommonCode';
-import {useNavigate} from 'react-router';
+import {Navigate, useNavigate} from 'react-router-dom';
 import { redirect } from 'react-router';
 export const LoginContainer = () => {
     const { userId, password, isAutoLogin,
         isLoginStart, isLoggedIn, userName } = useSelector(state => state.user);
     const dispatch = useDispatch();
+    const history = useNavigate();
 
     useEffect(() => {
         dispatch({ type: LOAD_USER });
@@ -60,7 +62,7 @@ export const LoginContainer = () => {
     const logout = useCallback(async (e) => {
         e.preventDefault();
         dispatch({ type: LOGOUT });
-        return <redirect to='/' />
+        return <Navigate replace to ='/'/> ;
     }, [dispatch]);
 
     const onChange = useCallback((e) => {

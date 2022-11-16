@@ -103,7 +103,7 @@ export default function ({  query }) {
         e.preventDefault();
         let addQuery = makeQuery(search, dateType, year, month);
         addQuery = (addQuery.length > 0) ? "&" + addQuery : "";
-        history(location.pathname + '?page=' + newPageNumber + addQuery);
+        history((location.pathname+location.search+location.hash) + '?page=' + newPageNumber + addQuery);
     }, [history, search, dateType, year, month]);
 
     const onPagePrev = useCallback((e) => {
@@ -112,7 +112,7 @@ export default function ({  query }) {
         if (curPageGrp > 0) {
             let addQuery = makeQuery(search, dateType, year, month);
             addQuery = (addQuery.length > 0) ? "&" + addQuery : "";
-            history(location.pathname + '?page=' + items.pageOffset + addQuery);
+            history((location.pathname+location.search+location.hash) + '?page=' + items.pageOffset + addQuery);
         }
     }, [history, items, search, dateType, year, month]);
 
@@ -125,20 +125,20 @@ export default function ({  query }) {
         if (curPageGrp < totPageGrp) {
             let addQuery = makeQuery(search, dateType, year, month);
             addQuery = (addQuery.length > 0) ? "&" + addQuery : "";
-            history(location.pathname + '?page=' + (newPageOffset + 1) + addQuery);
+            history((location.pathname+location.search+location.hash) + '?page=' + (newPageOffset + 1) + addQuery);
         }
     }, [history, items, search, dateType, year, month]);
 
     const onSelectItem = useCallback((e, i) => {
         e.preventDefault();
         dispatch({ type: OLD_SERVICE_ITEM, target: items.items[i] });
-        history(location.pathname + '?edit=8');
+        history((location.pathname+location.search+location.hash) + '?edit=8');
     }, [items, dispatch, history]);
 
     const onSearch = useCallback((e) => {
         let addQuery = makeQuery(search, dateType, year, month);
         addQuery = (addQuery.length > 0) ? "?" + addQuery : "";
-        history(location.pathname + addQuery);
+        history((location.pathname+location.search+location.hash) + addQuery);
     }, [search, dateType, year, month, history]);
 
     const dt = new Date();

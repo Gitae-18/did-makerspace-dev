@@ -17,6 +17,9 @@
     align-items: center;
     font-size: 1rem;
  }
+ .pagination div .first{
+  background-color: #313f4f;
+ }
  .pagination div button:first-child{
     border-radius: 5px 0 0 5px;
   }
@@ -41,9 +44,23 @@
   
   .pagination div button span:hover,
   .pagination div button span.active {
-    color: red;
+    color: white;
   }
-  
+  .pagination div button:hover{
+    background-color: #313f4f;
+  }
+  .page-selection {
+    width: 48px;
+    height: 30px;
+    color: #313f4f;
+  }
+ .pagination div .first {
+    background-color:#313f4f !important;
+  }
+ .pagination .first-page:hover,
+ .pagination .first-page.acive{
+  color: white;
+ }
   .button {
     width: 48px;
     height: 30px;

@@ -5,7 +5,7 @@ import { CommonHeader,PreUri,Method } from "../../CommonCode";
 import Pagination from "react-js-pagination";
 import '../../css/Paginate.css'
 import InfoType1a from "./InfoType1a";
-import ButtonType2 from "./ButtonType2";
+import ButtonType5 from "./ButtonType2";
 import SubSideMenu from "./SubSideMenu";
 import styled from "styled-components";
 import { stringify } from "qs";
@@ -51,7 +51,7 @@ export default function TableType1a() {
             <option value="1">공간명</option>
           </select>
           <input type="text" name="" id="" placeholder="제목을 입력하세요" />
-          <ButtonType2 btnName="조회"></ButtonType2>
+          <ButtonType5 btnName="조회"></ButtonType5>
         </div>
       </div>
       <table className="table_space">

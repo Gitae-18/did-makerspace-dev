@@ -34,6 +34,7 @@ import PageSub01d from "./PageSub01/PageSub01d";
 //import PageSub07c from "./PageSub07/PageSub07c";
 //import PageSub07c2 from "./PageSub07/PageSub07c2";
 import PageSub07c3 from "./PageSub07/PageSub07c3";
+import SectionInputTextType1f from "../sections/sectionInputTextType1f";
 //import PageSub03a1 from "./PageSub03/PageSub03a1";
 //import PageSub03a2 from "./PageSub03/PageSub03a2";
 //import PageSub04a1 from "./PageSub04/PageSub04a1";
@@ -53,13 +54,12 @@ import PageSub07c3 from "./PageSub07/PageSub07c3";
 import ListType1a from "../contents/ListType1a";
 import Footer from "../../css/comb/Footer";
 import InfoType1a from "../contents/InfoType1a";
-export default function DidInfo({location,history}) {
+export default function DidInfo() {
   const [value,setValue] = useState("");
   return (
     <>
     <div id="sub_page_wrap">
-      <SubSideMenu location={location} history={history}>
-      <SubBread></SubBread>
+      <SubSideMenu title={"시설소개"} subtitle={"공간소개"}>
       </SubSideMenu>
       <div className="sub_page_inner_wrap">
         <div className="sub_inner">
@@ -76,7 +76,7 @@ export default function DidInfo({location,history}) {
 export const DidInfo1Detail2 = ({location,history}) =>{
   return(
     <div id="sub_page_wrap">
-      <SubSideMenu location={location} history={history}></SubSideMenu>
+      <SubSideMenu title={"시설소개"} subtitle={"공간소개"}></SubSideMenu>
       <div className="sub_page_inner_wrap">
         <div className="sub_inner">
           <InfoType1a/>
@@ -88,7 +88,7 @@ export const DidInfo1Detail2 = ({location,history}) =>{
 export const DidInfo2 = ({location,history}) =>{
   return(
     <div id="sub_page_wrap">
-      <SubSideMenu location={location} history={history}></SubSideMenu>
+      <SubSideMenu title={"시설소개"} subtitle={"장비소개"}></SubSideMenu>
       <div className="sub_page_inner_wrap">
         <div className="sub_inner">
           <PageSub01a2/>
@@ -100,7 +100,7 @@ export const DidInfo2 = ({location,history}) =>{
 export const DidInfo3 = ({location,history}) => {
   return(
     <div id="sub_page_wrap">
-      <SubSideMenu location={location} history={history}>
+      <SubSideMenu title={"시설소개"} subtitle={"운영인력소개"}>
       <SubBread></SubBread>
       </SubSideMenu>
       <div className="sub_page_inner_wrap">
@@ -114,7 +114,7 @@ export const DidInfo3 = ({location,history}) => {
 export const DidInfo4 = ({location,history}) => {
   return(
     <div id="sub_page_wrap">
-      <SubSideMenu location={location} history={history}></SubSideMenu>
+      <SubSideMenu title={"기관소개"} subtitle={"인사말"}></SubSideMenu>
       <div className="sub_page_inner_wrap">
         <div className="sub_inner">
           <PageSub01b1/>
@@ -126,7 +126,7 @@ export const DidInfo4 = ({location,history}) => {
 export const DidInfo5 = ({location,history}) => {
   return(
     <div id="sub_page_wrap">
-      <SubSideMenu location={location} history={history}></SubSideMenu>
+      <SubSideMenu title={"기관소개"} subtitle={"미션/비전"}></SubSideMenu>
       <div className="sub_page_inner_wrap">
         <div className="sub_inner">
           <PageSub01b2/>
@@ -138,7 +138,7 @@ export const DidInfo5 = ({location,history}) => {
 export const DidInfo6= ({location,history}) => {
   return(
     <div id="sub_page_wrap">
-      <SubSideMenu location={location} history={history}></SubSideMenu>
+      <SubSideMenu title={"기관소개"} subtitle={"조직도"}></SubSideMenu>
       <div className="sub_page_inner_wrap">
         <div className="sub_inner">
           <PageSub01b3/>
@@ -150,7 +150,7 @@ export const DidInfo6= ({location,history}) => {
 export const DidInfo7 = ({location,history}) => {
   return(
     <div id="sub_page_wrap">
-      <SubSideMenu location={location} history={history}></SubSideMenu>
+      <SubSideMenu title={"기관소개"} subtitle={"협력기관안내"}></SubSideMenu>
       <div className="sub_page_inner_wrap">
         <div className="sub_inner">
           <PageSub01b4/>
@@ -162,7 +162,7 @@ export const DidInfo7 = ({location,history}) => {
 export const DidInfo8 = ({location,history}) => {
   return(
     <div id="sub_page_wrap">
-      <SubSideMenu location={location} history={history}></SubSideMenu>
+      <SubSideMenu title={"오시는 길"} ></SubSideMenu>
       <div className="sub_page_inner_wrap">
         <div className="sub_inner">
           <PageSub01c/>
@@ -174,7 +174,7 @@ export const DidInfo8 = ({location,history}) => {
 export const DidInfo9= ({location,history}) => {
   return(
     <div id="sub_page_wrap">
-      <SubSideMenu location={location} history={history}></SubSideMenu>
+      <SubSideMenu title={"FAQ"}></SubSideMenu>
       <div className="sub_page_inner_wrap">
         <div className="sub_inner">
           <PageSub01d/>
@@ -186,10 +186,10 @@ export const DidInfo9= ({location,history}) => {
 export const DidInfo1Detail = ({location,history}) =>{
   return(
   <div id="sub_page_wrap">
-  <SubSideMenu location={location} history={history}></SubSideMenu>
+  <SubSideMenu  title={"FAQ"}></SubSideMenu>
   <div className="sub_page_inner_wrap">
     <div className="sub_inner">
-      <PageSub07c3/>
+      <SectionInputTextType1f/>
     </div>
   </div>
 </div>

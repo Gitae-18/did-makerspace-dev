@@ -9,7 +9,10 @@ export const ScheduleContainer = () => {
      const { isLoading, isLoggedIn } = useSelector(state => state.user);
      const { location } = useLocation;
      const history = useNavigate();
-     const query = location ==='?detail=true';
+     const { search } = useLocation();
+     const query = qs.parse(search, {
+        ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
+    });
 
     const CurrentPage = useCallback(() => {
         if (isLoading) {

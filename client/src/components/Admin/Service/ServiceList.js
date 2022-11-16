@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback,useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate,useLocation } from 'react-router-dom';
+import { useNavigate,useLocation ,useParams} from 'react-router-dom';
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg } from '../../../CommonCode';
 import { M_SERVICE_DELETE, M_SERVICE_SET } from "../../../store/manager_service";
 import SideNavi from './SideNavi';
@@ -30,16 +30,16 @@ function makeQuery(step, dateType, year, month, company) {
     if(company && company !== 0){
         query += ((query.length > 0)? "&":"") +"company="+ company;
     }
-    console.log(query);
+    
     return query;
 }
 
-export default function ({  query ,no }) {
+export default function ({ query }) {
     const { token } = useSelector(state => state.user);
     const dispatch = useDispatch();
-
     const location = useLocation();
     const history = useNavigate();
+   
     const mountedRef = useRef(true);
     const [info,setInfo] = useState("");
     const [checkValue, setCheckValue] = useState([]);
@@ -86,6 +86,8 @@ export default function ({  query ,no }) {
             }
         ],
     });
+
+   
     const getCompanyList = useCallback(async (query) =>{
 
         const res = await fetch(PreUri + "/company/companyno",{
@@ -181,7 +183,7 @@ export default function ({  query ,no }) {
         const totalPage = Number(json.total_page);
         const currentPage = Number(json.current_page);
         const pageOffset = Math.ceil(currentPage / PageMax);
-        console.log(json)
+        console.log(json);
         setServiceItems(serviceItems => ({
             ...serviceItems,
             totalCount: Number(json.total_count),
@@ -192,7 +194,7 @@ export default function ({  query ,no }) {
             items: json.items,
             categories:json.categories
         }));
-    }, [token,no]);
+    }, [token]);
     useEffect(() => {
         getServiceList(query);
         getCompanyList(query);
@@ -245,7 +247,7 @@ export default function ({  query ,no }) {
             co_name:serviceItems.co_name,
             categories:serviceItems.categorie}))
     }))
-    const ServiceDrop = useCallback((async(e,i,serviceno)=>{
+    /* const ServiceDrop = useCallback((async(e,i,serviceno)=>{
         let copy = {...serviceItems};
         const item_no = copy.items[i].service_no;
         if(item_no > 0){
@@ -273,15 +275,15 @@ export default function ({  query ,no }) {
             co_name:serviceItems.co_name,
             categories:serviceItems.categorie}))
    
-    }),[serviceItems,token])
+    }),[serviceItems,token]) */
   
     const onPage = useCallback((e, newPageNumber) => {
         e.preventDefault();
 
         let addQuery = makeQuery(step, dateType, year, month, company);
         addQuery = (addQuery.length > 0) ? "&" + addQuery : "";
-        history(location.pathname + '?page=' + newPageNumber + addQuery);
-    }, [history,makeQuery, step, dateType, year, month,company]);
+        history((location.pathname+location.search+location.hash) + '?page=' + newPageNumber + addQuery);
+    }, [history, step, dateType, year, month,company]);
 
     const onPagePrev = useCallback((e) => {
         e.preventDefault();
@@ -290,9 +292,9 @@ export default function ({  query ,no }) {
         if (curPageGrp > 0) {
             let addQuery = makeQuery(step, dateType, year, month, company);
             addQuery = (addQuery.length > 0) ? "&" + addQuery : "";
-            history(location.pathname + '?page=' + serviceItems.pageOffset + addQuery);
+            history((location.pathname+location.search+location.hash) + '?page=' + serviceItems.pageOffset + addQuery);
         }
-    }, [history, ,makeQuery,serviceItems, step, dateType, year, month, company]);
+    }, [history, serviceItems, step, dateType, year, month, company]);
 
     const onPageNext = useCallback((e) => {
         e.preventDefault();
@@ -303,15 +305,15 @@ export default function ({  query ,no }) {
         if (curPageGrp < totPageGrp) {
             let addQuery = makeQuery(step, dateType, year, month, company);
             addQuery = (addQuery.length > 0) ? "&" + addQuery : "";
-            history(location.pathname + '?page=' + (newPageOffset + 1) + addQuery);
+            history((location.pathname+location.search+location.hash) + '?page=' + (newPageOffset + 1) + addQuery);
         }
-    }, [history,,makeQuery, serviceItems, step, dateType, year, month,company]);
+    }, [history, serviceItems, step, dateType, year, month,company]);
     const onSelectItem = useCallback((e, index) => {
         e.preventDefault();
         const item = serviceItems.items[index];
         dispatch({ type: M_SERVICE_SET, target: item });
         history('/mservice/detail');
-    }, [history, ,makeQuery,serviceItems, dispatch]);
+    }, [history, serviceItems, dispatch]);
    
     /*const onDelete = useCallback((e,index)=>{
         e.preventDefault();
@@ -333,15 +335,15 @@ export default function ({  query ,no }) {
         addQuery = (addQuery.length > 0) ? "?" + addQuery : "";
         //history.push(window.location.pathname + addQuery);
         history(location.pathname + addQuery,{replace:true});
-    }, [history, ,makeQuery,step, year, month,company]);
+    }, [history, step, year, month,company]);
 
     const onSelectStep = useCallback((e, selstep) => {
         e.preventDefault();
         let addQuery = makeQuery(selstep, dateType, year, month, company);
         addQuery = (addQuery.length > 0) ? "?" + addQuery : "";
         // history.push(window.location.pathname + addQuery);
-       history(location.pathname + addQuery,{replace:true});
-    }, [history, ,makeQuery,dateType, year, month,company]);
+       history((location.pathname+location.search+location.hash) + addQuery,{replace:true});
+    }, [history, dateType, year, month,company]);
     const onSelect = (e) =>{
         setCompanyNo(e.target.value);
         setCompany(e.target.value);
@@ -351,8 +353,8 @@ export default function ({  query ,no }) {
         e.preventDefault();
         let addQuery = makeQuery(step,dateType, year, month, company)
         addQuery = (addQuery.length>0)?"?" + addQuery: "";
-       history(location.pathname + addQuery,{replace:true});
-    },[history,makeQuery,step,dateType,year, month,company]);
+       history((location.pathname+location.search+location.hash) + addQuery,{replace:true});
+    },[history,step,dateType,year, month,company]);
     for (let i = 0; i < PageMax; i++) {
         let pageNum = i + 1 + serviceItems.pageOffset;
         if (pageNum > serviceItems.totalPage) { break; }
@@ -380,7 +382,7 @@ export default function ({  query ,no }) {
                     status={item.status}
                     co_name={serviceItems.co_name}
                     //onDelete={(e) => onDelete(e,i)}
-                    ServiceDrop={(e) => ServiceDrop(e,i,serviceno)}
+                   /*  ServiceDrop={(e) => ServiceDrop(e,i,serviceno)} */
                     onClick={(e) => onSelectItem(e, i)}
                     onPrint={(e) => onPrint(e, i)}
                     key={i}/>)

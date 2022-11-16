@@ -1,6 +1,50 @@
-import React from "react";
+import React,{useState,useEffect,useCallback} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate,useLocation,useParams } from "react-router";
+import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg } from '../../CommonCode';
+import { Paging } from "./Paging";
+import dotenv from "dotenv";
 
+dotenv.config();
 export default function TableType2c() {
+    const [posts,setPosts] = useState([]);
+    const { token } = useSelector(state => state.user);
+    const [loading,setLoading] = useState(false);
+    const [currentPage,setCurrentPage] = useState(1);
+    const [postPage, setPostPage] = useState(10);
+    const [count,setCount] = useState(0);
+    const indexOfLastPost = currentPage * postPage
+    const indexOfFirstPost = indexOfLastPost - postPage
+    const currentPost = posts.slice(indexOfFirstPost, indexOfLastPost)
+    const getSpaceList = useCallback(async()=>{
+      const api = {
+        apikey: process.env.REACT_APP_API_URL,
+        baseURL :'/space/reservation',
+      }
+
+     
+      let requri = PreUri + '/space/reservation';
+      console.log(requri)
+      const res = await fetch(requri,{
+        method:Method.get,
+        headers:CommonHeader
+      });
+      if(!res.ok){
+        console.log('잘못된 접근입니다.');
+        return;
+      }
+      const json = await res.json();
+      setPosts(json);
+      setLoading(false);
+      setCount(json.length);
+      },[token])
+    
+    useEffect(()=>{
+      getSpaceList();
+    },[])
+    const setPage = (e) =>{
+      setCurrentPage(e);
+    }
   return (
     <div className="table_wrap table_type2">
       <div className="table_extra">
@@ -23,119 +67,19 @@ export default function TableType2c() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Image</td>
-            <td>목공식</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>1층</td>
+          {currentPost && posts.length >  0 ? currentPost.map((item,index)=>(
+            <tr key={index}>
+            <td>image</td>
+            <td>{item.space_name}</td>
+            <td>{item.space_info}</td>
+            <td>{item.location}</td>
             <td>월~금(09:00 - 18:00)</td>
           </tr>
-          <tr>
-            <td>Image</td>
-            <td>목공식</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>1층</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>목공식</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>1층</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>목공식</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>1층</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>목공식</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>1층</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>목공식</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>1층</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>목공식</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>1층</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>목공식</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>1층</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>목공식</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>1층</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>목공식</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>1층</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>목공식</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>1층</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>목공식</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>1층</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
-          <tr>
-            <td>Image</td>
-            <td>목공식</td>
-            <td>목재 가공 장비가 위치한 목재 가공실</td>
-            <td>1층</td>
-            <td>월~금(09:00 - 18:00)</td>
-          </tr>
+          )):<div>게시물이 없습니다.</div>}
         </tbody>
       </table>
       <div className="page_control">
-        <div className="btn_first btn-s">
-          <img src="/images/backward-solid.svg" alt="처음으로" />
-        </div>
-        <div className="btn_prev">
-          <img src="/images/caret-left-solid.svg" alt="이전으로" />
-        </div>
-        <ol className="btn_page_num">
-          <li className="on">1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
-        </ol>
-        <div className="btn_next">
-          <img src="/images/caret-right-solid.svg" alt="다음으로" />
-        </div>
-        <div className="btn_last btn-s">
-          <img src="/images/forward-solid.svg" alt="끝으로" />
-        </div>
+       <Paging page={currentPage} count = {count} setPage={setPage}/>
       </div>
     </div>
   );

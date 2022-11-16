@@ -8,7 +8,7 @@ import SideNavi from './SideNavi';
 import '../../../css/common-s.css';
 import '../../../css/style-s.css';
 
-export default function () {
+export default function ({query}) {
 	const PageMax = 10;
 	const mountedRef = useRef(true);
 	const dispatch = useDispatch();

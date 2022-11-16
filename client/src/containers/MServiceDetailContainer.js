@@ -13,6 +13,9 @@ export const MServiceDetailContainer = () => {
     const viewState = useSelector(state => state.managerService);
     const history = useNavigate();
     const location = useLocation();
+    const { search } = useLocation();
+    
+ 
     // const query = qs.parse(location.search, {
     //     ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
     // });

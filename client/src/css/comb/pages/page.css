@@ -7,7 +7,7 @@
 #pageLogin .login_wrap_inner, #pageLoginError .login_wrap_inner {
   width: 70%;
   max-width: 750px;
-  margin: 50px auto;
+  margin: 100px auto;
   padding: 24px 48px;
 }
 
@@ -80,9 +80,7 @@
   text-align: center;
 }
 
-.login_wrap_inner .login_error_message > h2, #pageLoginError .login_wrap_inner .login_error_message > h2 {
-  margin-top:10px;
-}
+
 
 .login_wrap_inner .login_error_message > p, #pageLoginError .login_wrap_inner .login_error_message > p {
   margin-bottom: 40px;
@@ -106,8 +104,10 @@
 }
 
 .main_banner {
+  position: relative;
+
   height: 300px;
-  background: url(/images/index_main_banner.jpg);
+  background: url(/images/bg.jpg);
   background-size: cover;
 }
 
@@ -133,5 +133,8 @@
   position:relative;
   padding-top:30px;
   
+}
+.tab_inner ol li{
+ border: 1px solid #2c2c2c
 }
 /*# sourceMappingURL=page.css.map */

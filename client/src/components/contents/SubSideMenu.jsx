@@ -1,13 +1,15 @@
+import { parseWithOptions } from "date-fns/fp";
+import { useSelector } from "react-redux";
 import React,{useCallback,useState,useLayoutEffect} from "react";
 import {useLocation} from "react-router";
 import { Link } from "react-router-dom";
 
-export default function SubSideMenu(location) {
+export default function SubSideMenu(props) {
   const [sidebar,setSidebar] = useState(false);
   const [isSpace,setIsSpace] = useState(false);
   const [isCompany,setIsCompany] = useState(false);
   const url = useLocation();
-
+  const { authority_level } = useSelector(state => state.user);
   useLayoutEffect(()=>{
     if(url.pathname.split('/')[1]==='didinfo'){
       setIsSpace(true);
@@ -131,14 +133,37 @@ export default function SubSideMenu(location) {
         </ol>
       );
     };
+    const MentoringUser = () =>{
+      return(
+        <ol>
+          <li>
+            <p onClick={Dep2Handler}> <Link to={"/umentoring"}>멘토링</Link></p>
+              <ol className="has_dep3">
+              <li onClick={Dep3Handler} value="mentoring_application"><Link to={"/umentoring"}> 멘토링 신청</Link></li>
+              <li onClick={Dep3Handler} value="mentorsearch"><Link to={"/"}> 멘토 검색 </Link></li>
+              <li onClick={Dep3Handler} value="mentorcompliment"><Link to={"/"}> 멘토 칭찬 </Link></li>
+              </ol>
+          </li>
+          <li>
+            <p onClick={Dep2Handler}>멘토 검색</p>
+          </li>
+          <li>
+            <p onClick={Dep2Handler}>멘토 칭찬</p>
+          </li>
+          <li>
+            <p onClick={Dep2Handler}>멘토링 보고서</p>
+          </li>
+        </ol>
+      );
+    }
     const SubModal05 = () => {
       return (
         <ol>
           <li>
-            <p onClick={Dep2Handler}><Link to={"/classprogram"}>행사 프로그램</Link></p>
+            <p onClick={Dep2Handler}><Link to={"/classprogram"}>교육 프로그램</Link></p>
           </li>
           <li>
-            <p onClick={Dep2Handler}><Link to={"/eduprogram"}>교육 프로그램</Link></p>
+            <p onClick={Dep2Handler}><Link to={"/eduprogram"}>행사 프로그램</Link></p>
           </li>
         </ol>
       );
@@ -222,7 +247,14 @@ export default function SubSideMenu(location) {
     return (
       <>
       <div className="sub_modal">
-        {url.pathname.includes("info") === true ? <SubModal01></SubModal01> : url.pathname.includes("reservation") === true? <SubModal02></SubModal02>:url.pathname.includes("mentor") === true?<SubModal04></SubModal04>:url.pathname.includes("program")===true?<SubModal05></SubModal05>:url.pathname.includes("contact") === true?<SubModal07></SubModal07>:url.pathname.includes("mservice")===true?<SubModal08></SubModal08>:<SubModal06></SubModal06>}
+        {url.pathname.includes("info") === true ? <SubModal01/> 
+        : url.pathname.includes("reservation") === true? <SubModal02/>:
+        url.pathname.includes("mentor") === true && authority_level >=10?<SubModal04/>
+        :url.pathname.includes('mentor')===true && authority_level<10? <MentoringUser/>
+        :url.pathname.includes("program")===true?<SubModal05/>
+        :url.pathname.includes("contact") === true?<SubModal07/>
+        :url.pathname.includes("mservice")===true?<SubModal08/>
+        :<SubModal06/>}
       </div>
       </>
       )
@@ -234,7 +266,7 @@ export default function SubSideMenu(location) {
   return (
     <div className="sub_side_menu">
       <SubModal></SubModal>
-      
+      <SubBread title={props.title} subtitle={props.subtitle}></SubBread>
     </div>
   );
   };
@@ -242,7 +274,7 @@ export default function SubSideMenu(location) {
   export const SubBread = (props) => {
     const [currentTitle,setCurrentTitle] = useState('시설소개');
     const [currentsubmenu,setCurrentSubmenu] = useState('공간소개');
-    const dataLables = [
+    const dataLabels = [
       {
         title: '시설 소개',
          submenu : [
@@ -290,8 +322,9 @@ export default function SubSideMenu(location) {
     ]
     return (
       <div className="sub_bread">
-        <h2>{currentTitle}</h2>
-        <h3>{currentsubmenu}</h3>
+        <h2>{props.title}</h2>
+        {props.subtitle ? <span>&gt;</span>:<></>}
+        <h3>{props.subtitle}</h3>
       </div>
     );
   };

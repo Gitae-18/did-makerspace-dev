@@ -15,7 +15,7 @@ button{letter-spacing:-1px;}
 /* header */
 
 #header{height:80px;background-color:#fff;font-size:0.9rem;text-align:center;border-bottom:1px solid  #e5e5e5;box-sizing:border-box;position:relative;z-index:2;position:fixed;top:0; border-bottom: 1px solid rgba(255, 255, 255, 0);
-  background-color: rgba(2, 10, 51, 0.8);
+  background-color: rgba(147, 148, 151, 0.8);
   -webkit-transition: 0.5s;
   transition: 0.5s;}
 

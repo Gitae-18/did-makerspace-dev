@@ -31,118 +31,54 @@ export default function TableType1d() {
         </thead>
         <tbody>
           <tr>
-            <td>10</td>
-            <td><NavLink to="/info/faq/faq1" style={{"color":"#000000"}}>운영시간은 어떻게 되나요?</NavLink></td> 
+            <td>7</td>
+            <td><NavLink to="/info/faq/faq1" style={{"color":"#000000"}}>[운영시간은 어떻게 되나요?]</NavLink></td> 
             <td>최고관리자</td>
             <td>03-25</td>
             <td>222</td>
           </tr>
           <tr>
-            <td>10</td>
+            <td>6</td>
+            <td><NavLink to="/info/faq/faq1" style={{"color":"#000000"}}>[시제품 제작 비용은 얼마인가요?]</NavLink></td>
+            <td>최고관리자</td>
+            <td>03-25</td>
+            <td>222</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><NavLink to="/info/faq/faq1" style={{"color":"#000000"}}>[운영시간은 어떻게 되나요?]</NavLink></td>
+            <td>최고관리자</td>
+            <td>03-25</td>
+            <td>222</td>
+          </tr>
+          <tr>
+            <td>4</td>
             <td><NavLink to="/info/faq/faq1" style={{"color":"#000000"}}>운영시간은 어떻게 되나요?</NavLink></td>
             <td>최고관리자</td>
             <td>03-25</td>
             <td>222</td>
           </tr>
           <tr>
-            <td>10</td>
-            <td><NavLink to="/info/faq/faq1" style={{"color":"#000000"}}>운영시간은 어떻게 되나요?</NavLink></td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td><NavLink to="/info/faq/faq1" style={{"color":"#000000"}}>운영시간은 어떻게 되나요?</NavLink></td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
+            <td>3</td>
             <td><NavLink to="/info/faq/faq1"style={{"color":"#000000"}}>운영시간은 어떻게 되나요?</NavLink></td>
             <td>최고관리자</td>
             <td>03-25</td>
             <td>222</td>
           </tr>
           <tr>
-            <td>10</td>
+            <td>2</td>
             <td><NavLink to="/info/faq/faq1"style={{"color":"#000000"}}>운영시간은 어떻게 되나요?</NavLink></td>
             <td>최고관리자</td>
             <td>03-25</td>
             <td>222</td>
           </tr>
           <tr>
-            <td>10</td>
+            <td>1</td>
             <td><NavLink to="/info/faq/faq1"style={{"color":"#000000"}} >운영시간은 어떻게 되나요?</NavLink></td>
             <td>최고관리자</td>
             <td>03-25</td>
             <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td><NavLink to="/info/faq/faq1" style={{"color":"#000000"}}>운영시간은 어떻게 되나요?</NavLink></td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td><NavLink to="/info/faq/faq1" style={{"color":"#000000"}}>운영시간은 어떻게 되나요?</NavLink></td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td><NavLink to="/info/faq/faq1" style={{"color":"#000000"}}>운영시간은 어떻게 되나요?</NavLink></td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td><NavLink to="/info/faq/faq1" style={{"color":"#000000"}}>운영시간은 어떻게 되나요?</NavLink></td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td><NavLink to="/info/faq/faq1" style={{"color":"#000000"}}>운영시간은 어떻게 되나요?</NavLink></td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td><NavLink to="/info/faq/faq1" style={{"color":"#000000"}}>운영시간은 어떻게 되나요?</NavLink></td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td><NavLink to="/info/faq/faq1"style={{"color":"#000000"}} >운영시간은 어떻게 되나요?</NavLink></td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>운영시간은 어떻게 되나요?</td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>운영시간은 어떻게 되나요?</td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          
+          </tr> 
         </tbody>
       </table>
       <div className="page_control">

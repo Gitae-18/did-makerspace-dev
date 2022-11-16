@@ -85,7 +85,6 @@ export default ({ no }) => {
 			}
 			cResult = await response.json();
 		}
-        console.log(cons);
 		if (!mountedRef.current) { return }
         setConsultingFlag(true);
 		setStatus(consulting.progress === 'STEP_01' ? consulting.status : 'END');
@@ -337,7 +336,7 @@ export default ({ no }) => {
 					key={i} />);
 		};
 	}
-    
+   
 	return (
         (consultingFlag === false)
             ? <div id="wrap" className="wrap service2">
@@ -536,7 +535,7 @@ export default ({ no }) => {
                                 <p>사용자의 요청에 의해 상담신청에서 서비스를 종료합니다</p>
                                 <ul>
                                     <li className="no"><button onClick={() => { $('.pop').css('display', 'none'); }}>취소</button></li>
-                                    <li className="yes"><button onClick={onDropClick}>학인</button></li>
+                                    <li className="yes"><button onClick={onDropClick}>확인</button></li>
                                 </ul>
                             </div>}
                 </div>

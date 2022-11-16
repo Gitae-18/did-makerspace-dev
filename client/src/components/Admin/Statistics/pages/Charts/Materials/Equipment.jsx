@@ -5,6 +5,7 @@ import "../../../../../../css/chart/Datepicker.css";
 import xlsx from "xlsx";
 import Chart from "react-apexcharts";
 import "../../../../../../css/chart/Material.css";
+import SearchBar from "../../Materials/SearchBar";
 
 const fileType =
   "application/vnd.openxmlformats-officedocument .spreadsheetml .sheet;charset = UTF-8";
@@ -41,8 +42,6 @@ function Equipment() {
   };
   useEffect(() => {
     getService();
-  }, []);
-  useEffect(() => {
     dataList = data.filter((item) => item.model_name.indexOf(input) !== -1);
   }, [input]);
   let dataList = data.filter((v) => v.equipment_category_no);
@@ -55,10 +54,10 @@ function Equipment() {
   } else if (input === "") {
     dataList = data.filter((v) => v.equipment_category_no);
   }
-  const handleSearch = (e) => {
+/*   const handleSearch = (e) => {
     const inputValue = e.target.value;
     setInput(inputValue);
-  };
+  }; */
   let dayday = [];
   const arr = [40, 30, 50, 60, 70, 80];
   const fileDownload = () => {

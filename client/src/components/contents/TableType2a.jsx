@@ -30,9 +30,13 @@ export default function TableType2a() {
    const fdmlink = "https://www.youtube.com/embed/c-pkmy2TEiw";
    const xcutlink = "https://www.youtube.com/embed/zpf5MHCSkI8";
    const elselink = "https://www.youtube.com/embed/1fqwqZlxJ-c";
+   const active ="active";
+   const nonactive = "nonactive";
+
+   
    const getItemList = useCallback(async(currentPage)=>{
       setLoading(true);
-      let requri = PreUri + `/equipment/equipmentlist?_page=${currentPage}&_limit=10`;
+      let requri = PreUri + `${'/equipment/equipmentlist'}`;
       const response = await fetch(requri, {
         method:Method.get,
         headers:CommonHeader
@@ -54,7 +58,9 @@ export default function TableType2a() {
    const setPage = (e) =>{
      setCurrentPage(e);
    }
- 
+   const setBtnClick = (e) =>{
+      console.log(e.target.name);
+   }
   return (
     <div className="table_wrap table_type2">
       <div className="table_extra">
@@ -88,10 +94,10 @@ export default function TableType2a() {
                
                 <td className="btns_wrap">
                 <ButtonType2small modelName={item.model_name.includes("A0플로터") ? floterlink: item.model_name.includes("X-cut") ? xcutlink: item.model_name.includes("UV 프린터 : 329UV") ? printerlink:item.model_name.includes("FDM : 3DWOX") ? fdmlink:elselink} className="video_btn" btnName="동영상보기"/>
-                <ButtonType2test test={false}></ButtonType2test>
+                <ButtonType2test  active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active:nonactive} name={item.model_name} test={false}></ButtonType2test>
                  </td>
                  <td className="res_btn">
-                <NavLink to="/reservation/selectreserv"> <ButtonType3small btnName="예약하기"></ButtonType3small></NavLink>
+                 <ButtonType3small active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active:nonactive} btnName="예약하기"></ButtonType3small>
                 </td>
                
             </tr>

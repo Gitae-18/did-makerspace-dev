@@ -3,6 +3,7 @@ import TableType2a from "../../contents/TableType2a";
 import TextExtraType1a from "../../contents/TextExtraType1a";
 import SubSideMenu from "../../contents/SubSideMenu";
 import PageSub02a3 from "./PageSub02a3";
+import { SubBread } from "../../contents/SubSideMenu";
 
 export default function PageSub02a1() {
   return (

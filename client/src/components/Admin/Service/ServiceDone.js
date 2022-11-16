@@ -12,6 +12,7 @@ export default ({  no }) => {
     const mountedRef = useRef(true);
     const { token } = useSelector(state => state.user);
     const history = useNavigate();
+    const query = useParams();
     const [categoryItems, setCategoryItems] = useState({
         count: 0,
         items: [],
