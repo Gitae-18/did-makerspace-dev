@@ -1,6 +1,6 @@
 import React from "react";
 import ButtonType2 from "./ButtonType2";
-
+import styled from "styled-components";
 export default function TableType1c() {
   return (
     <div className="table_wrap table_type1">
@@ -13,7 +13,7 @@ export default function TableType1c() {
             <option value="1">이름</option>
           </select>
           <input type="text" name="" id="" placeholder="제목을 입력하세요" />
-          <ButtonType2 btnName="조회"></ButtonType2>
+          <StyledBtn >조회</StyledBtn>
         </div>
       </div>
       <table>
@@ -89,3 +89,16 @@ export default function TableType1c() {
     </div>
   );
 }
+const StyledBtn= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:120px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
+border:1px solide #313f4f;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `

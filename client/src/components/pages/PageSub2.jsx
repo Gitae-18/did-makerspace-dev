@@ -1,6 +1,7 @@
 import React ,{useState} from "react";
 import {useLocation,useHistory} from 'react-router-dom'
 import SubSideMenu,{SubSideMenu2} from "../contents/SubSideMenu";
+import Menu from "../Menu";
 import PageSub02a1 from "./PageSub02/PageSub02a1";
 import PageSub02a2 from "./PageSub02/PageSub02a2";
 import PageSub02a3 from "./PageSub02/PageSub02a3";
@@ -34,6 +35,7 @@ export default function DidReservation({location,history}) {
   export const DidReservation2 = ({location,history}) => {
     return (
         <>
+  
         <div id="sub_page_wrap">
           <SubSideMenu title={"공간예약"}></SubSideMenu>
           <div className="sub_page_inner_wrap">
@@ -50,6 +52,7 @@ export default function DidReservation({location,history}) {
   export const DidReservation3 = ({location,history}) => {
     return (
         <>
+  
         <div id="sub_page_wrap">
           <SubSideMenu title={"전문 랩 투어"}></SubSideMenu>
           <div className="sub_page_inner_wrap">
@@ -67,8 +70,9 @@ export default function DidReservation({location,history}) {
       
     return (
         <>
+  
         <div id="sub_page_wrap">
-          <SubSideMenu location={location} history={history}></SubSideMenu>
+          <SubSideMenu title={"장비예약"} ></SubSideMenu>
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
               <PageSub02a7/>
@@ -85,8 +89,9 @@ export default function DidReservation({location,history}) {
       
     return (
         <>
+  
         <div id="sub_page_wrap">
-          <SubSideMenu location={location} history={history}></SubSideMenu>
+          <SubSideMenu title={"장비예약"} subtitle={"날짜 및 시간"}></SubSideMenu>
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
               <PageSub02a3/>
@@ -101,8 +106,9 @@ export default function DidReservation({location,history}) {
   export const TestReservation = ({location,history}) =>{
     return (
       <>
+
       <div id="sub_page_wrap">
-        <SubSideMenu location={location} history={history}></SubSideMenu>
+        <SubSideMenu title={"장비예약"} subtitle={"온라인시험"}></SubSideMenu>
         <div className="sub_page_inner_wrap">
           <div className="sub_inner">
             <PageSub02a5/>

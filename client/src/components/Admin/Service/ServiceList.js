@@ -4,13 +4,15 @@ import { useNavigate,useLocation ,useParams} from 'react-router-dom';
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg } from '../../../CommonCode';
 import { M_SERVICE_DELETE, M_SERVICE_SET } from "../../../store/manager_service";
 import SideNavi from './SideNavi';
+import SubSideMenu from '../../contents/SubSideMenu';
 
 import '../../../css/common-s.css';
 import '../../../css/style-s.css';
 import Service from '../../User/Service';
+import ServiceStatics from '../Statistics/pages/Charts/Service/ServiceStastics';
 
 
-function makeQuery(step, dateType, year, month, company) {
+function makeQuery(step, dateType, year, month, company,serviceNo) {
     const search_year = "year=" + year;
     const search_month = "month=" + month;
     
@@ -30,34 +32,26 @@ function makeQuery(step, dateType, year, month, company) {
     if(company && company !== 0){
         query += ((query.length > 0)? "&":"") +"company="+ company;
     }
-    
     return query;
 }
 
-export default function ({ query }) {
+export default function ({ query , no }) {
     const { token } = useSelector(state => state.user);
+    const { authority_level } = useSelector(state => state.user);
     const dispatch = useDispatch();
     const location = useLocation();
     const history = useNavigate();
-   
     const mountedRef = useRef(true);
     const [info,setInfo] = useState("");
+    const [deleted,setDeleted] = useState(false);
     const [checkValue, setCheckValue] = useState([]);
+    const [serviceno,setServiceno] = useState();
 	const [serviceAppItem, setServiceAppItem] = useState({
 		serviceNo: '',
 		name: '',
-		email: '',
-		phoneNumber: '',
-		company: '',
-		title: '',
-		productName: '',
-		content: '',
-		businessPlan: '',
-		requirement: '',
-		categoriesNo: '',
-		created_at:'',
-        memo:'',
-		attachedFile: [],
+        title : '',
+        progress:'',
+        status : '',
 	});
     const [categoryItems, setCategoryItems] = useState({
         count: 0,
@@ -65,7 +59,9 @@ export default function ({ query }) {
 	});
     let coName;
     let ServiceItemRows = [];
+    let ServiceItemRow2 = [];
     let PageList = [];
+
     const [deletecol,setDeletecol] = useState('flase');
     const [companyNo,setCompanyNo] = useState(0);
     const [company,setCompany] = useState(0);
@@ -86,8 +82,6 @@ export default function ({ query }) {
             }
         ],
     });
-
-   
     const getCompanyList = useCallback(async (query) =>{
 
         const res = await fetch(PreUri + "/company/companyno",{
@@ -100,7 +94,7 @@ export default function ({ query }) {
 
 
     const getServiceList = useCallback(async (query) => {
-        
+       
 
         const pageNumber = query.page ? query.page : 1 ;
         const company = query.company ? query.company : 0 ;
@@ -108,12 +102,11 @@ export default function ({ query }) {
         const year = query.year ? query.year : 0;
         const month = query.month ? query.month : 0;
         const step = query.step ? Number(query.step) : 0;
-    
         setDateType(query.dt ? query.dt : "ALL");
         setYear(year);
         setMonth(month);
         setStep(step);
-        setCompany(query.company?query.company:0); 
+        setCompany(company); 
    
         
         let startDate, endDate;
@@ -157,8 +150,9 @@ export default function ({ query }) {
 
         CommonHeader.authorization = token;
         const limitCount = 20;
-      
+        
         let requri = PreUri + '/service?page=' + pageNumber + '&limit=' + limitCount;
+        
         if (startDate && endDate) {
             requri += "&sdate=" + startDate + "&edate=" + endDate;
         }
@@ -178,12 +172,12 @@ export default function ({ query }) {
             console.log('잘못된 접근입니다.');
             return;
         }
-
+        console.log(requri);
         const json = await response.json();
         const totalPage = Number(json.total_page);
         const currentPage = Number(json.current_page);
         const pageOffset = Math.ceil(currentPage / PageMax);
-        console.log(json);
+        console.log(token);
         setServiceItems(serviceItems => ({
             ...serviceItems,
             totalCount: Number(json.total_count),
@@ -194,7 +188,16 @@ export default function ({ query }) {
             items: json.items,
             categories:json.categories
         }));
+        setServiceAppItem(serviceAppItem =>({
+            ...serviceAppItem,
+            serviceNo:json.items.map((item,i)=>item.service_no),
+            name : json.items.map((item,i)=>item.username ),
+            title : json.items.map((item,i)=>item.title),
+            progress : json.items.map((item,i)=>item.progress),
+            status: json.items.map((item,i)=>item.status)
+        }))
     }, [token]);
+   
     useEffect(() => {
         getServiceList(query);
         getCompanyList(query);
@@ -216,37 +219,12 @@ export default function ({ query }) {
                     ? <td className="btn" ><button onClick={props.onPrint}>보고서 출력</button></td>
                     : <td />
                 }
-                <td className="btn" ><button index={props.index} onClick={()=>props.ServiceDrop(props.serviceno)}>삭제</button></td>
+                <td className="btn" ><button onClick={props.onDelete}>삭제</button></td>
             </tr>
         </>);
-    }, []);
-   /* const handleRemove = useCallback((e,index) =>{      
-        e.preventDefault();
-        let drop = ServiceItemRow(props);
-        const item = serviceItems.items[index];
-        //ServiceItemRows.filter((element,index)=> element.props.index !== index)
-        ServiceItemRows.shift()
-        console.log(ServiceItemRows)
-        console.log(typeof(ServiceItemRows));
-    },[props])*/
+    }, [serviceno]);
     let cal = serviceItems.items
-    
-    const onDel = useCallback((async(e,index) =>{
-        /*if (serviceItems.totalCount > 0) {
-            for (let i = 0; i <= serviceItems.items.length && i < serviceItems.limit; i++) {
-                const item = serviceItems.items[i];*/
-                
-        setServiceItems(serviceItems=>({
-            ...serviceItems,
-            totalCount:serviceItems.totalCount-1,
-            totalPage:serviceItems.totalPage,
-            currentPage:serviceItems.currentPage,
-            limit: serviceItems.limit,
-            pageOffset: serviceItems.pageOffset,
-            items:serviceItems.items.filter(item=> item.service_no !== index),
-            co_name:serviceItems.co_name,
-            categories:serviceItems.categorie}))
-    }))
+
     /* const ServiceDrop = useCallback((async(e,i,serviceno)=>{
         let copy = {...serviceItems};
         const item_no = copy.items[i].service_no;
@@ -322,6 +300,7 @@ export default function ({ query }) {
         const newname = itemm.username.filter((item) => itemm.username !== item)
         setServiceItems(newname)
     },[history,serviceItems,dispatch])*/
+    
     const onPrint = useCallback((e, index) => {
         e.preventDefault();
         const item = serviceItems.items[index];
@@ -364,13 +343,16 @@ export default function ({ query }) {
     }
 
     
+    
+    
  
     if (serviceItems.totalCount > 0) {
         for (let i = 0; i < serviceItems.items.length && i < serviceItems.limit; i++) {
             const item = serviceItems.items[i];
             const rowNumber = serviceItems.totalCount - i - (serviceItems.currentPage - 1) * serviceItems.limit;
             const serviceno = serviceItems.items.service_no;
-            if (rowNumber < 1) { break; }
+            let serviceNo,title,name,progress,status;
+            if (rowNumber < 1) { break;}
             ServiceItemRows.push(
                 <ServiceItemRow index={rowNumber}
                     service_no = {item.service_no}
@@ -385,23 +367,44 @@ export default function ({ query }) {
                    /*  ServiceDrop={(e) => ServiceDrop(e,i,serviceno)} */
                     onClick={(e) => onSelectItem(e, i)}
                     onPrint={(e) => onPrint(e, i)}
+                    onDelete = {(e) =>DropItem(item.service_no,i)}
                     key={i}/>)
             };
     }
-      const alart = () =>{
-        return(
-            <p>
-             2022년 09월 08일부터 예약 마감 시간이 18:00 로 변경됩니다.
-            </p>
-            )
-      }
-      const onRemove = (e,i) =>{
-        e.preventDefault();
-        alart();
-        const element =  document.getElementById('id');
-        element.remove();
-      }   
+    
+    const DropItem = useCallback(async(e,i)=>{
+
+        /* for(let i = 0 ; i<ServiceItemRow.length;i++){
+        serviceNum = ServiceItemRow[i][2].service_no; 
+        }
+        console.log(serviceNum); */
+        setDeleted(true);
+        CommonHeader.authorization = token;
+        const service_number = e;
+
+        const response = await fetch(PreUri + '/service/'+ service_number+'/dropitem',
+            {
+                method:Method.delete,
+                headers:CommonHeader,
+            })
+            if(!response.ok){
+                alert(getRspMsg(response.status));
+                return;
+            }
+            alert("삭제되었습니다");
+            history(0);
+            /*   let item;
+                for(let i = 1 ; i<serviceItems.items.length && i < serviceItems.limit;i++)
+                { item = serviceItems.items[i].service_no;}
+                if(item[i]===undefined )
+                {
+                    console.log("서비스넘버가 없습니다")
+                }
+                return item[i] */
+                
+        },[token,serviceItems])
       
+
     var dt = new Date();
     var com_year = dt.getFullYear();
     let YearOption = [(<option value={0} key={0}>연도</option>)];
@@ -413,8 +416,9 @@ export default function ({ query }) {
     return (
         <div id="wrap" className="wrap service1">
             <div className="content_wrap">
-                <SideNavi history={history} />
+                <SubSideMenu title={"시제품 제작"} subtitle={"시제품제작관리"}/>
                 <div className="content">
+                
                     <div className="top_menu">
                         <ul>
                             <li><button className={step === 0 ? "on" : ""} onClick={(e) => onSelectStep(e, 0)}><span className="num"></span> 전체</button></li>

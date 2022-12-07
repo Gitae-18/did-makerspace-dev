@@ -490,13 +490,15 @@ router.delete('/element/:id', verifyToken, async (req, res, next) => {
 router.get ('/equipmentlist',async(req,res,next)=>{
     let body = req.body;
     let equipment_category_no = req.params.equipment_category_no;
+    
 
+    
     let equipment_list;
     try{
         equipment_list = await EquipmentCategory.findAll({
             attributes:['model_name','equipment_category_no','model_number','model_specification','reservation_available','location'],
             where:{
-                reservation_available : {[Op.or]:["Y","N"]} 
+                reservation_available : 'Y' 
             },
             order:[
                 ['created_at','ASC']
@@ -516,8 +518,13 @@ router.get ('/categorylist',async(req,res,next)=>{
     let body = req.body;
     let equipment_category_no = req.params.equipment_category_no;
     const page = (req.query.page === undefined) ? 1 : Number(req.query.page);
-    const limit = (req.query.limit === undefined) ? 7 : Number(req.query.limit);
+    const limit = (req.query.limit === undefined) ? 10 : Number(req.query.limit);
 
+   /*  const page = (req.query.page === undefined) ? 1 : Number(req.query.page);
+    const limit = (req.query.limit === undefined) ? 20 : Number(req.query.limit);
+    let totalCount = equipment_list[0].datavalues.count;
+    let totalPage = Math.ceil(totalCount / limit);
+    let offset = ((page > totalPage ? totalPage : page) -1 ) * limit; */
 
     let equipment_list;
     try{

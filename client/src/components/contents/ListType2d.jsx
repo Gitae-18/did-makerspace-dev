@@ -1,13 +1,18 @@
 import React from "react";
-
+import { useLocation,useNavigate,NavLink } from "react-router-dom";
 export default function ListType2d() {
+  const location = useLocation();
+  const history = useNavigate();
+  const onItem = () =>{
+    history(location.pathname + '/detail');
+  }
   return (
     <div className="table_wrap list_type2 list_type2c">
       <ol>
         <li>
           <div className="image_part">Image</div>
           <div className="text_part">
-            <h5>스케치업을 이용한 단독주택모델링</h5>
+            <h5 onClick={onItem}>스케치업을 이용한 단독주택모델링</h5>
             <div className="dl_wrap">
               <dl>
                 <dt className="blind">날짜</dt>

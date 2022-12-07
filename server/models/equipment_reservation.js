@@ -4,14 +4,9 @@ module.exports = (sequelize,DataTypes) =>{
     return sequelize.define('equipment_reservation',{
         equipment_reservation_no:{
             type:DataTypes.INTEGER,
-            autoIncrement: false,
+            autoIncrement: true,
             allowNull: false,
             primaryKey: true,
-        },
-        equipment_element_no:{
-            type:DataTypes.INTEGER,
-            allowNull:false,
-            unique:true,
         },
         equipment_category_no:{
             type:DataTypes.INTEGER,
@@ -20,18 +15,19 @@ module.exports = (sequelize,DataTypes) =>{
         reservation_status:{
             type:DataTypes.CHAR(5),
             allowNull:false,
+            defaultValue:'can'
         },
         reservation_date:{
-            type:DataTypes.DATE,
+            type:DataTypes.STRING(50),
             allowNull:false,
         },
         created_user_no:{
             type:DataTypes.INTEGER,
-            allowNull:false,
+            allowNull:true,
         },
         updated_user_no:{
             type:DataTypes.INTEGER,
-            allowNull:false,
+            allowNull:true,
         },
     },{
         timestamps: true, // created_at, updated_at

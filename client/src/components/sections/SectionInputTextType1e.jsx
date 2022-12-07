@@ -1,22 +1,19 @@
 import React from "react";
 import TitleType1 from "../contents/TitleType1";
 import ButtonType2 from "../contents/ButtonType2";
-
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 export default function SectionInputTextType1e() {
+  const history = useNavigate();
   return (
     <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1e">
       <div className="title_wrap">
         <TitleType1 title="공지사항"></TitleType1>
       </div>
       <ul className="text_wrap">
-        <li>
+      <li>
           <label htmlFor="text01">제목</label>
-          <input
-            type="text"
-            name="text01"
-            id="text01"
-            placeholder="제목을 입력하세요."
-          />
+          <span>게시글 제목입니다.</span>
         </li>
         <li className="textarea_wrap">
           <label htmlFor="text02">내용</label>
@@ -33,7 +30,20 @@ export default function SectionInputTextType1e() {
           <input type="file" name="file01" id="file01" className="w_auto" />
         </li>
       </ul>
-      <ButtonType2 btnName="추가"></ButtonType2>
+      <StyledBtn onClick={()=>history(-1)}>목록</StyledBtn>
     </section>
   );
 }
+const StyledBtn= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:120px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
+border:1px solide #313f4f;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `

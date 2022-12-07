@@ -1,4 +1,4 @@
-/*@font-face {
+/* @font-face {
   font-family: "VITRO CORE";
   src: url(/public/font/font_01.ttf);
 }
@@ -14,9 +14,9 @@ header.header_change a, header.header_change span {
 
 header.header_change a:hover, header.header_change span:hover {
   color: #313f4f;
-}
+}/*  */
 
-header.header_change .wrap1 .logo a {
+/* header.header_change .wrap1 .logo a {
   background-image: url(/public/images/logo_bk.png);
 }
 
@@ -177,5 +177,5 @@ header ol.header_info li > * {
 
 .user_login header ol.header_info1 {
   display: none;
-}
+} */
 /*# sourceMappingURL=Header.css.map */

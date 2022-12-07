@@ -6,6 +6,7 @@ import UServiceNavi from './ServiceNavi';
 import '../../css/common-s.css';
 import '../../css/style-s.css';
 import SubSideMenu from '../contents/SubSideMenu';
+import Menu from '../Menu';
 export default function () {
     const PageMax = 5;
     const { token } = useSelector(state => state.user);
@@ -197,13 +198,16 @@ export default function () {
     }
 
     return (
+        <>
         <div id="wrap" className='wrap utilize1'>
             <div className="content_wrap">
                 <div className="inner_wrap">
+                    <SubSideMenu title={"시제품제작"} subtitle={"시제품 제작신청"}/>
+                    <div className='under'>
                     <div className="top_menu">
                         <UServiceNavi step={0} />
                     </div>
-                    <h2>내 서비스 이용</h2>
+
                     <p className="info">서비스 이용이 처음이거나 상담이 필요하신분은 상담 신청을 통해 안내를 받으실 수 있습니다.</p>
                     <div className="table">
                         <table>
@@ -247,7 +251,9 @@ export default function () {
                     </div>
  
                 </div>
+                </div>
             </div>
         </div>
+        </>
     );
 }

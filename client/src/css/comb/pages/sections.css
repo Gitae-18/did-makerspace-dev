@@ -30,6 +30,7 @@
   border: 1px solid #313f4f;
   background-color: #fff;
   border-radius: 8px;
+  z-index: 0;
 }
 
 .section_text_type1 .swiper_part::before {
@@ -99,7 +100,10 @@
           justify-content: flex-end;
   gap: 15px;
 }
-
+.section_tab_type1{
+  position:relative;
+  bottom:20px;
+}
 .section_tab_type1 .tab_btns_wrap > li {
   border-bottom: 3px solid transparent;
   padding: 4px;
@@ -141,7 +145,17 @@
 .section_tab_type1 .tab_inner.on {
   display: block;
 }
-
+.section_tab_type1 .tab_inner ol {
+  position: relative;
+  left:50px;
+}
+.section_tab_type1 .tab_inner .image1{
+  position: relative;
+  width:12vw;
+  height:10vh;
+  justify-content: center;
+  border:1px solid #313f4f;
+}
 .section_banner_type1 .section_inner_wrap {
   position:relative;
   top:50%;
@@ -279,7 +293,9 @@
   background-color: transparent;
   resize: none;
 }
-
+.section_input_text_type1 span{
+  padding-left:20px;
+}
 .section_input_text_type1 .btns {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -291,8 +307,11 @@
   margin-top: 24px;
 }
 
-.section_input_text_type1 .btns .tp_btn {
+.section_input_text_type1 button {
   margin: 0;
+  position:absolute;
+  left:50%;
+  margin-top:100px;
 }
 
 .section_input_text_type1.section_input_text_type1b .text_wrap {
@@ -326,6 +345,7 @@
 
 .section_input_text_type1.section_input_text_type1d {
   padding-left: 12px;
+  margin-bottom:200px;
 }
 
 .section_input_text_type1.section_input_text_type1d .text_wrap li {
@@ -428,7 +448,15 @@
   height: 200px;
 }
 
-.section_input_text_type1d > .tp_btn {
-  margin-top: 24px;
+.section_input_text_type1d button{
+  margin-top:24px;
+}
+.section_input_text_type1d button.cancel {
+  position:relative;
+  left:44%;
+}
+.section_input_text_type1d button.apply {
+  position:relative;
+  left:41%;
 }
 /*# sourceMappingURL=sections.css.map */

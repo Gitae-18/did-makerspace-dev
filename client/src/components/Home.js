@@ -78,7 +78,6 @@ export default function () {
             <SectionTextType1
               title="DID 주요 서비스"
               subTitle="주요 서비스 임시텍스트"
-              desc="얼마나 할지니, 우리 천고에 청춘의 싸인 하는 사랑의 것이다. 살 같이, 일월과 있으며, 천하를 그들의 끝까지 사막이다. 생의 우리의 꾸며 인간이 모래뿐일 그들은 얼음에 힘차게 이는 칼이다. 얼음에 오직 힘차게 이는 아니한 듣는다. 그러므로 없는 이것이야말로 시들어 대중을 것이다. 충분히 만천하의 따뜻한 고행을 철환하였는가? 끝에 안고, 가치를 풀이 사막이다 ..."
             ></SectionTextType1>
             <SectionTabType1 title="New 업데이트"></SectionTabType1>
             <SectionBannerType1 title="DID 협력기관"></SectionBannerType1>

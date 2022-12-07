@@ -5,12 +5,13 @@
 
 footer {
   position:relative;
-  width:100%;
+  width:110%;
+  height:13vh;
   left:0;
   bottom:0;
   bottom:100;
   z-index: 10;
-  padding: 36px 0;
+  padding: 20px 0 0 0;
   background-color: #313f4f;
   font-size: 0.9em;
 }
@@ -29,17 +30,24 @@ footer .footer_inner_wrap {
   display: -ms-flexbox;
   display: flex;
   color:#fff;
+  position:relative;
+  right:50px;
 }
 
 footer .footer_inner_wrap > h3 {
   width: 80%;
   margin-bottom: 20px;
   font-size: 1.0em;
+  margin-left: 0;
+  
 }
 
 footer .footer_inner_wrap > .site_map_wrap {
   width: 20%;
   min-width: 150px;
+  position:relative;
+  left: 6vw;
+  right:0;
 }
 
 footer .footer_inner_wrap > .site_map_wrap select {
@@ -68,5 +76,8 @@ footer dl dt::after {
   display: inline-block;
   padding-left: 10px;
 }
-
+.footer_info{
+  position: relative;
+  right:2.5vw;
+}
 /*# sourceMappingURL=Footer.css.map */

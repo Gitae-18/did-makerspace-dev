@@ -132,7 +132,7 @@ export default function ({query}) {
         };
 
 		dispatch({ type: SET_RECORD, target: copy });
-        history('/mmaterial?view=item');
+        history(location.pathname + '?view=item');
         // dispatch({ type: CHANGE_PAGE, target: PAGE_VIEW.EDIT });
     }, [items, material, history, dispatch]);
 

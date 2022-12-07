@@ -19,12 +19,14 @@ const{
     OAUTH_CLIENT_ID,
     OAUTH_CLIENT_SECRET,
     OAUTH_REFRESH_TOKEN,
+    OAUTH_ACCESS_TOKEN
 } = process.env;
 if(
     !OAUTH_USER ||
     !OAUTH_CLIENT_ID ||
     !OAUTH_CLIENT_SECRET ||
-    !OAUTH_REFRESH_TOKEN
+    !OAUTH_REFRESH_TOKEN||
+    !OAUTH_ACCESS_TOKEN
 ){
     throw Error('OAuth 인증에 필요한 환경변수가 없습니다.');
 }
@@ -950,15 +952,17 @@ router.post('/findpassword', async (req, res, next) => {
     
         const transporter = nodemailer.createTransport({
             service: 'gmail',
-            host: 'smtp.google.com',
-            port: 587,
+            host: 'smtp.gmail.com',
+            port: 465,
             secure: true,
             auth:{
                 type: 'OAuth2',
-                user: OAUTH_USER,
-                clientId: OAUTH_CLIENT_ID,
-                clientSecret: OAUTH_CLIENT_SECRET,
-                refreshToken: OAUTH_REFRESH_TOKEN,
+                user: process.env.OAUTH_USER,
+                clientId: process.env.OAUTH_CLIENT_ID,
+                clientSecret: process.env.OAUTH_CLIENT_SECRET,
+                accessToken: process.env.OAUTH_ACCESS_TOKEN,
+                refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+                expires: 1484314697598,
             },
         });
         
@@ -1013,7 +1017,7 @@ router.post('/findpassword', async (req, res, next) => {
         catch(e){
             console.log(e);
         }
-    }main(body.email)
+    }main(email)
 
    /* let transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -1042,9 +1046,10 @@ router.post('/findpassword', async (req, res, next) => {
     res.status(errorCode.ok).json({});
 });
 
-router.get('/test', verifyToken, (req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.json(req.decoded);
+router.get('/test',  (req, res) => {
+    //res.header("Access-Control-Allow-Origin", "*");
+    //res.json(req.decoded);
+    res.status(errorCode.ok).json({});
 });
 
 module.exports = router;

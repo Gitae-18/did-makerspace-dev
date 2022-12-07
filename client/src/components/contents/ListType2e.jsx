@@ -1,13 +1,19 @@
 import React from "react";
+import { useLocation,useNavigate,NavLink } from "react-router-dom";
 
 export default function ListType2e() {
+  const location = useLocation();
+  const history = useNavigate();
+  const onItem = () =>{
+    history(location.pathname + '/detail');
+  }
   return (
     <div className="table_wrap list_type2 list_type2c">
       <ol>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part" onClick={onItem}>Image</div>
           <div className="text_part">
-            <h5>제조 양산의 기초 실리콘 몰드 제작</h5>
+            <h5 onClick={onItem}>제조 양산의 기초 실리콘 몰드 제작</h5>
             <div className="dl_wrap">
               <dl>
                 <dt className="blind">날짜</dt>
@@ -21,9 +27,9 @@ export default function ListType2e() {
           </div>
         </li>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part" onClick={onItem}>Image</div>
           <div className="text_part">
-            <h5>제조 양산의 기초 실리콘 몰드 제작</h5>
+            <h5 onClick={onItem}>제조 양산의 기초 실리콘 몰드 제작</h5>
             <div className="dl_wrap">
               <dl>
                 <dt className="blind">날짜</dt>
@@ -37,9 +43,9 @@ export default function ListType2e() {
           </div>
         </li>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part" onClick={onItem}>Image</div>
           <div className="text_part">
-            <h5>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
+            <h5 onClick={onItem}>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
             <div className="dl_wrap">
               <dl>
                 <dt className="blind">날짜</dt>
@@ -53,9 +59,9 @@ export default function ListType2e() {
           </div>
         </li>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part" onClick={onItem}>Image</div>
           <div className="text_part">
-            <h5>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
+            <h5 onClick={onItem}>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
             <div className="dl_wrap">
               <dl>
                 <dt className="blind">날짜</dt>
@@ -69,9 +75,9 @@ export default function ListType2e() {
           </div>
         </li>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part" onClick={onItem}>Image</div>
           <div className="text_part">
-            <h5>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
+            <h5 onClick={onItem}>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
             <div className="dl_wrap">
               <dl>
                 <dt className="blind">날짜</dt>
@@ -85,9 +91,9 @@ export default function ListType2e() {
           </div>
         </li>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part" onClick={onItem}>Image</div>
           <div className="text_part">
-            <h5>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
+            <h5 onClick={onItem}>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
             <div className="dl_wrap">
               <dl>
                 <dt className="blind">날짜</dt>

@@ -1,6 +1,7 @@
 import React from "react";
 import TitleType1 from "../contents/TitleType1";
 import ButtonType2 from "../contents/ButtonType2";
+import styled from "styled-components";
 
 export default function SectionInputTextType1d() {
   return (
@@ -96,10 +97,37 @@ export default function SectionInputTextType1d() {
           />
         </li>
       </ul>
-      <div className="btns">
-        <ButtonType2 btnName="등록"></ButtonType2>
-        <ButtonType2 btnName="취소" bgc="gray"></ButtonType2>
-      </div>
+    
+        <StyledBtn className="apply">등록</StyledBtn>
+        <StyledGrayBtn className='cancel'>취소</StyledGrayBtn>
+     
     </section>
   );
 }
+
+const StyledBtn= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:120px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
+border:1px solide #313f4f;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `
+ const StyledGrayBtn= styled.button`
+color:#fff;
+background-color:#7f7f7f;
+width:120px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
+border:1px solide #313f4f;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `

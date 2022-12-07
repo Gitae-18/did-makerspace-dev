@@ -12,25 +12,67 @@ export default function SectionTabType1(props) {
         <li className="tab_inner on">
           {/* <h4>{props.tabNames[0]}</h4> */}
           <ol>
-            <li>1. 장비 관련</li>
-            <li>2. 장비 관련</li>
-            <li>3. 장비 관련</li>
+            <li>장비 및 시설예약 New !
+              <ol>
+                <img src="/images/reservation.jpg" className="image1" alt="no-images"/>
+              </ol>
+              <ol>
+                <span>장비명 : &nbsp;X-cut </span>
+              </ol>
+            </li>
+            <li>장비 및 시설예약 New !
+              <ol>
+                <img src="/images/reservation.jpg" className="image1" alt="no-images"/>
+              </ol>
+              <ol>
+                <span>장비명 : &nbsp; A0 플로터</span>
+              </ol>
+            </li>
+            <li>장비 및 시설예약 New !
+              <ol>
+                <img src="/images/reservation.jpg" className="image1" alt="no-images"/>
+              </ol>
+              <ol>
+                <span>장비명 : &nbsp; FDM &nbsp;: &nbsp;3D-WOX</span>
+              </ol>
+            </li>
           </ol>
         </li>
         <li className="tab_inner">
           {/* <h4>{props.tabNames[1]}</h4> */}
           <ol>
-            <li>02-1</li>
-            <li>02-2</li>
-            <li>02-3</li>
+            <li>시제품 제작 New !
+              <ol>
+                <img src="/images/service.jpg" className="image1" alt="no-images"/>
+              </ol>
+              <ol>
+                <span>제목 : &nbsp;무선 진동센서 하우징 개발 </span>
+              </ol>
+            </li>
+            <li>시제품 제작 New !
+              <ol>
+                <img src="/images/service.jpg" className="image1" alt="no-images"/>
+              </ol>
+              <ol>
+                <span>제목  : &nbsp; 3D 프린팅 셈플 제작 문의 </span>
+              </ol>
+            </li>
+            <li>시제품 제작 New !
+              <ol>
+                <img src="/images/service.jpg" className="image1" alt="no-images"/>
+              </ol>
+              <ol>
+                <span>제목  : &nbsp; 기계장치 고정 부품</span>
+              </ol>
+            </li>
           </ol>
         </li>
         <li className="tab_inner">
           {/* <h4>{props.tabNames[2]}</h4> */}
           <ol>
-            <li>03-1</li>
-            <li>03-2</li>
-            <li>03-3</li>
+            <li></li>
+            <li></li>
+            <li></li>
           </ol>
         </li>
       </ol>

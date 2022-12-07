@@ -32,7 +32,10 @@ export default function TableType2a() {
    const elselink = "https://www.youtube.com/embed/1fqwqZlxJ-c";
    const active ="active";
    const nonactive = "nonactive";
-
+   const flotersrc = '/images/A0floter.png';
+   const xcutsrc = '/images/xcut.png';
+   const fdmsrc = '/images/fdm3dwox1.png';
+   const uvsrc = '/images/uvprinter.png';
    
    const getItemList = useCallback(async(currentPage)=>{
       setLoading(true);
@@ -61,6 +64,9 @@ export default function TableType2a() {
    const setBtnClick = (e) =>{
       console.log(e.target.name);
    }
+   
+   const categoryNum = reservationList.map((item,index)=> item.equipment_category_no);
+
   return (
     <div className="table_wrap table_type2">
       <div className="table_extra">
@@ -86,7 +92,7 @@ export default function TableType2a() {
         <tbody>
           {currentPost && reservationList.length > 0 ? (currentPost.map((item,i)=>(
             <tr key={i}>
-                <td></td>
+                <td><img alt="no image" src={item.model_name.includes("A0플로터")?flotersrc:item.model_name.includes("X-cut")?xcutsrc:item.model_name.includes("UV 프린터 : 329UV")?uvsrc:item.model_name.includes("FDM : 3DWOX") ?fdmsrc:null}/></td>
                 <td>{item.model_name}</td>
                 <td></td>
                 <td>{item.model_specification}</td>
@@ -97,7 +103,7 @@ export default function TableType2a() {
                 <ButtonType2test  active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active:nonactive} name={item.model_name} test={false}></ButtonType2test>
                  </td>
                  <td className="res_btn">
-                 <ButtonType3small active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active:nonactive} btnName="예약하기"></ButtonType3small>
+                 <ButtonType3small categoryNo={categoryNum[i]}active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active:nonactive} btnName="예약하기"></ButtonType3small>
                 </td>
                
             </tr>

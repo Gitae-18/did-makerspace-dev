@@ -22,6 +22,7 @@ export default function ({ query }) {
     });
     const location = useLocation();
     const history = useNavigate();
+    console.log(location.pathname)
     const getItemList = useCallback(async (pageNumber, searchWord) => {
         CommonHeader.authorization = token;
         const limitCount = 20;

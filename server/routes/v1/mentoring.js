@@ -17,6 +17,3 @@ const { raw } = require('body-parser');
 
 const router = express.Router();
 
-router.get('/',async(req,res,next)=>{
-    
-});

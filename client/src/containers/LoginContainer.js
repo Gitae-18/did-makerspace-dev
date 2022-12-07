@@ -12,9 +12,10 @@ export const LoginContainer = () => {
     const dispatch = useDispatch();
     const history = useNavigate();
 
+    console.log('login')
     useEffect(() => {
         dispatch({ type: LOAD_USER });
-    }, [dispatch]);
+    }, []);
 
     const loginStart = useCallback(async (e) => {
         e.preventDefault();
@@ -25,7 +26,7 @@ export const LoginContainer = () => {
         }
 
         if (userId.length <= 0) {
-            alert('아이디를 입력해 주세요.');
+            //alert('아이디를 입력해 주세요.');
             return;
         }
 

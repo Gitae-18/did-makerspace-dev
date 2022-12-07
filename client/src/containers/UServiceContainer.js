@@ -20,7 +20,7 @@ import qs from 'qs';
 
 export const UServiceContainer = () => {
      const { isLoading, isLoggedIn } = useSelector(state => state.user);
-     const { location } = useLocation;
+     const  location  = useLocation;
      const history = useNavigate();
      const { search } = useLocation();
      const query = qs.parse(search, {
@@ -36,7 +36,6 @@ export const UServiceContainer = () => {
             history('/notmember',{replace:true});
             return history('/',{replace:true});
         }
-
         switch (query.step) {
         case '1':
             if (query.next === 'confirm') {

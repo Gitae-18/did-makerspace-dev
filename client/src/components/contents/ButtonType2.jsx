@@ -28,7 +28,7 @@ export default function ButtonType2(props) {
     }
     return (
       <div className={classNames}>
-        <span className="resinfo"><Link to="/didreservation">{props.btnName}</Link></span>
+        <span className="resinfo">{props.btnName}</span>
       </div>
     );
   }
@@ -62,6 +62,22 @@ export  const ButtonType5=(props)=>{
     </div>
   );
 }
+export  const GoBackBtn =(props)=>{
+  const history = useNavigate();
+  let classNames = "btn_type2 tp_btn";
+  // 회색 버튼일 경우 props로 bgc="gray" 받아와서 해당 버튼에 class btn_gray 추가
+  if (props.bgc === "gray") {
+    classNames += " btn_gray";
+  } else if (props.bgc === "white") {
+    classNames += " btn_white";
+  }
+  return (
+    <div className={classNames} onClick={()=>history(-1)}>
+      <span className="resinfo">{props.btnName}</span>
+    </div>
+  );
+}
+
 export function ButtonType2small(props) {
   const [modal,setModal] = useState(false);
   const [videoLoading,setVideoLoading] = useState(true);
@@ -149,6 +165,29 @@ export function ButtonType3small(props) {
     classNames += " btn_white";
   }
   const ClickTest= useCallback(() =>{
+    console.log(props.categoryNo)
+    if(props.active ==="active"){
+      history('/reservation/selectreserv',{state:{category:props.categoryNo}})
+    }
+  },[history,location.pathname])
+  return (
+    <div className={classNames} onClick={ClickTest}>
+     {props.btnName}
+    </div>
+  );
+}
+
+export function ButtonType4small(props) {
+  const [active,setActive] = useState(false);
+  const history = useNavigate();
+  const location = useLocation();
+  let classNames = "btn_type2 tp_btn btn_type2_small";
+  if (props.bgc === "gray") {
+    classNames += " btn_gray";
+  } else if (props.bgc === "white") {
+    classNames += " btn_white";
+  }
+  const ClickTest= useCallback(() =>{
     if(props.active ==="active"){
       history('/reservation/selectreserv')
     }
@@ -187,7 +226,7 @@ export function ButtonType2test(props) {
   },[names])
   const ClickTest= useCallback(() =>{
     if(props.active ==="active"){
-      history(now+"/test")
+      history(now+"/test",{state:{name:props.name}})
     }
   },[history,location.pathname])
 

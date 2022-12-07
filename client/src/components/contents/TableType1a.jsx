@@ -5,15 +5,21 @@ import { CommonHeader,PreUri,Method } from "../../CommonCode";
 import Pagination from "react-js-pagination";
 import '../../css/Paginate.css'
 import InfoType1a from "./InfoType1a";
-import ButtonType5 from "./ButtonType2";
 import SubSideMenu from "./SubSideMenu";
 import styled from "styled-components";
-import { stringify } from "qs";
+import qs from 'qs';
+
 export default function TableType1a() {
   const { token } = useSelector(state => state.user);
+  const location = useLocation();
+  const {search} = useLocation();
+  const history = useNavigate();
   const [spaceList,setSpaceList] = useState([]);
   const [spacename,setSpacename] = useState([]);
   const [page,setPage] = useState(1);
+  const query = qs.parse(search, {
+    ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
+  });
   const getSpaceList = useCallback(async() =>{
     let requri = PreUri + '/space/list';
     const response = await fetch(requri, {
@@ -38,7 +44,11 @@ export default function TableType1a() {
     setPage(page);
   }
   console.log(spacename);
-
+  const onMove = (e) =>{
+    history(location.pathname + '/spacedetail',{state:{name:e.space_name}});
+  }
+  console.log(query)
+  console.log(location.pathname)
   return (
     <>
     <div className="table_wrap table_type1">
@@ -51,7 +61,7 @@ export default function TableType1a() {
             <option value="1">공간명</option>
           </select>
           <input type="text" name="" id="" placeholder="제목을 입력하세요" />
-          <ButtonType5 btnName="조회"></ButtonType5>
+          <StyledBtn>조회</StyledBtn>
         </div>
       </div>
       <table className="table_space">
@@ -70,9 +80,9 @@ export default function TableType1a() {
             {spaceList.map((item,i)=>(
               <tr key={i}>
               <td>{item.space_no}</td>
-              <td><StyledLink to="/InfoType1a"><StyledSpan>{item.space_name}</StyledSpan></StyledLink></td>
-              <td><StyledLink to="/InfoType1a"><StyledSpan>{item.space_info}</StyledSpan></StyledLink></td>
-              <td><img alt="no imgae"/></td>
+              <td><StyledSpan onClick={(e)=>onMove(item)}>{item.space_name}</StyledSpan></td>
+              <td><StyledSpan onClick={(e)=>onMove(item)}>{item.space_info}</StyledSpan></td>
+              <td><StyledImg alt="no imgae" src="/images/mokgong.png"/></td>
               <td>{item.location}</td>
               <td>월~금(09:00 - 18:00)</td>
               </tr>
@@ -106,9 +116,28 @@ const StyledLink = styled(Link)`
 `;
 const StyledSpan = styled.span`
     color:#000;
+    cursor:pointer;
     &:hover{
       none;
       text-decoration:none;
       display:always;
+      cursor:pointer;
     }
 `
+const StyledBtn= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:120px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
+border:1px solide #313f4f;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `
+ const StyledImg = styled.img`
+ width:50px;
+ height:50px;
+ `

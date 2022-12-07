@@ -47,6 +47,9 @@ export default ({ no , query }) => {
 	const [confirmContent, setConfirmContent] = useState('');
 	const [rejectContent, setRejectContent] = useState('');
 
+
+
+    console.log(no)
     const getCategory = useCallback(async () => {
         CommonHeader.authorization = token;
         let response = await fetch(PreUri + '/service/category/all', {

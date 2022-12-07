@@ -1,8 +1,10 @@
 import React from "react";
-import ButtonType2 from "../contents/ButtonType2";
+import {GoBackBtn} from "../contents/ButtonType2";
 import TitleType1 from "../contents/TitleType1";
-
+import {useNavigate} from "react-router-dom";
 export default function SectionTextType2a() {
+  const history = useNavigate();
+  
   return (
     <section className="section_text_type2">
       <ul className="text_wrap">
@@ -81,7 +83,7 @@ export default function SectionTextType2a() {
         </li>
       </ul>
       <div className="btns">
-        <ButtonType2 btnName="확인"></ButtonType2>
+        <GoBackBtn btnName="확인"></GoBackBtn>
       </div>
     </section>
   );

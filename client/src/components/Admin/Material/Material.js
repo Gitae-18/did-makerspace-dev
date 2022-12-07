@@ -8,13 +8,14 @@ import SideNavi from './SideNavi';
 import '../../../css/common-s.css';
 import '../../../css/style-s.css';
 
-export default function ({ query }) {
+export default function ({query}) {
     const PageMax = 10;
     const mountedRef = useRef(true);
     const location = useLocation();
     const history = useNavigate();
     const dispatch = useDispatch();
     const { token } = useSelector(state => state.user);
+    //console.log('1 met =  ' + token);
     const { categoryList, categoryIndex, materialPageNo, materialPageOffset, materialSearch } = useSelector(state => state.material);
     const [search, setSearch] = useState('');
     const [items, setItems] = useState({
@@ -26,9 +27,10 @@ export default function ({ query }) {
         pageOffset: 0,
         items: [],
     });
-
     const getItemList = useCallback(async (pageNumber, newPageOffset, categoryNo, searchWord) => {
         CommonHeader.authorization = token;
+
+        if (!token) { return; }
         const limitCount = 20;
         let requri = PreUri + '/material/item/?page=' + pageNumber + '&limit=' + limitCount;
          if (searchWord && searchWord.length > 0) { requri += ("&search=" + searchWord); }
@@ -68,6 +70,7 @@ export default function ({ query }) {
         });
 	}, [token, dispatch]);
 
+    /*
     useEffect(() => {
 		getItemList(
             materialPageNo, 
@@ -79,6 +82,19 @@ export default function ({ query }) {
             mountedRef.current = false
         }
 	}, [getItemList])
+    */
+
+    useEffect(() => {
+		getItemList(
+            materialPageNo, 
+            materialPageOffset,
+            categoryList[categoryIndex].no,
+            materialSearch);
+        if (materialSearch) { setSearch(materialSearch); }
+        return () => {
+            mountedRef.current = false;
+        }
+	}, [token])
 
     const onPage = useCallback((e, newPageNumber) => {
         e.preventDefault();
@@ -121,7 +137,7 @@ export default function ({ query }) {
         e.preventDefault();
         dispatch({ type: SET_MATERIAL, target: item });
 		dispatch({ type: SET_LIST_PAGEINFO, target: { pageNo: 1, pageOffset: 0, year: '0', month: '0' } });
-        history('/mmaterial?view=list');
+        history( (location.pathname+location.search+location.hash) + '?view=list');
     }, [dispatch, history]);
 
     const onChange = useCallback((e) => {
@@ -178,7 +194,7 @@ export default function ({ query }) {
 			<div className="content_wrap">
                 <SideNavi location={location} history={history} onCategory={onCategory} />
 				<div className="content">
-					<h2>{categoryList[categoryIndex] ? categoryList[categoryIndex].name : '-'}</h2>
+					
 					<div className="status">
 						<div className="search_box">
                             <input type="text" name="search" value={search} onChange={onChange} onKeyPress={(e) => { if (e.key === 'Enter') { onSearch(e) } }} />

@@ -1,11 +1,14 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
+import { useSelector } from "react-redux";
 import SwiperCore from'swiper';
+import { NavLink } from "react-router-dom";
 import { Navigation, Pagination, A11y ,Autoplay} from "swiper";
 import '../../css/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 SwiperCore.use([Navigation,Pagination,Autoplay])
 export default function SlideSwiper1() {
+  const { token, authority_level } = useSelector(state => state.user);
   return (
     <div className="swiper_wrap swiper_type1">
       <Swiper
@@ -16,12 +19,12 @@ export default function SlideSwiper1() {
         modules={[Pagination]}
         autoplay={{delay:2500,disableOnInteraction:false}}
       >
-        <SwiperSlide><img src="/images/reservation.jpg"/></SwiperSlide>
-        <SwiperSlide><img src="/images/reservation2.jpg"/></SwiperSlide>
-        <SwiperSlide><img src="/images/service.jpg"/></SwiperSlide>
-        <SwiperSlide><img src="/images/service2.jpg"/></SwiperSlide>
-        <SwiperSlide><img src="/images/mentoring.jpg"/></SwiperSlide>
-        <SwiperSlide><img src="/images/mentoring2.jpg"/></SwiperSlide>
+        <SwiperSlide><NavLink to="didreservation"><img src="/images/reservation.jpg"/></NavLink></SwiperSlide>
+        <SwiperSlide><NavLink to="didreservation"><img src="/images/reservation2.jpg"/></NavLink></SwiperSlide>
+        <SwiperSlide><NavLink to={authority_level<10?'uservice':'mservice'}><img src="/images/service.jpg"/></NavLink></SwiperSlide>
+        <SwiperSlide><NavLink to={authority_level<10?'uservice':'mservice'}><img src="/images/service2.jpg"/></NavLink></SwiperSlide>
+        <SwiperSlide><NavLink to={authority_level<10?'umentoring':'mentoring'}><img src="/images/mentoring.jpg"/></NavLink></SwiperSlide>
+        <SwiperSlide><NavLink to={authority_level<10?'umentoring':'mentoring'}><img src="/images/mentoring2.jpg"/></NavLink></SwiperSlide>
       </Swiper>
     </div>
   );

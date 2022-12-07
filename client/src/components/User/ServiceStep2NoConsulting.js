@@ -8,7 +8,7 @@ import $ from 'jquery';
 import '../../css/common-s.css';
 import '../../css/style-s.css';
 
-export default function () {
+export default function ({query}) {
     const mountedRef = useRef(true);
     const { token } = useSelector(state => state.user);
     const location = useLocation();
@@ -147,7 +147,6 @@ export default function () {
                 return;
             }
         }
-
         history('/uservice',{replace:true});
     }, [categoryItems, checkValue, value, fileInfo, token, history]);
 

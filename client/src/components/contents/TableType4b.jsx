@@ -1,7 +1,15 @@
 import React from "react";
-import ButtonType2, { ButtonType2small } from "./ButtonType2";
-
+import ButtonType2 from "./ButtonType2";
+import { useNavigate,useLocation } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import styled from "styled-components";
 export default function TableType4b() {
+  const { token } = useSelector(state => state.user);
+  const history = useNavigate();
+  const location = useLocation();
+  const onItem = () =>{
+      history(location.pathname + '/detail');
+    }
   return (
     <div className="table_wrap table_type2 table_type4">
       <div className="table_extra">
@@ -35,12 +43,12 @@ export default function TableType4b() {
         <tbody>
           <tr>
             <td>5</td>
-            <td>제목 제목 제목 제목 제목 제목</td>
+            <td>제목입니다.</td>
             <td>멘토1</td>
             <td>멘티1</td>
             <td>2022. 10. 13</td>
             <td>
-              <ButtonType2small btnName="열람"></ButtonType2small>
+              <StyledBtn onClick={onItem}>열람</StyledBtn>
             </td>
           </tr>
           <tr>
@@ -50,7 +58,7 @@ export default function TableType4b() {
             <td>멘티1</td>
             <td>2022. 10. 13</td>
             <td>
-              <ButtonType2small btnName="열람"></ButtonType2small>
+              <StyledBtn onClick={onItem}>열람</StyledBtn>
             </td>
           </tr>
           <tr>
@@ -60,7 +68,7 @@ export default function TableType4b() {
             <td>멘티1</td>
             <td>2022. 10. 13</td>
             <td>
-              <ButtonType2small btnName="열람"></ButtonType2small>
+              <StyledBtn onClick={onItem}>열람</StyledBtn>
             </td>
           </tr>
           <tr>
@@ -70,7 +78,7 @@ export default function TableType4b() {
             <td>멘티1</td>
             <td>2022. 10. 13</td>
             <td>
-              <ButtonType2small btnName="열람"></ButtonType2small>
+              <StyledBtn onClick={onItem}>열람</StyledBtn>
             </td>
           </tr>
           <tr>
@@ -80,7 +88,7 @@ export default function TableType4b() {
             <td>멘티1</td>
             <td>2022. 10. 13</td>
             <td>
-              <ButtonType2small btnName="열람"></ButtonType2small>
+              <StyledBtn onClick={onItem}>열람</StyledBtn>
             </td>
           </tr>
         </tbody>
@@ -109,3 +117,16 @@ export default function TableType4b() {
     </div>
   );
 }
+const StyledBtn= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:80px;
+height:40px;
+font-size:0.6rem;
+cursor:pointer;
+border:1px solide #313f4f;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+`

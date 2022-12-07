@@ -1,7 +1,18 @@
-import React from "react";
-import ButtonType2, { ButtonType2small } from "./ButtonType2";
-
-export default function TableType5c() {
+import React,{useEffect,useCallback,useState}from "react";
+import ButtonType2, { ButtonType4small } from "./ButtonType2";
+import { useSelector } from "react-redux";
+import { useNavigate,useLocation,NavLink } from "react-router-dom";
+import styled from "styled-components";
+export default function TableType5c({query}) {
+  const { token } = useSelector(state => state.user);
+  const history = useNavigate();
+  const [btnClick,setBtnClick] = useState(false);
+  const location = useLocation();
+  const pageMove=useCallback(async()=>{
+    setBtnClick(!btnClick);
+    history((location.pathname+location.search+location.hash) + "/detail",{replace:true})
+  },[btnClick])
+ 
   return (
     <div className="table_wrap table_type5">
       <div className="table_extra">
@@ -11,7 +22,7 @@ export default function TableType5c() {
             <option value="1">제목</option>
           </select>
           <input type="text" name="" id="" placeholder="제목을 입력하세요" />
-          <ButtonType2 btnName="조회"></ButtonType2>
+          <StyledBtn btnName="조회"></StyledBtn>
         </div>
       </div>
       <table>
@@ -36,7 +47,7 @@ export default function TableType5c() {
             <td>1</td>
             <td>2022. 10. 13</td>
             <td>
-              <ButtonType2small btnName="확인"></ButtonType2small>
+              <NavLink to="/umentoring/detail"><ButtonType4small btnName="확인" onClick={pageMove}></ButtonType4small></NavLink>
             </td>
           </tr>
           <tr>
@@ -47,7 +58,7 @@ export default function TableType5c() {
             <td>1</td>
             <td>2022. 10. 13</td>
             <td>
-              <ButtonType2small btnName="확인"></ButtonType2small>
+              <ButtonType4small btnName="확인" onClick={pageMove}></ButtonType4small>
             </td>
           </tr>
           <tr>
@@ -58,7 +69,7 @@ export default function TableType5c() {
             <td>1</td>
             <td>2022. 10. 13</td>
             <td>
-              <ButtonType2small btnName="확인"></ButtonType2small>
+              <ButtonType4small btnName="확인"></ButtonType4small>
             </td>
           </tr>
           <tr>
@@ -69,7 +80,7 @@ export default function TableType5c() {
             <td>1</td>
             <td>2022. 10. 13</td>
             <td>
-              <ButtonType2small btnName="확인"></ButtonType2small>
+              <ButtonType4small btnName="확인"></ButtonType4small>
             </td>
           </tr>
           <tr>
@@ -80,7 +91,7 @@ export default function TableType5c() {
             <td>1</td>
             <td>2022. 10. 13</td>
             <td>
-              <ButtonType2small btnName="확인"></ButtonType2small>
+              <ButtonType4small btnName="확인" ></ButtonType4small>
             </td>
           </tr>
         </tbody>
@@ -109,3 +120,16 @@ export default function TableType5c() {
     </div>
   );
 }
+const StyledBtn= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:120px;
+height:40px;
+font-size:0.8rem;
+cursor:pointer;
+border:1px solide #313f4f;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `

@@ -1,13 +1,18 @@
 import React from "react";
-
+import { useLocation,useNavigate } from "react-router-dom";
 export default function ListType2a() {
+  const location = useLocation();
+  const history = useNavigate();
+  const onItem = () =>{
+    history(location.pathname + '/detail');
+  }
   return (
     <div className="table_wrap list_type2">
       <ol>
         <li>
           <div className="image_part">Image</div>
           <div className="text_part">
-            <h5>Live 메이커들</h5>
+            <h5 onClick={onItem}>Live 메이커들</h5>
             <div className="tag">
               <span>무료</span>
             </div>
@@ -28,7 +33,7 @@ export default function ListType2a() {
         <li>
           <div className="image_part">Image</div>
           <div className="text_part">
-            <h5>Live 메이커들</h5>
+            <h5 onClick={onItem}>Live 메이커들</h5>
             <div className="tag">
               <span>무료</span>
             </div>
@@ -49,7 +54,7 @@ export default function ListType2a() {
         <li>
           <div className="image_part">Image</div>
           <div className="text_part">
-            <h5>Live 메이커들</h5>
+            <h5 onClick={onItem}>Live 메이커들</h5>
             <div className="tag">
               <span>무료</span>
             </div>
@@ -70,7 +75,7 @@ export default function ListType2a() {
         <li>
           <div className="image_part">Image</div>
           <div className="text_part">
-            <h5>Live 메이커들</h5>
+            <h5 onClick={onItem}>Live 메이커들</h5>
             <div className="tag">
               <span>무료</span>
             </div>
@@ -91,7 +96,7 @@ export default function ListType2a() {
         <li>
           <div className="image_part">Image</div>
           <div className="text_part">
-            <h5>Live 메이커들</h5>
+            <h5 onClick={onItem}>Live 메이커들</h5>
             <div className="tag">
               <span>무료</span>
             </div>
@@ -112,7 +117,7 @@ export default function ListType2a() {
         <li>
           <div className="image_part">Image</div>
           <div className="text_part">
-            <h5>Live 메이커들</h5>
+            <h5 onClick={onItem}>Live 메이커들</h5>
             <div className="tag">
               <span>무료</span>
             </div>
@@ -133,7 +138,7 @@ export default function ListType2a() {
         <li>
           <div className="image_part">Image</div>
           <div className="text_part">
-            <h5>Live 메이커들</h5>
+            <h5 onClick={onItem}>Live 메이커들</h5>
             <div className="tag">
               <span>무료</span>
             </div>
@@ -154,7 +159,7 @@ export default function ListType2a() {
         <li>
           <div className="image_part">Image</div>
           <div className="text_part">
-            <h5>Live 메이커들</h5>
+            <h5 onClick={onItem}>Live 메이커들</h5>
             <div className="tag">
               <span>무료</span>
             </div>

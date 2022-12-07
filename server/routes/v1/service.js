@@ -115,8 +115,9 @@ async function UpdateStatus(user_no, service_no, progress, status, check_user_no
         */
     }
 
-    return true;
+    return true; 
 };
+
 
 router.post('/:service_no/running', verifyToken, async (req, res, next) => {
     const body = req.body;
@@ -238,14 +239,13 @@ router.get('/', verifyToken, async (req, res, next) => {
     /*
     const offset = (req.query.offset === undefined) ? 0 : Number(req.query.offset);
      */
-
     const page = (req.query.page === undefined) ? 1 : Number(req.query.page);
     const limit = (req.query.limit === undefined) ? 20 : Number(req.query.limit);
     const company = (req.query.company === undefined) ? 0 : Number(req.query.company);
     const startDate = req.query.sdate ? new Date(req.query.sdate) : undefined;
     const endDate = req.query.edate ? new Date(req.query.edate) : undefined;
 
-
+ 
     Service.hasOne(ServiceApplication, { foreignKey: 'service_no', sourceKey: 'service_no' });
     ServiceCategory.hasOne(Company, { foreignKey: 'company_no', sourceKey: 'company_no' });
    //필터링 쿼리
@@ -294,6 +294,7 @@ router.get('/', verifyToken, async (req, res, next) => {
         attributes: [[Service.sequelize.fn('count', '*'), 'count']],
     }
     console.log(req.query);
+    console.log(servicen);
 
     if (startDate && endDate) {
         endDate.setDate(endDate.getDate() + 1);
@@ -387,7 +388,7 @@ router.get('/', verifyToken, async (req, res, next) => {
         raw: true,
 
     }
-   
+  
     if (query.where) { itemsQuery.where = query.where; }
     if (query.include) { itemsQuery.include.push(query.include); }
    
@@ -408,6 +409,7 @@ router.get('/', verifyToken, async (req, res, next) => {
         items[i]['category'] = items[i]['service_application.service_categories_no'];
         delete items[i]['service_application.service_categories_no'];
     }
+   
     
     let result = {
         total_count,
@@ -415,8 +417,9 @@ router.get('/', verifyToken, async (req, res, next) => {
         current_page: offset/limit+1,
         offset,
         limit, items, }
- 
+        
     return res.status(errorCode.ok).json(result);
+   
 });
 
 
@@ -1437,7 +1440,7 @@ router.post('/:service_no/service_application/', verifyToken, async (req, res, n
     } catch (error) {
         console.error(error);
     }
-
+   
     if (!(result instanceof ServiceApplication)) {
         return res.status(errorCode.internalServerError).json({
             message: '서비스 신청서 생성 실패'
@@ -3313,4 +3316,20 @@ router.get('/:service_no/survey', verifyToken, async (req, res, next) => {
     }
 });
 
+
+router.delete('/:service_no/dropitem', verifyToken, async (req, res, next) => {
+    
+    const service_no  = req.params.service_no;
+    let deleteservice;
+    try{
+          deleteservice = await Service.destroy({
+           where:{service_no:service_no},
+           raw:true
+       })
+    }
+    catch (error) {
+        console.error(error);
+    } 
+   res.status(errorCode.ok).json({});
+})
 module.exports = router;

@@ -27,10 +27,11 @@ exports.isNotLoggedIn = (req, res, next) => {
 
 exports.verifyToken = (req, res, next) => {
     //return next();
+    console.log(req.headers.authorization);
     try {
         req.decoded = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
-        return next();
-    } catch (error) {j
+        return next() ;
+    } catch (error) {
         if (error.name === 'TokenExpiredError') { // 유효기간 초과
             return res.status(this.errorCode.unauthorized).json({
                 code: this.errorCode.unauthorized,
@@ -116,7 +117,7 @@ exports.getErrMsg = (errors) => {
     return err;
 };
 
-exports.SendMail = (email, subject, content) => {
+exports.SendMail = async(email, subject, content) => {
     /*
     console.log('send-mail');
     console.log(email);
@@ -128,12 +129,14 @@ exports.SendMail = (email, subject, content) => {
         OAUTH_CLIENT_ID,
         OAUTH_CLIENT_SECRET,
         OAUTH_REFRESH_TOKEN,
+        OAUTH_ACCESS_TOKEN
     } = process.env;
     if(
         !OAUTH_USER ||
         !OAUTH_CLIENT_ID ||
         !OAUTH_CLIENT_SECRET ||
-        !OAUTH_REFRESH_TOKEN
+        !OAUTH_REFRESH_TOKEN || 
+        !OAUTH_ACCESS_TOKEN
     ){
         throw Error('OAuth 인증에 필요한 환경변수가 없습니다.');
     }
@@ -148,15 +151,17 @@ exports.SendMail = (email, subject, content) => {
     async function main(receiverEmail) {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
-        host: 'smtp.google.com',
-        port: 587,
+        host: 'smtp.gmail.com',
+        port: 465,
         secure: true,
         auth:{
             type: 'OAuth2',
-            user: OAUTH_USER,
-            clientId: OAUTH_CLIENT_ID,
-            clientSecret: OAUTH_CLIENT_SECRET,
-            refreshToken: OAUTH_REFRESH_TOKEN,
+            user: process.env.OAUTH_USER,
+            clientId: process.env.OAUTH_CLIENT_ID,
+            clientSecret: process.env.OAUTH_CLIENT_SECRET,
+            accessToken: process.env.OAUTH_ACCESS_TOKEN,
+            refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+            expires: 1484314697598,
         },
     });
     const message = {
@@ -173,7 +178,7 @@ exports.SendMail = (email, subject, content) => {
     catch(e){
         console.log(e);
     }
-    }main(body.email)
+    }main(email)
     /*let mailOptions = {
         from: process.env.SYSTEM_EMAIL,    // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
         to: email ,                     // 수신 메일 주소

@@ -28,7 +28,7 @@ router.get("/list", async(req,res,next)=>{
     catch(error){
         console.log(error);
     }
-    next();
+  
     return 
     
 });

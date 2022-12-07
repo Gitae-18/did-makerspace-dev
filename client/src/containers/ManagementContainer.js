@@ -26,7 +26,6 @@ import MaterialItemEdit from '../components/Admin/Management/MaterialItemEdit';
 import OldServiceItem from '../components/Admin/Management/OldServiceItem';
 import OldServiceItemReg from '../components/Admin/Management/OldServiceItemReg';
 import OldServiceItemEdit from '../components/Admin/Management/OldServiceItemEdit';
-
 import qs from 'qs';
 
 const ListView = [Company, User, EquipmentCategory, Equipment, ServiceCategory, MaterialCategory, MaterialItem, OldServiceItem];
@@ -47,8 +46,8 @@ export const ManagementContainer = () => {
 
     useEffect(() => {
         if (isLoading) { return; }
-        if (!isLoggedIn) { return history.replace('/notmember'); }
-        if (authority_level < AuthLevel.manager) { return history.replace('/notauthhorized'); }
+        if (!isLoggedIn) { return history('/notmember',{replace:false}); }
+        if (authority_level < AuthLevel.manager) { return history.replace('/notauthhorized',{replace:true}); }
 	}, [isLoading, isLoggedIn, authority_level, history])
 
     let View;

@@ -1,6 +1,8 @@
 import React,{useState} from 'react';
 import { Link, NavLink} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import LoginModal from './LoginModal';
 //import { BrowserRouter, Route, Link as RouterLink} from 'react-router-dom';
 //import { CommonHeader, PreUri, Method } from '../CommonCode';
 //import { useDispatch, useSelector } from 'react-redux'
@@ -10,31 +12,38 @@ import '../css/style-s.css';
 
 export function LoginForm({onLoginStart, onChange, userId, password, isAutoLogin}) {
     const history = useNavigate();
+    const [modalOpen, setModalOpen] = useState(false);
+    const openModal = () => {
+        setModalOpen(true);
+      };
+      const closeModal = () => {
+        setModalOpen(false);
+      };
     const onLoginClick = () =>{
         history(1);
     }
   
     return (
         <form onSubmit={onLoginStart}>
-		<div className="login_box">
+            <div className='join_box'>
             <Link className="join" to="/join">회원가입</Link>
             <Link className="find_pw" to="/findpw">비밀번호 찾기</Link>
-            <p className="id"><span/><input type="text" value= { userId } name="userId" placeholder="아이디" onChange={onChange} /></p>
-            <p className="pw"><span/><input type="password" value={password} name="password" placeholder="비밀번호" onChange={onChange} /></p>
-			<p className="chkBox"><label htmlFor="chk"><input type="checkbox" id="chk" checked={isAutoLogin} name="isAutoLogin" onChange={onChange}/><span className="checkmark"></span>자동로그인</label></p>
-            <button className="login" type="submit" onClick={()=>onLoginClick()}>로그인</button>
-		</div>
+            </div>
+            <div className="login_button">
+                <LoginButton onClick={openModal}>로그인하기</LoginButton>
+                {modalOpen && <LoginModal open={modalOpen} close={closeModal} change={onChange} userid={userId} password={password} isAutoLogin={isAutoLogin} onLoginClick={onLoginClick}/>}
+            </div>
         </form>
     );
 }
 
 export function LoggedInForm({onLogout, username}) {
-    let alarmOn = (false) ? "name on" : "name off";
+    //let alarmOn = (false) ? "name on" : "name off";
     
-    const[alarm,setAlarm] = useState(false);
-	const showAlarm = () => setAlarm(!alarm);
-    const [show,setShow] = useState(false);
-    const showList = () => setShow(!show);
+   // const[alarm,setAlarm] = useState(false);
+	//const showAlarm = () => setAlarm(!alarm);
+   // const [show,setShow] = useState(false);
+    //const showList = () => setShow(!show);
     const history = useNavigate();
     const onLogoutClick = () =>{
         history('/');
@@ -42,12 +51,11 @@ export function LoggedInForm({onLogout, username}) {
     return (
         <form onSubmit={onLogout}>
             
-		<div className="member_box" alarm={false} onClick={showAlarm}>
-			<span className={alarmOn}><strong>{username}</strong> 님</span>
+		<div className="member_box">
+			<span ><strong>{username}</strong> 님</span>
 			<span className="my_info"><Link to="/myinfo">내 정보</Link></span>
-            <button className="logout" type="submit" onClick={()=>onLogoutClick()}>로그아웃</button>
-		
         </div>
+        <button className="logout" type="submit" onClick={()=>onLogoutClick()}>로그아웃</button>
         </form>
     );
 }
@@ -135,3 +143,10 @@ export default function LoginForm(user) {
     );
 }
 */
+const LoginButton = styled.button`
+ width:120px;
+ height:8vh;
+ background-color:#313f4f;
+ color:#ffffff;
+ font-size:0.8rem;
+`

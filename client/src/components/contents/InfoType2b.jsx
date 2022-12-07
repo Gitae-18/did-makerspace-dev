@@ -1,9 +1,8 @@
 import React from "react";
 import TitleType1 from "./TitleType1";
-import ButtonType2 from "./ButtonType2";
+import ButtonType2,{GoBackBtn}from "./ButtonType2";
 import ButtonType4 from "./ButtonType4";
 import SectionTabType1a from "../sections/SectionTabType1a";
-
 export default function InfoType2b() {
   return (
     <div className="info_type2">
@@ -28,11 +27,11 @@ export default function InfoType2b() {
               <dt>신청 가능 여부</dt>
               <dd>-</dd>
             </dl>
-            <dl className="highlight">
+            <dl>
               <dt>정원</dt>
               <dd>7명</dd>
             </dl>
-            <dl className="highlight">
+            <dl>
               <dt>비용</dt>
               <dd>25,000원</dd>
             </dl>
@@ -46,7 +45,7 @@ export default function InfoType2b() {
       <div className="desc_part">
         <SectionTabType1a></SectionTabType1a>
       </div>
-      <ButtonType2 btnName="목록"></ButtonType2>
+      <GoBackBtn btnName="목록"></GoBackBtn>
     </div>
   );
 }

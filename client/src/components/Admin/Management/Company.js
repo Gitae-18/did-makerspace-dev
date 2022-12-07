@@ -153,7 +153,6 @@ export default function ({ query }) {
             <div className="content_wrap">
                 <SideNavi location={location} history={history} />
                 <div className="content">
-                    <h2>기업 관리</h2>
                     <div className="table">
                         <div className="search_box">
                             <input type="text" value={search} name="search" onChange={(e) => setSearch(e.target.value)}

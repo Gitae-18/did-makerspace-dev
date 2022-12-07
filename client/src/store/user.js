@@ -77,6 +77,7 @@ export default (state = initialState, action) => {
         case LOAD_USER: {
             const loggedinUser = localStorage.getItem("loggedinUser");
             if (loggedinUser) {
+                console.log('load_user')
                 return {
                     ...state,
                     isLoginStart: false,

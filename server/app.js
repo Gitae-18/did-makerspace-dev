@@ -13,7 +13,7 @@ const cors = require('cors');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 
-const logger = require('./config/logger');
+const logger = require('./logger');
 const userRouter = require('./routes/v1/user');
 const companyRouter = require('./routes/v1/company');
 const scheduleRouter = require('./routes/v1/schedule');
@@ -141,7 +141,7 @@ app.use('/api/v1/file', fileRouter);
 app.use('/api/v1/oldservice', oldServiceRouter);
 app.use('/api/v1/stastics',stasticsRouter);
 app.use('/api/v1/space',spaceRouter);
-
+app.use('/api/v1/reservation',reservationRouter);
 //app.use('/api/v1/mentoring',mentoringRouter);
 //app.use('/api/v1/survey', surveyRouter);
 

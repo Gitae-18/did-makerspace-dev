@@ -1,7 +1,13 @@
 import React from "react";
 import ButtonType2 from "./ButtonType2";
-
+import { useLocation,useNavigate,NavLink } from "react-router-dom";
+import styled from "styled-components";
 export default function TableType1e() {
+  const location = useLocation();
+  const history = useNavigate();
+  const onItem = () =>{
+    history(location.pathname + '/detail');
+  }
   return (
     <div className="table_wrap table_type1">
       <div className="table_extra">
@@ -13,7 +19,7 @@ export default function TableType1e() {
             <option value="1">제목</option>
           </select>
           <input type="text" name="" id="" placeholder="제목을 입력하세요" />
-          <ButtonType2 btnName="조회"></ButtonType2>
+          <StyledBtn>조회</StyledBtn>
         </div>
       </div>
       <table>
@@ -30,7 +36,7 @@ export default function TableType1e() {
         <tbody>
           <tr>
             <td>10</td>
-            <td>게시글 제목입니다.</td>
+            <td onClick={onItem}>게시글 제목입니다.</td>
             <td>최고관리자</td>
             <td>03-25</td>
             <td>222</td>
@@ -89,3 +95,16 @@ export default function TableType1e() {
     </div>
   );
 }
+const StyledBtn= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:120px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
+border:1px solide #313f4f;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `

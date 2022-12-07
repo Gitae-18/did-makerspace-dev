@@ -8,7 +8,7 @@ import qs from 'qs';
 
 export const MServiceContainer = (props) => {
     const { isLoading, isLoggedIn, authority_level } = useSelector(state => state.user);
-
+    const viewState = useSelector(state => state.managerService);
     const { search } = useLocation();
     
     const query = qs.parse(search, {
@@ -26,6 +26,6 @@ export const MServiceContainer = (props) => {
     
     return (
         (isLoading || !isLoggedIn || authority_level < AuthLevel.partner) ? <></>
-            : View ? <View query={query} /> : <></>
+            : View ? <View query={query} no={viewState.serviceNo} /> : <></>
     )
 }

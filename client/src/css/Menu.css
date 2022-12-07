@@ -1,0 +1,143 @@
+/* a{
+	text-decoration: none;
+	color: inherit;
+}
+.btn_box ul.menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.menu__panel{
+  display: flex;
+  z-index: 10;
+  left: 0;
+  top: 80px;
+  width: 100%;
+  height: 0;
+  position: relative;
+  right: 0;
+  width: 300px;
+  z-index: 9999;
+  background-color:#313f4f;
+  box-shadow: -2px 2px 20px rgba(#000, 0.5);
+  user-select: none;
+  transform: translateX(100px);
+  transition: transform 0.5s;
+  }
+.fadeInDown{
+	width:50%;
+	display:inline-block;
+	background-color: #313f4f;
+	opacity: 1 !important;
+	transform: translateY(100px) !important;
+}
+.fadeInDown:hover{
+	background-color:#ffffff;
+	color:#313f3f;
+}
+#menu-btn {
+	width:120px;
+	display: flex;
+	top: 50px;
+	font-weight: 300;
+	user-select: none;
+	transition: border-color 0.3s;
+	transform: translateY(-80%);
+  }
+  #menu-btn:hover {
+	cursor: pointer;
+	border-color: #fff;
+  }
+  .menu-up{
+	display:flex;
+  }
+  .menu {
+	position: relative;
+	bottom:80px;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-content: center;
+	height:80px;
+	width: 100%;
+	list-style: none;
+  }
+  .menu-item {
+	z-index:99999;
+	width: 50%;
+	height: 60px;
+	position:relative;
+	bottom:100px;
+	opacity: 0;
+	transform: translateY(0);
+	transition: all 0.3s;
+  }
+  .menu-item a {
+	display: inline-block;
+	width: 100%;
+	height: 70px;
+	padding-left: 50px;
+	line-height: 70px;
+  }
+  /* #menu-btn i {
+	margin-left: 10px;
+  }
+  */
+ /*  #menu__panel {
+	display: none;
+	position: relative;
+	right: 0;
+	width: 300px;
+	z-index: 9999;
+	background-color:#313f4f;
+	box-shadow: -2px 2px 20px rgba(#000, 0.5);
+	user-select: none;
+	transform: translateX(100px);
+	transition: transform 0.5s;
+  }
+  .menu {
+	position: fixed;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-content: center;
+	top: 40px;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+  }
+  .menu-item {
+	display:none;
+	width: 100%;
+	height: 60px;
+	opacity: 0;
+	transform: translateY(0);
+	transition: all 0.3s;
+  } */
+  /*
+  .menu-item:hover {
+	background-color: #313f4f;
+  }
+  .menu-item i {
+	margin: 0 10px;
+  }
+  .menu-item a {
+	display: inline-block;
+	width: 100%;
+	height: 70px;
+	padding-left: 50px;
+	line-height: 70px;
+  }
+  .menu__close {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	padding: 5px 10px;
+	transition: transform 0.5s;
+  }
+  .menu__close:hover {
+	cursor: pointer;
+  }
+  
+   */  

@@ -1,7 +1,7 @@
 import { parseWithOptions } from "date-fns/fp";
 import { useSelector } from "react-redux";
 import React,{useCallback,useState,useLayoutEffect} from "react";
-import {useLocation} from "react-router";
+import {useLocation,useNavigate} from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function SubSideMenu(props) {
@@ -9,6 +9,8 @@ export default function SubSideMenu(props) {
   const [isSpace,setIsSpace] = useState(false);
   const [isCompany,setIsCompany] = useState(false);
   const url = useLocation();
+  const location = useLocation();
+  const history = useNavigate();
   const { authority_level } = useSelector(state => state.user);
   useLayoutEffect(()=>{
     if(url.pathname.split('/')[1]==='didinfo'){
@@ -127,9 +129,6 @@ export default function SubSideMenu(props) {
           <li>
             <p onClick={Dep2Handler}>멘토 칭찬</p>
           </li>
-          <li>
-            <p onClick={Dep2Handler}>멘토링 보고서</p>
-          </li>
         </ol>
       );
     };
@@ -232,17 +231,67 @@ export default function SubSideMenu(props) {
           <li>
             <p onClick={Dep2Handler}>시제품제작관리</p>
             <ol className="has_dep3">
-              <li onClick={Dep3Handler}><Link to ={'/mservice'}>상담신청</Link></li>
+              <li onClick={Dep3Handler}><Link to ={'/mservice'}>시제품제작관리</Link></li>
               <li onClick={Dep3Handler}><Link to ={'/mservice/*'}>시제품제작신청</Link></li>
+            </ol>
+          </li>
+          <li>
+            <p onClick={Dep2Handler}><Link to ={'/mservice/guide'}>시제품제작안내</Link></p>
+          </li>
+        </ol>
+      );
+    };
+   const SubModal09 = () =>{
+    const { token } = useSelector(state => state.user);
+    return(
+      <ol>
+          <li>
+            <p onClick={Dep2Handler}>시제품제작</p>
+            <ol className="has_dep3">
+              <li onClick={Dep3Handler}><Link to ={'/uservice'}>상담신청</Link></li>
+              <li onClick={Dep3Handler}><Link to ={location.pathname + '?step=2&next=app'}>제작신청</Link></li>
             </ol>
           </li>
           <li>
             <p onClick={Dep2Handler}><Link to ={'/noticecontact/notice'}>시제품제작안내</Link></p>
           </li>
         </ol>
-      );
-    };
-  
+    )
+   }
+   const SubModalControl = () =>{
+    const { token } = useSelector(state => state.user);
+    return(
+      <ol>
+          <li>
+            <p onClick={Dep2Handler}>기업/회원관리</p>
+            <ol className="has_dep3">
+              <li onClick={Dep3Handler}><Link to ={'/management'}>기업관리</Link></li>
+              <li onClick={Dep3Handler}><Link to ={'/management/member'}>회원관리</Link></li>
+            </ol>
+          </li>
+          <li>
+            <p onClick={Dep2Handler}><Link to ={'/management/ecategory'}>기자재 품목 관리</Link></p>
+          </li>
+          <li>
+            <p onClick={Dep2Handler}>기자재/자재관리</p>
+            <ol className="has_dep3">
+              <li onClick={Dep3Handler}><Link to ={'/management/equipment'}>기자재관리</Link></li>
+              <li onClick={Dep3Handler}><Link to ={'/management/material'}>자재관리</Link></li>
+            </ol>
+          </li>
+          <li>
+            <p onClick={Dep2Handler}><Link to ={'/management/servicecategory'}>서비스항목관리</Link></p>
+          </li>
+          <li>
+            <p onClick={Dep2Handler}><Link to ={'/management/mdepart'}>자재분류관리</Link></p>
+          </li>
+          <li>
+            <p onClick={Dep2Handler}><Link to ={'/management/mitem'}>자재항목관리</Link></p>
+          </li>
+         
+        </ol>
+    )
+   }
   
     return (
       <>
@@ -253,8 +302,8 @@ export default function SubSideMenu(props) {
         :url.pathname.includes('mentor')===true && authority_level<10? <MentoringUser/>
         :url.pathname.includes("program")===true?<SubModal05/>
         :url.pathname.includes("contact") === true?<SubModal07/>
-        :url.pathname.includes("mservice")===true?<SubModal08/>
-        :<SubModal06/>}
+        :url.pathname.includes("mservice")===true && authority_level>10?<SubModal08/>
+        :url.pathname.includes("uservice")===true && authority_level<10?<SubModal09/>:<SubModal06/>}
       </div>
       </>
       )
@@ -323,7 +372,7 @@ export default function SubSideMenu(props) {
     return (
       <div className="sub_bread">
         <h2>{props.title}</h2>
-        {props.subtitle ? <span>&gt;</span>:<></>}
+        {props.subtitle ? <span>{">"}</span>:<></>}
         <h3>{props.subtitle}</h3>
       </div>
     );

@@ -32,28 +32,35 @@ import TableType1b from './components/contents/TableType1b';
 import TableType1c from './components/contents/TableType1c';
 import { JoinContainer as Join } from './containers/JoinContainer';
 import { LoginContainer as Login } from './containers/LoginContainer';
-import { ManagementContainer as Management } from './containers/ManagementContainer';
-import { MaterialContainer as Material } from './containers/MaterialContainer';
+import { ManagementContainer as Management1 } from './containers/ManagementContainer';
+import { MaterialContainer as MMaterial } from './containers/MaterialContainer';
 import { MenuContainer as Menu } from './containers/MenuContainer';
 import { MServiceContainer as MService } from './containers/MServiceContainer';
 import { MServiceDetailContainer as MServiceDetail } from './containers/MServiceDetailContainer';
 import { MyInfoContainer as MyInfo } from './containers/MyInfoContainer';
 import { ScheduleContainer as Schedule } from './containers/ScheduleContainer';
 import { UServiceContainer as UService } from './containers/UServiceContainer';
+import Material from './components/Admin/Material/Material';
+import MaterialItem from './components/Admin/Material/MaterialItem';
+import MaterialList from './components/Admin/Material/MaterialList';
+import MaterialReg from './components/Admin/Material/MaterialReg';
+import Management from './components/Admin/Management/Management';
 import './css/common-s.css';
 import './css/style-s.css';
 import Materials, { Materials1, Materials2, Materials3 } from './components/Admin/Statistics/pages/Materials';
 import Service, { Service1, Service2, Service3, Service4 ,StaticsAnalyze} from './components/Admin/Statistics/pages/Service';
 import Users, { Users1, Users2 } from './components/Admin/Statistics/pages/Users';
 import Footer from './css/comb/Footer';
-import DidInfo,{DidInfo2,DidInfo3,DidInfo4,DidInfo5,DidInfo6,DidInfo7,DidInfo8,DidInfo9,DidInfo1Detail,DidInfo1Detail2} from './components/pages/PageSub';
-
+import DidInfo,{DidInfo2,DidInfo3,DidInfo4,DidInfo5,DidInfo6,DidInfo7,DidInfo8,DidInfo9,DidInfo1Detail,DidInfo1Detail2,DidInfo1Detail1,DidFaqWrite} from './components/pages/PageSub';
 import ListType1a from './components/contents/ListType1a';
 import DidReservation,{DidReservation2,DidReservation3,DidReservation4,SelectReservation,TestReservation} from './components/pages/PageSub2';
-import ClassEdu_Program,{ClassEdu_Program2} from './components/pages/PageSub3';
-import Contact,{Contact2,Contact3,Contact4,Contact5} from './components/pages/PageSub4';
-import Mentoring from './components/pages/PageSub5';
-import { Select } from 'semantic-ui-react';
+import ClassEdu_Program,{ClassEdu_Program2,ClassEdu_program3,ClassEdu_program4} from './components/pages/PageSub3';
+import Contact,{Contact2,Contact3,ContactNoticeDetail,Contact5,Contact6,ContactDetail,ContactDetail2,BasicDetail} from './components/pages/PageSub4';
+import Mentoring,{UMentoring,UMentoringApplication,MserviceGuide}from './components/pages/PageSub5';
+import { MentorApplication,MentorApplicationDetail,MentoringReport,MentoringReportDetail,MentorAuthority,ClassEduControl, ClassEduControl2} from './components/pages/PageSub6';
+
+
+
 
 
 export const ScrollToTop = () =>{
@@ -65,12 +72,12 @@ export const ScrollToTop = () =>{
   setTimeout(() => {  window.scrollTo(0, 0);  }, 300);
 }
 const App = () => {
-  
+
   return (
     
     <BrowserRouter>
     <CookiesProvider>
-      <div id="wrap" className="wrap intro" >
+      <div id="wrap" className="wrap intro">
         <div id="header">
           <Link to="/"><span className='logo2'><img src="/images/logo_wh.png" alt="로고"/></span></Link>
           <Menu />
@@ -80,15 +87,20 @@ const App = () => {
       
       <ScrollToTop/>
       <Routes>
-        <Route exact path="/"  element = {<Home/>}/>
+        <Route path="/"  element = {<Home/>}/>
         <Route path="/join" element = {<Join/>} />
         <Route path="/uguide"  element = {<UGuide/>} />
         <Route path="/uservice"  element = {<UService/>} />
-        <Route exact path="/mservice"  element = {<MService/>} />
-        <Route exact path="/mservice/*"  element = {<MServiceDetail/>} />
+        <Route path="/mservice/"  element = {<MService/>} />
+        <Route path="/mservice/*"  element = {<MServiceDetail/>} />
+        <Route path="/mservice/guide" element = {<MserviceGuide/>}/>
         <Route path="/mschedule" element = {<Schedule/>} />
-        <Route path="/mmaterial" element = {<Material/>} />
-        <Route path="/management" element = {<Management/>} />
+        <Route path="/mmaterial" element = {<MMaterial/>} /> 
+        <Route path="/management/*" element = {<Management1/>} />
+     
+
+
+
         <Route path="/findpw" element = {<FindPassword/>} />
         <Route path="/private" element = {<FindPassword/>} />
         <Route path="/privacy" element = {<Privacy/>} />
@@ -98,8 +110,8 @@ const App = () => {
         <Route path="/notauthhorized" element = {<NotAuthorized/>} />
         <Route path="/mnthschd" element = {<MonthlySchedule/>} />
         
-        <Route path="/didinfo" element = {<DidInfo/>}/>
-        <Route path="/info/spaceinfo" element = {<DidInfo/>}/>
+        <Route path="/didinfo/*" element = {<DidInfo/>}/>
+        <Route path="/didinfo/spacedetail" element = {<DidInfo1Detail1/>}/>
         <Route path='/InfoType1a' element = {<DidInfo1Detail2/>}/>     
         <Route path="/info/equipinfo" element = {<DidInfo2/>}/>
         <Route path="/info/workerinfo" element = {<DidInfo3/>}/>
@@ -110,6 +122,7 @@ const App = () => {
         <Route path="/info/way" element = {<DidInfo8/>}/>
         <Route path="/info/faq/*" element = {<DidInfo9/>}/>
         <Route path="/info/faq/faq1" element = {<DidInfo1Detail/>}/>
+        <Route path="/info/write" element = {<DidFaqWrite/>}/>
 
         <Route path="/didreservation" element = {<DidReservation/>}/>
         <Route path="/reservation/space" element = {<DidReservation2/>}/>
@@ -119,19 +132,34 @@ const App = () => {
         <Route path="/didreservation/test" element={<TestReservation/>}/>
 
         <Route path="/mentoring" element = {<Mentoring/>}/>
-
-        <Route path="/classprogram" element = {<ClassEdu_Program/>}/>
-        <Route path="/eduprogram" element = {<ClassEdu_Program2/>}/>
+        <Route path="/umentoring/*" element = {<UMentoring/>}/>
+        <Route path="/umentoring/detail" element = {<UMentoringApplication/>}/>
+        <Route path="/classprogram/*" element = {<ClassEdu_Program/>}/>
+        <Route path="/eduprogram/*" element = {<ClassEdu_Program2/>}/>
+        <Route path="/classprogram/detail" element = {<ClassEdu_program3/>}/>
+        <Route path="/eduprogram/detail" element = {<ClassEdu_program4/>}/>
 
         <Route path="/contact" element = {<Contact/>}/>
         <Route path="/archivecontact/video" element = {<Contact2/>}/>
-        <Route path="/archivecontact/text" element = {<Contact3/>}/>
-        <Route path="/archivecontact/basic" element = {<Contact4/>}/>
-        <Route path="/noticecontact/notice" element = {<Contact5/>}/>
+        <Route path="/archivecontact/text" element = {<Contact5/>}/>
+        <Route path="/archivecontact/basic" element = {<Contact3/>}/>
+        <Route path="/noticecontact/notice" element = {<Contact6/>}/>
+        <Route path="/noticecontact/notice/detail" element = {<ContactNoticeDetail/>}/>
+        <Route path='/archivecontact/video/detail' element = {<ContactDetail/>}/>
+        <Route path='/archivecontact/text/detail' element = {<BasicDetail/>}/>
+        <Route path='/archivecontact/basic/detail' element = {<ContactDetail2/>}/>
+        
+        <Route path='/mentorcontrol/mentorapplication' element = {<MentorApplication/>}/>
+        <Route path='/mentorcontrol/mentorapplication/detail' element = {<MentorApplicationDetail/>}/>
+        <Route path='/mentorcontrol/mentorauthority' element = {<MentorAuthority/>}/>
+        <Route path='/mentorcontrol/mentoringreport' element = {<MentoringReport/>}/>
+        <Route path='/mentorcontrol/mentoringreport/detail' element = {<MentoringReportDetail/>}/>
+        <Route path='/classeducontrol/educontrol' element = {<ClassEduControl/>}/>
+        <Route path='/classeducontrol/classcontrol' element = {<ClassEduControl2/>}/>
 
         <Route path="/prototype/management" element = {<MService/>}/>
         <Route path="/prototype/application" element = {<UService/>}/>
-        <Route exact path="/statics" element = {<Service/>}/>
+       {/*  <Route path="/statics" element = {<Service/>}/>
         <Route path="/service/counsel"   element = {<StaticsAnalyze/>}/>
         <Route path="/service/application"  element = {<Service1/>}/>
         <Route path="/service/process"  element = {<Service2/>}/>
@@ -144,16 +172,16 @@ const App = () => {
         <Route path="/users/stastics"   element = {<Users/>}/>
         <Route path="/users/service"  element = {<Users1/>}/>
         <Route path="/users/purpose"  element = {<Users2/>}/>
-      
+       */}
 
 
         {/* <Route path="/test" component={Test} /> */}
-        <Route element = {<NotFound/>} />
+        <Route path="/*" element = {<NotFound/>} />
       </Routes>
     
       <Footer/>
       </CookiesProvider>
-    </BrowserRouter>
+      </BrowserRouter>
     
     );
 }

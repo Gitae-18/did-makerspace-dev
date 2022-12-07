@@ -29,7 +29,7 @@ const initialState = {
     materialCategoryItem: null,
     materialItem: null,
     serviceCategoryItem: null,
-    oldServiceItem: null,
+    
 
     materialPageNo: 1,
     materialPageOffset: 0,
@@ -80,10 +80,13 @@ export default (state = initialState, action) => {
                 materialItem: action.target,
             }
         case SERVICE_CATEGORY_ITEM:
+           
             return {
                 ...state,
                 serviceCategoryItem: action.target,
+                
             }
+           
         case OLD_SERVICE_ITEM:
             return {
                 ...state,
