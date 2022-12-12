@@ -16,7 +16,7 @@ const store = createStore(rootReducer, composeWithDevTools()) // 스토어 생�
 
 const root = ReactDOMClient.createRoot(document.getElementById("root")); 
 root.render(
-      
+     
       <Provider store={store}>
       <App />
      </Provider>

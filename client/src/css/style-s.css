@@ -15,7 +15,9 @@
 .wrap .top_menu li:last-of-type button:after{display:none;}
 .wrap .top_menu .num{font-size:16px;font-weight:bold;}
 
-
+.wrap .content_wrap .content{
+  margin-left:50px;
+}
 /* side menu*/
 .side_menu{position:absolute;left:0;top:50px;width:132px;height:100%;box-sizing:border-box;z-index:1;}
 .side_menu .inner_menu{position:absolute;top:41px;width:132px;}
@@ -1381,6 +1383,7 @@ display:block;
 
 /* myInfo-1 */
 .wrap.myInfo1{background:#fafafa;}
+.wrap.myInfo1 .content_wrap{position:relative;margin-left:15vw;top:10vh;margin-bottom:10vh;}
 .wrap.myInfo1 .content_wrap .inner_wrap{width:820px;margin:0 auto;padding:68px 0 40px;}
 .wrap.myInfo1 .content_wrap .inner_wrap h2{font-size:22px;color:#222;padding-bottom:20px;}
 .wrap.myInfo1 .content_wrap .inner_wrap .join_box{background:#fff;border:1px solid #e5e5e5;padding:28px 26px;}

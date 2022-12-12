@@ -3,14 +3,19 @@ import {ButtonType5} from "./ButtonType2";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate,useLocation,Link} from 'react-router-dom';
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg } from '../../CommonCode';
+import {SET_MATERIAL, SET_MATERIAL_PAGEINFO, SET_LIST_PAGEINFO} from '../../store/material';
 import { Paging } from "./Paging";
 import Posts from "./Posts";
 import Pagination from "./Pagination";
 import SearchBar from "./SearchBar";
 import styled from "styled-components";
+import { EQUIP_CATEGORY_ITEM } from "../../store/management";
 export default function TableType1b({query}) {
   const { token } = useSelector(state => state.user);
   const [itemList,setItemList] = useState([]);
+  const history = useNavigate();
+  const mountedRef = useRef(true);
+  const dispatch = useDispatch();
   const location =useLocation();
   const [page,setPage] = useState(1);
   const [btnClick,setBtnClick] = useState(false);
@@ -18,31 +23,131 @@ export default function TableType1b({query}) {
   const [loading,setLoading] = useState(false);
   const [postPage, setPostPage] = useState(10);
   const [search,setSearch] = useState("");
-  const [ContextData,setContextData] = useState([]);
-    const limit = 10;
+  const [items, setItems] = useState({
+    totalCount: 0,
+    totalPage: 0,
+    currentPage: 0,
+    offset: 0,
+    limit: 0,
+    pageOffset: 0,
+    items: [],
+});
+  //const [ContextData,setContextData] = useState([]);
+ /*    const limit = 10;
   const offset = (page-1)*limit;
-
-  const inputRef = useRef(null);
-
+ */
+  //const inputRef = useRef(null);
+/* 
   const onChange = (e) =>{
     setSearch(e.target.value);
-  }
-  const postsData = (posts) =>{
+  } */
+ /*  const postsData = (posts) =>{
     if(posts){
       let result = posts.slice(offset,offset + limit);
       return result;
     }
-  }
-  const filterContext = itemList.slice(offset,offset+limit)
+  } */
+  //const filterContext = itemList.slice(offset,offset+limit)
   
-  const numlength = itemList.length
-  const number = Array(numlength).fill().map((_,i)=>i)
-  const onSearch = useCallback(async()=>{
+  //const numlength = itemList.length
+  //const number = Array(numlength).fill().map((_,i)=>i)
+/*   const onSearch = useCallback(async()=>{
     setBtnClick(!btnClick);
     setContextData(itemList.filter((i)=>{
     return i.model_name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
   }).slice(offset,offset+limit))
-  },[filterContext])
+  },[filterContext]) */
+
+  const getItemList = useCallback(async(pageNumber, searchWord)=>{
+    CommonHeader.authorization = token;
+    setLoading(true);
+    if (!token) { return; }
+    const limitCount = 10;
+    let requri = PreUri + '/equipment/categorylist?page='+ pageNumber + '&limit=' + limitCount;
+    if (searchWord && searchWord.length > 0) { requri += ("&search=" + searchWord); }
+		
+
+    const response = await fetch(requri, {
+      method:Method.get,
+      headers:CommonHeader
+    });
+    if (!response.ok) {
+      console.log('잘못된 접근입니다.');
+      return;
+    }
+    const json = await response.json();
+    setItemList(json);
+
+    const totalPage = Number(json.total_page);
+    const currentPage = Number(json.current_page);
+    const pageOffset = Math.ceil(currentPage / PageMax);
+    setItems(items => ({  
+			  ...items,
+      totalCount: Number(json.total_count),
+      totalPage,
+      currentPage,
+      limit: Number(json.limit),
+      pageOffset: (pageOffset < 1 ? 0 : (pageOffset - 1) * PageMax),
+      items: json.items,
+		}));
+
+    setLoading(false);
+    setCount(json.length);
+    //setContextData(itemList.slice(offset,offset+limit));
+ },[token])
+
+  
+ const onChange = useCallback((e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  }, [setSearch]);
+
+  const onSearch = useCallback((e) => {
+    const addQuery = (search.length > 0) ? ("?search=" + search) : "";
+    history(location.pathname + addQuery);
+}, [search, history]);
+
+
+const onSelectItem = useCallback((e, i) => {
+        e.preventDefault();
+        dispatch({ type: EQUIP_CATEGORY_ITEM, target: items.items[i] });
+        history("/InfoType1a",{state:{name:i.model_name}});
+    }, [items, dispatch, history]);
+
+
+const ItemRow = useCallback((props) => {
+return (<>
+        <tr>
+            <td onClick={props.onClick} className="num"><span className="more">{props.index}</span></td>
+            <td onClick={props.onClick}>{props.location}</td>
+            <td onClick={props.onClick}><span className="more">{props.modelName? props.modelName : '-'}</span></td>
+            <td className="num">image</td>
+            <td onClick={props.onClick}><span className="more">{props.modelSpec}</span></td>
+            <td>월~금(09:00-18:00)</td>
+        </tr>
+    </>);
+}, []);
+let ItemRows = [];
+    if (items.totalCount > 0) {
+        for (let i = 0; i <= items.items.length && i < items.limit; i++) {
+            const item = items.items[i];
+
+            const rowNumber = items.totalCount - i - (items.currentPage - 1) * items.limit;
+            if (rowNumber < 1) { break; }
+
+            ItemRows.push(
+                <ItemRow 
+                    index={rowNumber}
+                    location={item.location}
+                    modelName={item.model_name ? item.model_name : undefined}
+                    modelSpec={item.model_sepecification}
+                    onClick={(e) => onSelectItem(e, item)}
+                    key={i} />);
+        };
+    }
+
+
+
   const SetTable= ({data}) =>{
      return(
         <tbody>
@@ -60,37 +165,65 @@ export default function TableType1b({query}) {
         </tbody>
      );
   }
-  const currText = itemList.slice(offset,offset+limit)
-  const getItemList = useCallback(async({query})=>{
-    setLoading(true);
-    const limit = query;
-    let requri = PreUri + `/equipment/categorylist?name=${search}`;
-    const response = await fetch(requri, {
-      method:Method.get,
-      headers:CommonHeader
-    });
-    if (!response.ok) {
-      console.log('잘못된 접근입니다.');
-      return;
-    }
-    const json = await response.json();
-    setItemList(json);
-    setLoading(false);
-    setCount(json.length);
-    setContextData(itemList.slice(offset,offset+limit));
- },[token])
+  //const currText = itemList.slice(offset,offset+limit)
+
  useEffect(()=>{
-  getItemList(postPage);
- },[postPage])
- console.log(itemList)
- console.log(ContextData)
+  getItemList(query.page?query.page:1,query.search);
+  setSearch(query.search ? query.search : '');
+ },[getItemList,query])
+
+
+const onPagePrev = useCallback((e) => {
+        e.preventDefault();
+        const curPageGrp = Math.ceil(items.pageOffset / PageMax);
+        if (curPageGrp > 0) {
+            const querySearch = (search.length > 0) ? ("&search=" + search) : "";
+            history((location.pathname+location.search+location.hash) + '?page=' + items.pageOffset + querySearch);
+        }
+    }, [history, items, search]);
+
+
+const onPageNext = useCallback((e) => {
+        e.preventDefault();
+        const newPageOffset = items.pageOffset + PageMax;
+        const curPageGrp = Math.ceil(newPageOffset / PageMax);
+        const totPageGrp = Math.ceil(items.totalPage / PageMax);
+
+        if (curPageGrp < totPageGrp) {
+            const querySearch = (search.length > 0) ? ("&search=" + search) : "";
+            history((location.pathname+location.search+location.hash) + '?page=' + (newPageOffset + 1) + querySearch);
+        }
+    }, [history, items, search]);
+
+
+
+const onPage = useCallback((e, newPageNumber) => {
+  e.preventDefault();
+  const querySearch = (search.length > 0) ? ("&search=" + search) : "";
+  history(location.pathname + '?page=' + newPageNumber + querySearch);
+}, [history, search]);
+
+let PageList = [];
+for (let i = 0; i < PageMax; i++) {
+    let pageNum = i + 1 + items.pageOffset;
+    if (pageNum > items.totalPage) { break; }
+    PageList.push(<Button  onClick={(e) => onPage(e, pageNum)}
+        className={pageNum === items.currentPage ? "active" : ""}
+        key={i}>{pageNum}</Button>);
+}
   return (
     <div className="table_wrap table_type1">
       <div className="table_extra">
         <p>
           총 <span>20</span>개의 글
         </p>
-        <SearchBar onChange={onChange} onClick={onSearch} search={search}/>
+        <div className="table_search">
+          <select name="" id="">
+            <option value="1">모델명</option>
+          </select>
+          <input type="text"  value={search} name="search" onChange={(e) => setSearch(e.target.value)}   onKeyPress={(e) => { if (e.key === 'Enter') { onSearch(e) } }} placeholder="제목을 입력하세요" />
+          <button className="search_btn" type="button" onClick={onSearch}>조회</button>
+        </div>
       </div>
       <table>
         <caption className="blind">장비소개</caption>
@@ -104,10 +237,20 @@ export default function TableType1b({query}) {
             <th>이용안내</th>
           </tr>
         </thead>
-        <SetTable data={btnClick?ContextData:filterContext}/>
+        <tbody>
+        {ItemRows}
+        </tbody>
       </table>
       <div className="page_control">
-        <Pagination limit={limit} page ={page} totalPosts={itemList.length} setPage={setPage}/>
+      <nav>
+            <div className="pagination">
+              <ButtonWrap>
+                <Button className="prev" onClick={(e) => onPagePrev(e)}>&lt;</Button>
+                    {PageList}
+                <Button className="next" onClick={(e) => onPageNext(e)}>&gt;</Button>
+              </ButtonWrap>
+            </div>
+        </nav>
       </div>
     </div>
   );
@@ -128,4 +271,9 @@ const StyledSpan = styled.span`
       text-decoration:none;
       display:always;
     }
+`
+const Button = styled.button`
+
+`
+const ButtonWrap = styled.div`
 `

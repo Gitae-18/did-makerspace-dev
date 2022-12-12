@@ -10,7 +10,7 @@ export default function ListType2b() {
     <div className="table_wrap list_type2">
       <ol>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
           <div className="text_part">
             <h5 onClick={onItem}>원목 트레이 만들기</h5>
             <div className="tag">
@@ -31,7 +31,7 @@ export default function ListType2b() {
           </div>
         </li>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
           <div className="text_part">
             <h5 onClick={onItem}>원목 트레이 만들기</h5>
             <div className="tag">
@@ -52,7 +52,7 @@ export default function ListType2b() {
           </div>
         </li>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
           <div className="text_part">
             <h5 onClick={onItem}>원목 트레이 만들기</h5>
             <div className="tag">
@@ -73,7 +73,7 @@ export default function ListType2b() {
           </div>
         </li>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
           <div className="text_part">
             <h5 onClick={onItem}>원목 트레이 만들기</h5>
             <div className="tag">
@@ -94,7 +94,7 @@ export default function ListType2b() {
           </div>
         </li>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
           <div className="text_part">
             <h5 onClick={onItem}>원목 트레이 만들기</h5>
             <div className="tag">
@@ -115,7 +115,7 @@ export default function ListType2b() {
           </div>
         </li>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
           <div className="text_part">
             <h5 onClick={onItem}>원목 트레이 만들기</h5>
             <div className="tag">
@@ -136,7 +136,7 @@ export default function ListType2b() {
           </div>
         </li>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
           <div className="text_part">
             <h5 onClick={onItem}>원목 트레이 만들기</h5>
             <div className="tag">
@@ -157,7 +157,7 @@ export default function ListType2b() {
           </div>
         </li>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
           <div className="text_part">
             <h5 onClick={onItem}>원목 트레이 만들기</h5>
             <div className="tag">

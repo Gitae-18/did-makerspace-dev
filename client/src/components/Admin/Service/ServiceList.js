@@ -293,13 +293,6 @@ export default function ({ query , no }) {
         history('/mservice/detail');
     }, [history, serviceItems, dispatch]);
    
-    /*const onDelete = useCallback((e,index)=>{
-        e.preventDefault();
-        const itemm = serviceItems.items[index];
-        dispatch({ type: M_SERVICE_DELETE, target: itemm });
-        const newname = itemm.username.filter((item) => itemm.username !== item)
-        setServiceItems(newname)
-    },[history,serviceItems,dispatch])*/
     
     const onPrint = useCallback((e, index) => {
         e.preventDefault();

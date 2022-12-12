@@ -61,6 +61,12 @@
   margin-top: 24px;
 }
 
+.section_text_type2 .text_wrap{
+  border:0.8px solid #2d2d2d;
+  height:90vh;
+  margin-bottom:80px;
+  padding: 10px 30px;
+}
 .section_text_type2 ul > li > dl dd dl {
   margin: 12px 0;
   display: -webkit-box;
@@ -73,10 +79,13 @@
 
 .section_text_type2 ul > li > dl dd dl dt {
   width: 80px;
+  height:50px;
   position: relative;
   padding-right: 18px;
 }
-
+.section_text_type2 ul > li > dl{
+  height:130px;
+}
 .section_text_type2 ul > li > dl dd dl dt::after {
   content: ':';
   display: block;

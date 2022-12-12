@@ -11,8 +11,6 @@ export const LoginContainer = () => {
         isLoginStart, isLoggedIn, userName } = useSelector(state => state.user);
     const dispatch = useDispatch();
     const history = useNavigate();
-
-    console.log('login')
     useEffect(() => {
         dispatch({ type: LOAD_USER });
     }, []);

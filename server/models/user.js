@@ -93,6 +93,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DATE,
             allowNull: true,
         },
+       /*  equip_test_flag: {
+            tpye:DataTypes.CHAR(1),
+            allowNull:false,
+        }, */
         created_user_no: {
             type: DataTypes.INTEGER,
             allowNull: true,

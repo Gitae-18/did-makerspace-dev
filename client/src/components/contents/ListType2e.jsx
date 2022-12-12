@@ -11,7 +11,7 @@ export default function ListType2e() {
     <div className="table_wrap list_type2 list_type2c">
       <ol>
         <li>
-          <div className="image_part" onClick={onItem}>Image</div>
+          <div className="image_part" onClick={onItem}><img src="/images/sylicon.png" alt="no"/></div>
           <div className="text_part">
             <h5 onClick={onItem}>제조 양산의 기초 실리콘 몰드 제작</h5>
             <div className="dl_wrap">
@@ -27,7 +27,7 @@ export default function ListType2e() {
           </div>
         </li>
         <li>
-          <div className="image_part" onClick={onItem}>Image</div>
+          <div className="image_part" onClick={onItem}><img src="/images/sylicon.png" alt="no"/></div>
           <div className="text_part">
             <h5 onClick={onItem}>제조 양산의 기초 실리콘 몰드 제작</h5>
             <div className="dl_wrap">
@@ -43,7 +43,7 @@ export default function ListType2e() {
           </div>
         </li>
         <li>
-          <div className="image_part" onClick={onItem}>Image</div>
+          <div className="image_part" onClick={onItem}><img src="/images/sylicon.png" alt="no"/></div>
           <div className="text_part">
             <h5 onClick={onItem}>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
             <div className="dl_wrap">
@@ -59,7 +59,7 @@ export default function ListType2e() {
           </div>
         </li>
         <li>
-          <div className="image_part" onClick={onItem}>Image</div>
+          <div className="image_part" onClick={onItem}><img src="/images/sylicon.png" alt="no"/></div>
           <div className="text_part">
             <h5 onClick={onItem}>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
             <div className="dl_wrap">
@@ -75,7 +75,7 @@ export default function ListType2e() {
           </div>
         </li>
         <li>
-          <div className="image_part" onClick={onItem}>Image</div>
+          <div className="image_part" onClick={onItem}><img src="/images/sylicon.png" alt="no"/></div>
           <div className="text_part">
             <h5 onClick={onItem}>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
             <div className="dl_wrap">
@@ -91,7 +91,7 @@ export default function ListType2e() {
           </div>
         </li>
         <li>
-          <div className="image_part" onClick={onItem}>Image</div>
+          <div className="image_part" onClick={onItem}><img src="/images/sylicon.png" alt="no"/></div>
           <div className="text_part">
             <h5 onClick={onItem}>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
             <div className="dl_wrap">

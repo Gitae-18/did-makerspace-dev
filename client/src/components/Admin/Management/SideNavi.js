@@ -52,15 +52,7 @@ export default function ({ viewDepth ,onCategory}) {
 		  classOnTarget.classList.add("on");
 		}
 	  };
-	  const Dep3Handler = (e,props) => {
-		const classOnTarget = e.target;
-		//props.setValue(e.target.value);
-		const onRemoveTarget = classOnTarget.parentElement.children;
-		for (let i = 0; i < onRemoveTarget.length; i++) {
-		  onRemoveTarget[i].classList.remove("on");
-		}
-		classOnTarget.classList.add("on");
-	  };
+	
 	const SubModalControl = () =>{
 		const { token } = useSelector(state => state.user);
 		return(

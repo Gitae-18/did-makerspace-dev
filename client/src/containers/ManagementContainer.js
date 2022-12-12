@@ -31,7 +31,6 @@ import qs from 'qs';
 const ListView = [Company, User, EquipmentCategory, Equipment, ServiceCategory, MaterialCategory, MaterialItem, OldServiceItem];
 const RegView = [CompanyReg, UserReg, EquipmentCategoryReg, EquipmentReg, ServiceCategoryReg, MaterialCategoryReg, MaterialItemReg, OldServiceItemReg];
 const EditView = [CompanyEdit, UserEdit, EquipmentCategoryEdit, EquipmentEdit, ServiceCategoryEdit, MaterialCategoryEdit, MaterialItemEdit, OldServiceItemEdit];
-
 export const ManagementContainer = () => {
     const { isLoading, isLoggedIn, authority_level } = useSelector(state => state.user);
     const { sideNaviPos } = useSelector(state => state.management);

@@ -64,6 +64,9 @@ export default function TableType2a() {
    const setBtnClick = (e) =>{
       console.log(e.target.name);
    }
+   const onSend = () =>{
+     history()
+   }
    
    const categoryNum = reservationList.map((item,index)=> item.equipment_category_no);
 

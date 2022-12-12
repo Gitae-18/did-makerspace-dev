@@ -20,7 +20,7 @@ import create from 'zustand';
 import { SET_DATE } from "../../store/time";
 import { elementClosest } from "@fullcalendar/react";
 export const CurrentContext = createContext();
-export default function SelectDateType1({no}) {
+export default function SelectDateType1() {
   const [modalOpen, setModalOpen] = useState(false);
   const { token } = useSelector(state => state.user);
   const [start, setStart] = useState(new Date());
@@ -82,9 +82,8 @@ export default function SelectDateType1({no}) {
  }
  
   const getReservation = useCallback(async() => {
-
     CommonHeader.authorization = token;
-  
+    console.log(token)
     let requri = PreUri + '/reservation/equipment?date=' + NewDate;
     const response = await fetch(requri, {
       method:Method.get,
@@ -97,18 +96,18 @@ export default function SelectDateType1({no}) {
     }
     const json = await response.json();
     setGetdata(json);
-   /*  setGetdata(getdata =>({
+/*      setGetdata(getdata =>({
       ...getdata,
       reservationNo:json.result.equipment_reservation_no,
       status:json.result.reservation_status,
       date:json.result.reservation_date
-    })); */
+    }));  */
   },[token,NewDate,clickedTime])
   useEffect(()=>{
     dateClick();
-    getReservation(NewDate);
+    getReservation();
     TimeTable(NewDate);
-  },[token,getReservation,start,NewDate,status,status2,clickedTime])
+  },[ token,start,NewDate,status,status2,clickedTime ])
 
 
   const sendData = useCallback(async() =>{
@@ -131,8 +130,8 @@ export default function SelectDateType1({no}) {
     if(!response.ok){
       return(alert(getRspMsg(response.status)))
     }
-
-  },[no,getdata,token])
+    setModalOpen(false);
+  },[getdata,token])
     // get api
     // data
 

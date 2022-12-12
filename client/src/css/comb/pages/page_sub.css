@@ -269,7 +269,12 @@
   width:80%;
   
 }
-
+#pageSub02a5 button{
+  justify-content: center;
+  position: relative;
+  margin-top:60px;
+  left:41%;
+}
 
 #pageSub02a5 input{
   border : 1px solid #000000;
@@ -312,5 +317,32 @@
 }
 #pageSub07c .table_wrap table tbody tr td{
   cursor:pointer
+}
+.sub_page_outer{
+  height:5vh;
+}
+#pageSub07b1 .list_type2c ol li img{
+  justify-content: center;
+  position:relative;
+  width:230px;
+  height:160px;
+}
+#pageSub07b3 .list_type2c ol li img{
+  justify-content: center;
+  position:relative;
+  width:230px;
+  height:160px;
+}
+#pageSub05b1 .list_type2 ol li img{
+  justify-content: center;
+  position:relative;
+  width:180px;
+  height:210px;
+}
+#pageSub05a1 .list_type2 ol li img{
+  justify-content: center;
+  position:relative;
+  width:180px;
+  height:210px;
 }
 /*# sourceMappingURL=page_sub.css.map */

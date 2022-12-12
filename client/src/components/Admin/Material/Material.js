@@ -15,7 +15,6 @@ export default function ({query}) {
     const history = useNavigate();
     const dispatch = useDispatch();
     const { token } = useSelector(state => state.user);
-    //console.log('1 met =  ' + token);
     const { categoryList, categoryIndex, materialPageNo, materialPageOffset, materialSearch } = useSelector(state => state.material);
     const [search, setSearch] = useState('');
     const [items, setItems] = useState({
@@ -29,7 +28,7 @@ export default function ({query}) {
     });
     const getItemList = useCallback(async (pageNumber, newPageOffset, categoryNo, searchWord) => {
         CommonHeader.authorization = token;
-
+        console.log(pageNumber);
         if (!token) { return; }
         const limitCount = 20;
         let requri = PreUri + '/material/item/?page=' + pageNumber + '&limit=' + limitCount;

@@ -29,6 +29,7 @@ const mentoringRouter = require('./routes/v1/mentoring');
 const classeduRouter = require('./routes/v1/classedu');
 const noticeRouter = require('./routes/v1/notice');
 const spaceRouter = require('./routes/v1/space');
+const userequipmentpassRouter = require('./routes/v1/userequipmentestpass');
 //const surveyRouter = require('./routes/v1/survey');
 
 /*  for redis
@@ -142,6 +143,7 @@ app.use('/api/v1/oldservice', oldServiceRouter);
 app.use('/api/v1/stastics',stasticsRouter);
 app.use('/api/v1/space',spaceRouter);
 app.use('/api/v1/reservation',reservationRouter);
+app.use('/api/v1/userequipmentestpass',userequipmentpassRouter);
 //app.use('/api/v1/mentoring',mentoringRouter);
 //app.use('/api/v1/survey', surveyRouter);
 

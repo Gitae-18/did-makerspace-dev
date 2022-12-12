@@ -1046,6 +1046,8 @@ router.post('/findpassword', async (req, res, next) => {
     res.status(errorCode.ok).json({});
 });
 
+
+
 router.get('/test',  (req, res) => {
     //res.header("Access-Control-Allow-Origin", "*");
     //res.json(req.decoded);

@@ -10,7 +10,7 @@ export default function ListType2d() {
     <div className="table_wrap list_type2 list_type2c">
       <ol>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part"><img src="/images/sketch.png" alt="no"/></div>
           <div className="text_part">
             <h5 onClick={onItem}>스케치업을 이용한 단독주택모델링</h5>
             <div className="dl_wrap">
@@ -26,7 +26,7 @@ export default function ListType2d() {
           </div>
         </li>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part"><img src="/images/sketch.png" alt="no"/></div>
           <div className="text_part">
             <h5>레이저 가공기사용 교육자료</h5>
             <div className="dl_wrap">
@@ -42,7 +42,7 @@ export default function ListType2d() {
           </div>
         </li>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part"><img src="/images/sketch.png" alt="no"/></div>
           <div className="text_part">
             <h5>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
             <div className="dl_wrap">
@@ -58,7 +58,7 @@ export default function ListType2d() {
           </div>
         </li>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part"><img src="/images/sketch.png" alt="no"/></div>
           <div className="text_part">
             <h5>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
             <div className="dl_wrap">
@@ -74,7 +74,7 @@ export default function ListType2d() {
           </div>
         </li>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part"><img src="/images/sketch.png" alt="no"/></div>
           <div className="text_part">
             <h5>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
             <div className="dl_wrap">
@@ -90,7 +90,7 @@ export default function ListType2d() {
           </div>
         </li>
         <li>
-          <div className="image_part">Image</div>
+          <div className="image_part"><img src="/images/sketch.png" alt="no"/></div>
           <div className="text_part">
             <h5>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
             <div className="dl_wrap">

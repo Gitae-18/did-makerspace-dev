@@ -90,6 +90,43 @@
   .react-calendar__month-view__days__day--neighboringMonth {
     color: #757575;
   }
+  .react-calendar__year-view .react-calendar__year-view__months button{
+    
+    padding-top:25px;
+    height:10px;
+  }
+  .react-calendar__year-view .react-calendar__year-view__months button:hover{
+    color:#fff;
+    background-color: #313f4f;
+  }
+  .react-calendar__year-view .react-calendar__year-view__months button.react-calendar__tile--hasActive{
+    color:#fff;
+    background-color: #313f4f;
+  }
+  .react-calendar__year-view .react-calendar__year-view__months button abbr{
+    position:relative;
+    bottom:10px;
+    text-align: center;
+  }
+  .react-calendar__decade-view__years button{
+    height:10px;
+    padding-top:25px;
+    line-height: 5px;
+    font-size:1rem;
+  }  
+
+  .react-calendar__decade-view__years button.react-calendar__tile:hover{
+    color:#fff;
+    background-color: #313f4f;
+  }
+  .react-calendar__decade-view__years button abbr{
+    position:relative;
+    bottom:10px;
+  }
+  .react-calendar__decade-view__years button.react-calendar__tile--hasActive{
+    color:#fff;
+    background-color: #313f4f;
+  }
   .react-calendar__year-view .react-calendar__tile,
   .react-calendar__decade-view .react-calendar__tile,
   .react-calendar__century-view .react-calendar__tile {

@@ -36,7 +36,7 @@ router.post('/datetime',async(req,res,next)=>{
 
 // 예약 내역 GET
 router.get('/equipment',verifyToken, async(req,res,next)=>{   
-    /*
+    
     const date = (req.query.date === undefined) ? moment(new Date()).format("YYYY-MM-DD") : (req.query.date);
    // let user_no = req.decoded.user_no;
     
@@ -55,7 +55,7 @@ router.get('/equipment',verifyToken, async(req,res,next)=>{
     }
     
     console.log(result)
-    */
+    
     res.status(errorCode.ok).json({});
 })
 
@@ -64,10 +64,7 @@ router.get('/equipment',verifyToken, async(req,res,next)=>{
 router.post('/equipment_reserv', verifyToken, async(req,res,next)=>{
     let body = req.body;
     let user_no = req.decoded.user_no;
-    console.log(body.reservation_date)
-    console.log(body.reservation_status)
 
-    
   /*   let userInfo 
     try{
         userInfo = await User.findOne({

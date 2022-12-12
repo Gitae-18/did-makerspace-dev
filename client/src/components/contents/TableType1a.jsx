@@ -12,14 +12,26 @@ import qs from 'qs';
 export default function TableType1a() {
   const { token } = useSelector(state => state.user);
   const location = useLocation();
-  const {search} = useLocation();
+
   const history = useNavigate();
   const [spaceList,setSpaceList] = useState([]);
   const [spacename,setSpacename] = useState([]);
   const [page,setPage] = useState(1);
-  const query = qs.parse(search, {
-    ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
-  });
+  const [search,setSearch] = useState('');
+
+  const [currentPage,setCurrentPage] = useState(1);
+  const [currentPosts,setCurrentPosts] = useState([]);
+  const postPerPage = 10;
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+
+
+
+
+
+
+
+
   const getSpaceList = useCallback(async() =>{
     let requri = PreUri + '/space/list';
     const response = await fetch(requri, {
@@ -34,21 +46,50 @@ export default function TableType1a() {
     const json = await response.json();
     setSpaceList(json)
     setSpacename(json.map((e,i,arr)=>(e.space_name)));
+    setCurrentPosts(json);
   },[token])
+
+
   useEffect(()=>{
-    getSpaceList();
-   
+    getSpaceList(spaceList);
   },[getSpaceList]);
+  useEffect(()=>{
+    setCurrentPosts(spaceList.slice(indexOfFirstPost,indexOfLastPost))
+    console.log(currentPosts);
+  
+  },[indexOfFirstPost,indexOfLastPost,spaceList])
 
   const handlePageChange = (page) =>{
     setPage(page);
   }
-  console.log(spacename);
   const onMove = (e) =>{
     history(location.pathname + '/spacedetail',{state:{name:e.space_name}});
   }
-  console.log(query)
-  console.log(location.pathname)
+  const onChange = (e) =>{
+    e.preventDefault();
+    setSearch(e.target.value);
+  }
+  const onSearch = useCallback(async(e) =>{
+    e.preventDefault();
+    console.log(search);
+    if(search=== null || search === ''){
+        let requri = PreUri + '/space/list';
+      const response = await fetch(requri, {
+        method:Method.get,
+        headers:CommonHeader
+      });
+      const json = await response.json(); 
+      setCurrentPosts(json);
+  }
+  else{
+    const filterData = spaceList.filter((item) => item.space_name.includes(search))
+    setSpaceList(filterData)
+    setCurrentPosts(filterData.slice(indexOfFirstPost,indexOfLastPost))
+    setCurrentPage(1)
+  }
+ setSearch('');
+},[search])
+
   return (
     <>
     <div className="table_wrap table_type1">
@@ -60,8 +101,8 @@ export default function TableType1a() {
           <select name="" id="">
             <option value="1">공간명</option>
           </select>
-          <input type="text" name="" id="" placeholder="제목을 입력하세요" />
-          <StyledBtn>조회</StyledBtn>
+          <input type="text" name="" id="" placeholder="제목을 입력하세요"  onChange={onChange}/>
+          <StyledBtn onClick={(e)=>onSearch(e)}>조회</StyledBtn>
         </div>
       </div>
       <table className="table_space">
@@ -77,7 +118,7 @@ export default function TableType1a() {
           </tr>
         </thead>
         <tbody>
-            {spaceList.map((item,i)=>(
+            {currentPosts.map((item,i)=>(
               <tr key={i}>
               <td>{item.space_no}</td>
               <td><StyledSpan onClick={(e)=>onMove(item)}>{item.space_name}</StyledSpan></td>
@@ -92,8 +133,8 @@ export default function TableType1a() {
       <div className="page_control">
               <Pagination
               activePage={page}
-              itemsCountPerPage={20}
-              totalItemsCount={spaceList.length}
+              itemsCountPerPage={10}
+              totalItemsCount={currentPosts.length}
               pageRangeDisplayed={5}
               prevPageText={"<"}
               nextPageText={">"}

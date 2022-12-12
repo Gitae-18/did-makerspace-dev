@@ -27,6 +27,14 @@ module.exports = (sequelize,DataTypes) => {
             type:DataTypes.CHAR(3),
             allowNull:false,
         },
+        created_user_no: {
+            type: DataTypes.INTEGER,
+            allowNull:true,
+        },
+        updated_user_no:{
+            type: DataTypes.INTEGER,
+            allowNull:true,
+        },
     },{
         timestamps: true, // created_at, updated_at
         paranoid: true,    // deleted_at

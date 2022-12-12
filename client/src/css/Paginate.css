@@ -31,12 +31,13 @@ ul{
     font-size: 1rem;
   }
   
-  ul.pagination li.active a {
+  ul.pagination button.active a {
     color: white;
   }
 
-  ul.pagination li.active {
+  ul.pagination button.active {
     background-color: #313f4f;
+    color:#fff;
   }
   
   ul.pagination li:hover{

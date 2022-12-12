@@ -514,19 +514,142 @@ router.get ('/equipmentlist',async(req,res,next)=>{
     return res.json(equipment_list);
 })
 
-router.get ('/categorylist',async(req,res,next)=>{
+router.get ('/categorylist',verifyToken, async(req,res,next)=>{
     let body = req.body;
     let equipment_category_no = req.params.equipment_category_no;
+
     const page = (req.query.page === undefined) ? 1 : Number(req.query.page);
-    const limit = (req.query.limit === undefined) ? 10 : Number(req.query.limit);
+    const limit = (req.query.limit === undefined) ? 7 : Number(req.query.limit);
 
-   /*  const page = (req.query.page === undefined) ? 1 : Number(req.query.page);
-    const limit = (req.query.limit === undefined) ? 20 : Number(req.query.limit);
-    let totalCount = equipment_list[0].datavalues.count;
-    let totalPage = Math.ceil(totalCount / limit);
-    let offset = ((page > totalPage ? totalPage : page) -1 ) * limit; */
+    let my_where = { };
+    if (req.query.search) { my_where["model_name"] = { [Op.like]: "%" + req.query.search + "%"} }
 
-    let equipment_list;
+  
+  
+
+    let findResult;
+    try {
+        findResult = await EquipmentCategory.findAll({
+            attributes: [[EquipmentCategory.sequelize.fn('count', '*'), 'count']],
+            where: my_where,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    let total_count = findResult[0].dataValues.count;
+    if (total_count <= 0) {
+        return res.status(errorCode.ok).json({
+            total_count: 0,
+            total_page: 0,
+            current_page: 0,
+            offset: 0,
+            limit,
+            items: [],
+        });
+    }
+    let total_page = Math.ceil(total_count / limit);
+    let offset = ((page > total_page ? total_page : page) - 1) * limit;
+
+    let items;
+    try {
+         items = await EquipmentCategory.findAll({
+            attributes: ['model_name','equipment_category_no','model_number','model_specification','reservation_available','location'],
+            order: [
+                ['equipment_category_no','ASC'],
+            ],
+            where: my_where,
+            offset: offset,
+            limit: limit,
+            raw: true
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+
+    let result = {
+        total_count,
+        total_page,
+        current_page: offset/limit+1,
+        offset,
+        limit,
+        items,
+    } 
+ 
+    return res.status(errorCode.ok).json(result);
+
+
+
+    /* let body = req.body;
+    let user_no = req.decoded.user_no;
+    let authority_level = req.decoded.authority_level;
+
+    const page = (req.query.page === undefined) ? 1 : Number(req.query.page);
+    const limit = (req.query.limit === undefined) ? 7 : Number(req.query.limit);
+
+    let my_where = { };
+    if (req.query.search) { my_where["model_name"] = { [Op.like]: "%" + req.query.search + "%"} }
+
+    if (authority_level == 1) {
+        return res.status(errorCode.internalServerError).json({});
+    }
+
+    let findResult;
+    try {
+        findResult = await EquipmentCategory.findAll({
+            attributes: [[EquipmentCategory.sequelize.fn('count', '*'), 'count']],
+            where: my_where,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+
+    let total_count = findResult[0].dataValues.count;
+    if (total_count <= 0) {
+        return res.status(errorCode.ok).json({
+            total_count: 0,
+            total_page: 0,
+            current_page: 0,
+            offset: 0,
+            limit,
+            items: [],
+        });
+    }
+
+    let total_page = Math.ceil(total_count / limit);
+    let offset = ((page > total_page ? total_page : page) - 1) * limit;
+
+    let items;
+    try {
+         items = await EquipmentCategory.findAll({
+            attributes: ['equipment_category_no', 'service_category_no', 'model_name', 'model_number', 'model_specification', 'purpose', 'created_at'],
+            order: [
+                ['created_at', 'DESC'],
+            ],
+            where: my_where,
+            offset: offset,
+            limit: limit,
+            raw: true
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+
+    let result = {
+        total_count,
+        total_page,
+        current_page: offset/limit+1,
+        offset,
+        limit,
+        items,
+    } */
+
+    //return res.status(errorCode.ok).json(result);
+
+   /* let equipment_list;
     try{
         equipment_list = await EquipmentCategory.findAll({
             attributes:['model_name','equipment_category_no','model_number','model_specification','reservation_available','location'],
@@ -540,8 +663,14 @@ router.get ('/categorylist',async(req,res,next)=>{
     catch(error){
         console.log(error);
         return res.status(errorCode.internalServerError).json({});
-    }
-    return res.json(equipment_list);
+    } */
+     /*  const page = (req.query.page === undefined) ? 1 : Number(req.query.page);
+    const limit = (req.query.limit === undefined) ? 20 : Number(req.query.limit);
+    let totalCount = equipment_list[0].datavalues.count;
+    let totalPage = Math.ceil(totalCount / limit);
+    let offset = ((page > totalPage ? totalPage : page) -1 ) * limit; */
+
+
 })
 
 module.exports = router;

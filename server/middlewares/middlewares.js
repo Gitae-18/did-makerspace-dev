@@ -27,7 +27,6 @@ exports.isNotLoggedIn = (req, res, next) => {
 
 exports.verifyToken = (req, res, next) => {
     //return next();
-    console.log(req.headers.authorization);
     try {
         req.decoded = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
         return next() ;

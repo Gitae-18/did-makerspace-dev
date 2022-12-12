@@ -1,7 +1,7 @@
 export const CommonHeader = {
   "Content-type": "application/json; charset=UTF-8"
 }
-export const PreUri = 'http://localhost:4000/api/v1';
+export const PreUri = process.env.REACT_APP_API_URL;
 //export const PreUri = 'http://52.79.61.172:4000/api/v1';
 export const Method = {
   post: 'POST',

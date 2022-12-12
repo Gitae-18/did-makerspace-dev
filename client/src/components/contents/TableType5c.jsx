@@ -22,7 +22,7 @@ export default function TableType5c({query}) {
             <option value="1">제목</option>
           </select>
           <input type="text" name="" id="" placeholder="제목을 입력하세요" />
-          <StyledBtn btnName="조회"></StyledBtn>
+          <StyledBtn btnName="조회">조회</StyledBtn>
         </div>
       </div>
       <table>
@@ -81,6 +81,94 @@ export default function TableType5c({query}) {
             <td>2022. 10. 13</td>
             <td>
               <ButtonType4small btnName="확인"></ButtonType4small>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>멘토링 제목1</td>
+            <td>홍길동 멘토</td>
+            <td>신청</td>
+            <td>1</td>
+            <td>2022. 10. 13</td>
+            <td>
+              <ButtonType4small btnName="확인" ></ButtonType4small>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>멘토링 제목1</td>
+            <td>홍길동 멘토</td>
+            <td>신청</td>
+            <td>1</td>
+            <td>2022. 10. 13</td>
+            <td>
+              <ButtonType4small btnName="확인" ></ButtonType4small>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>멘토링 제목1</td>
+            <td>홍길동 멘토</td>
+            <td>신청</td>
+            <td>1</td>
+            <td>2022. 10. 13</td>
+            <td>
+              <ButtonType4small btnName="확인" ></ButtonType4small>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>멘토링 제목1</td>
+            <td>홍길동 멘토</td>
+            <td>신청</td>
+            <td>1</td>
+            <td>2022. 10. 13</td>
+            <td>
+              <ButtonType4small btnName="확인" ></ButtonType4small>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>멘토링 제목1</td>
+            <td>홍길동 멘토</td>
+            <td>신청</td>
+            <td>1</td>
+            <td>2022. 10. 13</td>
+            <td>
+              <ButtonType4small btnName="확인" ></ButtonType4small>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>멘토링 제목1</td>
+            <td>홍길동 멘토</td>
+            <td>신청</td>
+            <td>1</td>
+            <td>2022. 10. 13</td>
+            <td>
+              <ButtonType4small btnName="확인" ></ButtonType4small>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>멘토링 제목1</td>
+            <td>홍길동 멘토</td>
+            <td>신청</td>
+            <td>1</td>
+            <td>2022. 10. 13</td>
+            <td>
+              <ButtonType4small btnName="확인" ></ButtonType4small>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>멘토링 제목1</td>
+            <td>홍길동 멘토</td>
+            <td>신청</td>
+            <td>1</td>
+            <td>2022. 10. 13</td>
+            <td>
+              <ButtonType4small btnName="확인" ></ButtonType4small>
             </td>
           </tr>
           <tr>

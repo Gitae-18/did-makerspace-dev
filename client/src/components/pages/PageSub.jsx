@@ -57,6 +57,7 @@ import Footer from "../../css/comb/Footer";
 import InfoType1a from "../contents/InfoType1a";
 import InfoTypeSpace from "../contents/infotypespace";
 import Menu from "../Menu";
+import { EquipmentContainer } from "../../containers/EquipmentContainer";
 export default function DidInfo() {
   const [value,setValue] = useState("");
   return (
@@ -117,7 +118,7 @@ export const DidInfo2 = ({location,history}) =>{
       <SubSideMenu title={"시설소개"} subtitle={"장비소개"}></SubSideMenu>
       <div className="sub_page_inner_wrap">
         <div className="sub_inner">
-          <PageSub01a2/>
+          <EquipmentContainer/>
         </div>
       </div>
     </div>

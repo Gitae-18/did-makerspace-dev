@@ -1,7 +1,7 @@
 import React, { /*useState, useEffect, */useCallback,useEffect,useState /*useMemo*/ } from 'react';
 import { NavLink ,Link} from 'react-router-dom';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CHANGE_MENU,STASTICS_ANALYZE } from "../store/management";
 import { CHANGE_CATEGORY } from "../store/material";
 import styled from 'styled-components';
@@ -104,10 +104,22 @@ const UserMenu = ({authority_level,history,path}) => {
   </>
 );}
 /*<Link onClick={() => { dispatch({ type: STASTICS_ANALYZE, target: 0 }); }} to="/statics">통계 분석</Link>*/
-const AdminMenu = () => {
+const AdminMenu = ({viewDepth}) => {
   const dispatch = useDispatch();
+  const history = useNavigate();
+  const { sideNaviPos } = useSelector(state => state.management);
   const outer1 = document.getElementsByClassName('dep2');
-
+	const onClick = useCallback((e, index) => {
+		e.preventDefault();
+		dispatch({ type: CHANGE_MENU, target: index });
+		console.log(viewDepth);
+		if (viewDepth && viewDepth === 2) {
+			
+			history(-1);
+		} else {
+			history('/management')
+		}
+	}, [dispatch, history, viewDepth]);
   const SubMenu1 = () =>{
     return(
           <ol className='menu_dep2'>
@@ -163,14 +175,15 @@ const AdminMenu = () => {
     );
   }
   const SubMenu7 = () => {
+    
     return(
       <ol className='menu_dep2'>
-        <li><NavLink to={'/management'}>기업/회원 관리</NavLink></li>
-        <li><NavLink to={'/management'}>기자재 품목 관리</NavLink></li>
-        <li><NavLink to={'/management'}>서비스항목관리</NavLink></li> 
-        <li><NavLink to={'/management'}>기/자재관리</NavLink></li> 
-        <li><NavLink to={'/management'}>전문멘토관리</NavLink></li>   
-        <li><NavLink to={'/management'}>교육/행사관리</NavLink></li>   
+        <li onClick={(e)=>onClick(e,0)}><NavLink>기업/회원 관리</NavLink></li>
+        <li onClick={(e)=>onClick(e,2)}><NavLink>기자재 품목 관리</NavLink></li>
+        <li onClick={(e)=>onClick(e,3)}><NavLink>서비스항목관리</NavLink></li> 
+        <li onClick={(e)=>onClick(e,4)}><NavLink>기/자재관리</NavLink></li> 
+        <li onClick={(e)=>onClick(e,5)}><NavLink>전문멘토관리</NavLink></li>   
+        <li onClick={(e)=>onClick(e,6)}><NavLink>교육/행사관리</NavLink></li>   
       </ol>
     );
   }

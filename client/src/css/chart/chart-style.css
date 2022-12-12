@@ -105,13 +105,13 @@ button{letter-spacing:-1px;}
         
  #header  .login_box .login{padding:0;display:inline-block;width:7vw;background:#0f2753;color:#fff;font-size:16px;position:relative;right:-15px;border:0;height:6vh;cursor:pointer;bottom:13px;left:0px;width:12vw;}
  #header .login_box .close{position:relative;display:inline-block; background:#0f2753;width:12vw;height:6vh;border:0;cursor:pointer;left:0px;top:10vh;color:#fff}
- #header .member_box{float:right;position:relative; right:5vw;}
+ #header .member_box{float:right;position:relative; right:2.5vw;}
  #header .member_box span{position:relative;font-size:0.9rem;color:#666;height:80px;line-height:80px;padding:0 16px;cursor:pointer;}
           /*#header .member_box span.name{padding-left:32px;}*/
  #header .member_box span.name.on:before{display:block;content:"";;height:8px;background:#cd0000;border-radius:50%;position:absolute;top:-2px;left:18px;z-index:2;}
  #header .member_box span.name:after{display:block;content:"";width:25px;height:25px;background:url(/images/ico_member.png) no-repeat 0 0;position:absolute;left:0;top:50%;margin-top:-12.5px;z-index:1;}
  #header .member_box span.my_info:after{display:block;content:"";width:1px;height:26px;background:#666;position:absolute;left:0;top:50%;margin-top:-13px;}
- #header .logout{left:11.5vw;position:relative;padding:0;float:right;height:8.2vh;line-height:80px;width:7vw;background:#0f2753;color:#fff;font-size:0.9rem;border:0;cursor:pointer;}
+ #header .logout{left:86%;position:fixed;padding:0;float:right;height:8vh;line-height:80px;width:4.5vw;background:#0f2753;color:#fff;font-size:0.9rem;border:0;cursor:pointer;}
           
 #header:after{display:block;content:"";clear:both;}
 #header .logo2{float:left;height:80px;width:250px;line-height: 80px;}
