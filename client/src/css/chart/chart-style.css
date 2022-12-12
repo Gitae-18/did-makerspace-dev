@@ -116,7 +116,7 @@ button{letter-spacing:-1px;}
 #header:after{display:block;content:"";clear:both;}
 #header .logo2{float:left;height:80px;width:250px;line-height: 80px;}
 #header .logo2 img{margin-top:20px; width:200px;height:40px;}
-#header .btn_box li{left:2vw;float:left;letter-spacing:0;word-spacing:0;position:relative;overflow:hidden}
+#header .btn_box li{float:left;letter-spacing:0;word-spacing:0;position:relative;overflow:hidden}
 #header .btn_box li a{display:inline-block;height:80px;line-height:80px;color:#fff;transition:all 0.2s linear;-webkit-transition:all 0.2s linear;font-size:0.8rem;font-weight:500;margin: 0 auto;width:118px;}
 #header .btn_box li a:hover{background: #313f4f;}
 #header .btn_box li a.on{background:#e5e5e5;}
