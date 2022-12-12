@@ -76,10 +76,10 @@ button{letter-spacing:-1px;}
           z-index: 1000;
           height: 60px;
           left:16.4vw;
-          width:75.8vw;
+          width:73.7vw;
           transition: all 1s;
           visibility: visible;
-	        animation:setMotion 2s;
+	        animation:setMotion 3s;
           }
           @keyframes setMotion {
             0%{
