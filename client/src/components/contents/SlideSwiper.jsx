@@ -37,7 +37,7 @@ export function SlideSwiper2() {
         modules={[Navigation, Pagination]}
         spaceBetween={6}
         slidesPerView={5}
-        autoplay={{delay:2500}}
+        autoplay={{delay:3500}}
         loop = {[false]}
       >
         <SwiperSlide><img src="/images/banner_01.png"/></SwiperSlide>

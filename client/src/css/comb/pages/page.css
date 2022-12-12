@@ -4,6 +4,10 @@
   src: url(/public/font/font_01.ttf);
 }
 
+section{
+  position: relative;
+  left:2%;
+}
 #pageSignUp > div > h2 {
   margin: 40px 0 20px;
 }
@@ -22,6 +26,7 @@
   height: 300px;
   background: url(/images/bg.jpg);
   background-size: cover;
+  width:73vw;
 }
 
 .main_banner .text_part {

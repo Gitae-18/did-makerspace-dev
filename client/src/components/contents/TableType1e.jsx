@@ -36,35 +36,70 @@ export default function TableType1e() {
         <tbody>
           <tr>
             <td>10</td>
-            <td onClick={onItem}>게시글 제목입니다.</td>
+            <td onClick={onItem}>공지사항 1.</td>
             <td>최고관리자</td>
             <td>03-25</td>
             <td>222</td>
           </tr>
           <tr>
             <td>10</td>
-            <td>게시글 제목입니다.</td>
+            <td onClick={onItem}>공지사항 2.</td>
             <td>최고관리자</td>
             <td>03-25</td>
             <td>222</td>
           </tr>
           <tr>
             <td>10</td>
-            <td>게시글 제목입니다.</td>
+            <td onClick={onItem}>공지사항 3.</td>
             <td>최고관리자</td>
             <td>03-25</td>
             <td>222</td>
           </tr>
           <tr>
             <td>10</td>
-            <td>게시글 제목입니다.</td>
+            <td onClick={onItem}>공지사항 4.</td>
             <td>최고관리자</td>
             <td>03-25</td>
             <td>222</td>
           </tr>
           <tr>
             <td>10</td>
-            <td>게시글 제목입니다.</td>
+            <td onClick={onItem}>공지사항 5.</td>
+            <td>최고관리자</td>
+            <td>03-25</td>
+            <td>222</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td onClick={onItem}>공지사항 6.</td>
+            <td>최고관리자</td>
+            <td>03-25</td>
+            <td>222</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td onClick={onItem}>공지사항 7.</td>
+            <td>최고관리자</td>
+            <td>03-25</td>
+            <td>222</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td onClick={onItem}>공지사항 8.</td>
+            <td>최고관리자</td>
+            <td>03-25</td>
+            <td>222</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td onClick={onItem}>공지사항 9.</td>
+            <td>최고관리자</td>
+            <td>03-25</td>
+            <td>222</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td onClick={onItem}>공지사항 10.</td>
             <td>최고관리자</td>
             <td>03-25</td>
             <td>222</td>

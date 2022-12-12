@@ -561,8 +561,16 @@ h3.title_type1:after {
   min-width: 100px;
   padding: 0 12px;
   border: 1px solid #313f4f;
+  height:30px;
+  position: relative;
+  top:1px;
 }
 
+#pageSub06d4 .table_wrap > div.table_extra div.table_searh select{
+  height:30px;
+  position:relative;
+  right:10px;
+}
 .table_wrap table {
   margin-top: 12px;
 }
@@ -760,7 +768,7 @@ h3.title_type1:after {
 }
 
 .table_type2.table_wrap .table_extra select {
-  height: 40px;
+  height: 30px;
 }
 
 .table_type2.table_wrap table {
@@ -1675,4 +1683,5 @@ h3.title_type1:after {
 .table_wrap .text_part h5{
   cursor:pointer;
 }
+
 /*# sourceMappingURL=content.css.map */

@@ -34,8 +34,10 @@ export default ({ no }) => {
 
 	const [editTitle, setEditTitle] = useState('');
 	const [editContent, setEditContent] = useState('');
+
 	const [confirmContent, setConfirmContent] = useState('');
 	const [rejectContent, setRejectContent] = useState('');
+    
 	const [fileInfo, setFileInfo] = useState([]);
 	const [myFiles, setMyFiles] = useState([]);
 

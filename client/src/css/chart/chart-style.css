@@ -14,7 +14,7 @@ button{letter-spacing:-1px;}
 
 /* header */
 
-#header{width:73vw;height:8vh;background-color:rgba(255, 255, 255, 0.8);;font-size:0.9rem;text-align:center;border-bottom:1px solid  #e5e5e5;box-sizing:border-box;position:fixed;z-index:1;position:fixed; border-bottom: 1px solid rgba(255, 255, 255, 0);
+#header{width:73vw;height:80px;background-color:rgba(255, 255, 255, 0.8);;font-size:0.9rem;text-align:center;border-bottom:1px solid  #e5e5e5;box-sizing:border-box;position:fixed;z-index:1;position:fixed; border-bottom: 1px solid rgba(255, 255, 255, 0);
   background-color: rgba(142, 148, 151, 0.9);
   z-index:101;
   -webkit-transition: 0.5s;
@@ -111,7 +111,7 @@ button{letter-spacing:-1px;}
  #header .member_box span.name.on:before{display:block;content:"";;height:8px;background:#cd0000;border-radius:50%;position:absolute;top:-2px;left:18px;z-index:2;}
  #header .member_box span.name:after{display:block;content:"";width:25px;height:25px;background:url(/images/ico_member.png) no-repeat 0 0;position:absolute;left:0;top:50%;margin-top:-12.5px;z-index:1;}
  #header .member_box span.my_info:after{display:block;content:"";width:1px;height:26px;background:#666;position:absolute;left:0;top:50%;margin-top:-13px;}
- #header .logout{left:86%;position:fixed;padding:0;float:right;height:8vh;line-height:80px;width:4.5vw;background:#0f2753;color:#fff;font-size:0.9rem;border:0;cursor:pointer;}
+ #header .logout{left:85.4%;position:fixed;padding:0;float:right;height:8vh;line-height:80px;width:4.5vw;background:#0f2753;color:#fff;font-size:0.9rem;border:0;cursor:pointer;}
           
 #header:after{display:block;content:"";clear:both;}
 #header .logo2{float:left;height:80px;width:250px;line-height: 80px;}

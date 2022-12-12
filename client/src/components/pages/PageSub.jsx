@@ -83,7 +83,7 @@ export const DidInfo1Detail1 = () =>{
     <>
     
     <div id="sub_page_wrap">
-      <SubSideMenu title={"시설소개"} subtitle={"장비소개"}></SubSideMenu>
+      <SubSideMenu title={"시설소개"} subtitle={"공간소개"}></SubSideMenu>
       <div className="sub_page_inner_wrap">
         <div className="sub_inner">
           <InfoTypeSpace/>

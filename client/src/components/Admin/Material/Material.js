@@ -196,8 +196,8 @@ export default function ({query}) {
 					
 					<div className="status">
 						<div className="search_box">
-                            <input type="text" name="search" value={search} onChange={onChange} onKeyPress={(e) => { if (e.key === 'Enter') { onSearch(e) } }} />
-                            <button onClick={onSearch}></button>
+                            <input type="text" name="search" placeholder='자재명을 입력하세요' value={search} onChange={onChange} onKeyPress={(e) => { if (e.key === 'Enter') { onSearch(e) } }} />
+                            <button onClick={onSearch}>검색</button>
                         </div>
 					</div>
 					<div className="table">

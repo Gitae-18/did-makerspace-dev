@@ -29,6 +29,7 @@
     transition-property: transform;
     box-sizing: content-box;
   }
+ 
   .swiper-android .swiper-slide,
   .swiper-wrapper {
     transform: translate3d(0px, 0, 0);
@@ -38,6 +39,13 @@
   }
   .swiper-pointer-events.swiper-vertical {
     touch-action: pan-x;
+  }
+  .swiper_wrap{
+    position:relative;
+    left:5%;
+    
+    margin-bottom:10px;
+    padding:-1px;
   }
   .swiper-slide {
     flex-shrink: 0;
