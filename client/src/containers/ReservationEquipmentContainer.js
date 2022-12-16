@@ -17,7 +17,7 @@ export const ReservationEquipmentContainer = (props) =>{
         
         if (isLoading) { return; }
         if (!isLoggedIn) { return history('/notmember',{replace:true}); }
-        if (authority_level < AuthLevel.partner) { return history('/notauthhorized',{replace:true}); }
+        
 	}, [isLoading, isLoggedIn, authority_level, history])
 
     const View = query.date ? SelectReservation : SelectReservation;
