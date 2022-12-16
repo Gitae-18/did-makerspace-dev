@@ -13,7 +13,7 @@ const { token } = require('morgan');
 
 const router = express.Router();
 
-router.post('/datetime',async(req,res,next)=>{
+/* router.post('/datetime',async(req,res,next)=>{
     const {resrevation_date,reservation_status} = req.body
     let user_no = req.decoded.user_no;
     
@@ -32,31 +32,33 @@ router.post('/datetime',async(req,res,next)=>{
     catch{
 
     }
-})
+}) */
 
 // 예약 내역 GET
 router.get('/equipment',verifyToken, async(req,res,next)=>{   
     
     const date = (req.query.date === undefined) ? moment(new Date()).format("YYYY-MM-DD") : (req.query.date);
-   // let user_no = req.decoded.user_no;
-    
+    const category = (req.query.category === undefined) ? 0 : (req.query.category);
+    console.log(category)
     let result ;
     try{
         result = await EquipmentReservation.findOne({
             attributes:['equipment_reservation_no','reservation_status','reservation_date'],
-            where:{reservation_date:{[Op.like]:`${date}%`}},
+            where:{equipment_category_no:category,reservation_date:{[Op.like]:`${date}%`}},
             raw:true
         })
-        //res.json({result})
+        
+            res.json(result);
+       
     }
     catch(error){
         console.error(error);
         return res.status(errorCode.internalServerError).json({});
     }
     
-    console.log(result)
+  
     
-    res.status(errorCode.ok).json({});
+   // res.status(errorCode.ok).json({});
 })
 
 
@@ -77,7 +79,6 @@ router.post('/equipment_reserv', verifyToken, async(req,res,next)=>{
     let inpurtResult
     try{
         inpurtResult  = await EquipmentReservation.create({
-           reservation_no : body.reservation_no,
            reservation_status:body.reservation_status,
            reservation_date:body.reservation_date,
            equipment_category_no:body.equipment_category_no,

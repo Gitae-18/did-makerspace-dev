@@ -3,7 +3,7 @@ export const RES_EQUIP_SET = "reservation/SET";
 const initialState={
     reservationNo:0,
     status:"",
-    datetime:"",
+    date:"",
 }
 export default (state = initialState, action) =>{
     switch(action.type){
@@ -12,7 +12,7 @@ export default (state = initialState, action) =>{
                 ...state,
                 reservationNo:action.target.reservation_no,
                 status:action.target.reservation_status,
-                datetime:action.target.reservation_date,
+                date:action.target.reservation_date,
             }
         default:
             return state;

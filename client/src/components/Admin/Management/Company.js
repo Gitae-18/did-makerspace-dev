@@ -12,6 +12,7 @@ export default function ({ query }) {
     const location = useLocation();
     const history = useNavigate();
     const { token } = useSelector(state => state.user);
+    console.log(token);
     const dispatch = useDispatch();
     const [search, setSearch] = useState('');
     const [items, setItems] = useState({

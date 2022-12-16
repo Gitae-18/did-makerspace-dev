@@ -20,7 +20,7 @@
  .sub_side_menu .sub_modal {
   z-index: 9;
   position: fixed;
-  left:15%;
+  left:10%;
   top: 159px;
   height: calc( 100vh - 100px);
   padding: 36px;
@@ -107,14 +107,14 @@
 }
 
  .sub_side_menu .sub_bread {
-  width: calc(100% - 26%);
+  width: calc(100% + 24.5%);
   display: -webkit-box;
   display: -ms-flexbox;
   display:inline-flex;
-  position:fixed;
-  z-index:100;
+  position:absolute;
+  z-index:0;
+  left:-10.5%;
   gap: 36px;
-  left:17%;
   box-sizing:content-box;
   border-bottom: 1px solid #313f4f;
   padding: 0 0;

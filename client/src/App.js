@@ -40,6 +40,7 @@ import { MServiceDetailContainer as MServiceDetail } from './containers/MService
 import { MyInfoContainer as MyInfo } from './containers/MyInfoContainer';
 import { ScheduleContainer as Schedule } from './containers/ScheduleContainer';
 import { UServiceContainer as UService } from './containers/UServiceContainer';
+import { ReservationEquipmentContainer as EReservation } from './containers/ReservationEquipmentContainer';
 import Material from './components/Admin/Material/Material';
 import MaterialItem from './components/Admin/Material/MaterialItem';
 import MaterialList from './components/Admin/Material/MaterialList';
@@ -128,7 +129,7 @@ const App = () => {
         <Route path="/reservation/space" element = {<DidReservation2/>}/>
         <Route path="/reservation/lab" element = {<DidReservation3/>}/>
         <Route path="/reservation/myvation" element = {<DidReservation4/>}/>
-        <Route path="/reservation/selectreserv" element = {<SelectReservation/>}/>
+        <Route path="/reservation/selectreserv" element = {<EReservation/>}/>
         <Route path="/didreservation/test" element={<TestReservation/>}/>
 
         <Route path="/mentoring" element = {<Mentoring/>}/>

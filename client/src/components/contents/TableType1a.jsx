@@ -11,6 +11,7 @@ import qs from 'qs';
 
 export default function TableType1a() {
   const { token } = useSelector(state => state.user);
+  console.log(token);
   const location = useLocation();
 
   const history = useNavigate();
@@ -24,13 +25,6 @@ export default function TableType1a() {
   const postPerPage = 10;
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
-
-
-
-
-
-
-
 
   const getSpaceList = useCallback(async() =>{
     let requri = PreUri + '/space/list';

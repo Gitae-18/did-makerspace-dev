@@ -78,6 +78,9 @@ export default (state = initialState, action) => {
             const loggedinUser = localStorage.getItem("loggedinUser");
             if (loggedinUser) {
                 console.log('load_user')
+                console.log(JSON.parse(loggedinUser).userName)
+                console.log(JSON.parse(loggedinUser).authority_level)
+                console.log(JSON.parse(loggedinUser).token)
                 return {
                     ...state,
                     isLoginStart: false,

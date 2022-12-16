@@ -2,6 +2,7 @@ import React,{useState}from 'react'
 import $ from 'jquery';
 import {withCookies,Cookies,ReactCookieProps} from 'react-cookie';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import moment from 'moment';
 import Modal from './Modal'
 import '../css/common-s.css';
@@ -14,6 +15,8 @@ import "../css/comb/contents/content.css";
 import "../css/comb/sections/sections.css";
 
 export default function () {
+  const { token } = useSelector(state => state.user); 
+  console.log(token);
     $(document).ready(function () {
         $('.content_wrap').css('min-height', $(window).height() - 120);
         setTimeout(function(){ $('#modal').show();},300)

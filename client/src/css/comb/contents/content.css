@@ -1295,7 +1295,10 @@ h3.title_type1:after {
   width: 240px;
   height: 100%;
 }
-
+.info_type2 .title_part .image_part img.woodtray{
+  height:280px;
+  width:250px;
+}
 .info_type2 .title_part .info_part {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1494,6 +1497,8 @@ h3.title_type1:after {
   margin: auto;
   font-size: 24px;
   text-align: center;
+  position: relative;
+  top:12px;
 }
 
 .select_time_type1 ol.table_time button {

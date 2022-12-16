@@ -1371,7 +1371,7 @@ display:block;
 
 /* join-4 */
 .wrap.join4{background:#fafafa;}
-.wrap.join4 .content_wrap .inner_wrap{width:820px;margin:0 auto;padding:68px 0;}
+.wrap.join4 .content_wrap .inner_wrap{position:relative;width:820px;margin:0 auto;padding:68px 0; top:200px;}
 .wrap.join4 .content_wrap .inner_wrap .text_box{width:400px;background:#fff;border:1px solid #e5e5e5;margin:0 auto 46px;text-align:center;padding:56px 0;}
 .wrap.join4 .content_wrap .inner_wrap .text_box img{width:88px;}
 .wrap.join4 .content_wrap .inner_wrap .text_box p{font-size:22px;margin-top:16px;}

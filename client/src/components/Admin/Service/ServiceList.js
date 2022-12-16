@@ -37,6 +37,7 @@ function makeQuery(step, dateType, year, month, company,serviceNo) {
 
 export default function ({ query , no }) {
     const { token } = useSelector(state => state.user);
+    console.log(token);
     const { authority_level } = useSelector(state => state.user);
     const dispatch = useDispatch();
     const location = useLocation();

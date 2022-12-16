@@ -1,6 +1,8 @@
-import React from "react";
+import React,{useState}from "react";
 import "./Footer.css";
+import {Link} from "react-router-dom"
 export default function Footer() {
+  const [url,SetUrl] = useState('');
   const FooterInfo = () => {
     return (
       <div className="dl_wrap footer_info">
@@ -31,13 +33,20 @@ export default function Footer() {
     );
   };
   const FooterSiteMap = () => {
+    const onSiteMove = (e) =>{
+      const urlname = e.target.value;
+      console.log(urlname);
+      window.open(urlname);
+    }
     return (
       <div className="site_map_wrap footer_site_map">
-        <select name="footer_site_map" id="footer_site_map">
+        <select name="footer_site_map" id="footer_site_map" onChange={onSiteMove}>
           <option value="">관련사이트 바로가기</option>
-          <option value="">관련사이트1</option>
-          <option value="">관련사이트2</option>
-          <option value="">관련사이트3</option>
+          <option value="https://d-startup.kr">대전창업온라인</option>
+          <option value="https://www.makeall.com/home/kor/main.do">창업진흥원메이크올</option>
+          <option value="https://www.etri.re.kr/intro.html">ETRI</option>
+          <option value="https://www.daejeon.go.kr/">대전광역시</option>
+          <option value="https://ccei.creativekorea.or.kr/daejeon/">대전창조경제혁신센터</option>
         </select>
       </div>
     );

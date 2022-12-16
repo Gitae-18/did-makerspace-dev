@@ -27,7 +27,7 @@
   position: relative;
   width: calc( 100% - 600px);
   height: 300px;
-  border: 1px solid #313f4f;
+  /* border: 1px solid #313f4f; */
   background-color: #fff;
   border-radius: 8px;
   z-index: 0;
@@ -41,7 +41,7 @@
   top: 0;
   width: 56px;
   height: 200px;
-  background-color: #344a84;
+  background-color: #313f4f;
 }
 
 .section_text_type1 .swiper_part::after {
@@ -53,7 +53,7 @@
   top: 80px;
   width: 100vw;
   height: calc(100% + 40px);
-  background-color: #344a84;
+  background-color: #313f4f;
 }
 
 .section_text_type2 .title_type1 {

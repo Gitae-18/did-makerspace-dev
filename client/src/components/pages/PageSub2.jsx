@@ -2,6 +2,7 @@ import React ,{useState} from "react";
 import {useLocation,useHistory} from 'react-router-dom'
 import SubSideMenu,{SubSideMenu2} from "../contents/SubSideMenu";
 import Menu from "../Menu";
+import SelectDateType1 from "../contents/SelectDateType1";
 import PageSub02a1 from "./PageSub02/PageSub02a1";
 import PageSub02a2 from "./PageSub02/PageSub02a2";
 import PageSub02a3 from "./PageSub02/PageSub02a3";
@@ -85,7 +86,7 @@ export default function DidReservation({location,history}) {
       );
   }
 
-  export const SelectReservation = ({location,history}) => {
+  export const SelectReservation = () => {
       
     return (
         <>
@@ -94,7 +95,7 @@ export default function DidReservation({location,history}) {
           <SubSideMenu title={"장비예약"} subtitle={"날짜 및 시간"}></SubSideMenu>
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
-              <PageSub02a3/>
+              <SelectDateType1/>
             </div>
           </div>
         </div>

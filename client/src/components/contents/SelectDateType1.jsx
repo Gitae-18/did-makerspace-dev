@@ -2,6 +2,7 @@ import React ,{useState,useRef,useEffect,createContext,useCallback,useMemo}from 
 import TableInfoType1a from "./TableInfoType1a";
 import TableInfoType1b from "./TableInfoType1b";
 import TitleType1 from "./TitleType1";
+import TextExtraType1a from "./TextExtraType1a";
 import styled from "styled-components";
 import Calendar from 'react-calendar';
 import ReservModal from "./ReservModal";
@@ -18,73 +19,73 @@ import {useDispatch,useSelector}  from "react-redux";
 import qs from 'qs';
 import create from 'zustand';
 import { SET_DATE } from "../../store/time";
-import { elementClosest } from "@fullcalendar/react";
+import { buildEventRangeKey, elementClosest } from "@fullcalendar/react";
 export const CurrentContext = createContext();
-export default function SelectDateType1() {
+
+
+export default function SelectDateType1({query}) {
+
   const [modalOpen, setModalOpen] = useState(false);
   const { token } = useSelector(state => state.user);
   const [start, setStart] = useState(new Date());
+  const [timepart,setTimepart] = useState('10:00')
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
   const [clickedTime,setClickedTime] = useState('10:00');
-  const [status,setStatus] = useState('can');
-  const [status2,setStatus2] = useState('can');
 	const [NewDate,setNewDate] = useState(moment(new Date()).format("YYYY-MM-DD"));
-  const [getdata,setGetdata] = useState({
-    reservationNo:0,
-    date: '',
-    status: '',
-  })
+  const [getdata,setGetdata] = useState([])
   const [targetTime ,setTargetTime] = useState("");
   const [btnActive,setBtnActive] = useState(false);
   const [currentStatus,setCurrentStatus] = useState(`can`);
   const [btnClick,setBtnClick] = useState(false);
-  const [name,setName] = useState('can');
-  const [names,setNames] = useState('can');
-  const ref = useRef();
-  const timetable = ["10:00","14:00"];
+  const [equiptype,setEquipType] = useState();
+
+
   const [daystatus,setDaystatus] = useState('');
+
+
   const history = useNavigate();
   const location = useLocation();
   const categorynum = location.state.category;
+
   const { search } = useLocation();
-  const query = qs.parse(search, {
-     ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
- });
-  /* const onSubmit = () =>{
-		dispatch({type:SET_DATE, target:NewDate})
-	} */
-  const dateClick = () =>{
-    setNewDate(moment(start).format("YYYY-MM-DD",true).toString());
-  }
-  const openModal = () => {
-    setModalOpen(true);
-    if(btnActive === true)
-    {
-    setStatus(`can't`);
+  const ref = useRef(false);
+  const timeref= useRef();
+  const timetable = ["10:00","14:00"];
+  let statusclick = btnClick === true ? 'selected' : 'can';
+  let statusclick2 =  btnActive === true  ? 'selected' : 'can';
+ const status = `can't`;
+ const status2 = `can't`;
+    const dateClick = () =>{
+         setNewDate(moment(start).format("YYYY-MM-DD",true).toString());
     }
-    if(btnClick === true){
-    setStatus2(`can't`);
-    }
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+    const openModal = () => {
+         setModalOpen(true);
+    };
+    const closeModal = () => {
+         setModalOpen(false);
+    };
 
-  const timeClick = (e,value) =>{
-    setBtnActive(!btnActive);
-    setClickedTime("10:00");
-  }
+    const timeClick = (e,value) =>{
+         setBtnActive(!btnActive);
+         setClickedTime("10:00");
+     }
 
-  const timeClick2 =(e,value) =>{
-   setBtnClick(!btnClick);
-   setClickedTime("14:00");
- }
- 
+    const timeClick2 =(e,value) =>{
+        setBtnClick(!btnClick);
+        setClickedTime("14:00");
+   }
+
+   console.log(clickedTime)
   const getReservation = useCallback(async() => {
     CommonHeader.authorization = token;
-    console.log(token)
+    
+
     let requri = PreUri + '/reservation/equipment?date=' + NewDate;
+    if(categorynum > 0 && categorynum < 100){
+      requri += "&category=" + categorynum;
+    }
+
     const response = await fetch(requri, {
       method:Method.get,
       headers:CommonHeader
@@ -95,7 +96,12 @@ export default function SelectDateType1() {
       return;
     }
     const json = await response.json();
+
     setGetdata(json);
+  if(json !== null && json.reservation_date !== undefined && json.reservation_date !== null){
+      setTimepart(json.reservation_date.substring(10,15));
+    } 
+    
 /*      setGetdata(getdata =>({
       ...getdata,
       reservationNo:json.result.equipment_reservation_no,
@@ -103,26 +109,31 @@ export default function SelectDateType1() {
       date:json.result.reservation_date
     }));  */
   },[token,NewDate,clickedTime])
+
+
   useEffect(()=>{
     dateClick();
+    ButtonTable();
     getReservation();
-    TimeTable(NewDate);
-  },[ token,start,NewDate,status,status2,clickedTime ])
+    return () => {
+      ref.current = true;
+  }
+  },[getReservation,token,NewDate,start])
+
 
 
   const sendData = useCallback(async() =>{
-    let reservation;
+   /*  let reservation;
     for (let i = 0; i < getdata.length;i++){
         reservation+=i
-    }
+    } */
     CommonHeader.authorization = token;
 
     const response = await fetch(PreUri + '/reservation/equipment_reserv',{
       method:Method.post,
       headers:CommonHeader,
       body:JSON.stringify({
-        reservation_no:reservation,
-        reservation_status:clickedTime==='10:00'?status:status2,
+        reservation_status:btnActive ? status : status2 ,
         reservation_date:NewDate + clickedTime,
         equipment_category_no:categorynum
       })
@@ -134,10 +145,57 @@ export default function SelectDateType1() {
   },[getdata,token])
     // get api
     // data
-
-
+     const restatus = getdata !== null ? getdata.reservation_status : btnClick === true ? 'selected' : 'can';
+     const restatus2 = getdata !== null ? getdata.reservation_status : btnActive === true ? 'selected' : 'can';
+    if(getdata!==undefined && getdata!==null && timepart !== null){
+      if(restatus === `can't`){
+          if(timepart==="10:00")
+         {
+            statusclick2= 'cant'
+         }
+      }
+    }
+    else if(getdata === null){
+      if(btnClick === true){
+        
+        statusclick2 ='selected'
+      } 
+      else{
+        statusclick2 ='can'
+      }
+    }
+    if(getdata!==undefined && getdata!==null && timepart !== null){
+      if(restatus2 === `can't`)
+      {
+         if(timepart==="14:00")
+         {
+            statusclick= 'cant'
+         }
+      } 
+    }
+    else if(getdata === null){
+      if(btnActive === true){
+        
+        statusclick ='selected'
+      }
+      else{
+        statusclick ='can'
+      }
+      
+    }
+     const ButtonTable = () =>{
+      return(
+         <ol className="table_time">
+         <button type="button"  value={0}   className={statusclick} onClick={timeClick}>10:00</button>
+         <button type="button"  value={1}   className={statusclick2} onClick={timeClick2}>14:00</button>
+         </ol>
+      )
+    }
   return (
     <>
+     <div id="pageSub02a3">
+      <TextExtraType1a></TextExtraType1a>
+      <div className="select_wrap">
     <div className="select_date_type1 select_type1">
       <TitleType1 title="날짜 선택"></TitleType1>
       <div className="date_calendar">
@@ -169,7 +227,13 @@ export default function SelectDateType1() {
         </div>
       </div>
     </div>
-      <TimeTable data={getdata} btnClick={btnClick} btnActive={btnActive} timeClick={timeClick} timeClick2={timeClick2}/>
+      <div className="select_time_type1 select_type1">
+      <TitleType1 title="시간 선택"></TitleType1>
+      <ButtonTable/>
+      <TableInfoType1b></TableInfoType1b>
+      </div>
+      </div>
+      </div>
       </>
   );
 }

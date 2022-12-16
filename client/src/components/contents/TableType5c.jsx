@@ -5,6 +5,7 @@ import { useNavigate,useLocation,NavLink } from "react-router-dom";
 import styled from "styled-components";
 export default function TableType5c({query}) {
   const { token } = useSelector(state => state.user);
+  console.log(token)
   const history = useNavigate();
   const [btnClick,setBtnClick] = useState(false);
   const location = useLocation();

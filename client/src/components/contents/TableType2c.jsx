@@ -9,6 +9,7 @@ dotenv.config();
 export default function TableType2c() {
     const [posts,setPosts] = useState([]);
     const { token } = useSelector(state => state.user);
+    console.log(token);
     const [loading,setLoading] = useState(false);
     const [currentPage,setCurrentPage] = useState(1);
     const [postPage, setPostPage] = useState(10);

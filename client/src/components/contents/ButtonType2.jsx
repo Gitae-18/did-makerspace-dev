@@ -165,11 +165,11 @@ export function ButtonType3small(props) {
     classNames += " btn_white";
   }
   const ClickTest= useCallback(() =>{
-    console.log(props.categoryNo)
+    const categoryNo = props.categoryNo
     if(props.active ==="active"){
-      history('/reservation/selectreserv',{state:{category:props.categoryNo}})
+      history('/reservation/selectreserv?categoryNo=' + categoryNo,{state:{category:props.categoryNo}})
     }
-  },[history,location.pathname])
+  },[])
   return (
     <div className={classNames} onClick={ClickTest}>
      {props.btnName}
@@ -233,7 +233,7 @@ export function ButtonType2test(props) {
 
   return (
     <div className={classNames} onClick={ClickTest}>
-      {props.test ? "시험 결과보기" : "시험보기"}
+      {props.test === true ? "시험 결과보기" : "시험보기"}
     </div>
   );
 }

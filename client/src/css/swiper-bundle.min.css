@@ -15,6 +15,7 @@
     list-style: none;
     padding: 0;
     /* Fix of Webkit flickering */
+    border:none;
     z-index: 1;
   }
   .swiper-vertical > .swiper-wrapper {
@@ -43,9 +44,15 @@
   .swiper_wrap{
     position:relative;
     left:5%;
-    
+    border:none;
     margin-bottom:10px;
     padding:-1px;
+  }
+  .swiper-initialized{
+    border:none;
+  }
+  .swiper_wrapper{
+    border:none;
   }
   .swiper-slide {
     flex-shrink: 0;
@@ -354,7 +361,7 @@
     position: absolute;
   }
   .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
-    background: var(--swiper-pagination-color, var(--swiper-theme-color));
+    background: /* var(--swiper-pagination-color, var(--swiper-theme-color)) */#fff;
     position: absolute;
     left: 0;
     top: 0;

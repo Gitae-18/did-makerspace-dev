@@ -52,7 +52,7 @@ export default function TableType2a() {
       setReservationList(json);
       setLoading(false);
       setCount(json.length);
-   },[token])
+   },[])
 
    useEffect(()=>{
     getItemList();

@@ -1,9 +1,28 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import TitleType1 from "../contents/TitleType1";
 import ButtonType2 from "../contents/ButtonType2";
 import styled from "styled-components";
 
 export default function SectionInputTextType1d() {
+  const [input,setInput] = useState({
+    className: '',
+    location: '',
+    sdate: '',
+    edate: '',
+    fnum: '',
+    cost: '',
+    map: '',
+    popup: '',
+  })
+
+  const onChangeInput = (e) =>{
+    const {name,value} = e.target;
+    setInput({
+      ...input,
+      [name]:value,
+    })
+  }
+
   return (
     <section className="section_input_text_type1 section_input_text_type1d">
       <div className="title_wrap">

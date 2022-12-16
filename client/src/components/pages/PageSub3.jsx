@@ -54,7 +54,7 @@ export default function ClassEdu_Program({location,history}) {
           <SubSideMenu title={"교육프로그램"}></SubSideMenu>
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
-              <InfoType2a/>
+              <InfoType2b/>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@ export default function ClassEdu_Program({location,history}) {
           <SubSideMenu title={"행사프로그램"}></SubSideMenu>
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
-              <InfoType2b/>
+              <InfoType2a/>
             </div>
           </div>
         </div>

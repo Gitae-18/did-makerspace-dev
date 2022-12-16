@@ -7,7 +7,7 @@ export default function InfoType2b() {
   return (
     <div className="info_type2">
       <div className="title_part">
-        <div className="image_part">Image</div>
+        <div className="image_part"><img className="woodtray" src="/images/woodtray.png" alt="no-image"/></div>
         <div className="info_part">
           <TitleType1 title="마파벌 원목 트레이 만들기"></TitleType1>
           <div className="dl_wrap">
