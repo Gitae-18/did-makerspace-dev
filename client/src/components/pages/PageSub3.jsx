@@ -9,9 +9,8 @@ import PageSub05b1 from "./PageSub05/PageSub05b1";
 import PageSub05b2 from "./PageSub05/PageSub05b2";
 import Menu from "../Menu";
 
-export default function ClassEdu_Program({location,history}) {
+export default function ClassEdu_Program() {
     const [value,setValue] = useState("");
-    console.log(location);
     return (
       <>
        

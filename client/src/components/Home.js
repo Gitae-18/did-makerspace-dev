@@ -16,7 +16,6 @@ import "../css/comb/sections/sections.css";
 
 export default function () {
   const { token } = useSelector(state => state.user); 
-  console.log(token);
     $(document).ready(function () {
         $('.content_wrap').css('min-height', $(window).height() - 120);
         setTimeout(function(){ $('#modal').show();},300)
@@ -54,7 +53,7 @@ export default function () {
           )
         }*/
         const MainBanner = () => {
-          const [modalVisible,setModalVisible] = useState(true);
+          const [modalVisible,setModalVisible] = useState(false);
           const closeModal = () =>{
             setModalVisible(false);
           }

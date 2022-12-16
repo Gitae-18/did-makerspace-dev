@@ -11,7 +11,6 @@ import qs from 'qs';
 
 export default function TableType1a() {
   const { token } = useSelector(state => state.user);
-  console.log(token);
   const location = useLocation();
 
   const history = useNavigate();
@@ -49,7 +48,7 @@ export default function TableType1a() {
   },[getSpaceList]);
   useEffect(()=>{
     setCurrentPosts(spaceList.slice(indexOfFirstPost,indexOfLastPost))
-    console.log(currentPosts);
+   
   
   },[indexOfFirstPost,indexOfLastPost,spaceList])
 

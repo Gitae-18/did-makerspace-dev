@@ -8,6 +8,9 @@ export default function TableType1e() {
   const onItem = () =>{
     history(location.pathname + '/detail');
   }
+  const onWrite = () =>{
+    history('/notcomplete');
+  }
   return (
     <div className="table_wrap table_type1">
       <div className="table_extra">
@@ -106,6 +109,7 @@ export default function TableType1e() {
           </tr>
         </tbody>
       </table>
+      <StyledBtn2 onClick={onWrite}>글쓰기</StyledBtn2>
       <div className="page_control">
         <div className="btn_first btn-s">
           <img src="/images/backward-solid.svg" alt="처음으로" />
@@ -127,10 +131,27 @@ export default function TableType1e() {
           <img src="/images/forward-solid.svg" alt="끝으로" />
         </div>
       </div>
+      
     </div>
   );
 }
 const StyledBtn= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:120px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
+border:1px solide #313f4f;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `
+ const StyledBtn2= styled.button`
+ position:relative;
+ left:88%;
+ top:20px;
 color:#fff;
 background-color:#313f4f;
 width:120px;

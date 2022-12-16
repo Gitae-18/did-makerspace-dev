@@ -12,7 +12,6 @@ import styled from "styled-components";
 import { EQUIP_CATEGORY_ITEM } from "../../store/management";
 export default function TableType1b({query}) {
   const { token } = useSelector(state => state.user);
-  console.log(token);
   const [itemList,setItemList] = useState([]);
   const history = useNavigate();
   const mountedRef = useRef(true);

@@ -35,9 +35,22 @@ router.post('/testflag',verifyToken,async(req,res,next)=>{
 })
 
 
-router.get('/test',async(req,res,next)=>{
-     let body = req.body;
+router.get('/testresult',verifyToken,async(req,res,next)=>{
+     let user_no = req.decoded.user_no;
 
+     let result;
+     try{
+        result = await UserEquipmentTestPass.findOne({
+            attributes:['pass_flag'],
+            where:{user_no},
+            raw:true,
+        })
+     }
+     catch(error){
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+     }
+     res.status(errorCode.ok).json(result);
 })
 
 

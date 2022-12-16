@@ -95,7 +95,6 @@ export default function ({ query }) {
         const addQuery = (search.length > 0) ? ("?search=" + search) : "";
         history(location.pathname + addQuery);
     }, [search, history]);
-    console.log(location);
     const ItemRow = useCallback((props) => {
         return (<>
             <tr>
@@ -113,7 +112,6 @@ export default function ({ query }) {
     if (items.totalCount > 0) {
         for (let i = 0; i <= items.items.length && i < items.limit; i++) {
             const item = items.items[i];
-            console.log(items)
             const rowNumber = items.totalCount - i - (items.currentPage - 1) * items.limit;
             if (rowNumber < 1) { break; }
 

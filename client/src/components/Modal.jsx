@@ -22,7 +22,7 @@ function Modal({ className, onClose, maskClosable,closable,visible}){
             //날짜가 같을 경우
             if(VISITED_BEFORE_DATE === VISITED_NOW_DATE){
                 localStorage.removeItem('VisitCookie')
-                onClose(true);
+                onClose(false);
             }
             if(VISITED_BEFORE_DATE !== VISITED_NOW_DATE){
                 onClose(false)

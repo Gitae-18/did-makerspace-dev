@@ -5,7 +5,6 @@ import { useNavigate,useLocation,NavLink } from "react-router-dom";
 import styled from "styled-components";
 export default function TableType5c({query}) {
   const { token } = useSelector(state => state.user);
-  console.log(token)
   const history = useNavigate();
   const [btnClick,setBtnClick] = useState(false);
   const location = useLocation();
@@ -213,7 +212,7 @@ const StyledBtn= styled.button`
 color:#fff;
 background-color:#313f4f;
 width:120px;
-height:40px;
+height:30px;
 font-size:0.8rem;
 cursor:pointer;
 border:1px solide #313f4f;

@@ -124,10 +124,10 @@ export default function SubSideMenu(props) {
             <p onClick={Dep2Handler}> <Link to={"/mentoring"}>멘토링 관리</Link></p>
           </li>
           <li>
-            <p onClick={Dep2Handler}>멘토 검색</p>
+            <p onClick={Dep2Handler}><Link to={'/notcompelete'}>멘토 검색</Link></p>
           </li>
           <li>
-            <p onClick={Dep2Handler}>멘토 칭찬</p>
+            <p onClick={Dep2Handler}><Link to={'/notcompelete'}>멘토 칭찬</Link></p>
           </li>
         </ol>
       );
@@ -139,18 +139,16 @@ export default function SubSideMenu(props) {
             <p onClick={Dep2Handler}> <Link to={"/umentoring"}>멘토링</Link></p>
               <ol className="has_dep3">
               <li onClick={Dep3Handler} value="mentoring_application"><Link to={"/umentoring"}> 멘토링 신청</Link></li>
-              <li onClick={Dep3Handler} value="mentorsearch"><Link to={"/"}> 멘토 검색 </Link></li>
-              <li onClick={Dep3Handler} value="mentorcompliment"><Link to={"/"}> 멘토 칭찬 </Link></li>
               </ol>
           </li>
           <li>
-            <p onClick={Dep2Handler}>멘토 검색</p>
+            <p onClick={Dep2Handler}><Link to={"/notcomplete"}> 멘토 검색</Link></p>
           </li>
           <li>
-            <p onClick={Dep2Handler}>멘토 칭찬</p>
+            <p onClick={Dep2Handler}><Link to={"/notcomplete"}> 멘토 칭찬</Link></p>
           </li>
           <li>
-            <p onClick={Dep2Handler}>멘토링 보고서</p>
+            <p onClick={Dep2Handler}><Link to={"/notcomplete"}> 멘토링 보고서</Link></p>
           </li>
         </ol>
       );

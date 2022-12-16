@@ -62,7 +62,6 @@ export default function DidInfo() {
   const [value,setValue] = useState("");
   return (
     <>
-    
     <div id="sub_page_wrap">
       <SubSideMenu title={"시설소개"} subtitle={"공간소개"}>
       </SubSideMenu>

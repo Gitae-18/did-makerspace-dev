@@ -144,6 +144,7 @@ app.use('/api/v1/stastics',stasticsRouter);
 app.use('/api/v1/space',spaceRouter);
 app.use('/api/v1/reservation',reservationRouter);
 app.use('/api/v1/userequipmentestpass',userequipmentpassRouter);
+app.use('/api/v1/classedu',classeduRouter)
 //app.use('/api/v1/mentoring',mentoringRouter);
 //app.use('/api/v1/survey', surveyRouter);
 

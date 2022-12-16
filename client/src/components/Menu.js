@@ -58,8 +58,8 @@ const UserMenu = ({authority_level,history,path}) => {
     return(
           <ol className='menu_dep2'>
             <li><NavLink to={'/umentoring'}>멘토링 관리</NavLink></li>
-            <li><NavLink>멘토 검색</NavLink></li> 
-            <li><NavLink>멘토 칭찬</NavLink></li>   
+            <li><NavLink to={'/notcomplete'}>멘토 검색</NavLink></li> 
+            <li><NavLink to={'/notcomplete'}>멘토 칭찬</NavLink></li>   
           </ol>
     )
   }
@@ -204,9 +204,9 @@ const AdminMenu = ({viewDepth}) => {
     </li>
     <li className='dep2'> <Link onClick={() => { dispatch({ type: CHANGE_CATEGORY, target: 0 }); }} to="/mmaterial">자재 관리</Link>
     </li>
-    {/* <li className='dep2'> <Link to="/mentoring">멘토링</Link>
+    <li className='dep2'> <Link to="/notcomplete">멘토링</Link>
           <SubMenu5/>
-    </li> */}
+    </li>
     <li className='dep2'> <Link onClick={() => { dispatch({ type: CHANGE_MENU, target: 0 }); }} to="/management">운영 관리</Link>
           <SubMenu7/>
     </li>

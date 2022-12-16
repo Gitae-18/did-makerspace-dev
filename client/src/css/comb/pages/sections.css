@@ -62,7 +62,7 @@
 }
 
 .section_text_type2 .text_wrap{
-  border:0.8px solid #2d2d2d;
+  border:0.8px solid #d2d2d2;
   height:90vh;
   margin-bottom:80px;
   padding: 10px 30px;
@@ -108,10 +108,11 @@
       -ms-flex-pack: end;
           justify-content: flex-end;
   gap: 15px;
+
 }
 .section_tab_type1{
   position:relative;
-  bottom:20px;
+  bottom:20px; 
 }
 .section_tab_type1 .tab_btns_wrap > li {
   border-bottom: 3px solid transparent;

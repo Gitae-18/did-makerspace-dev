@@ -13,11 +13,15 @@ module.exports = (sequelize,DataTypes) => {
         onUpdate:"cascade",
     });*/
     return sequelize.define('user_equipment_test_pass',{
-        user_no:{
+        test_pass_no:{
             type:DataTypes.INTEGER,
             autoIncrement: true,
             allowNull: false,
             primaryKey: true,
+        },
+        user_no:{
+            type:DataTypes.INTEGER,
+            allowNull: false,
         },
         type:{
             type:DataTypes.STRING(55),

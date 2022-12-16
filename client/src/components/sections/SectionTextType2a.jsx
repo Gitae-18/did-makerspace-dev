@@ -24,21 +24,22 @@ export default function SectionTextType2a() {
             <dd>
               <dl>
                 <dt>이름</dt>
-                <dd>이름입니다.</dd>
+                <dd>김길동</dd>
                 <dt>직책</dt>
-                <dd>직책입니다.</dd>
+                <dd>연구원</dd>
                 <dt>부서</dt>
-                <dd>부서입니다.</dd>
+                <dd>개발팀</dd>
                 <dt>휴대폰</dt>
-                <dd>휴대폰입니다.</dd>
+                <dd>010-1234-5678</dd>
                 <dt>전화번호</dt>
-                <dd>전화번호입니다.</dd>
+                <dd>02-1234-5678</dd>
                 <dt>이메일</dt>
-                <dd>이메일입니다.</dd>
+                <dd>gildong@naver.com</dd>
               </dl>
             </dd>
           </dl>
         </li>
+        <br/>
         <li>
           <dl>
             <dt>

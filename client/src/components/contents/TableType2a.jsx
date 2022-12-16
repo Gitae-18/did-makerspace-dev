@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate,useLocation } from 'react-router-dom';
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg } from '../../CommonCode';
 import ButtonType2, { ButtonType2small,ButtonType3small, ButtonType2test } from "./ButtonType2";
+import SubSideMenu from "./SubSideMenu";
+import TextExtraType1a from "./TextExtraType1b";
 import '../../css/ModalStyle.css';
 import { IoCloseOutline } from "react-icons/io5";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -13,7 +15,9 @@ import '../../css/Paging.css'
 export default function TableType2a() {
    const { token } = useSelector(state => state.user);
    const [reservationList, setReservationList] = useState([]);
+   const [passflag ,setPassFlag] = useState("");
    const [count,setCount] = useState(0);
+   const [equiptype,setEquipType] = useState('');
    const [loading,setLoading] = useState(false);
    const [currentPage,setCurrentPage] = useState(1);
    const [postPage, setPostPage] = useState(10);
@@ -37,6 +41,25 @@ export default function TableType2a() {
    const fdmsrc = '/images/fdm3dwox1.png';
    const uvsrc = '/images/uvprinter.png';
    
+   const getUserTest = useCallback(async()=>{
+
+    CommonHeader.authorization = token;
+
+      const requri = PreUri + '/userequipmentestpass/testresult'  
+      const response = await fetch(requri,{
+        method:Method.get,
+        headers:CommonHeader
+      })
+      if (!response.ok) {
+        console.log('잘못된 접근입니다.');
+        return;
+      }
+      const json = await response.json();
+      if(json!==null && json!==undefined){
+        setPassFlag(json.testflag);
+      }
+      
+   },[])
    const getItemList = useCallback(async(currentPage)=>{
       setLoading(true);
       let requri = PreUri + `${'/equipment/equipmentlist'}`;
@@ -50,13 +73,14 @@ export default function TableType2a() {
       }
       const json = await response.json();
       setReservationList(json);
+      getUserTest();
       setLoading(false);
       setCount(json.length);
    },[])
-
    useEffect(()=>{
+    getUserTest();
     getItemList();
-   },[])
+   },[getUserTest,getItemList])
 
    const setPage = (e) =>{
      setCurrentPage(e);
@@ -71,6 +95,12 @@ export default function TableType2a() {
    const categoryNum = reservationList.map((item,index)=> item.equipment_category_no);
 
   return (
+    <div id="sub_page_wrap">
+        <SubSideMenu title={"장비예약"} ></SubSideMenu>
+        <div className="sub_page_inner_wrap">
+          <div className="sub_inner">
+    <div id="pageSub02a1">
+      <TextExtraType1a></TextExtraType1a>
     <div className="table_wrap table_type2">
       <div className="table_extra">
         <ButtonType2 btnName="내 예약 정보 조회"></ButtonType2>
@@ -103,7 +133,7 @@ export default function TableType2a() {
                
                 <td className="btns_wrap">
                 <ButtonType2small modelName={item.model_name.includes("A0플로터") ? floterlink: item.model_name.includes("X-cut") ? xcutlink: item.model_name.includes("UV 프린터 : 329UV") ? printerlink:item.model_name.includes("FDM : 3DWOX") ? fdmlink:elselink} className="video_btn" btnName="동영상보기"/>
-                <ButtonType2test  active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active:nonactive} name={item.model_name} test={false}></ButtonType2test>
+                <ButtonType2test  active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active:nonactive} name={item.model_name} test={passflag === "N"?true:false}></ButtonType2test>
                  </td>
                  <td className="res_btn">
                  <ButtonType3small categoryNo={categoryNum[i]}active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active:nonactive} btnName="예약하기"></ButtonType3small>
@@ -116,6 +146,14 @@ export default function TableType2a() {
       </table>
       <div className="page_control">
             <Paging page={currentPage} count = {count} setPage={setPage}/>
+      </div>
+    </div>
+
+    </div> 
+    </div>
+    </div>
+    <div className="sub_page_outer">
+  
       </div>
     </div>
   );

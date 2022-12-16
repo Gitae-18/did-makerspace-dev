@@ -1,9 +1,15 @@
 import React from "react";
+import { useNavigate,useLocation } from "react-router-dom";
 import TitleType1 from "./TitleType1";
 import ButtonType2,{GoBackBtn}from "./ButtonType2";
 import ButtonType4 from "./ButtonType4";
 import SectionTabType1a from "../sections/SectionTabType1a";
+import styled from "styled-components";
 export default function InfoType2b() {
+  const history = useNavigate();
+  const onClick = () => {
+    history('/notcomplete')
+  }
   return (
     <div className="info_type2">
       <div className="title_part">
@@ -37,7 +43,7 @@ export default function InfoType2b() {
             </dl>
           </div>
           <div className="btns">
-            <ButtonType2 btnName="신청하기"></ButtonType2>
+            <StyledBtn onClick={onClick}>신청하기</StyledBtn>
             <ButtonType4></ButtonType4>
           </div>
         </div>
@@ -49,3 +55,17 @@ export default function InfoType2b() {
     </div>
   );
 }
+const StyledBtn= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:120px;
+height:40px;
+font-size:0.8rem;
+cursor:pointer;
+position:relative;
+bottom:5px;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `

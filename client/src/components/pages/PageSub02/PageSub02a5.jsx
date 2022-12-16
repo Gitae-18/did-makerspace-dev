@@ -15,11 +15,11 @@ export default function PageSub02a5() {
   const uvsrc = "/images/uvprinter_TEST.png"
   const xcutsrc = "/images/xcut_TEST.png"
   const type = String(testtype);
+  console.log(testtype)
   const printerAnswer = [2,1,3,5,5,4,1&&4,1,4,1&&4]
   const xcutAnswer = [3,4,4,2,1&&2,3,5,1,4,1&&4]
   const uvprinterAnswer = [3,1,2,1,4,3,4,4,5,1]
   const a0ploterAnswer = [5,2&&4,2,3,5,3&&4,3,1,1&&2,1&&5]
-
   const [modalOpen,setModalOpen] = useState(false);
   const [passflag,setPassflag] = useState('');
   const [inputs,setInputs] = useState({
@@ -55,20 +55,53 @@ export default function PageSub02a5() {
 /*   const getPassflag= useCallback(async()=>{
     let requri = PreUri + '/'
   },[])  */
-
-  const onCloseModal = () =>{
-    setModalOpen(false);
-  }
-  
-  const onCheckModal = () =>{
-    setModalOpen(true);
-    let counter;
-    for(let i = 0 ; i< printerAnswer ; i++){
+  let counter = 0;
+  const CheckAnswer = () =>{
+    if(testtype==="FDM : 3DWOX 1X"){
+    for(let i = 0 ; i< printerAnswer.length ; i++){
       if(input[i]===printerAnswer[i])
       {
        counter ++;
+       console.log("정답 +1")
       }
     }
+  }
+  if(testtype==="A0플로터 : HP 디자인젯 Z6"){
+    for(let i = 0 ; i< a0ploterAnswer.length ; i++){
+      if(input[i]===a0ploterAnswer[i])
+      {
+       counter ++;
+       console.log("정답 +1")
+      }
+    }
+  }
+  if(testtype==="X-cut"){
+    for(let i = 0 ; i< xcutAnswer.length ; i++){
+      if(input[i]===xcutAnswer[i])
+      {
+       counter ++;
+       console.log("정답 +1")
+      }
+    }
+  }
+  if(testtype==="UV 프린터 : 329UV"){
+    for(let i = 0 ; i< uvprinterAnswer.length ; i++){
+      if(input[i]===uvprinterAnswer[i])
+      {
+       counter ++;
+       console.log("정답 +1")
+      }
+    }
+  }
+  }
+  
+ 
+  const onCloseModal = () =>{
+    setModalOpen(false);
+  }
+ 
+  const onCheckModal = () =>{
+    setModalOpen(true);
 
     if(counter>5){
       setPassflag('Y');  
@@ -76,6 +109,8 @@ export default function PageSub02a5() {
     else{
       setPassflag('N');
     }
+    console.log(counter)
+   
   }
 
   /* const onSubmit = useCallback(async(e) =>{
@@ -102,8 +137,8 @@ export default function PageSub02a5() {
    setModalOpen(false);
   },[token,passflag])
   useEffect(()=>{
-   
-  },[])
+    CheckAnswer(input);
+  },[CheckAnswer])
   return (
     <div id="pageSub02a5">
       <TextExtraType1b></TextExtraType1b>
@@ -112,7 +147,7 @@ export default function PageSub02a5() {
     
         <img src={testtype.includes('A0플로터')? flotersrc:testtype.includes('FDM : 3DWOX')? printsrc:testtype.includes('UV 프린터 : 329UV')? uvsrc:testtype.includes('X-cut')? xcutsrc:null} alt="no image"/>
         <div className="testpage">
-          <h2>FDM 3D프린터 답안지</h2>
+          <h2>{testtype}&nbsp;시험 답안지</h2>
           <table className="test_3d">
             <tbody>
               <tr>
