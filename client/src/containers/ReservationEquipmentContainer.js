@@ -16,7 +16,7 @@ export const ReservationEquipmentContainer = (props) =>{
     useEffect(() => {
         
         if (isLoading) { return; }
-        if (!isLoggedIn) { return history('/notmember',{replace:true}); }
+        if (!isLoggedIn) { return history('/notmember',{replace:false}); }
         
 	}, [isLoading, isLoggedIn, authority_level, history])
 

@@ -12,6 +12,7 @@
     outline: none;
     cursor: pointer;
     border: 0;
+    color:white
   }
   .modals > section {
     width: 80%;

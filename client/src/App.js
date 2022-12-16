@@ -12,6 +12,7 @@ import NotMember from './components/NotMember';
 import Privacy from './components/Privacy';
 import Terms from './components/Terms';
 import UGuide from './components/User/Guide';
+import NotCompelete from './components/NotCompeleted'
 import {CookiesProvider} from 'react-cookie';
 import PageSub01b2 from './components/pages/PageSub01/PageSub01b2';
 import PageSub01b3 from './components/pages/PageSub01/PageSub01b3';
@@ -41,6 +42,7 @@ import { MyInfoContainer as MyInfo } from './containers/MyInfoContainer';
 import { ScheduleContainer as Schedule } from './containers/ScheduleContainer';
 import { UServiceContainer as UService } from './containers/UServiceContainer';
 import { ReservationEquipmentContainer as EReservation } from './containers/ReservationEquipmentContainer';
+import { EquipmentReservationContainer as EqReservation } from './containers/EquipmentReservationContainer';
 import Material from './components/Admin/Material/Material';
 import MaterialItem from './components/Admin/Material/MaterialItem';
 import MaterialList from './components/Admin/Material/MaterialList';
@@ -59,6 +61,7 @@ import ClassEdu_Program,{ClassEdu_Program2,ClassEdu_program3,ClassEdu_program4} 
 import Contact,{Contact2,Contact3,ContactNoticeDetail,Contact5,Contact6,ContactDetail,ContactDetail2,BasicDetail} from './components/pages/PageSub4';
 import Mentoring,{UMentoring,UMentoringApplication,MserviceGuide}from './components/pages/PageSub5';
 import { MentorApplication,MentorApplicationDetail,MentoringReport,MentoringReportDetail,MentorAuthority,ClassEduControl, ClassEduControl2} from './components/pages/PageSub6';
+import NotCompeleted from './components/NotCompeleted';
 
 
 
@@ -109,6 +112,7 @@ const App = () => {
         <Route path="/myinfo" element = {<MyInfo/>} />
         <Route path="/notmember" element = {<NotMember/>} />
         <Route path="/notauthhorized" element = {<NotAuthorized/>} />
+        <Route path="/notcomplete" element = {<NotCompeleted/>} />
         <Route path="/mnthschd" element = {<MonthlySchedule/>} />
         
         <Route path="/didinfo/*" element = {<DidInfo/>}/>
@@ -125,7 +129,7 @@ const App = () => {
         <Route path="/info/faq/faq1" element = {<DidInfo1Detail/>}/>
         <Route path="/info/write" element = {<DidFaqWrite/>}/>
 
-        <Route path="/didreservation" element = {<DidReservation/>}/>
+        <Route path="/didreservation" element = {<EqReservation/>}/>
         <Route path="/reservation/space" element = {<DidReservation2/>}/>
         <Route path="/reservation/lab" element = {<DidReservation3/>}/>
         <Route path="/reservation/myvation" element = {<DidReservation4/>}/>
