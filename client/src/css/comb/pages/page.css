@@ -65,7 +65,7 @@ section{
  .separate1{
   position:relative;
   width:46%;
-  height:3px;
+  height:2px;
   left:0;
   bottom:4px;
   background-color: #949393;
@@ -74,7 +74,7 @@ section{
   position:relative;
   width:100%;
   left:0;
-  height:3px;
+  height:2px;
   background-color: #949393;
 }
 /*# sourceMappingURL=page.css.map */

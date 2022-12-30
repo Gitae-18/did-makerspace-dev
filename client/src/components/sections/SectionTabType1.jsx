@@ -22,7 +22,7 @@ export default function SectionTabType1(props) {
             </li>
             <li>장비 및 시설예약 New !
               <ol>
-                <img src="/images/a0floter.png" className="image1" alt="no-images"/>
+                <img src="/images/A0floter.png" className="image1" alt="no-images"/>
               </ol>
               <ol>
                 <span>장비명 : &nbsp; A0 플로터</span>
