@@ -2,6 +2,7 @@ import React,{useState,useEffect,useCallback} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate,useLocation } from 'react-router-dom';
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg } from '../../CommonCode';
+import PopupModal3 from "../PopupModal3";
 import ButtonType2, { ButtonType2small,ButtonType3small, ButtonType2test } from "./ButtonType2";
 import SubSideMenu from "./SubSideMenu";
 import TextExtraType1a from "./TextExtraType1b";
@@ -20,13 +21,13 @@ export default function TableType2a() {
    const [equiptype,setEquipType] = useState('');
    const [loading,setLoading] = useState(false);
    const [currentPage,setCurrentPage] = useState(1);
-   const [postPage, setPostPage] = useState(10);
+   const [postPage, setPostPage] = useState(2);
    const indexOfLastPost = currentPage * postPage
    const indexOfFirstPost = indexOfLastPost - postPage
-   const currentPost = reservationList.slice(indexOfFirstPost, indexOfLastPost)
+   const [currentPosts,setCurrentPosts] = useState([]);
    const location = useLocation();
    const history = useNavigate();
-
+   const [modalVisible,setModalVisible] = useState(true);
     
     //let rowNumber = Array.from(1,reservationList.length);
    const printerlink = "https://www.youtube.com/embed/QtZxg1LiilM";
@@ -55,8 +56,10 @@ export default function TableType2a() {
         return;
       }
       const json = await response.json();
+      console.log(json);
       if(json!==null && json!==undefined){
         setPassFlag(json.testflag);
+        
       }
       
    },[])
@@ -76,6 +79,7 @@ export default function TableType2a() {
       getUserTest();
       setLoading(false);
       setCount(json.length);
+      setCurrentPosts(json.slice(indexOfFirstPost,indexOfLastPost))
    },[])
    useEffect(()=>{
     getUserTest();
@@ -91,11 +95,14 @@ export default function TableType2a() {
    const onSend = () =>{
      history()
    }
-   
+   const closeModal = () =>{
+    setModalVisible(false);
+  }
    const categoryNum = reservationList.map((item,index)=> item.equipment_category_no);
 
   return (
     <div id="sub_page_wrap">
+      {modalVisible && <PopupModal3 visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal} />}
         <SubSideMenu title={"장비예약"} ></SubSideMenu>
         <div className="sub_page_inner_wrap">
           <div className="sub_inner">
@@ -123,7 +130,7 @@ export default function TableType2a() {
           </tr>
         </thead>
         <tbody>
-          {currentPost && reservationList.length > 0 ? (currentPost.map((item,i)=>(
+          {currentPosts && reservationList.length > 0 ? (reservationList.map((item,i)=>(
             <tr key={i}>
                 <td><img alt="no image" src={item.model_name.includes("A0플로터")?flotersrc:item.model_name.includes("X-cut")?xcutsrc:item.model_name.includes("UV 프린터 : 329UV")?uvsrc:item.model_name.includes("FDM : 3DWOX") ?fdmsrc:null}/></td>
                 <td>{item.model_name}</td>
@@ -136,7 +143,10 @@ export default function TableType2a() {
                 <ButtonType2test  active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active:nonactive} name={item.model_name} test={passflag === "N"?true:false}></ButtonType2test>
                  </td>
                  <td className="res_btn">
-                 <ButtonType3small categoryNo={categoryNum[i]}active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active:nonactive} btnName="예약하기"></ButtonType3small>
+                  {passflag === "Y"?
+                 <ButtonType3small categoryNo={categoryNum[i]}active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active:nonactive} btnName="예약하기"></ButtonType3small>:
+                 <ButtonType3small btnName="예약 불가"></ButtonType3small>
+                  }
                 </td>
                
             </tr>
@@ -145,7 +155,15 @@ export default function TableType2a() {
         </tbody>
       </table>
       <div className="page_control">
-            <Paging page={currentPage} count = {count} setPage={setPage}/>
+      <Pagination
+       activePage={currentPage}
+       itemsCountPerPage={5}
+       totalItemsCount={reservationList.length}
+       pageRangeDisplayed={10}
+       prevPageText={"<"}
+       nextPageText={">"}
+       onChange={setPage}
+    />
       </div>
     </div>
 

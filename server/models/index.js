@@ -37,6 +37,7 @@ db.Notice                    = require('./notice')(sequelize,Sequelize);
 db.Space                     = require('./space')(sequelize,Sequelize);
 db.UserEquipmentTestPass     = require('./user_equipment_test_pass')(sequelize,Sequelize);
 db.ClasseduProgram           = require('./classedu_program')(sequelize,Sequelize);
+db.ClasseduApplication       = require('./classedu_application')(sequelize,Sequelize);
 db.MaterialCategory          = require('./material_category')(sequelize, Sequelize);
 db.MaterialItem              = require('./material_item')(sequelize, Sequelize);
 db.MaterialUsage             = require('./material_usage')(sequelize, Sequelize);

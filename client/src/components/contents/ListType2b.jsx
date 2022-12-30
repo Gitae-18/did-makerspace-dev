@@ -1,203 +1,85 @@
-import React from "react";
+import React,{useEffect,useState,useCallback} from "react";
 import { useLocation,useNavigate } from "react-router-dom";
+import { PreUri , CommonHeader ,  Method, getRspMsg } from "../../CommonCode";
+import {useDispatch,useSelector}  from "react-redux";
+import Paging2 from "./Paging2";
 export default function ListType2b() {
+  const { token } = useSelector(state => state.user);
   const location = useLocation();
   const history = useNavigate();
   const onItem = () =>{
     history(location.pathname + '/detail');
   }
+  const [page,setPage] = useState(1);
+  const [count,setCount] = useState(0);
+  const [currentPage,setCurrentPage] = useState(1);
+  const [itemList,setItemList] = useState([]);
+  const postPerPage = 10;
+
+  const indexOfLastPost = currentPage * postPerPage
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+  const currentPost = itemList.slice(indexOfFirstPost, indexOfLastPost)
+  const title="원목 트레이 만들기"
+  const type = "edu";
+  const getItemList = useCallback(async()=>{
+    CommonHeader.authorization = token;
+    let requri = PreUri + '/classedu/edulist?type=' + type;
+   
+    const response = await fetch(requri,{
+      Method:Method.get,
+      headers:CommonHeader,
+    })
+
+    if(!response.ok){
+      return(alert(getRspMsg(response.status)))
+    }
+    const json = await response.json();
+    setItemList(json);
+    setCount(json.length);
+  },[token])
+  console.log(itemList);
+  
+  const item = Object.values(itemList).map(item=>item);
+  console.log(item);
+  const tit = item;
+
+  const sethandlePage = (e) =>{
+    setCurrentPage(e);
+  }
+  //console.log(item);
+  useEffect(()=>{
+    getItemList();
+  },[getItemList,token])
   return (
     <div className="table_wrap list_type2">
       <ol>
-        <li>
-          <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
-          <div className="text_part">
-            <h5 onClick={onItem}>원목 트레이 만들기</h5>
-            <div className="tag">
-              <span>무료</span>
+        {currentPost.map((item,index)=>(
+        
+            <li key={index}>
+            <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
+            <div className="text_part">
+              <h5 onClick={onItem}>{item.title}</h5>
+              <div className="tag">
+                <span>무료</span>
+              </div>
+              <dl>
+                <dt>교육</dt>
+                <dd>{item.class_period_start}</dd>
+              </dl>
+              <dl>
+                <dt>조회수</dt>
+                <dd>{item.hit}</dd>
+              </dl>
+              <dl>
+                <dt>마감</dt>
+                <dd>{item.application_period_end}</dd>
+              </dl>
             </div>
-            <dl>
-              <dt>교육</dt>
-              <dd>12.13</dd>
-            </dl>
-            <dl>
-              <dt>조회수</dt>
-              <dd>1000</dd>
-            </dl>
-            <dl>
-              <dt>마감</dt>
-              <dd>12.7 화</dd>
-            </dl>
-          </div>
-        </li>
-        <li>
-          <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
-          <div className="text_part">
-            <h5 onClick={onItem}>원목 트레이 만들기</h5>
-            <div className="tag">
-              <span>무료</span>
-            </div>
-            <dl>
-              <dt>교육</dt>
-              <dd>12.13</dd>
-            </dl>
-            <dl>
-              <dt>조회수</dt>
-              <dd>1000</dd>
-            </dl>
-            <dl>
-              <dt>마감</dt>
-              <dd>12.7 화</dd>
-            </dl>
-          </div>
-        </li>
-        <li>
-          <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
-          <div className="text_part">
-            <h5 onClick={onItem}>원목 트레이 만들기</h5>
-            <div className="tag">
-              <span>무료</span>
-            </div>
-            <dl>
-              <dt>교육</dt>
-              <dd>12.13</dd>
-            </dl>
-            <dl>
-              <dt>조회수</dt>
-              <dd>1000</dd>
-            </dl>
-            <dl>
-              <dt>마감</dt>
-              <dd>12.7 화</dd>
-            </dl>
-          </div>
-        </li>
-        <li>
-          <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
-          <div className="text_part">
-            <h5 onClick={onItem}>원목 트레이 만들기</h5>
-            <div className="tag">
-              <span>무료</span>
-            </div>
-            <dl>
-              <dt>교육</dt>
-              <dd>12.13</dd>
-            </dl>
-            <dl>
-              <dt>조회수</dt>
-              <dd>1000</dd>
-            </dl>
-            <dl>
-              <dt>마감</dt>
-              <dd>12.7 화</dd>
-            </dl>
-          </div>
-        </li>
-        <li>
-          <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
-          <div className="text_part">
-            <h5 onClick={onItem}>원목 트레이 만들기</h5>
-            <div className="tag">
-              <span>무료</span>
-            </div>
-            <dl>
-              <dt>교육</dt>
-              <dd>12.13</dd>
-            </dl>
-            <dl>
-              <dt>조회수</dt>
-              <dd>1000</dd>
-            </dl>
-            <dl>
-              <dt>마감</dt>
-              <dd>12.7 화</dd>
-            </dl>
-          </div>
-        </li>
-        <li>
-          <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
-          <div className="text_part">
-            <h5 onClick={onItem}>원목 트레이 만들기</h5>
-            <div className="tag">
-              <span>무료</span>
-            </div>
-            <dl>
-              <dt>교육</dt>
-              <dd>12.13</dd>
-            </dl>
-            <dl>
-              <dt>조회수</dt>
-              <dd>1000</dd>
-            </dl>
-            <dl>
-              <dt>마감</dt>
-              <dd>12.7 화</dd>
-            </dl>
-          </div>
-        </li>
-        <li>
-          <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
-          <div className="text_part">
-            <h5 onClick={onItem}>원목 트레이 만들기</h5>
-            <div className="tag">
-              <span>무료</span>
-            </div>
-            <dl>
-              <dt>교육</dt>
-              <dd>12.13</dd>
-            </dl>
-            <dl>
-              <dt>조회수</dt>
-              <dd>1000</dd>
-            </dl>
-            <dl>
-              <dt>마감</dt>
-              <dd>12.7 화</dd>
-            </dl>
-          </div>
-        </li>
-        <li>
-          <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
-          <div className="text_part">
-            <h5 onClick={onItem}>원목 트레이 만들기</h5>
-            <div className="tag">
-              <span>무료</span>
-            </div>
-            <dl>
-              <dt>교육</dt>
-              <dd>12.13</dd>
-            </dl>
-            <dl>
-              <dt>조회수</dt>
-              <dd>1000</dd>
-            </dl>
-            <dl>
-              <dt>마감</dt>
-              <dd>12.7 화</dd>
-            </dl>
-          </div>
-        </li>
+          </li>
+        ))}
       </ol>
       <div className="page_control">
-        <div className="btn_first btn-s">
-          <img src="/images/backward-solid.svg" alt="처음으로" />
-        </div>
-        <div className="btn_prev">
-          <img src="/images/caret-left-solid.svg" alt="이전으로" />
-        </div>
-        <ol className="btn_page_num">
-          <li className="on">1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
-        </ol>
-        <div className="btn_next">
-          <img src="/images/caret-right-solid.svg" alt="다음으로" />
-        </div>
-        <div className="btn_last btn-s">
-          <img src="/images/forward-solid.svg" alt="끝으로" />
-        </div>
+          <Paging2 page={currentPage} count = {count} setPage={sethandlePage}/>
       </div>
     </div>
   );

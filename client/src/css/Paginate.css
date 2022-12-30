@@ -31,19 +31,22 @@ ul{
     font-size: 1rem;
   }
   
-  ul.pagination button.active a {
-    color: white;
-  }
 
-  ul.pagination button.active {
+  ul.pagination li.active a{
+    color:#000;
+  }
+/*   ul.pagination li.active{
     background-color: #313f4f;
     color:#fff;
-  }
+  } */
+
   
   ul.pagination li:hover{
-    border:1px solid #313f4f;
+    background-color: #313f4f;
   }
-  
+  ul.pagination li a:hover{
+    color:#fff;
+  }
   .page-selection {
     width: 48px;
     height: 30px;

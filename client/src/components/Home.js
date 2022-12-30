@@ -53,7 +53,7 @@ export default function () {
           )
         }*/
         const MainBanner = () => {
-          const [modalVisible,setModalVisible] = useState(false);
+          const [modalVisible,setModalVisible] = useState(true);
           const closeModal = () =>{
             setModalVisible(false);
           }
@@ -63,10 +63,13 @@ export default function () {
               {modalVisible && (<Modal visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal}></Modal>)}
                 <div className="text_part">
                   <h2>
-                    <span>DID</span> 소개 관련 배너
+                    <span>DID</span> Digital Factory in Daejeon 
                   </h2>
+
                   <p className='subtext'>
-                    임시텍스트 입니다. 새 것은 같이 싹이 눈에 있는가? 이는 장식하는
+                  DID 기술융합공작소는 기업·창업자·메이커들에게 멘토링과 컨설팅을 지원하고,<br/>
+                  메이킹 장비를 활용하여 창업과 사업화를 이룰 수 있도록<br/>
+                  One-Stop 서비스를 제공하는 전문 메이커 스페이스입니다.
                   </p>
                 </div>
               </div>
@@ -79,9 +82,10 @@ export default function () {
             <MainBanner></MainBanner>
             <SectionTextType1
               title="DID 주요 서비스"
-              subTitle="주요 서비스 임시텍스트"
             ></SectionTextType1>
+            <div className="separate1"></div>
             <SectionTabType1 title="New 업데이트"></SectionTabType1>
+            <div className="separate2"></div>
             <SectionBannerType1 title="DID 협력기관"></SectionBannerType1>
           </div>
         );}

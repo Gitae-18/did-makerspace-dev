@@ -1,12 +1,12 @@
 @import './sections.css';
 @font-face {
-  font-family: "VITRO CORE";
+  font-family: "Nanum Gothic", "NanumGothicBold", "Malgun Gothic", "sans-serif", Helvetica;;
   src: url(/public/font/font_01.ttf);
 }
 
 section{
   position: relative;
-  left:2%;
+  right:2%;
 }
 #pageSignUp > div > h2 {
   margin: 40px 0 20px;
@@ -22,16 +22,19 @@ section{
 
 .main_banner {
   position: relative;
+  top:80px;
   font-size:0.8rem;
-  height: 300px;
+  height: 280px;
   background: url(/images/bg.jpg);
   background-size: cover;
-  width:1600px;
-  right:10.8%;
+  width:100%;
+  left:21px;
 }
 
 .main_banner .text_part {
   max-width: 500px;
+  position:relative;
+  bottom:50px;
 }
 
 .main_banner .text_part * {
@@ -46,7 +49,9 @@ section{
 .main_banner .text_part h2 > span {
   color: #344a84;
   position:relative;
-  top:30%;
+  top:4px;
+  font-weight:500;
+  font-size:1.3em;
 }
 .main_banner .text_part .subtext{
   position:relative;
@@ -57,5 +62,19 @@ section{
  border: 1px solid #2c2c2c;
  font-size:0.8rem;
 }
-
+ .separate1{
+  position:relative;
+  width:46%;
+  height:3px;
+  left:0;
+  bottom:4px;
+  background-color: #949393;
+}
+.separate2{
+  position:relative;
+  width:100%;
+  left:0;
+  height:3px;
+  background-color: #949393;
+}
 /*# sourceMappingURL=page.css.map */

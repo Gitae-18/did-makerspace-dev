@@ -136,9 +136,9 @@ export default function ({ query }) {
     for (let i = 0; i < PageMax; i++) {
         let pageNum = i + 1 + items.pageOffset;
         if (pageNum > items.totalPage) { break; }
-        PageList.push(<a href='#!' onClick={(e) => onPage(e, pageNum)}
+        PageList.push(<button href='#!' onClick={(e) => onPage(e, pageNum)}
             className={pageNum === items.currentPage ? "active" : ""}
-            key={i}>{pageNum}</a>);
+            key={i}>{pageNum}</button>);
     }
 
     return (
@@ -177,14 +177,14 @@ export default function ({ query }) {
                             </tbody>
                         </table>
                         <button className="btn_apply" onClick={() => { history('/management?reg=7') }}>신규 등록</button>
-                        <div className="page_num">
-                            <span className="inner_num">
-                                <a href='#!' className="first" onClick={(e) => onPage(e, 1)}> </a>
-                                <a href='#!' className="prev" onClick={(e) => onPagePrev(e)}> </a>
+                        <div className="page_control">
+                            <div className='pagination'>
+                            <div>
+                                <button href='#!' className="prev" onClick={(e) => onPagePrev(e)}> &lt;</button>
                                 {PageList}
-                                <a href='#!' className="next" onClick={(e) => onPageNext(e)}> </a>
-                                <a href='#!' className="last" onClick={(e) => onPage(e, items.totalPage)}> </a>
-                            </span>
+                                <button href='#!' className="next" onClick={(e) => onPageNext(e)}> &gt;</button>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>

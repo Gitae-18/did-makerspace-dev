@@ -2,14 +2,13 @@ import React,{useState,useEffect,useCallback} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate,useLocation,useParams } from "react-router";
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg } from '../../CommonCode';
-import { Paging } from "./Paging";
+import Paging2 from "./Paging2";
 import dotenv from "dotenv";
 
 dotenv.config();
 export default function TableType2c() {
     const [posts,setPosts] = useState([]);
     const { token } = useSelector(state => state.user);
-    console.log(token);
     const [loading,setLoading] = useState(false);
     const [currentPage,setCurrentPage] = useState(1);
     const [postPage, setPostPage] = useState(10);
@@ -80,7 +79,7 @@ export default function TableType2c() {
         </tbody>
       </table>
       <div className="page_control">
-       <Paging page={currentPage} count = {count} setPage={setPage}/>
+       <Paging2 page={currentPage} count = {count} setPage={setPage}/>
       </div>
     </div>
   );

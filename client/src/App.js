@@ -43,6 +43,12 @@ import { ScheduleContainer as Schedule } from './containers/ScheduleContainer';
 import { UServiceContainer as UService } from './containers/UServiceContainer';
 import { ReservationEquipmentContainer as EReservation } from './containers/ReservationEquipmentContainer';
 import { EquipmentReservationContainer as EqReservation } from './containers/EquipmentReservationContainer';
+import { ClassEduContainer as ClassEduA } from './containers/ClassEduContainer';
+import { MyReservContainer } from './containers/MyReservContainer';
+import { ClassContainer } from './containers/ClassContainer';
+import { EduContainer } from './containers/EduContainer';
+import { EduAddContainer } from './containers/EduAddContainer';
+import { ClassAddContainer } from './containers/ClassAddContainer';
 import Material from './components/Admin/Material/Material';
 import MaterialItem from './components/Admin/Material/MaterialItem';
 import MaterialList from './components/Admin/Material/MaterialList';
@@ -81,13 +87,16 @@ const App = () => {
     
     <BrowserRouter>
     <CookiesProvider>
-      <div id="wrap" className="wrap intro">
-        <div id="header">
-          <Link to="/"><span className='logo2'><img src="/images/logo_wh.png" alt="로고"/></span></Link>
+      <div id="header">
+        <div className="mainmenu">
+          <div className='gnb_cover'>
+          <Link to="/"><span className='logo2'><img src="/images/logo.png" alt="로고"/></span></Link>
           <Menu />
           <Login />
+          </div>
         </div>
       </div>
+     
       
       <ScrollToTop/>
       <Routes>
@@ -132,16 +141,16 @@ const App = () => {
         <Route path="/didreservation" element = {<EqReservation/>}/>
         <Route path="/reservation/space" element = {<DidReservation2/>}/>
         <Route path="/reservation/lab" element = {<DidReservation3/>}/>
-        <Route path="/reservation/myvation" element = {<DidReservation4/>}/>
+        <Route path="/reservation/myvation" element = {<MyReservContainer/>}/>
         <Route path="/reservation/selectreserv" element = {<EReservation/>}/>
         <Route path="/didreservation/test" element={<TestReservation/>}/>
 
         <Route path="/mentoring" element = {<Mentoring/>}/>
         <Route path="/umentoring/*" element = {<UMentoring/>}/>
         <Route path="/umentoring/detail" element = {<UMentoringApplication/>}/>
-        <Route path="/classprogram/*" element = {<ClassEdu_Program/>}/>
-        <Route path="/eduprogram/*" element = {<ClassEdu_Program2/>}/>
-        <Route path="/classprogram/detail" element = {<ClassEdu_program3/>}/>
+        <Route path="/classprogram" element = {<ClassContainer/>}/>
+        <Route path="/eduprogram" element = {<EduContainer/>}/>
+        <Route path="/classprogram/detail" element = {<ClassEduA/>}/>
         <Route path="/eduprogram/detail" element = {<ClassEdu_program4/>}/>
 
         <Route path="/contact" element = {<Contact/>}/>
@@ -159,8 +168,8 @@ const App = () => {
         <Route path='/mentorcontrol/mentorauthority' element = {<MentorAuthority/>}/>
         <Route path='/mentorcontrol/mentoringreport' element = {<MentoringReport/>}/>
         <Route path='/mentorcontrol/mentoringreport/detail' element = {<MentoringReportDetail/>}/>
-        <Route path='/classeducontrol/educontrol' element = {<ClassEduControl/>}/>
-        <Route path='/classeducontrol/classcontrol' element = {<ClassEduControl2/>}/>
+        <Route path='/educontrol' element = {<EduAddContainer/>}/>
+        <Route path='/classcontrol' element = {<ClassAddContainer/>}/>
 
         <Route path="/prototype/management" element = {<MService/>}/>
         <Route path="/prototype/application" element = {<UService/>}/>

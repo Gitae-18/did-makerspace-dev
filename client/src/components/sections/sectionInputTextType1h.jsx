@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router";
+import React,{useState,useEffect} from "react";
+import { useNavigate , useLocation } from "react-router";
 import TitleType1 from "../contents/TitleType1";
 import styled from "styled-components";
 import ButtonType2 from "../contents/ButtonType2";

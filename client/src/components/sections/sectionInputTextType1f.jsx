@@ -34,6 +34,7 @@ export default function SectionInputTextType1f() {
         <li>
           <label htmlFor="file01">파일#1</label>
           <input type="file" name="file01" id="file01" className="w_auto" />
+          
         </li>
       </ul>
       <StyledBtn>저장</StyledBtn>
@@ -49,7 +50,10 @@ font-size:0.8rem;
 cursor:pointer;
 border:1px solide #313f4f;
  &:hover{
-    background-color:#transparent
+    background-color:#313f4f;
     color:#313f4f
  }
+ position:relative;
+ left:50%;
+ margin-top:30px;
 `

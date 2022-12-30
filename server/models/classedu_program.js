@@ -9,24 +9,40 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
         },
         type:{
-            type: DataTypes.CHAR(5),
+            type: DataTypes.STRING(55),
             allowNull:false,
         },
         hit:{
             type: DataTypes.INTEGER,
-            allowNull:false,
+            allowNull:true,
         },
         attached_file:{
             type: DataTypes.STRING(255),
             allowNull:true,
         },
+        class_period_start:{
+            type:DataTypes.STRING(55),
+            allowNUll:false,
+        },
+        class_period_end:{
+            type:DataTypes.STRING(55),
+            allowNUll:false,
+        },
+        application_period_start:{
+            type:DataTypes.STRING(55),
+            allowNUll:false,
+        },
+        application_period_end:{
+            type:DataTypes.STRING(55),
+            allowNUll:false,
+        },
         content:{
-            type: DataTypes.STRING(55),
-            allowNull:false,
+            type: DataTypes.STRING(100),
+            allowNull:true,
         },
         title:{
             type: DataTypes.STRING(55),
-            allowNull:false,
+            allowNull:true,
         },
         cost:{
             type: DataTypes.INTEGER,
@@ -39,14 +55,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         place:{
             type: DataTypes.STRING(100),
-            allowNull:false,
-        },
-        class_period:{
-            type: DataTypes.STRING(55),
-            allowNull:false,
-        },
-        application_period:{
-            type: DataTypes.STRING(55),
             allowNull:false,
         },
         limit_number:{
@@ -79,6 +87,6 @@ module.exports = (sequelize, DataTypes) => {
         paranoid: true,    // deleted_at
         underscored: true,
         charset: 'utf8',
-        comment: '교육행사프로그램',
+        comment: '교육행사프로그램 추가',
     }
     )}

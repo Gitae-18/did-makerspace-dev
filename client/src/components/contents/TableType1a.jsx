@@ -6,7 +6,10 @@ import Pagination from "react-js-pagination";
 import '../../css/Paginate.css'
 import InfoType1a from "./InfoType1a";
 import SubSideMenu from "./SubSideMenu";
+import { Paging } from "./Paging";
+import Paging2 from "./Paging2";
 import styled from "styled-components";
+import Posts from "./Posts";
 import qs from 'qs';
 
 export default function TableType1a() {
@@ -18,13 +21,25 @@ export default function TableType1a() {
   const [spacename,setSpacename] = useState([]);
   const [page,setPage] = useState(1);
   const [search,setSearch] = useState('');
-
+  const [count,setCount] = useState(0);
   const [currentPage,setCurrentPage] = useState(1);
   const [currentPosts,setCurrentPosts] = useState([]);
   const postPerPage = 10;
-  const indexOfLastPost = currentPage * postPerPage;
+  const offset = (page-1)*postPerPage;
+  const indexOfLastPost = currentPage * postPerPage
   const indexOfFirstPost = indexOfLastPost - postPerPage;
-
+  const currentPost = spaceList.slice(indexOfFirstPost, indexOfLastPost)
+ // const totalPage = Math.ceil(totalCount/limit)
+  //const limit = 5
+  //const pageCount = 5
+  //const pageGroup = Math.ceil(currentPage/pageCount)
+  //let lastNumber = pageGroup * pageCount
+/*   if(lastNumber>totalPage){
+    lastNumber = totalPage
+  }
+  let firstNumber = lastNumber - (pageCount -1)
+  const next = lastNumber + 1
+  const prev = firstNumber - 1  */
   const getSpaceList = useCallback(async() =>{
     let requri = PreUri + '/space/list';
     const response = await fetch(requri, {
@@ -39,21 +54,22 @@ export default function TableType1a() {
     const json = await response.json();
     setSpaceList(json)
     setSpacename(json.map((e,i,arr)=>(e.space_name)));
-    setCurrentPosts(json);
+    setCurrentPosts(json.slice(indexOfFirstPost,indexOfLastPost))
+    setCount(json.length)
   },[token])
 
 
   useEffect(()=>{
-    getSpaceList(spaceList);
-  },[getSpaceList]);
-  useEffect(()=>{
-    setCurrentPosts(spaceList.slice(indexOfFirstPost,indexOfLastPost))
-   
-  
-  },[indexOfFirstPost,indexOfLastPost,spaceList])
+    getSpaceList();
+  },[]);
 
-  const handlePageChange = (page) =>{
-    setPage(page);
+  const activeEnter = (e) => {
+    if(e.key === "Enter") {
+      onSearch(e);
+    }
+  }
+  const handlePageChange = (e) =>{
+    setCurrentPage(e)
   }
   const onMove = (e) =>{
     history(location.pathname + '/spacedetail',{state:{name:e.space_name}});
@@ -62,6 +78,12 @@ export default function TableType1a() {
     e.preventDefault();
     setSearch(e.target.value);
   }
+/*   const postData = (posts) =>{
+     if(posts){
+      let result = posts.slice(offset,offset+postPerPage);
+      return result;
+     }
+  } */
   const onSearch = useCallback(async(e) =>{
     e.preventDefault();
     console.log(search);
@@ -72,12 +94,13 @@ export default function TableType1a() {
         headers:CommonHeader
       });
       const json = await response.json(); 
+      setSpaceList(json);
       setCurrentPosts(json);
   }
   else{
     const filterData = spaceList.filter((item) => item.space_name.includes(search))
     setSpaceList(filterData)
-    setCurrentPosts(filterData.slice(indexOfFirstPost,indexOfLastPost))
+    setCurrentPosts(filterData)
     setCurrentPage(1)
   }
  setSearch('');
@@ -94,8 +117,8 @@ export default function TableType1a() {
           <select name="" id="">
             <option value="1">공간명</option>
           </select>
-          <input type="text" name="" id="" placeholder="제목을 입력하세요"  onChange={onChange}/>
-          <StyledBtn onClick={(e)=>onSearch(e)}>조회</StyledBtn>
+          <input type="text" name="" id="" placeholder="제목을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange}/>
+          <StyledBtn onClick={(e)=>onSearch(e)} >조회</StyledBtn>
         </div>
       </div>
       <table className="table_space">
@@ -111,7 +134,8 @@ export default function TableType1a() {
           </tr>
         </thead>
         <tbody>
-            {currentPosts.map((item,i)=>(
+          {/* <Posts posts={currentPosts} onMove={onMove} /> */}
+            {currentPost && spaceList.length >  0 ? currentPost.map((item,i)=>(
               <tr key={i}>
               <td>{item.space_no}</td>
               <td><StyledSpan onClick={(e)=>onMove(item)}>{item.space_name}</StyledSpan></td>
@@ -120,19 +144,21 @@ export default function TableType1a() {
               <td>{item.location}</td>
               <td>월~금(09:00 - 18:00)</td>
               </tr>
-            ))}
+            )):<div>게시물이 없습니다.</div>}
         </tbody>
       </table>
       <div className="page_control">
-              <Pagination
+      {/* <Paging2 page={page} count = {count} setPage={handlePageChange}/> */}
+        <Paging totalCount={count} page={page} postPerPage={postPerPage} pageRangeDisplayed={5} handlePageChange={handlePageChange}/>
+              {/* <Pagination
               activePage={page}
               itemsCountPerPage={10}
-              totalItemsCount={currentPosts.length}
-              pageRangeDisplayed={5}
+              totalItemsCount={spaceList?spaceList.length:0}
+              pageRangeDisplayed={10}
               prevPageText={"<"}
               nextPageText={">"}
               onChange={handlePageChange}
-              />
+              /> */}
       </div>
     </div>
     </>

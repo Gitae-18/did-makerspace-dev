@@ -14,7 +14,7 @@ export default function SectionTabType1(props) {
           <ol>
             <li>장비 및 시설예약 New !
               <ol>
-                <img src="/images/reservation.jpg" className="image1" alt="no-images"/>
+                <img src="/images/xcut.png" className="image1" alt="no-images"/>
               </ol>
               <ol>
                 <span>장비명 : &nbsp;X-cut </span>
@@ -22,7 +22,7 @@ export default function SectionTabType1(props) {
             </li>
             <li>장비 및 시설예약 New !
               <ol>
-                <img src="/images/reservation.jpg" className="image1" alt="no-images"/>
+                <img src="/images/a0floter.png" className="image1" alt="no-images"/>
               </ol>
               <ol>
                 <span>장비명 : &nbsp; A0 플로터</span>
@@ -30,7 +30,7 @@ export default function SectionTabType1(props) {
             </li>
             <li>장비 및 시설예약 New !
               <ol>
-                <img src="/images/reservation.jpg" className="image1" alt="no-images"/>
+                <img src="/images/fdm3dwox1.png" className="image1" alt="no-images"/>
               </ol>
               <ol>
                 <span>장비명 : &nbsp; FDM &nbsp;: &nbsp;3D-WOX</span>
@@ -70,9 +70,21 @@ export default function SectionTabType1(props) {
         <li className="tab_inner">
           {/* <h4>{props.tabNames[2]}</h4> */}
           <ol>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>멘토링 New !
+              <ol>
+                내용이 없습니다.
+              </ol>
+            </li>
+            <li>멘토링 New !
+              <ol>
+                내용이 없습니다.
+              </ol>
+            </li>
+            <li>멘토링 New !
+              <ol>
+                내용이 없습니다.
+              </ol>
+            </li>
           </ol>
         </li>
       </ol>

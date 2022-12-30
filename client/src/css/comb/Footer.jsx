@@ -5,7 +5,11 @@ export default function Footer() {
   const [url,SetUrl] = useState('');
   const FooterInfo = () => {
     return (
+      <>
+      <div className="bar_footer">
       <div className="dl_wrap footer_info">
+        <h3>Contact</h3>
+        <div className="contant">
         <dl>
           <dt className="blind">주소</dt>
           <dd>
@@ -30,6 +34,8 @@ export default function Footer() {
           <dd>COPYRIGHT &copy; 2019 DID 기술융합공작소 ALL RIGHTS RESERVED.</dd>
         </dl>
       </div>
+      </div>
+      </div></>
     );
   };
   const FooterSiteMap = () => {
@@ -54,15 +60,16 @@ export default function Footer() {
 
   const FooterWrap = () => {
     return (
+      <>
       <footer>
         <div className="wrap2">
           <div className="footer_inner_wrap">
-            <h3>Contact</h3>
-            <FooterSiteMap></FooterSiteMap>
-          </div>
           <FooterInfo></FooterInfo>
+          </div>
+          <FooterSiteMap></FooterSiteMap>
         </div>
       </footer>
+      </>
     );
   };
 

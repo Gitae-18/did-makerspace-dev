@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import { Link, NavLink} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import LoginModal from './LoginModal';
 //import { BrowserRouter, Route, Link as RouterLink} from 'react-router-dom';
@@ -30,7 +31,7 @@ export function LoginForm({onLoginStart, onChange, userId, password, isAutoLogin
             <Link className="find_pw" to="/findpw">비밀번호 찾기</Link>
             </div>
             <div className="login_button">
-                <LoginButton onClick={openModal}>로그인하기</LoginButton>
+                <LoginButton className="log_on" onClick={openModal}>로그인하기</LoginButton>
                 {modalOpen && <LoginModal open={modalOpen} close={closeModal} change={onChange} userid={userId} password={password} isAutoLogin={isAutoLogin} onLoginClick={onLoginClick}/>}
             </div>
         </form>
@@ -38,6 +39,7 @@ export function LoginForm({onLoginStart, onChange, userId, password, isAutoLogin
 }
 
 export function LoggedInForm({onLogout, username}) {
+    const { token, authority_level } = useSelector(state => state.user);
     //let alarmOn = (false) ? "name on" : "name off";
     
    // const[alarm,setAlarm] = useState(false);
@@ -51,11 +53,11 @@ export function LoggedInForm({onLogout, username}) {
     return (
         <form onSubmit={onLogout}>
             
-		<div className="member_box">
+		<div className="member_box" style={authority_level<10?{left:"323px"}:{}}>
 			<span ><strong>{username}</strong> 님</span>
 			<span className="my_info"><Link to="/myinfo">내 정보</Link></span>
-        </div>
         <button className="logout" type="submit" onClick={()=>onLogoutClick()}>로그아웃</button>
+        </div>
         </form>
     );
 }

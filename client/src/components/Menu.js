@@ -91,7 +91,7 @@ const UserMenu = ({authority_level,history,path}) => {
           <SubMenu4/>
     </li>
         
-    <li><Link to="/umentoring">멘토링</Link>
+    <li><Link to="/notcomplete">멘토링</Link>
           <SubMenu5/>
     </li>
           

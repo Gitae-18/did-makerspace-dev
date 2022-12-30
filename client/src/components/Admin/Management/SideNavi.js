@@ -19,7 +19,7 @@ export default function ({ viewDepth ,onCategory}) {
 	if(location.pathname.includes('mentorcontrol')){
 		titlevalue="전문멘토관리"
 	}
-	if(location.pathname.includes('classeducontrol')){
+	if(location.pathname.includes('educontrol'||'classcontrol')){
 		titlevalue="교육/행사관리"
 	}
 	else{
@@ -83,16 +83,16 @@ export default function ({ viewDepth ,onCategory}) {
 			  <li>
 				<p onClick={Dep2Handler}>전문멘토관리</p>
 				<ol className="has_dep3">
-				  <li><NavLink to="/mentorcontrol/mentorauthority">전문 멘토 명단</NavLink></li>
-				  <li><NavLink to="/mentorcontrol/mentorapplication">전문 멘토 신청서</NavLink></li>
-				  <li><NavLink to="/mentorcontrol/mentoringreport">멘토링 보고서</NavLink></li>
+				  <li><NavLink to="/notcomplete"/* "/mentorcontrol/mentorauthority" */>전문 멘토 명단</NavLink></li>
+				  <li><NavLink to="/notcomplete"/* "/mentorcontrol/mentorapplication" */>전문 멘토 신청서</NavLink></li>
+				  <li><NavLink to="/notcomplete"/* "/mentorcontrol/mentoringreport" */>멘토링 보고서</NavLink></li>
 				</ol>
 			  </li>
 			  <li>
 				<p onClick={Dep2Handler}>교육/행사관리</p>
 				<ol className="has_dep3">
-				  <li><NavLink to="/classeducontrol/educontrol">교육프로그램 관리</NavLink></li>
-				  <li><NavLink to="/classeducontrol/classcontrol">행사프로그램 관리</NavLink></li>
+				  <li><NavLink to="/educontrol">교육프로그램 관리</NavLink></li>
+				  <li><NavLink to="/classcontrol">행사프로그램 관리</NavLink></li>
 				</ol>
 			  </li>
 			  </ol>

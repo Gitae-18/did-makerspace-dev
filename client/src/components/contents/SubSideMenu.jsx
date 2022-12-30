@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 export default function SubSideMenu(props) {
   const [sidebar,setSidebar] = useState(false);
   const [isSpace,setIsSpace] = useState(false);
+  const [click,setClick] = useState(false);
   const [isCompany,setIsCompany] = useState(false);
   const url = useLocation();
   const location = useLocation();
@@ -67,7 +68,7 @@ export default function SubSideMenu(props) {
             </ol>
           </li>
           <li>
-         <p onClick={Dep2Handler}><Link to ={"/info/way"} tag="div">오시는 길</Link></p>
+         <p onClick={Dep2Handler}><Link to ={"/info/way"} onClick={Dep2Handler}>오시는 길</Link></p>
           </li>
           <li>
           <p onClick={Dep2Handler}><Link to ={"/info/faq"}  tag="div">FAQ</Link></p>
@@ -79,13 +80,13 @@ export default function SubSideMenu(props) {
       return (
         <ol>
           <li>
-          <Link to={"/didreservation"}><p onClick={Dep2Handler}>장비 예약</p></Link>
+          <p onClick={Dep2Handler}><Link to={"/didreservation"}>장비 예약</Link></p>
           </li>
           <li>
-          <Link to={"/reservation/space"}><p onClick={Dep2Handler}>공간 예약</p></Link>
+          <p onClick={Dep2Handler}><Link to={"/reservation/space"}>공간 예약</Link></p>
           </li>
           <li>
-          <Link to={"/reservation/lab"}><p onClick={Dep2Handler}>전문 랩 투어</p></Link>
+          <p onClick={Dep2Handler}><Link to={"/reservation/lab"}>전문 랩 투어</Link></p>
           </li>
         </ol>
       );
@@ -156,11 +157,11 @@ export default function SubSideMenu(props) {
     const SubModal05 = () => {
       return (
         <ol>
-          <li>
-            <p onClick={Dep2Handler}><Link to={"/classprogram"}>교육 프로그램</Link></p>
+          <li onClick={(e)=>setClick(true)} >
+            <p className={click===true?"on":""} onClick={()=>history('/classprogram')}>교육 프로그램</p>
           </li>
           <li>
-            <p onClick={Dep2Handler}><Link to={"/eduprogram"}>행사 프로그램</Link></p>
+            <p onClick={(e)=>{Dep2Handler(e);history('/eduprogram');}}>행사 프로그램</p>
           </li>
         </ol>
       );
@@ -369,9 +370,12 @@ export default function SubSideMenu(props) {
     ]
     return (
       <div className="sub_bread">
+        <h1>{props.subtitle ? props.subtitle:props.title}</h1>
+        <div className="location">
         <h2>{props.title}</h2>
         {props.subtitle ? <span>{">"}</span>:<></>}
         <h3>{props.subtitle}</h3>
+        </div>
       </div>
     );
   };

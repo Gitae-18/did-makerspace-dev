@@ -3,18 +3,19 @@ import Pagination from "react-js-pagination";
 import '../../css/Paging.css'
 
 
-export const Paging = ({totalCount,postPerPage,pageRangeDisplayed,handlePageChange,page}) =>{
+const Paging2 = ({page,count,setPage}) =>{
     return(
 
     <Pagination
     activePage={page}
     itemsCountPerPage={10}
-    totalItemsCount={totalCount}
+    totalItemsCount={count}
     pageRangeDisplayed={5}
     prevPageText={"<"}
     nextPageText={">"}
-    onChange={handlePageChange}
+    onChange={setPage}
     />
 
     )
-  } ;
+  } 
+  export default Paging2

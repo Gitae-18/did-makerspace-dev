@@ -5,7 +5,7 @@ import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRsp
 import { M_SERVICE_DELETE, M_SERVICE_SET } from "../../../store/manager_service";
 import SideNavi from './SideNavi';
 import SubSideMenu from '../../contents/SubSideMenu';
-
+import '../../../css/Paging.css';
 import '../../../css/common-s.css';
 import '../../../css/style-s.css';
 import Service from '../../User/Service';
@@ -271,7 +271,7 @@ export default function ({ query , no }) {
         if (curPageGrp > 0) {
             let addQuery = makeQuery(step, dateType, year, month, company);
             addQuery = (addQuery.length > 0) ? "&" + addQuery : "";
-            history((location.pathname+location.search+location.hash) + '?page=' + serviceItems.pageOffset + addQuery);
+            history(location.pathname + '?page=' + serviceItems.pageOffset + addQuery);
         }
     }, [history, serviceItems, step, dateType, year, month, company]);
 
@@ -284,7 +284,7 @@ export default function ({ query , no }) {
         if (curPageGrp < totPageGrp) {
             let addQuery = makeQuery(step, dateType, year, month, company);
             addQuery = (addQuery.length > 0) ? "&" + addQuery : "";
-            history((location.pathname+location.search+location.hash) + '?page=' + (newPageOffset + 1) + addQuery);
+            history(location.pathname + '?page=' + (newPageOffset + 1) + addQuery);
         }
     }, [history, serviceItems, step, dateType, year, month,company]);
     const onSelectItem = useCallback((e, index) => {
@@ -331,9 +331,9 @@ export default function ({ query , no }) {
     for (let i = 0; i < PageMax; i++) {
         let pageNum = i + 1 + serviceItems.pageOffset;
         if (pageNum > serviceItems.totalPage) { break; }
-        PageList.push(<a href='#!' onClick={(e) => onPage(e, pageNum)}
+        PageList.push(<button href='#!' onClick={(e) => onPage(e, pageNum)}
             className={pageNum === serviceItems.currentPage ? "active" : ""}
-            key={i}>{pageNum}</a>);
+            key={i}>{pageNum}</button>);
     }
 
     
@@ -406,7 +406,8 @@ export default function ({ query , no }) {
 
     let MonthOption = [(<option value={0} key={0}>월</option>)];
     for (let i = 1; i <= 12; i++) { MonthOption.push(<option value={i} key={i}>{i + " 월"}</option>) }
- 
+    //<button href='#!' className="first" onClick={(e) => onPage(e, 1)}>
+    //<button href='#!' className="last" onClick={(e) => onPage(e, serviceItems.totalPage)}>
     return (
         <div id="wrap" className="wrap service1">
             <div className="content_wrap">
@@ -467,14 +468,14 @@ export default function ({ query , no }) {
                                 {ServiceItemRows}
                             </tbody>
                         </table>
-                        <div className="page_num">
-                            <span className="inner_num">
-                                <a href='#!' className="first" onClick={(e) => onPage(e, 1)}> </a>
-                                <a href='#!' className="prev" onClick={(e) => onPagePrev(e)}> </a>
+                        <div className="page_control">
+                            <div className='pagination'>
+                            <div>
+                                <button href='#!' className="prev" onClick={(e) => onPagePrev(e)}> &lt;</button>
                                 {PageList}
-                                <a href='#!' className="next" onClick={(e) => onPageNext(e)}> </a>
-                                <a href='#!' className="last" onClick={(e) => onPage(e, serviceItems.totalPage)}> </a>
-                            </span>
+                                <button href='#!' className="next" onClick={(e) => onPageNext(e)}> &gt;</button>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>

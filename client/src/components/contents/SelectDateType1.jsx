@@ -20,7 +20,7 @@ import qs from 'qs';
 import create from 'zustand';
 import { SET_DATE } from "../../store/time";
 import { buildEventRangeKey, elementClosest } from "@fullcalendar/react";
-export const CurrentContext = createContext();
+//export const CurrentContext = createContext();
 
 
 export default function SelectDateType1({query}) {

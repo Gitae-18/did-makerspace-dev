@@ -25,10 +25,3 @@
     animation: modal-show 0.3s;
     overflow: hidden;
   }
-  .modals > section .close{
-    width:12vw;
-    height:50px;
-    background-color: #313f4f;
-    top:30vh;
-    position:relative;
-  }

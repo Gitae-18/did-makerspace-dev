@@ -40,7 +40,7 @@ router.get('/testresult',verifyToken,async(req,res,next)=>{
 
      let result;
      try{
-        result = await UserEquipmentTestPass.findOne({
+        result = await UserEquipmentTestPass.findAll({
             attributes:['pass_flag'],
             where:{user_no},
             raw:true,
@@ -50,6 +50,7 @@ router.get('/testresult',verifyToken,async(req,res,next)=>{
         console.error(error);
         return res.status(errorCode.internalServerError).json({});
      }
+     console.log(result);
      res.status(errorCode.ok).json(result);
 })
 

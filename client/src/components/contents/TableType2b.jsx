@@ -1,6 +1,51 @@
-import React from "react";
+import React,{useState,useEffect, useCallback}from "react";
 import TitleType1 from "./TitleType1";
+import { useSelector } from "react-redux";
+import { CommonHeader, PreUri, Method } from "../../CommonCode";
+import Paging2 from "./Paging2";
 export default function TableType2b() {
+  const { token } = useSelector(state => state.user);
+  const [reservList,setReservList] = useState([]);
+
+
+  const [loading,setLoading] = useState(false);
+  const [currentPage,setCurrentPage] = useState(1);
+  const [postPage, setPostPage] = useState(10);
+  const [count,setCount] = useState(0);
+  const indexOfLastPost = currentPage * postPage
+  const indexOfFirstPost = indexOfLastPost - postPage
+  const currentPost = reservList.slice(indexOfFirstPost, indexOfLastPost)
+
+
+
+
+  const getReservList = useCallback(async()=>{
+    CommonHeader.authorization = token;
+
+    let requri  = PreUri + '/reservation/myreserv';
+     
+    const response = await fetch(requri,{
+      method:Method.get,
+      headers:CommonHeader,
+    })
+    if(!response.ok) {
+      console.log('잘못된 접근입니다.');
+      return;
+    }
+    const json = await response.json();
+
+    setReservList(json);
+    setCount(json.length);
+
+  },[token])
+
+  const setPage = (e) =>{
+    setCurrentPage(e);
+  }
+
+  useEffect(()=>{
+    getReservList();
+  },[getReservList,token])
   return (
     <div className="table_wrap table_type2">
       <div className="table_extra">
@@ -22,45 +67,23 @@ export default function TableType2b() {
           </tr>
         </thead>
         <tbody>
-          <tr>
+          {reservList.length>0 ? reservList.map((item,index)=>(
+            <tr key={index}>
             <td>Image</td>
-            <td>X-CUT9060</td>
+            <td>{item.model_name}</td>
             <td>CNC</td>
+            <td>{item.specification}</td>
+            <td>{item.location}</td>
             <td>
-              <dl>
-                <dt>출력</dt>
-                <dd>CO2 90W</dd>
-              </dl>
+              <span className="date">{item.reservation_date.slice(0,9).replaceAll('-','/')}</span>
+              &nbsp;
+              <span className="time">{item.reservation_date.slice(10,)}</span>
             </td>
-            <td>1층</td>
-            <td>
-              <span className="date">2022/08/22</span>
-              &nbsp;&nbsp;&nbsp;
-              <span className="time">17:00</span>
-            </td>
-          </tr>
+          </tr>)):<>내용이 비었습니다</>}
         </tbody>
       </table>
       <div className="page_control">
-        <div className="btn_first btn-s">
-          <img src="/images/backward-solid.svg" alt="처음으로" />
-        </div>
-        <div className="btn_prev">
-          <img src="/images/caret-left-solid.svg" alt="이전으로" />
-        </div>
-        <ol className="btn_page_num">
-          <li className="on">1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
-        </ol>
-        <div className="btn_next">
-          <img src="/images/caret-right-solid.svg" alt="다음으로" />
-        </div>
-        <div className="btn_last btn-s">
-          <img src="/images/forward-solid.svg" alt="끝으로" />
-        </div>
+      <Paging2 page={currentPage} count = {count} setPage={setPage}/>
       </div>
     </div>
   );

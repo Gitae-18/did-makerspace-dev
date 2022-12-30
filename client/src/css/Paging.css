@@ -48,7 +48,7 @@
     color: white;
   }
   .pagination div button:hover{
-    background-color: #313f4f;
+
   }
   .page-selection {
     width: 48px;
@@ -66,4 +66,5 @@
     width: 48px;
     height: 30px;
     color: #313f4f;
+    background-color: #313f3f;
   }

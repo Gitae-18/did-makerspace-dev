@@ -12,9 +12,9 @@ export default function ({ query }) {
     const location = useLocation();
     const history = useNavigate();
     const { token } = useSelector(state => state.user);
-    console.log(token);
     const dispatch = useDispatch();
     const [search, setSearch] = useState('');
+    const [page,setPage] = useState(1);
     const [items, setItems] = useState({
         totalCount: 0,
         totalPage: 0,
@@ -67,6 +67,15 @@ export default function ({ query }) {
     }, [history, search]);
 
     const onPagePrev = useCallback((e) => {
+   /*      const currPage = page - 1;
+        if (page<=1){
+          return;
+        }
+        if (page <= items.totalPage && page > 0) {
+            const querySearch = (search.length > 0) ? ("&search=" + search) : "";
+            history(location.pathname + '?page=' + currPage + querySearch);
+        }
+        setPage((n) => n - 1); */
         e.preventDefault();
         const curPageGrp = Math.ceil(items.pageOffset / PageMax);
         if (curPageGrp > 0) {
@@ -76,6 +85,15 @@ export default function ({ query }) {
     }, [history, items, search]);
 
     const onPageNext = useCallback((e) => {
+/*         const currPage = page + 1;
+        if (page>=items.totalPage){
+         return;
+       }
+         if (page <= items.totalPage ) {
+             const querySearch = (search.length > 0) ? ("&search=" + search) : "";
+             history(location.pathname + '?page=' + currPage + querySearch);
+         }
+         setPage((n) => n + 1); */
         e.preventDefault();
         const newPageOffset = items.pageOffset + PageMax;
         const curPageGrp = Math.ceil(newPageOffset / PageMax);
@@ -95,7 +113,7 @@ export default function ({ query }) {
 
     const onSearch = useCallback((e) => {
         const addQuery = (search.length > 0) ? ("?search=" + search) : "";
-        history((location.pathname+location.search+location.hash) + addQuery);
+        history(location.pathname + addQuery);
     }, [search, history]);
 
     const ItemRow = useCallback((props) => {
@@ -144,9 +162,9 @@ export default function ({ query }) {
     for (let i = 0; i < PageMax; i++) {
         let pageNum = i + 1 + items.pageOffset;
         if (pageNum > items.totalPage) { break; }
-        PageList.push(<a href='#!' onClick={(e) => onPage(e, pageNum)}
+        PageList.push(<button href='#!' onClick={(e) => onPage(e, pageNum)}
             className={pageNum === items.currentPage ? "active" : ""}
-            key={i}>{pageNum}</a>);
+            key={i}>{pageNum}</button>);
     }
 
     return (
@@ -173,17 +191,17 @@ export default function ({ query }) {
                             </tbody>
                         </table>
                         <button className="btn_apply" onClick={() => { history('/management?reg=1',{replace:true}) }}>신규 등록</button>
-                        <div className="page_num">
-                            <span className="inner_num">
-                                <a href='#!' className="first" onClick={(e) => onPage(e, 1)}> </a>
-                                <a href='#!' className="prev" onClick={(e) => onPagePrev(e)}> </a>
+                        <div className="page_control">
+                            <div className='pagination'>
+                            <div>
+                                <button href='#!' className="prev" onClick={(e) => onPagePrev(e)}> &lt;</button>
                                 {PageList}
-                                <a href='#!' className="next" onClick={(e) => onPageNext(e)}> </a>
-                                <a href='#!' className="last" onClick={(e) => onPage(e, items.totalPage)}> </a>
-                            </span>
+                                <button href='#!' className="next" onClick={(e) => onPageNext(e)}> &gt;</button>
+                            </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </div>  
             </div>
         </div>
     );

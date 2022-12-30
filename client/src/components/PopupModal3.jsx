@@ -1,37 +1,43 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,useState} from 'react';
 import styled from 'styled-components';
 import PropTypes from  'prop-types';
 import {Portal} from 'react-portal';
 import '../css/ModalStyle.css';
 import { setCookie,getCookie } from './cookie';
 
-function Modal({ className, onClose, maskClosable,closable,visible}){
+function PopupModal3({className, onClose, maskClosable,closable,visible}){
 
     const onMaskClick = (e) => {
         if (e.target === e.currentTarget) {
             onClose(e);
         }
     }
-    // 이전 방문 날짜
-    const VISITED_BEFORE_DATE = localStorage.getItem('VisitCookie')
-    // 현재 날짜
-    const VISITED_NOW_DATE = Math.floor(new Date().getDate())
+        const VISITED_BEFORE_DATE = localStorage.getItem('TodayCookie')
+        // 현재 날짜
+        const VISITED_NOW_DATE = Math.floor(new Date().getDate())
+   /*  const open = (e) =>{
+       onClose(true)
+    }
 
-        // 팝업 오늘 하루닫기 체크
-        if(VISITED_BEFORE_DATE !== null){
-            //날짜가 같을 경우
-            if(VISITED_BEFORE_DATE === VISITED_NOW_DATE){
-                localStorage.removeItem('VisitCookie')
-                onClose(false);
-            }
-            if(VISITED_BEFORE_DATE !== VISITED_NOW_DATE){
-                onClose(true);
-            }
+    const close = (e) => {
+        onClose(true)
+    } */
+    // 팝업 오늘 하루닫기 체크
+    if(VISITED_BEFORE_DATE !== null){
+        //날짜가 같을 경우
+        if(VISITED_BEFORE_DATE === VISITED_NOW_DATE){
+            localStorage.removeItem('TodayCookie')
+            onClose(false);
         }
-       
-
-
-     const Dayclose = (e) => {
+        if(VISITED_BEFORE_DATE !== VISITED_NOW_DATE){
+            onClose(true);
+        }
+    }
+   /*  const close = (e) => {
+        console.log("on")
+            onclose(e)
+    } */
+    const Dayclose = (e) => {
         if (onClose) {
             onClose(e)
 
@@ -39,10 +45,9 @@ function Modal({ className, onClose, maskClosable,closable,visible}){
             // +1일 계산
             const expiryDate = expiry.getDate() + 1
             // 로컬스토리지 저장
-            localStorage.setItem('VisitCookie', expiryDate)
+            localStorage.setItem('TodayCookie', expiryDate)
         }
     }
-
     const close = (e) => {
         if (onClose) {
             onClose(e)
@@ -51,7 +56,7 @@ function Modal({ className, onClose, maskClosable,closable,visible}){
 
     return (
         <Portal elementId="modal-root">
-            <ModalOverlay visible={visible} />
+            <ModalOverlay visible={visible}/>
             <ModalWrapper
                 className={className}
                 onClick={maskClosable ? onMaskClick : null}
@@ -61,11 +66,11 @@ function Modal({ className, onClose, maskClosable,closable,visible}){
                 <ModalInner tabIndex="0" className="modal-inner">
                     <ModalInner2>
                         <ImgStyle>
-                        <Imgtag src="/images/logo.png" alt="no=images" className="modal-image"/><Title>DID기술융합공작소 안내사항</Title>
-                        <div className="modal-text">
-                            <div>저희  DID기술융합공작소를 찾아주셔서 감사합니다. 저희 DID기술융합공작소의 기존 웹사이트와 서비스제작지원 사이트가 기술적통합을 하게되어
-                            안내사항을 전달하게 되었습니다. 사용자분들 중 운영중인 서비스제작 지원 사이트에 회원가입이 되어있지 않으신 사용자께서는 새로이 통합 회원가입을 통하여 사이트 이용이 가능하십니다.
-                            서비스제작 사이트에 회원가입이 되어있지 않은 사용자들께서는 번거로우시겠지만 새로 통합사이트의 회원가입을 진행하여 주시길 부탁드리겠습니다.</div>
+                        <Imgtag src="/images/logo.png" alt="no=images" className="modal-image"/><Title>DID기술융합공작소 안내사항</Title> 
+                        <div className="modal-contents">
+                           <div>각 장비에 대한 시험을 본 후에<br/>
+                                장비 예약이 가능하게됩니다.
+                           </div>
                         </div>
                         </ImgStyle>
                         {closable && (
@@ -85,10 +90,16 @@ function Modal({ className, onClose, maskClosable,closable,visible}){
     )
 }
 
-Modal.propTypes = {
+PopupModal3.propTypes = {
     visible: PropTypes.bool,
 }
 
+
+const SubTitle = styled.h2`
+width:200px;
+height:20px;
+position:relative;
+`
 const ModalInner2 = styled.div`
     display: flex;
     flex-direction: column;
@@ -110,7 +121,14 @@ height:300px;
 box-sizing:border-box;
 border: solid #000000 2px;
 `
-
+const Imgtag = styled.img`
+ width:50px;
+ height:50px;
+ left:20px;
+ top:10px;
+ position:relative;
+ display:block;
+`
 const CloseStyle = styled.div`
     display: flex;
     justify-content: space-between;
@@ -137,14 +155,7 @@ const ModalWrapper = styled.div`
     overflow: auto;
     outline: 0;
 `
-const Imgtag = styled.img`
- width:50px;
- height:50px;
- left:20px;
- top:10px;
- position:relative;
- display:block;
-`
+
 const ModalOverlay = styled.div`
     box-sizing: border-box;
     display: ${(props) => (props.visible ? 'block' : 'none')};
@@ -171,4 +182,4 @@ const ModalInner = styled.div`
     padding: 40px 20px;
 `
 
-export default React.memo(Modal)
+export default React.memo(PopupModal3)

@@ -2,7 +2,7 @@ import React,{useState,useCallback,useEffect,useRef,useMemo}from "react";
 import {ButtonType5} from "./ButtonType2";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate,useLocation,Link} from 'react-router-dom';
-import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg } from '../../CommonCode';
+import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg , pageNext, pagePrev } from '../../CommonCode';
 import {SET_MATERIAL, SET_MATERIAL_PAGEINFO, SET_LIST_PAGEINFO} from '../../store/material';
 import { Paging } from "./Paging";
 import Posts from "./Posts";
@@ -22,6 +22,8 @@ export default function TableType1b({query}) {
   const [count,setCount] = useState(0);
   const [loading,setLoading] = useState(false);
   const [postPage, setPostPage] = useState(10);
+  const [totalPage,setTotalPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [search,setSearch] = useState("");
   const [items, setItems] = useState({
     totalCount: 0,
@@ -32,6 +34,9 @@ export default function TableType1b({query}) {
     pageOffset: 0,
     items: [],
 });
+const postsPerPage = 10;
+const totalPages = ((items.totalCount - 1) / postsPerPage) + 1
+
   //const [ContextData,setContextData] = useState([]);
  /*    const limit = 10;
   const offset = (page-1)*limit;
@@ -170,37 +175,58 @@ let ItemRows = [];
  useEffect(()=>{
   getItemList(query.page?query.page:1,query.search);
   setSearch(query.search ? query.search : '');
- },[getItemList,query])
+ },[getItemList,query,page])
 
 
 const onPagePrev = useCallback((e) => {
-        e.preventDefault();
+  e.preventDefault();
+        /* const currPage = page - 1;
+        localStorage.getItem(page);
+        if (page<=1){
+          return;
+        }
+        if (page <= items.totalPage && page > 0) {
+            const querySearch = (search.length > 0) ? ("&search=" + search) : "";
+            history(location.pathname + '?page=' + currPage + querySearch);
+        }
+        setPage((n) => n - 1); */
         const curPageGrp = Math.ceil(items.pageOffset / PageMax);
         if (curPageGrp > 0) {
             const querySearch = (search.length > 0) ? ("&search=" + search) : "";
-            history((location.pathname+location.search+location.hash) + '?page=' + items.pageOffset + querySearch);
+            history(location.pathname + '?page=' + items.pageOffset + querySearch);
         }
+      
     }, [history, items, search]);
 
-
-const onPageNext = useCallback((e) => {
-        e.preventDefault();
-        const newPageOffset = items.pageOffset + PageMax;
+console.log(page);
+const onPageNext = useCallback((e,newPageNumber) => {
+  e.preventDefault();
+     /*   const currPage = page + 1;
+       localStorage.getItem(page);
+       if (page>=items.totalPage){
+        return;
+      } */
+       /*  if (page <= items.totalPage ) {
+            const querySearch = (search.length > 0) ? ("&search=" + search) : "";
+            history(location.pathname + '?page=' + currPage + querySearch);
+        }
+        setPage((n) => n + 1); */
+        const newPageOffset = items.pageOffset + 1;
         const curPageGrp = Math.ceil(newPageOffset / PageMax);
-        const totPageGrp = Math.ceil(items.totalPage / PageMax);
+        const totPageGrp = Math.ceil(items.totalPage / PageMax );
 
         if (curPageGrp < totPageGrp) {
             const querySearch = (search.length > 0) ? ("&search=" + search) : "";
-            history((location.pathname+location.search+location.hash) + '?page=' + (newPageOffset + 1) + querySearch);
+            history(location.pathname + '?page=' + (newPageOffset + 1) + querySearch);
         }
     }, [history, items, search]);
 
-
-
+    
+console.log(totalPages);
 const onPage = useCallback((e, newPageNumber) => {
   e.preventDefault();
   const querySearch = (search.length > 0) ? ("&search=" + search) : "";
-  history(location.pathname + '?page=' + newPageNumber + querySearch);
+  history(location.pathname + '?page=' + newPageNumber+ querySearch);
 }, [history, search]);
 
 let PageList = [];
@@ -246,7 +272,13 @@ for (let i = 0; i < PageMax; i++) {
             <div className="pagination">
               <ButtonWrap>
                 <Button className="prev" onClick={(e) => onPagePrev(e)}>&lt;</Button>
-                    {PageList}
+                    {/* {PageList.map((item,i)=>{
+                      return(
+                        <Button  onClick={(e) => onPage(e, totalPages)}
+                        className={totalPages === items.currentPage ? "active" : ""}
+                        key={i}>{totalPages}</Button>
+                      )
+                    })} */PageList}
                 <Button className="next" onClick={(e) => onPageNext(e)}>&gt;</Button>
               </ButtonWrap>
             </div>

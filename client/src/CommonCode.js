@@ -116,3 +116,5 @@ export const MaxFileCount = 5;
 export const MB = 5;
 export const LIMIT = MB * 1024 * 1024;
 export const PageMax = 10;
+export const pageNext = 9;
+export const pagePrev = 1;

@@ -61,6 +61,40 @@ router.get('/equipment',verifyToken, async(req,res,next)=>{
    // res.status(errorCode.ok).json({});
 })
 
+//내 예약정보 GET
+router.get('/myreserv',verifyToken,async(req,res,next)=>{
+    let body = req.body;
+    let user_no = req.decoded.user_no;
+    EquipmentReservation.hasOne(EquipmentCategory,{ foreignKey: 'equipment_category_no' , sourceKey: 'equipment_category_no'})
+    let result ;
+    try{
+        result = await EquipmentReservation.findAll({
+            attributes:['created_at','created_user_no','reservation_date'],
+            include:[{model:EquipmentCategory,attributes:['model_name','model_specification','location']}],
+            where:{created_user_no:user_no},
+            order:[['created_at','DESC']],
+            required:false,
+            raw:true,
+        })
+    }
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    for (let i = 0; i < result.length; i++) {
+        result[i]['model_name'] = result[i]['equipment_category.model_name'];
+        delete result[i]['equipment_category.model_name'];
+    }
+        for (let i = 0; i < result.length; i++) {
+        result[i]['specification'] = result[i]['equipment_category.model_specification'];
+        delete result[i]['equipment_category.model_specification'];
+    }
+        for (let i = 0; i < result.length; i++) {
+        result[i]['location'] = result[i]['equipment_category.location'];
+        delete result[i]['equipment_category.location'];
+    }
+    res.json(result);
+})
 
 // 장비 예약 내역 POST
 router.post('/equipment_reserv', verifyToken, async(req,res,next)=>{

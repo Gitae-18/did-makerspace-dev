@@ -1,12 +1,10 @@
 import React,{useEffect}from "react"
 import { useSelector } from "react-redux";
 import { useLocation,useNavigate } from "react-router-dom";
-import SelectDateType1 from "../components/contents/SelectDateType1";
-import { SelectReservation } from "../components/pages/PageSub2";
-import TableType2a from "../components/contents/TableType2a";
+import { DidReservation4 } from "../components/pages/PageSub2";
 import { AuthLevel } from '../CommonCode';
 import qs from 'qs';
-export const EquipmentReservationContainer = (props) =>{
+export const MyReservContainer = (props) =>{
     const { isLoading, isLoggedIn, authority_level } = useSelector(state => state.user);
     const viewState = useSelector(state => state.reservation);
     const { search } = useLocation();
@@ -17,11 +15,11 @@ export const EquipmentReservationContainer = (props) =>{
     useEffect(() => {
         
         if (isLoading) { return; }
-        if (!isLoggedIn) { return history('/notmember',{replace:true}); }
+        if (!isLoggedIn) { return history('/notmember',{replace:false}); }
         
 	}, [isLoading, isLoggedIn, authority_level, history])
-    
-    const View = query.date ? TableType2a : TableType2a;
+
+    const View = query.date ? DidReservation4 : DidReservation4;
 
     return(
         (isLoading || !isLoggedIn /* || authority_level < AuthLevel.partner */) ? <></>:

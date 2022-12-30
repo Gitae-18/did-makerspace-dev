@@ -6,8 +6,8 @@
 @import '../comb/pages/sections.css';
 /* common */
 
-body {font-family:'Noto Sans KR', sans-serif;font-weight:400;font-size:16px;letter-spacing:-1px;line-height:1.2;box-sizing:border-box;overflow-x:hidden;max-width:1280px;margin:0 auto;}
-.wrap{position:relative;height: auto;}
+body {font-family:"Nanum Gothic", "NanumGothicBold", "Malgun Gothic", "sans-serif", Helvetica;font-weight:0;font-size:16px;letter-spacing:-1px;line-height:1.2;box-sizing:border-box;overflow-x:hidden;max-width:1594px;margin:0 auto;}
+.wrap{position:relative;height: auto; }
 .num,.eng{font-family:'Roboto', sans-serif;letter-spacing:0;}
 input:focus,select:focus,textarea:focus,button:focus{outline:none;}
 button{letter-spacing:-1px;}
@@ -20,8 +20,14 @@ button{letter-spacing:-1px;}
   position:relative;
   top:100px;
 }
-#header{width:1600px;height:80px;background-color:rgba(255, 255, 255, 0.8);;font-size:0.rem;text-align:center;border-bottom:1px solid  #e5e5e5;box-sizing:border-box;position:fixed;z-index:1;left:9.2%; border-bottom: 1px solid rgba(255, 255, 255, 0);
-  background-color: rgba(142, 148, 151, 0.9);
+#root{
+  background-color:rgba(219, 219, 219, 0.295);
+}
+#header{width:100%;height:80px;background-color:rgba(255, 255, 255, 1);font-size:0.rem;text-align:center;box-sizing:border-box;position:fixed;left:0;z-index:1;border-bottom:0.5px solid #2c2c2c;
+  justify-content: center;
+  justify-items: center;margin:0 auto;
+ /*  background-color: rgba(142, 148, 151, 0.9) */;
+
   z-index:101;
   -webkit-transition: 0.5s;
   transition: 0.5s;
@@ -33,23 +39,22 @@ button{letter-spacing:-1px;}
           justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
-          align-items: center;}
-          *{
+          align-items: center;
+        }
+        #header .mainmenu{ width:100%;position:relative; left:0; }
+        #header .mainmenu .gnb_cover{margin: 0 auto;position:relative;
+          width:1700px;}
+        *{
             list-style:none;
         }
         a{
             text-decoration: none;
         }
-        .btn_box ol.menu {
-          display: -webkit-box;
-          display: -ms-flexbox;
-          display: flex;
-        }
-       #header .menu_dep2{
+       
+       #header .mainmenu .gnb_cover .menu_dep2{
           z-index: 10;
           position: fixed;
           left: 0;
-          top: 80px;
           width: 100%;
           height: 0;
           display: -webkit-box;
@@ -61,90 +66,92 @@ button{letter-spacing:-1px;}
           gap: 30px;
           overflow: hidden;
           background-color: #313f4f;
-          opacity: 0.9;
           -webkit-transition: 0.5s;
           transition: 0.5s;
           }
-          #header  .menu > li:hover .menu_dep2 li a:hover{
+          #header  .mainmenu .gnb_cover .menu > li:hover .menu_dep2 li a:hover{
           background-color:#fff;
           color:#313f4f;
           }
-          #header .menu > li:hover .menu_dep2::before{
+          #header .mainmenu .gnb_cover .menu > li:hover .menu_dep2::before{
             display:flex;
             z-index: 999;
             height: 0px;
             width: 0px;
           }
-          #header .menu > li:hover .menu_dep2,
-          #header .menu > li:active .menu_dep2,
-          #header .menu li .menu_dep2:hover{
+          #header .mainmenu .gnb_cover .menu > li:hover .menu_dep2,
+          #header .mainmenu .gnb_cover .menu > li:active .menu_dep2,
+          #header .mainmenu .gnb_cover .menu li .menu_dep2:hover{
+          position:absolute;
           display:flex;
           z-index: 1000;
-          height: 60px;
-          left:9.2%;
-          width:1600px;
+          height: 40px;
+          left:4.4%;
+          width:1594px;
           transition: all 1s;
           visibility: visible;
-	        animation:setMotion 3s;
+	 /*        animation:setMotion 1s;
           }
           @keyframes setMotion {
             0%{
               opacity:0;
-              animation-duration: 3s;
             }
             100%{
-              opacity:1;
-            }
+              opacity:0;
+            } */
           }
-          #header .menu ol{
+          #header .mainmenu .gnb_cover .menu ol{
           display:none;
           }
-          #header .menu > li:hover .menu_dep2 a {
+          #header .mainmenu .gnb_cover .menu > li:hover .menu_dep2 a {
           color: #fff;
+          position:relative;
+          bottom:20px;
           }
           
-          #header .menu > li:hover .menu_dep2 a:hover {
+          #header .mainmenu .gnb_cover .menu > li:hover .menu_dep2 a:hover {
           background: #fff;
           color: #313f4f;
           }
           
         
- #header  .login_box .login{padding:0;display:inline-block;width:7vw;background:#313f4f;color:#fff;font-size:16px;position:relative;right:-15px;border:0;height:6vh;cursor:pointer;bottom:13px;left:0px;width:12vw;}
- #header .login_box .close{padding:0;display:inline-block;width:7vw;background:#313f4f;color:#fff;font-size:16px;position:relative;right:-15px;border:0;height:6vh;cursor:pointer;bottom:13px;left:0px;width:12vw;}
- #header .member_box{float:right;position:relative; right:2.5vw;}
- #header .member_box span{position:relative;font-size:0.9rem;color:#666;height:80px;line-height:80px;padding:0 16px;cursor:pointer;}
+ #header .mainmenu .login_box .login{padding:0;display:inline-block;width:7vw;background:#313f4f;color:#fff;font-size:16px;position:relative;right:-15px;border:0;height:6vh;cursor:pointer;bottom:13px;left:0px;width:12vw;}
+ #header .mainmenu .login_box .close{position:relative;display:inline-block; background:#313f4f;width:12vw;height:6vh;border:0;cursor:pointer;left:0px;top:10vh;color:#fff}
+ #header .mainmenu .member_box{position:relative;}
+ #header .mainmenu .member_box span{position:relative;font-size:0.9rem;color:#666;height:80px;line-height:80px;padding:0 16px;cursor:pointer;}
           /*#header .member_box span.name{padding-left:32px;}*/
- #header .member_box span.name.on:before{display:block;content:"";;height:8px;background:#cd0000;border-radius:50%;position:absolute;top:-2px;left:18px;z-index:2;}
- #header .member_box span.name:after{display:block;content:"";width:25px;height:25px;background:url(/images/ico_member.png) no-repeat 0 0;position:absolute;left:0;top:50%;margin-top:-12.5px;z-index:1;}
- #header .member_box span.my_info:after{display:block;content:"";width:1px;height:26px;background:#666;position:absolute;left:0;top:50%;margin-top:-13px;}
- #header .logout{position:absolute;padding:0;float:right;height:auto;line-height:80px;width:100px;background:#313f4f;color:#fff;font-size:0.9rem;border:0;cursor:pointer;right:0px;}
+ #header .mainmenu .member_box span.name.on:before{display:block;content:"";height:8px;background:#cd0000;border-radius:50%;position:relative;top:-2px;left:18px;z-index:2;color:#000;}
+ #header .mainmenu .member_box span.name:after{display:block;content:"";width:25px;height:25px;background:url(/images/ico_member.png) no-repeat 0 0;position:relative;left:0;top:50%;margin-top:-12.5px;z-index:1;}
+ #header .mainmenu .member_box span.my_info:after{display:block;content:"";width:1px;height:26px;background:#666;position:absolute;left:0;top:50%;margin-top:-13px;}
+ #header .mainmenu .logout{position:relative;padding:0;float:right;height:auto;line-height:80px;width:100px;background:#313f4f;color:#fff;font-size:0.9rem;border:0;cursor:pointer;}
           
 #header:after{display:block;content:"";clear:both;}
-#header .logo2{float:left;height:80px;width:250px;line-height: 80px;}
-#header .logo2 img{margin-top:20px; width:200px;height:40px;}
-#header .btn_box li{float:left;letter-spacing:0;word-spacing:0;position:relative;overflow:hidden}
-#header .btn_box li a{display:inline-block;height:80px;line-height:80px;color:#fff;transition:all 0.2s linear;-webkit-transition:all 0.2s linear;font-size:0.8rem;font-weight:500;margin: 0 auto;width:118px;}
-#header .btn_box li a:hover{background: #313f4f;}
-#header .btn_box li a.on{background:#e5e5e5;}
-#header .login_button button{ float:left;position:relative;left:17.3vw;bottom:6vh;}
+#header .mainmenu .logo2{float:left;height:80px;width:250px;line-height: 80px;position:relative;  }
+#header .mainmenu .logo2 img{margin-top:13px; width:80px;height:55px;  }
+#header .mainmenu .btn_box {position:relative;}
+#header .mainmenu .btn_box li{float:left;letter-spacing:0;word-spacing:0;overflow:hidden;}
+#header .mainmenu .btn_box li a{display:inline-block;height:80px;line-height:80px;color:#000;transition:all 0.2s linear;-webkit-transition:all 0.2s linear;font-size:0.9rem;font-weight:400;margin: 0 10px;width:120px;}
+#header .mainmenu .btn_box li a:hover{background: #313f4f;color:#fff;}
+#header .mainmenu .btn_box li a.on{background:#e5e5e5;}
+#header .mainmenu .login_button button{ }
 form{float:left;}
-#header .join_box{right:150px;bottom:15px;float:left;margin-left:4px;font-size:0;letter-spacing:0;word-spacing:0;color:#000;overflow:hidden;position: absolute;}
-#header .join_box a{padding:0 7px;display:inline-block;position:relative;height:62px;line-height:80px;color:#fff;font-size:13px;letter-spacing:0px;overflow:hidden}
-#header .join_box a.join:after{display:block;content:"";width:1px;height:16px;background:#666;position:absolute;right:0;top:58%;margin-top:-8px;color:#fff;overflow:hidden}
-#header .join_box a.find_pw{position:relative;left:-2px;overflow:hidden}
-#header .login_box input[type=text]{border:1px solid #cbcccc;width:12vw;height:5vh;background:#c1c1c1;color:#666;padding-left:40px;box-sizing:border-box;border-radius:8px;font-size:13px;overflow:hidden}
-#header .login_box input[type=password]{border:1px solid #cbcccc;width:12vw;height:5vh;background:#c1c1c1;color:#666;padding-left:40px;box-sizing:border-box;border-radius:8px;font-size:13px;overflow:hidden}
-#header .login_box .id{position:relative;display:inline-block;margin-top:15px;margin-left:6px;overflow:hidden}
-#header .login_box .id span{display:block;position:absolute;left:10px;top:50%;margin-top:-9px;width:14px;height:18px;background:url(/images/ico_id.png) no-repeat 0 0;overflow:hidden}
-#header .login_box .pw{position:relative;display:inline-block;margin-top:15px;margin-left:4px;overflow:hidden}
-#header .login_box .pw span{display:block;position:absolute;left:10px;top:50%;margin-top:-9px;width:13px;height:18px;background:url(/images/ico_pw.png) no-repeat 0 0;overflow:hidden}
-#header .login_box p.chkBox{top:50px;right:100px;position:relative;font-size:0.9rem;margin-top:18px;display:inline-block;padding-left:24px;font-size:13px;color:#000;margin-left:15px;overflow:hidden}
-#header .login_box .login{position:absolute;top:230px; width:12vw;height:50px}
-#header .login_box .close{position:absolute;top:300px; width:12vw;height:50px}
-#header .login_box{position:relative;left:60px;top:150px;height:100px;}
-
-#header .login_button button{cursor: pointer;position:absolute;left:92.5%;height:80px;cursor: pointer;top:1px;}
-#header .login_box p.chkBox input[type=checkbox] {
+#header .mainmenu .join_box{float:left;margin-left:4px;font-size:0;letter-spacing:0;word-spacing:0;color:#000;overflow:hidden;position: relative;left:150%;}
+#header .mainmenu .join_box a{padding:0 7px;display:inline-block;position:relative;height:62px;line-height:80px;color:#000;font-size:13px;letter-spacing:0px;overflow:hidden}
+#header .mainmenu.join_box a.join:after{display:block;content:"";width:1px;height:16px;background:#666;position:relative;right:0;top:58%;margin-top:-8px;color:#000;overflow:hidden}
+#header .mainmenu .join_box a.find_pw{position:relative;left:-2px;overflow:hidden}
+#header .mainmenu .login_box input[type=text]{border:1px solid #cbcccc;width:230px;height:50px;background:#c1c1c1;color:#666;padding-left:40px;box-sizing:border-box;border-radius:8px;font-size:13px;overflow:hidden}
+#header .mainmenu .login_box input[type=password]{border:1px solid #cbcccc;width:230px;height:50px;background:#c1c1c1;color:#666;padding-left:40px;box-sizing:border-box;border-radius:8px;font-size:13px;overflow:hidden}
+#header .mainmenu .login_box .id{position:relative;display:inline-block;margin-top:15px;margin-left:6px;overflow:hidden}
+#header .mainmenu .login_box .id span{display:block;position:absolute;left:10px;top:50%;margin-top:-9px;width:14px;height:18px;background:url(/images/ico_id.png) no-repeat 0 0;overflow:hidden}
+#header .mainmenu .login_box .pw{position:relative;display:inline-block;margin-top:15px;margin-left:4px;overflow:hidden}
+#header .mainmenu .login_box .pw span{display:block;position:absolute;left:10px;top:50%;margin-top:-9px;width:13px;height:18px;background:url(/images/ico_pw.png) no-repeat 0 0;overflow:hidden}
+#header .mainmenu .login_box p.chkBox{top:50px;position:relative;font-size:0.9rem;margin-top:18px;display:inline-block;padding-left:24px;font-size:13px;color:#000;margin-left:15px;overflow:hidden;right:100px;}
+#header .mainmenu .login_box .login{position:absolute;top:250px; width:230px;height:50px}
+#header .mainmenu .login_box .close{position:absolute;top:320px; width:230px;height:50px}
+#header .mainmenu .login_box{position:relative;left:80px;top:150px;height:100px;}
+#header .mainmenu .login_button{float:left;position:absolute;width:150px;height:80px;top:60px;}
+#header .mainmenu .login_button .log_on{width:110px;height:90px;cursor: pointer;position:relative;left:449px;bottom:70px;height:90px;line-height: 100px;}
+#header .mainmenu .login_box p.chkBox input[type=checkbox] {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -152,17 +159,17 @@ form{float:left;}
   width: 0;
   overflow:hidden;
 }
-#header .login_box p.chkBox .checkmark {
+#header .mainmenu .login_box p.chkBox .checkmark {
   position: absolute;
   top: 0;
-  left:0;
-  height: 1.5vh;
+  left: 0;
+  height: 15px;
   width: 16px;
   background-color: #f8f8f8;
   overflow:hidden;
   border:0.8px solid #000;
 }
-#header .login_box p.chkBox .checkmark:after {
+#header .mainmenu .login_box p.chkBox .checkmark:after {
 content:"";
 position:absolute;
 display:block;
@@ -178,13 +185,13 @@ display:block;
   overflow:hidden
 }
 
-#header .login_box p.chkBox input:checked ~ .checkmark:after{content:"";
+#header .mainmenu .login_box p.chkBox input:checked ~ .checkmark:after{content:"";
 position:absolute;
 display:block;
-  left: 5px;
-  top: 0px;
+  left:3px;
   width: 5px;
-  height: 10px;
+  bottom: 11px;
+  height: 8px;
   border: solid #0f2753;
   border-width: 0 2px 2px 0;
   -webkit-transform: rotate(45deg);
@@ -192,17 +199,7 @@ display:block;
   transform: rotate(45deg);
   overflow:hidden}
 
-/* top menu */
-.wrap .top_menu{height:48px;line-height:48px;border:1px solid #e5e5e5;box-sizing:border-box;margin-bottom:60px;overflow:hidden}
-.wrap .top_menu ul:after{display:block;content:"";clear:both;}
-.wrap .top_menu li{float:left;width:20%;}
-.wrap .top_menu li button{padding-top:10px;}
-.wrap .top_menu li a{position:relative;display:block;color:#666;text-align:center;font-weight:500;font-size:14px;border:1px solid transparent;box-sizing:border-box;}
-.wrap .top_menu li a.on:before{display:block;content:"";width:102%;height:48px;position:absolute;left:-3px;top:0;border:1.5px solid #222;box-sizing:border-box;z-index:3;}
-.wrap .top_menu li a:hover:before{display:block;content:"";width:102%;height:48px;position:absolute;left:-3px;top:0;border:1.5px solid #222;box-sizing:border-box;z-index:3;}
-.wrap .top_menu li a:after{z-index:1;display:block;content:"";width:1px;height:22px;background:#e5e5e5;position:absolute;right:0;top:50%;margin-top:-11px;}
-.wrap .top_menu li:last-of-type a:after{display:none;}
-.wrap .top_menu .num{font-size:16px;font-weight:bold;}
+
 
 
 /* side menu*/
@@ -309,9 +306,9 @@ width:6px;height:6px;border-radius:50%;background:#0f2753;position:absolute;top:
 /* 2021-12-28 */
 .sidebar{}
 .sidebar .inner_menu{position:absolute;top:121px;width:144px;}
-#header .member_box{position:relative;}
-#header .member_box span{color:#fff;}
-#header .member_box span a{color:#fff;}
+#header .member_box{position:relative;left:42px;}
+#header .member_box span{color:#000;}
+#header .member_box span a{color:#000;}
 #header .member_box span.alarm{margin-right:6px;}
 #header .member_box span.alarm:after{display:block;content:"";width:25px;height:25px;background:url(/images/ico_alarm.png) no-repeat 50% 50%;position:absolute;left:0;top:50%;margin-top:-12.5px;z-index:1;}
 #header .member_box span.alarm.on:before{display:block;content:"";width:8px;height:8px;border-radius:50%;position:absolute;top:-2px;left:14px;z-index:2;}
