@@ -135,8 +135,8 @@ router.post('/addprogram',verifyToken,async(req,res,next)=>{
            map_url : body.map,
            hit : body.hit,
            popup_flag : body.popup_flag,
-           created_at:user_no,
-           updated_at:user_no,
+           created_user_no:user_no,
+           updated_user_no:user_no,
         })
     }
     catch(error){

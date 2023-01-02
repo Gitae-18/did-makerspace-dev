@@ -477,6 +477,8 @@
   background-color:#313f4f;
   width:120px;
   height:40px;
+  position:relative;
+  left:50%;
 }
 .section_input_text_type1d button.cancel {
   position:relative;

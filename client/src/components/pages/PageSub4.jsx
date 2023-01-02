@@ -13,6 +13,7 @@ import Menu from "../Menu";
 import InfoType3a from "../contents/InfoType3a";
 import InfoType3c from '../contents/InfoType3c';
 import SectionInputTextType1e from "../sections/SectionInputTextType1e";
+import SectionInputTextType1h from "../sections/SectionInputTextType1h";
 export default function Contact({location,history}) {
     const [value,setValue] = useState("");
     return (
@@ -65,12 +66,12 @@ export default function Contact({location,history}) {
         </>
       );
   }
-  export const ContactNoticeDetail = ({location,history}) => {
+  export const ContactNoticeDetail = () => {
     return (
         <>
          
         <div id="sub_page_wrap">
-          <SubSideMenu title={"자료실"} subtitle={"문서자료"}></SubSideMenu>
+          <SubSideMenu title={"공지사항"}></SubSideMenu>
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
              <SectionInputTextType1e/>
@@ -108,6 +109,23 @@ export default function Contact({location,history}) {
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
               <PageSub07c/>
+            </div>
+          </div>
+        </div>
+        <div className="sub_page_outer">
+        </div>
+        </>
+      );
+  }
+  export const AddNotice = () => {
+    return (
+        <>
+         
+        <div id="sub_page_wrap">
+          <SubSideMenu title={"공지사항"}></SubSideMenu>
+          <div className="sub_page_inner_wrap">
+            <div className="sub_inner">
+              <SectionInputTextType1h/>
             </div>
           </div>
         </div>

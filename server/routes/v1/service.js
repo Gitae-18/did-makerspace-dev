@@ -960,7 +960,6 @@ router.put('/:service_no/memo', async (req, res, next) => {
     // let authority_level = req.decoded.authority_level;
     let service_no = req.params.service_no;
 
-    console.log(req.body);
     try {
         memo = await ServiceApplication.update({
             memo,
@@ -969,9 +968,9 @@ router.put('/:service_no/memo', async (req, res, next) => {
             content,
             business_plan,
         },
-            {
-                where: { service_no }
-            })
+        {
+          where: { service_no }
+        })
         return res.send(memo);
     } catch (error) {
         console.log(error);

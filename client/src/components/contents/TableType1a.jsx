@@ -19,6 +19,7 @@ export default function TableType1a() {
   const history = useNavigate();
   const [spaceList,setSpaceList] = useState([]);
   const [spacename,setSpacename] = useState([]);
+  //pagenation
   const [page,setPage] = useState(1);
   const [search,setSearch] = useState('');
   const [count,setCount] = useState(0);

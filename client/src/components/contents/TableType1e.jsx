@@ -1,15 +1,102 @@
-import React from "react";
+import React,{useState,useEffect,useCallback} from "react";
 import ButtonType2 from "./ButtonType2";
 import { useLocation,useNavigate,NavLink } from "react-router-dom";
+import {useSelector,useDispatch} from "react-redux";
+import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
+import { M_NOTICE_SET } from "../../store/notice";
+import { Paging } from "./Paging";
 import styled from "styled-components";
 export default function TableType1e() {
+  const { token } = useSelector(state => state.user);
   const location = useLocation();
   const history = useNavigate();
-  const onItem = () =>{
-    history(location.pathname + '/detail');
+  const dispatch = useDispatch();
+  const [data,setData] = useState([]);
+  //pagenation
+  const [page,setPage] = useState(1);
+  const [search,setSearch] = useState('');
+  const [count,setCount] = useState(0);
+  const [currentPage,setCurrentPage] = useState(1);
+  const [currentPosts,setCurrentPosts] = useState([]);
+  const postPerPage = 10;
+  const offset = (page-1)*postPerPage;
+  const indexOfLastPost = currentPage * postPerPage
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+  const currentPost = data.slice(indexOfFirstPost, indexOfLastPost)
+  //pagenation
+  const getData = useCallback(async()=>{
+    CommonHeader.authorization = token;
+    let requri = PreUri + '/notice/noticelist';
+    const response = await fetch(requri,{
+      method:Method.get,
+      headers:CommonHeader,
+    })
+    if(!response.ok) {
+      console.log('잘못된 접근입니다.');
+      return;
+    }
+    const json = await response.json();
+    console.log(json);
+    setData(json);
+    setCount(json.length)
+  },[token])
+
+
+  const onChange = (e) =>{
+    e.preventDefault();
+    setSearch(e.target.value);
   }
+  const handlePageChange = (e) =>{
+    setCurrentPage(e)
+  }
+  const onSearch = useCallback(async(e) =>{
+    e.preventDefault();
+
+    if(search=== null || search === ''){
+        let requri = PreUri + '/notice/noticelist';
+      const response = await fetch(requri, {
+        method:Method.get,
+        headers:CommonHeader
+      });
+      const json = await response.json(); 
+      setData(json);
+      setCurrentPosts(json);
+  }
+  else{
+    const filterData = data.filter((item) => item.space_name.includes(search))
+    setData(filterData)
+    setCurrentPosts(filterData)
+    setCurrentPage(1)
+  }
+ setSearch('');
+},[search])
+
+  const onItem = useCallback(async(e,index)=>{
+    const hit_cnt = data[index].hit;
+    const notice_no = data[index].notice_no;
+    dispatch({ type: M_NOTICE_SET, target: notice_no });
+    //조회수 증가
+    const response = await fetch(PreUri + '/notice/notice_cnt',{
+        method:Method.put,
+        headers:CommonHeader,
+        body:JSON.stringify(
+          {
+            hit : hit_cnt,
+            notice_no:notice_no,
+          }
+        )
+    })
+    if(!response.ok) {
+      console.log('잘못된 접근입니다.');
+      return;
+    }
+    history('/noticecontact/notice/detail',{state:{no:notice_no}});
+  },[data,dispatch])
+  useEffect(()=>{
+    getData();
+  },[getData,token])
   const onWrite = () =>{
-    history('/notcomplete');
+    history('/noticecontact/addnotice');
   }
   return (
     <div className="table_wrap table_type1">
@@ -21,8 +108,8 @@ export default function TableType1e() {
           <select name="" id="">
             <option value="1">제목</option>
           </select>
-          <input type="text" name="" id="" placeholder="제목을 입력하세요" />
-          <StyledBtn>조회</StyledBtn>
+          <input type="text" name="" id="" placeholder="제목을 입력하세요" onChange={onChange}/>
+          <StyledBtn onClick={onSearch}>조회</StyledBtn>
         </div>
       </div>
       <table>
@@ -37,99 +124,20 @@ export default function TableType1e() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>10</td>
-            <td onClick={onItem}>공지사항 1.</td>
+          {data.length > 0 ? data.map((item,index)=>(
+            <tr key={index}>
+            <td onClick={(e)=>onItem(e,index)}>{item.notice_no}</td>
+            <td onClick={(e)=>onItem(e,index)}>{item.title}</td>
             <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
+            <td>{item.created_at.slice(0,10)}</td>
+            <td>{item.hit}</td>
           </tr>
-          <tr>
-            <td>10</td>
-            <td onClick={onItem}>공지사항 2.</td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td onClick={onItem}>공지사항 3.</td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td onClick={onItem}>공지사항 4.</td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td onClick={onItem}>공지사항 5.</td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td onClick={onItem}>공지사항 6.</td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td onClick={onItem}>공지사항 7.</td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td onClick={onItem}>공지사항 8.</td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td onClick={onItem}>공지사항 9.</td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td onClick={onItem}>공지사항 10.</td>
-            <td>최고관리자</td>
-            <td>03-25</td>
-            <td>222</td>
-          </tr>
+          )):<div>게시물이 없습니다.</div>}
         </tbody>
       </table>
       <StyledBtn2 onClick={onWrite}>글쓰기</StyledBtn2>
       <div className="page_control">
-        <div className="btn_first btn-s">
-          <img src="/images/backward-solid.svg" alt="처음으로" />
-        </div>
-        <div className="btn_prev">
-          <img src="/images/caret-left-solid.svg" alt="이전으로" />
-        </div>
-        <ol className="btn_page_num">
-          <li className="on">1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
-        </ol>
-        <div className="btn_next">
-          <img src="/images/caret-right-solid.svg" alt="다음으로" />
-        </div>
-        <div className="btn_last btn-s">
-          <img src="/images/forward-solid.svg" alt="끝으로" />
-        </div>
+      <Paging totalCount={count} page={page} postPerPage={postPerPage} pageRangeDisplayed={5} handlePageChange={handlePageChange}/>
       </div>
       
     </div>

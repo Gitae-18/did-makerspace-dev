@@ -1,4 +1,4 @@
-import React,{useEffect,useState,useCallback}from "react";
+import React,{useEffect,useState,useCallback,useMemo}from "react";
 import { useNavigate,useLocation } from "react-router-dom";
 import { useSelector , useDispatch} from "react-redux";
 import TitleType1 from "./TitleType1";
@@ -9,7 +9,6 @@ import styled from "styled-components";
 import PopupModal2 from "../PopupModal2";
 import SubSideMenu from "./SubSideMenu";
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
-import { useMemo } from "react";
 import { COUNT_INCREASE } from "../../store/action";
 export default function InfoType2b() {
   const history = useNavigate();

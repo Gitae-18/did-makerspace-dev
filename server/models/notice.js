@@ -8,10 +8,6 @@ module.exports = (sequelize,DataTypes) => {
             allowNull:false,
             primaryKey:true,
         },
-        user_no:{
-            type: DataTypes.INTEGER,
-            allowNull:false,
-        },
         attached_file:{
             type: DataTypes.STRING(255),
             allowNull:true,
@@ -20,9 +16,14 @@ module.exports = (sequelize,DataTypes) => {
             type: DataTypes.STRING(55),
             allowNull:false,
         },
+        content:{
+            type: DataTypes.STRING(255),
+            allowNull:false,
+        },
         hit:{
             type: DataTypes.INTEGER,
             allowNull:false,
+            defaultValue:0,
         },
         created_user_no: {
             type: DataTypes.INTEGER,

@@ -219,7 +219,7 @@ export default function SubSideMenu(props) {
             </ol>
           </li>
           <li>
-            <p onClick={Dep2Handler}><Link to ={'/noticecontact/notice'}>공지사항</Link></p>
+            <p onClick={Dep2Handler}><Link to ={'/notice'}>공지사항</Link></p>
           </li>
         </ol>
       );
@@ -252,7 +252,7 @@ export default function SubSideMenu(props) {
             </ol>
           </li>
           <li>
-            <p onClick={Dep2Handler}><Link to ={'/noticecontact/notice'}>시제품제작안내</Link></p>
+            <p onClick={Dep2Handler}><Link to ={'/noticecontact'}>시제품제작안내</Link></p>
           </li>
         </ol>
     )
@@ -300,7 +300,7 @@ export default function SubSideMenu(props) {
         url.pathname.includes("mentor") === true && authority_level >=10?<SubModal04/>
         :url.pathname.includes('mentor')===true && authority_level<10? <MentoringUser/>
         :url.pathname.includes("program")===true?<SubModal05/>
-        :url.pathname.includes("contact") === true?<SubModal07/>
+        :url.pathname.includes("contact")||url.pathname.includes("notice") === true?<SubModal07/>
         :url.pathname.includes("mservice")===true && authority_level>10?<SubModal08/>
         :url.pathname.includes("uservice")===true && authority_level<10?<SubModal09/>:<SubModal06/>}
       </div>

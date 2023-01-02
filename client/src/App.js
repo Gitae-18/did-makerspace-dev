@@ -49,6 +49,9 @@ import { ClassContainer } from './containers/ClassContainer';
 import { EduContainer } from './containers/EduContainer';
 import { EduAddContainer } from './containers/EduAddContainer';
 import { ClassAddContainer } from './containers/ClassAddContainer';
+import { NoticeAddContainer } from './containers/NoticeAddContainer';
+import { NoticeContainer } from './containers/NoticeContainer';
+import { NoticeDetailContainer } from './containers/NoticeDetailContainer';
 import Material from './components/Admin/Material/Material';
 import MaterialItem from './components/Admin/Material/MaterialItem';
 import MaterialList from './components/Admin/Material/MaterialList';
@@ -64,7 +67,7 @@ import DidInfo,{DidInfo2,DidInfo3,DidInfo4,DidInfo5,DidInfo6,DidInfo7,DidInfo8,D
 import ListType1a from './components/contents/ListType1a';
 import DidReservation,{DidReservation2,DidReservation3,DidReservation4,SelectReservation,TestReservation} from './components/pages/PageSub2';
 import ClassEdu_Program,{ClassEdu_Program2,ClassEdu_program3,ClassEdu_program4} from './components/pages/PageSub3';
-import Contact,{Contact2,Contact3,ContactNoticeDetail,Contact5,Contact6,ContactDetail,ContactDetail2,BasicDetail} from './components/pages/PageSub4';
+import Contact,{Contact2,Contact3,ContactNoticeDetail,Contact5,Contact6,ContactDetail,ContactDetail2,BasicDetail,AddNotice} from './components/pages/PageSub4';
 import Mentoring,{UMentoring,UMentoringApplication,MserviceGuide}from './components/pages/PageSub5';
 import { MentorApplication,MentorApplicationDetail,MentoringReport,MentoringReportDetail,MentorAuthority,ClassEduControl, ClassEduControl2} from './components/pages/PageSub6';
 import NotCompeleted from './components/NotCompeleted';
@@ -157,8 +160,9 @@ const App = () => {
         <Route path="/archivecontact/video" element = {<Contact2/>}/>
         <Route path="/archivecontact/text" element = {<Contact5/>}/>
         <Route path="/archivecontact/basic" element = {<Contact3/>}/>
-        <Route path="/noticecontact/notice" element = {<Contact6/>}/>
-        <Route path="/noticecontact/notice/detail" element = {<ContactNoticeDetail/>}/>
+        <Route path="/notice" element = {<NoticeContainer/>}/>
+        <Route path="/noticecontact/addnotice" element = {<NoticeAddContainer/>}/>
+        <Route path="/noticecontact/notice/detail" element = {<NoticeDetailContainer/>}/>
         <Route path='/archivecontact/video/detail' element = {<ContactDetail/>}/>
         <Route path='/archivecontact/text/detail' element = {<BasicDetail/>}/>
         <Route path='/archivecontact/basic/detail' element = {<ContactDetail2/>}/>

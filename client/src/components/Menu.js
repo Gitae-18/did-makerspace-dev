@@ -69,7 +69,7 @@ const UserMenu = ({authority_level,history,path}) => {
       <ol className='menu_dep2'>
         <li><NavLink to={'/contact'}>연락처 안내</NavLink></li>
         <li><NavLink to={'/archivecontact/video'}>자료실</NavLink></li>
-        <li><NavLink to={'/noticecontact/notice'}>공지사항</NavLink></li>   
+        <li><NavLink to={'/notice'}>공지사항</NavLink></li>   
       </ol>
     );
   }
@@ -170,7 +170,7 @@ const AdminMenu = ({viewDepth}) => {
       <ol className='menu_dep2'>
         <li><NavLink to={'/contact'}>연락처 안내</NavLink></li>
         <li><NavLink to={'/archivecontact/video'}>자료실</NavLink></li>
-        <li><NavLink to={'/noticecontact/notice'}>공지사항</NavLink></li>   
+        <li><NavLink to={'/notice'}>공지사항</NavLink></li>   
       </ol>
     );
   }
