@@ -60,7 +60,7 @@ const UserMenu = ({authority_level,history,path}) => {
   const SubMenu5 = () => {
     return(
           <ol className='menu_dep2'>
-            <li><NavLink to={'/umentoring'}>멘토링 관리</NavLink></li>
+            <li><NavLink to={'/notcomplete'}>멘토링</NavLink></li>
             <li><NavLink to={'/notcomplete'}>멘토 검색</NavLink></li> 
             <li><NavLink to={'/notcomplete'}>멘토 칭찬</NavLink></li>   
           </ol>
@@ -161,7 +161,7 @@ const AdminMenu = ({viewDepth}) => {
   const SubMenu5 = () => {
     return(
           <ol className='menu_dep2'>
-            <li><NavLink to={'/mentoring'}>멘토링 관리</NavLink></li>
+            <li><NavLink to={'/notcomplete'}>멘토링 관리</NavLink></li>
             <li><NavLink>멘토 검색</NavLink></li>
             <li><NavLink>멘토 칭찬</NavLink></li>   
           </ol>

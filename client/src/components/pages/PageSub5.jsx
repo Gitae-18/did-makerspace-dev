@@ -2,7 +2,7 @@ import React ,{useState} from "react";
 import SubSideMenu,{SubSideMenu2} from "../contents/SubSideMenu";
 import TableType5c from "../contents/TableType5c";
 import MServiceGuide from "../contents/ServiceGuide";
-import SectionInputTextType1f from "../sections/sectionInputTextType1f";
+import SectionInputTextType1f from "../sections/SectionInputTextType1f";
 import SectionTextType2a from "../sections/SectionTextType2a";
 import PageSub04a1 from "./PageSub04/PageSub04a1";
 import PageSub04a2 from "./PageSub04/PageSub04a2";

@@ -34,7 +34,7 @@ import PageSub01d from "./PageSub01/PageSub01d";
 //import PageSub07c from "./PageSub07/PageSub07c";
 //import PageSub07c2 from "./PageSub07/PageSub07c2";
 import PageSub07c3 from "./PageSub07/PageSub07c3";
-import SectionInputTextType1f from "../sections/sectionInputTextType1f";
+import SectionInputTextType1f from "../sections/SectionInputTextType1f";
 import SectionInputTextType1g from "../sections/SectionInputTextType1g";
 //import PageSub03a1 from "./PageSub03/PageSub03a1";
 //import PageSub03a2 from "./PageSub03/PageSub03a2";

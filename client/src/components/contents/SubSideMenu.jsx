@@ -297,7 +297,7 @@ export default function SubSideMenu(props) {
       <div className="sub_modal">
         {url.pathname.includes("info") === true ? <SubModal01/> 
         : url.pathname.includes("reservation") === true? <SubModal02/>:
-        url.pathname.includes("mentor") === true && authority_level >=10?<SubModal04/>
+        url.pathname.includes("mentor") === true && authority_level > 1?<SubModal04/>
         :url.pathname.includes('mentor')===true && authority_level<10? <MentoringUser/>
         :url.pathname.includes("program")===true?<SubModal05/>
         :url.pathname.includes("contact")||url.pathname.includes("notice") === true?<SubModal07/>
