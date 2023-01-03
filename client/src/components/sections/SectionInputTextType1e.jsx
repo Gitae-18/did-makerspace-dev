@@ -25,7 +25,6 @@ export default function SectionInputTextType1e() {
     }
     const json = await response.json();
     setData(json);
-    console.log(json);
   },[token,no])
   useEffect(()=>{
     getData();
@@ -53,7 +52,7 @@ export default function SectionInputTextType1e() {
         </li>
         <li>
           <label htmlFor="file01">파일#1</label>
-          <input type="file" name="file01" id="file01" className="w_auto" />
+          <span>첨부된 파일이 없습니다.</span>
         </li>
       </ul>
       <StyledBtn onClick={()=>history(-1)}>목록</StyledBtn>

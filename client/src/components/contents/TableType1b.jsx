@@ -241,7 +241,7 @@ for (let i = 0; i < PageMax; i++) {
     <div className="table_wrap table_type1">
       <div className="table_extra">
         <p>
-          총 <span>20</span>개의 글
+          총 <span>{items.totalCount}</span>개의 글
         </p>
         <div className="table_search">
           <select name="" id="">

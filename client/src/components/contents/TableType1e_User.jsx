@@ -6,7 +6,7 @@ import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRsp
 import { M_NOTICE_SET } from "../../store/notice";
 import { Paging } from "./Paging";
 import styled from "styled-components";
-export default function TableType1e() {
+export default function TableType1e_User() {
   const { token } = useSelector(state => state.user);
   const location = useLocation();
   const history = useNavigate();
@@ -140,7 +140,6 @@ export default function TableType1e() {
           )):<div>게시물이 없습니다.</div>}
         </tbody>
       </table>
-      <StyledBtn2 onClick={onWrite}>글쓰기</StyledBtn2>
       <div className="page_control">
       <Paging totalCount={count} page={page} postPerPage={postPerPage} pageRangeDisplayed={5} handlePageChange={handlePageChange}/>
       </div>

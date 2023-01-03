@@ -14,6 +14,7 @@ import InfoType3a from "../contents/InfoType3a";
 import InfoType3c from '../contents/InfoType3c';
 import SectionInputTextType1e from "../sections/SectionInputTextType1e";
 import SectionInputTextType1h from "../sections/SectionInputTextType1h";
+import TableType1e_User from "../contents/TableType1e_User";
 export default function Contact({location,history}) {
     const [value,setValue] = useState("");
     return (
@@ -100,7 +101,7 @@ export default function Contact({location,history}) {
         </>
       );
   }
-  export const Contact6 = ({location,history}) => {
+  export const Contact6 = () => {
     return (
         <>
          
@@ -109,6 +110,23 @@ export default function Contact({location,history}) {
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
               <PageSub07c/>
+            </div>
+          </div>
+        </div>
+        <div className="sub_page_outer">
+        </div>
+        </>
+      );
+  }
+  export const Contact6_User = () => {
+    return (
+        <>
+         
+        <div id="sub_page_wrap">
+          <SubSideMenu title={"공지사항"}></SubSideMenu>
+          <div className="sub_page_inner_wrap">
+            <div className="sub_inner">
+              <TableType1e_User/>
             </div>
           </div>
         </div>

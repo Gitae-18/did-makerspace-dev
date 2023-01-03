@@ -30,6 +30,7 @@ const classeduRouter = require('./routes/v1/classedu');
 const noticeRouter = require('./routes/v1/notice');
 const spaceRouter = require('./routes/v1/space');
 const userequipmentpassRouter = require('./routes/v1/userequipmentestpass');
+const faqRouter = require('./routes/v1/faq');
 //const surveyRouter = require('./routes/v1/survey');
 
 /*  for redis
@@ -144,7 +145,9 @@ app.use('/api/v1/stastics',stasticsRouter);
 app.use('/api/v1/space',spaceRouter);
 app.use('/api/v1/reservation',reservationRouter);
 app.use('/api/v1/userequipmentestpass',userequipmentpassRouter);
-app.use('/api/v1/classedu',classeduRouter)
+app.use('/api/v1/classedu',classeduRouter);
+app.use('/api/v1/notice',noticeRouter);
+app.use('/api/v1/faq', faqRouter);
 //app.use('/api/v1/mentoring',mentoringRouter);
 //app.use('/api/v1/survey', surveyRouter);
 

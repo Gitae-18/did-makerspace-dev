@@ -58,6 +58,7 @@ import InfoType1a from "../contents/InfoType1a";
 import InfoTypeSpace from "../contents/infotypespace";
 import Menu from "../Menu";
 import { EquipmentContainer } from "../../containers/EquipmentContainer";
+import TableType1d_User from "../contents/TableType1d_User";
 export default function DidInfo() {
   const [value,setValue] = useState("");
   return (
@@ -216,7 +217,7 @@ export const DidInfo8 = ({location,history}) => {
     </>
   );
 }
-export const DidInfo9= ({location,history}) => {
+export const DidInfo9= () => {
   return(
     <>
     
@@ -225,6 +226,21 @@ export const DidInfo9= ({location,history}) => {
       <div className="sub_page_inner_wrap">
         <div className="sub_inner">
           <PageSub01d/>
+        </div>
+      </div>
+    </div>
+    </>
+  );
+}
+export const DidInfo10= () => {
+  return(
+    <>
+    
+    <div id="sub_page_wrap">
+      <SubSideMenu title={"FAQ"}></SubSideMenu>
+      <div className="sub_page_inner_wrap">
+        <div className="sub_inner">
+          <TableType1d_User/>
         </div>
       </div>
     </div>

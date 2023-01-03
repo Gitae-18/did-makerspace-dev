@@ -13,6 +13,7 @@ import Privacy from './components/Privacy';
 import Terms from './components/Terms';
 import UGuide from './components/User/Guide';
 import NotCompelete from './components/NotCompeleted'
+import { useSelector } from 'react-redux';
 import {CookiesProvider} from 'react-cookie';
 import PageSub01b2 from './components/pages/PageSub01/PageSub01b2';
 import PageSub01b3 from './components/pages/PageSub01/PageSub01b3';
@@ -52,6 +53,9 @@ import { ClassAddContainer } from './containers/ClassAddContainer';
 import { NoticeAddContainer } from './containers/NoticeAddContainer';
 import { NoticeContainer } from './containers/NoticeContainer';
 import { NoticeDetailContainer } from './containers/NoticeDetailContainer';
+import { FaqContainer } from './containers/FaqContainer';
+import { FaqAddContainer } from './containers/FaqAddContainer';
+import { FaqDetailContainer } from './containers/FaqDetailContainer';
 import Material from './components/Admin/Material/Material';
 import MaterialItem from './components/Admin/Material/MaterialItem';
 import MaterialList from './components/Admin/Material/MaterialList';
@@ -78,14 +82,17 @@ import NotCompeleted from './components/NotCompeleted';
 
 export const ScrollToTop = () =>{
   const { pathname } = useLocation();
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
   setTimeout(() => {  window.scrollTo(0, 0);  }, 300);
 }
 const App = () => {
-
+  const { authority_level } = useSelector(state => state.user);
+  let user_style = {
+    position:"relative",
+    left:"100px",
+  }
   return (
     
     <BrowserRouter>
@@ -94,7 +101,7 @@ const App = () => {
         <div className="mainmenu">
           <div className='gnb_cover'>
           <Link to="/"><span className='logo2'><img src="/images/logo.png" alt="로고"/></span></Link>
-          <Menu />
+          <Menu style={authority_level < 10? {user_style}:{}}/>
           <Login />
           </div>
         </div>
@@ -137,9 +144,9 @@ const App = () => {
         <Route path="/info/organization" element = {<DidInfo6/>}/>
         <Route path="/info/partner" element = {<DidInfo7/>}/>
         <Route path="/info/way" element = {<DidInfo8/>}/>
-        <Route path="/info/faq/*" element = {<DidInfo9/>}/>
-        <Route path="/info/faq/faq1" element = {<DidInfo1Detail/>}/>
-        <Route path="/info/write" element = {<DidFaqWrite/>}/>
+        <Route path="/info/faq/*" element = {<FaqContainer/>}/>
+        <Route path="/info/faq/faq1" element = {<FaqDetailContainer/>}/>
+        <Route path="/info/write" element = {<FaqAddContainer/>}/>
 
         <Route path="/didreservation" element = {<EqReservation/>}/>
         <Route path="/reservation/space" element = {<DidReservation2/>}/>

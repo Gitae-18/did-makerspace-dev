@@ -201,8 +201,8 @@ export default function () {
         <>
         <div id="wrap" className='wrap utilize1'>
             <div className="content_wrap">
+            <SubSideMenu title={"시제품제작"} subtitle={"시제품 제작신청"}/>
                 <div className="inner_wrap">
-                    <SubSideMenu title={"시제품제작"} subtitle={"시제품 제작신청"}/>
                     <div className='under'>
                     <div className="top_menu">
                         <UServiceNavi step={0} />

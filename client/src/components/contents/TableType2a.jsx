@@ -111,10 +111,6 @@ export default function TableType2a() {
     <div className="table_wrap table_type2">
       <div className="table_extra">
         <ButtonType2 btnName="내 예약 정보 조회"></ButtonType2>
-        <select name="" id="">
-          <option value="1">분류</option>
-          <option value="2">날짜</option>
-        </select>
       </div>
       <table>
         <caption className="blind">장비 예약</caption>

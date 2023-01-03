@@ -35,6 +35,7 @@ db.Mentoring                 = require('./mentoring')(sequelize,Sequelize);
 db.MentorSearch              = require('./mentor_search')(sequelize,Sequelize);
 db.Notice                    = require('./notice')(sequelize,Sequelize);
 db.Space                     = require('./space')(sequelize,Sequelize);
+db.Faq                       = require('./faq')(sequelize,Sequelize);
 db.UserEquipmentTestPass     = require('./user_equipment_test_pass')(sequelize,Sequelize);
 db.ClasseduProgram           = require('./classedu_program')(sequelize,Sequelize);
 db.ClasseduApplication       = require('./classedu_application')(sequelize,Sequelize);

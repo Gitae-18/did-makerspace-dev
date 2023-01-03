@@ -1,19 +1,65 @@
-import React from "react";
+import React,{useState,useCallback} from "react";
 import ButtonType2 from "./ButtonType2";
 import styled from "styled-components";
+import Paging2 from "./Paging2";
+import Data from './TableType1c.json';
+import { useEffect } from "react";
 export default function TableType1c() {
+  const [data,setData] = useState([]);
+  const [currentPage,setCurrentPage] = useState(1);
+  const [count,setCount] = useState(0);
+  const [search,setSearch] = useState('');
+  const [itemList,setItemList] = useState([]);
+  const [currentPosts,setCurrentPosts] = useState([]);
+  const postPerPage = 10;
+  const indexOfLastPost = currentPage * postPerPage
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+  const currentPost = itemList.slice(indexOfFirstPost, indexOfLastPost)
+  useEffect(()=>{
+    setCount(Data.length);
+    setData(Data);
+  },[])
+  
+  const sethandlePage = (e) =>{
+    setCurrentPage(e);
+  }
+  const onChange = (e) =>{
+    e.preventDefault();
+    setSearch(e.target.value);
+  }
+  const onSearch = useCallback(async(e) =>{
+    e.preventDefault();
+
+    if(search=== null || search === ''){
+      setData(Data);
+      setCurrentPosts(Data);
+  }
+  else{
+    const filterData = Data.filter((item) => item.name.includes(search))
+    setData(filterData)
+    setCurrentPosts(filterData)
+    setCurrentPage(1)
+  }
+ setSearch('');
+},[search])
+
+const activeEnter = (e) => {
+  if(e.key === "Enter") {
+    onSearch(e);
+  }
+}
   return (
     <div className="table_wrap table_type1">
       <div className="table_extra">
         <p>
-          총 <span>20</span>개의 글
+          총 <span>{Data.length}</span>개의 글
         </p>
         <div className="table_search">
           <select name="" id="">
             <option value="1">이름</option>
           </select>
-          <input type="text" name="" id="" placeholder="제목을 입력하세요" />
-          <StyledBtn >조회</StyledBtn>
+          <input type="text" name="" id="" placeholder="제목을 입력하세요" onChange={onChange} onKeyDown={(e) => activeEnter(e)}/>
+          <StyledBtn onClick={onSearch}>조회</StyledBtn>
         </div>
       </div>
       <table>
@@ -27,64 +73,19 @@ export default function TableType1c() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-
-            <td>ETRI</td>
-            <td>이재기</td>
+          {data.map((item,index)=>(
+          <tr key={index}>
+            <td>{item.indp}</td>
+            <td>{item.name}</td>
             <td className="images"><img className="etri-image" src="/images/ico_member.png" alt="no-image"/></td>
-            <td>재직 35년</td>
+            <td>{item.info}</td>
           </tr>
-          <tr>
-
-            <td>ETRI</td>
-            <td>소운섭</td>
-            <td className="images"><img className="etri-image" src="/images/ico_member.png" alt="no-image"/></td>
-            <td>재직 33년</td>
-          </tr>
-          <tr>
-
-            <td>ETRI</td>
-            <td>박영호</td>
-            <td className="images"><img className="etri-image" src="/images/ico_member.png" alt="no-image"/></td>
-            <td>재직 38년</td>
-          </tr>
-          <tr>
-
-            <td>ETRI</td>
-            <td>양용석</td>
-            <td className="images"><img className="etri-image" src="/images/ico_member.png" alt="no-image"/></td>
-            <td>재직 25년</td>
-          </tr>
-          <tr>
-
-            <td>ETRI</td>
-            <td>조원석</td>
-            <td className="images"><img className="etri-image" src="/images/ico_member.png" alt="no-image"/></td>
-            <td>재직 30년</td>
-          </tr>
+         ))}
          
         </tbody>
       </table>
       <div className="page_control">
-        <div className="btn_first btn-s">
-          <img src="/images/backward-solid.svg" alt="처음으로" />
-        </div>
-        <div className="btn_prev">
-          <img src="/images/caret-left-solid.svg" alt="이전으로" />
-        </div>
-        <ol className="btn_page_num">
-          <li className="on">1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
-        </ol>
-        <div className="btn_next">
-          <img src="/images/caret-right-solid.svg" alt="다음으로" />
-        </div>
-        <div className="btn_last btn-s">
-          <img src="/images/forward-solid.svg" alt="끝으로" />
-        </div>
+        <Paging2 page={currentPage} count = {count} setPage={sethandlePage}/>
       </div>
     </div>
   );

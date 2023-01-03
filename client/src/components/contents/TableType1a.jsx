@@ -112,7 +112,7 @@ export default function TableType1a() {
     <div className="table_wrap table_type1">
       <div className="table_extra">
         <p>
-          총 <span>20</span>개의 글
+          총 <span>{spaceList.length}</span>개의 글
         </p>
         <div className="table_search">
           <select name="" id="">

@@ -12,7 +12,10 @@ import { set } from 'date-fns';
 import $ from 'jquery';
 const menuCompo = styled(Link)`
 `
-
+let user_style = {
+  position:"relative",
+  left:"100px",
+}
 
 const UserMenu = ({authority_level,history,path}) => {
   const [menuOpen,setMenuOpen] = useState(false);

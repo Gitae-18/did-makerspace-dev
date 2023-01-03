@@ -1,7 +1,7 @@
 import React,{useEffect}from "react"
 import { useSelector } from "react-redux";
 import { useLocation,useNavigate } from "react-router-dom";
-import { Contact6,ContactNoticeDetail } from "../components/pages/PageSub4";
+import { Contact6,Contact6_User } from "../components/pages/PageSub4";
 import { AuthLevel } from '../CommonCode';
 import qs from 'qs';
 export const NoticeContainer = (props) =>{
@@ -19,10 +19,10 @@ export const NoticeContainer = (props) =>{
         
 	}, [isLoading, isLoggedIn, authority_level, history])
 
-    const View = query ? Contact6 : Contact6  ;
-
+    const View =  authority_level < AuthLevel.partner ? Contact6_User : Contact6   ;
+ 
     return(
-        (isLoading || !isLoggedIn  || authority_level < AuthLevel.partner ) ? <></>:
+        (isLoading || !isLoggedIn   ) ? <></>:
         View? <View query={query}/> : <></>
     )
 }   

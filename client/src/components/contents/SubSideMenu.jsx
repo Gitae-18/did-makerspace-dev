@@ -372,9 +372,9 @@ export default function SubSideMenu(props) {
       <div className="sub_bread">
         <h1>{props.subtitle ? props.subtitle:props.title}</h1>
         <div className="location">
-        <h2>{props.title}</h2>
+        <h2>{props.subtitle}</h2>
         {props.subtitle ? <span>{">"}</span>:<></>}
-        <h3>{props.subtitle}</h3>
+        <h3>{props.title}</h3>
         </div>
       </div>
     );

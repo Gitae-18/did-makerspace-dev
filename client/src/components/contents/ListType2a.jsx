@@ -7,7 +7,7 @@ export default function ListType2a() {
   const { token } = useSelector(state => state.user);
   const location = useLocation();
   const history = useNavigate();
-
+  //페이징
   const [page,setPage] = useState(1);
   const [count,setCount] = useState(0);
   const [currentPage,setCurrentPage] = useState(1);
