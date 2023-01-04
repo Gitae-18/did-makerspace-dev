@@ -116,7 +116,7 @@ button{letter-spacing:-1px;}
           
         
  #header .mainmenu .login_box .login{padding:0;display:inline-block;width:7vw;background:#313f4f;color:#fff;font-size:16px;position:relative;right:-15px;border:0;height:6vh;cursor:pointer;bottom:13px;left:0px;width:12vw;}
- #header .mainmenu .login_box .close{display:inline-block; background:#313f4f;border:0;cursor:pointer;left:0px;top:10vh;position:absolute;top:320px; width:230px;height:50px}
+ /* #header .mainmenu .login_box .close{display:inline-block; background:#313f4f;border:0;cursor:pointer;left:0px;top:10vh;position:absolute;top:320px; width:230px;height:50px} */
  #header .mainmenu .member_box{position:relative;}
  #header .mainmenu .member_box span{position:relative;font-size:0.9rem;color:#666;height:80px;line-height:80px;padding:0 16px;cursor:pointer;}
           /*#header .member_box span.name{padding-left:32px;}*/
