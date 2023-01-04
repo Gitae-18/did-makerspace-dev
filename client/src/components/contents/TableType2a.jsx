@@ -16,7 +16,7 @@ import '../../css/Paging.css'
 export default function TableType2a() {
    const { token } = useSelector(state => state.user);
    const [reservationList, setReservationList] = useState([]);
-   const [passflag ,setPassFlag] = useState("");
+   const [passflag ,setPassFlag] = useState([]);
    const [count,setCount] = useState(0);
    const [equiptype,setEquipType] = useState('');
    const [loading,setLoading] = useState(false);
@@ -25,6 +25,7 @@ export default function TableType2a() {
    const indexOfLastPost = currentPage * postPage
    const indexOfFirstPost = indexOfLastPost - postPage
    const [currentPosts,setCurrentPosts] = useState([]);
+   const [passtype,setPasstype] = useState([]);
    const location = useLocation();
    const history = useNavigate();
    const [modalVisible,setModalVisible] = useState(true);
@@ -41,7 +42,6 @@ export default function TableType2a() {
    const xcutsrc = '/images/xcut.png';
    const fdmsrc = '/images/fdm3dwox1.png';
    const uvsrc = '/images/uvprinter.png';
-   
    const getUserTest = useCallback(async()=>{
 
     CommonHeader.authorization = token;
@@ -56,13 +56,20 @@ export default function TableType2a() {
         return;
       }
       const json = await response.json();
-      console.log(json);
-      if(json!==null && json!==undefined){
-        setPassFlag(json.testflag);
-        
+      setPassFlag(json);
+    
+   },[token])
+   //
+   let typepass = passflag.map((item)=>item.type);
+   //
+   let pass;
+    for (let i = 0 ; i < passflag.length ; i++){
+      if(passflag[i].pass_flag==="Y" )
+      {
+        pass="Y";
       }
-      
-   },[])
+    }
+  
    const getItemList = useCallback(async(currentPage)=>{
       setLoading(true);
       let requri = PreUri + `${'/equipment/equipmentlist'}`;
@@ -84,6 +91,8 @@ export default function TableType2a() {
    useEffect(()=>{
     getUserTest();
     getItemList();
+   
+    //checkTestFlag();
    },[getUserTest,getItemList])
 
    const setPage = (e) =>{
@@ -139,15 +148,15 @@ export default function TableType2a() {
                 <ButtonType2test  active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active:nonactive} name={item.model_name} test={passflag === "N"?true:false}></ButtonType2test>
                  </td>
                  <td className="res_btn">
-                  {passflag === "Y"?
-                 <ButtonType3small categoryNo={categoryNum[i]}active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active:nonactive} btnName="예약하기"></ButtonType3small>:
+                  { pass="Y" && typepass.includes(item.model_name) ?
+                 <ButtonType3small categoryNo={categoryNum[i]} active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active : nonactive} btnName="예약하기"></ButtonType3small>:
                  <ButtonType3small btnName="예약 불가"></ButtonType3small>
                   }
                 </td>
                
             </tr>
           ))
-          ):<div>게시물이 없습니다.</div>}
+          ):<tr><td>게시물이 없습니다.</td></tr>}
         </tbody>
       </table>
       <div className="page_control">

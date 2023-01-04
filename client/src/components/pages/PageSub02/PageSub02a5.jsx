@@ -15,11 +15,12 @@ export default function PageSub02a5() {
   const uvsrc = "/images/uvprinter_TEST.png"
   const xcutsrc = "/images/xcut_TEST.png"
   const type = String(testtype);
-  console.log(testtype)
-  const printerAnswer = [2,1,3,5,5,4,1&&4,1,4,1&&4]
-  const xcutAnswer = [3,4,4,2,1&&2,3,5,1,4,1&&4]
+  const [answer,setAnswer] = useState([]);
+  const printerAnswer = [2,1,3,5,5,4,1,1,4,1] || [2,1,3,5,5,4,4,1,4,4] 
+  const xcutAnswer = [3,4,4,2,1,3,5,1,4,1] || [3,4,4,2,2,3,5,1,4,4]
   const uvprinterAnswer = [3,1,2,1,4,3,4,4,5,1]
-  const a0ploterAnswer = [5,2&&4,2,3,5,3&&4,3,1,1&&2,1&&5]
+  const a0ploterAnswer = [5,2,2,3,5,3,3,1,1,1] || [5,4,2,3,5,4,3,1,2,5]
+  const [count,setCount] = useState(0);
   const [modalOpen,setModalOpen] = useState(false);
   const [passflag,setPassflag] = useState('');
   const [inputs,setInputs] = useState({
@@ -50,69 +51,79 @@ export default function PageSub02a5() {
     })
   }
 
-
-
+ 
 /*   const getPassflag= useCallback(async()=>{
     let requri = PreUri + '/'
   },[])  */
-  let counter = 0;
-  const CheckAnswer = () =>{
+  let counter = 0 ;
+ 
+  const CheckAnswer = useCallback(async() =>{
     if(testtype==="FDM : 3DWOX 1X"){
-    for(let i = 0 ; i< printerAnswer.length ; i++){
-      if(input[i]===printerAnswer[i])
+    for(let i = 1 ; i< printerAnswer.length ; i++){
+      if(printerAnswer[i] === parseInt(answer[i]))
       {
-       counter ++;
+        setCount(count=>count + 1)
+       counter++;
        console.log("정답 +1")
       }
     }
   }
   if(testtype==="A0플로터 : HP 디자인젯 Z6"){
     for(let i = 0 ; i< a0ploterAnswer.length ; i++){
-      if(input[i]===a0ploterAnswer[i])
+      if(a0ploterAnswer[i] === parseInt(answer[i]))
       {
-       counter ++;
+      setCount(count=>count + 1)
+       counter++;
        console.log("정답 +1")
       }
+   /*    else if(typeof(a0ploterAnswer[i])==="object"){
+        const abc = Object.values(a0ploterAnswer[i])
+        if(abc.includes(answer[i])){
+          counter+=1;
+          console.log("정답 + 1")
+        }
+      } */
     }
+    
   }
   if(testtype==="X-cut"){
     for(let i = 0 ; i< xcutAnswer.length ; i++){
-      if(input[i]===xcutAnswer[i])
+      if(xcutAnswer[i] === parseInt(answer[i]))
       {
-       counter ++;
+        setCount(count=>count + 1)
+       counter++;
        console.log("정답 +1")
       }
     }
   }
   if(testtype==="UV 프린터 : 329UV"){
     for(let i = 0 ; i< uvprinterAnswer.length ; i++){
-      if(input[i]===uvprinterAnswer[i])
+      if(uvprinterAnswer[i] === parseInt(answer[i]))
       {
-       counter ++;
+        setCount(count=>count + 1)
+       counter++;
        console.log("정답 +1")
       }
     }
   }
+  if(counter>5||count>5){
+    setPassflag('Y');  
   }
+  else{
+    setPassflag('N');
+  }
+  },[answer])
   
- 
+  
   const onCloseModal = () =>{
     setModalOpen(false);
   }
- 
-  const onCheckModal = () =>{
+  const onCheckModal = useCallback(async()=>{
     setModalOpen(true);
-
-    if(counter>5){
-      setPassflag('Y');  
-    }
-    else{
-      setPassflag('N');
-    }
-    console.log(counter)
-   
-  }
-
+    setAnswer(Object.values(input));
+    CheckAnswer(counter);
+  },[input,count])
+  
   /* const onSubmit = useCallback(async(e) =>{
     CommonHeader.authorization = token;
    
@@ -136,8 +147,9 @@ export default function PageSub02a5() {
    }
    setModalOpen(false);
   },[token,passflag])
+
   useEffect(()=>{
-    CheckAnswer(input);
+    CheckAnswer();
   },[CheckAnswer])
   return (
     <div id="pageSub02a5">
