@@ -17,7 +17,7 @@ const LoginModal = (props) =>{
     <p className="pw"><span/><input type="password" value={password} name="password" placeholder="비밀번호" onChange={change} /></p>
     <p className="chkBox"><label htmlFor="chk"><input type="checkbox" id="chk" checked={isAutoLogin} name="isAutoLogin" onChange={change}/><span className="checkmark"></span>자동로그인</label></p>
     <button className="login" type="submit" onClick={()=>onLoginClick()}>로그인</button>
-    <button className="close" type="button" onClick={close}><span>닫기</span></button>
+    <button className="close" type="submit" onClick={close}>닫기</button>
     </div>
     </section>
     : null
