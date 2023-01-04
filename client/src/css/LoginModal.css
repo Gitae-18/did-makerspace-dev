@@ -26,6 +26,6 @@
     overflow: hidden;
   }
 
-  .modals > section > .login_box > .close{
+  .login_box > button.close{
     color:#fff;
   }
