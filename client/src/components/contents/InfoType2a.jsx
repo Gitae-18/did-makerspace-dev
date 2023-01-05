@@ -1,7 +1,7 @@
 import React,{useEffect,useState,useCallback} from "react";
 import { useNavigate,useLocation } from "react-router-dom";
 import TitleType1 from "./TitleType1";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch} from "react-redux";
 import {GoBackBtn} from "./ButtonType2";
 import ButtonType4 from "./ButtonType4";
 import SectionTabType1a from "../sections/SectionTabType1a";
@@ -11,12 +11,60 @@ import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRsp
 
 export default function InfoType2a() {
   const history = useNavigate();
+  const location = useLocation();
+  const no = location.state.no;
+  const dispatch = useDispatch();
   const [openModal,setOpenModal] = useState(false);
   const [closemodal,setCloseModal] = useState(false);
+  const [data,setData] = useState([]);
+  const [getFlag,setGetFlag] = useState([]);
+  const [limit,setLimit] = useState("");
+  const [title,setTitle] = useState("")
+  const [count,setCount] = useState();
   const { token } = useSelector(state => state.user);
   let type = "class";
-  let title = '메이커들을 위한 DID 라이브 쇼';
 
+  const getEduList = useCallback(async()=>{
+    CommonHeader.authorization = token;
+    const tit = 0;
+    let requri = PreUri + '/classedu/class_receive?no=' + no;
+
+    const response = await fetch(requri,{
+      method:Method.get,
+      headers:CommonHeader,
+    })
+    if(!response.ok) {
+      console.log('잘못된 접근입니다.');
+      return;
+    }
+
+    const json = await response.json();
+    setData(json);
+    setLimit(json.limit_number);
+    setTitle(json.title);
+  },[token])
+
+
+  let  button_click = document.getElementById('button_id');
+  let counter;
+ console.log(title);
+
+  const getApplicationList = useCallback(async()=>{
+    CommonHeader.authorization = token;
+    let uri = PreUri + '/classedu/class_application?title=' + encodeURI(title)
+
+    const response = await fetch(uri,{
+      method:Method.get,
+      headers:CommonHeader,
+    })
+    if(!response.ok) {
+      console.log('잘못된 접근입니다.');
+      return;
+    }
+  
+    const json = await response.json();
+    setGetFlag(json)
+  },[token,title])
 
   const onApplicate = useCallback(async() =>{
     setOpenModal(true);
@@ -37,7 +85,11 @@ export default function InfoType2a() {
     if(!response.ok){
       return(alert(getRspMsg(response.status)))
     }
-  })     
+  },[getFlag])     
+  useEffect(()=>{
+    getEduList();
+    getApplicationList(data);
+  },[getEduList,getApplicationList,token,title])
   const onClose = () =>{
     setOpenModal(false);
   }
@@ -50,23 +102,24 @@ export default function InfoType2a() {
           <div className="dl_wrap">
             <dl>
               <dt>일시</dt>
-              <dd>-</dd>
+              <dd>{data.class_period_start}</dd>
             </dl>
             <dl>
               <dt>장소</dt>
-              <dd>-</dd>
+              <dd>{data.place}</dd>
             </dl>
             <dl>
               <dt>점수 및 등록 기간</dt>
-              <dd>-</dd>
+              <dd>{data.application_period_start} ~ {data.application_period_end}</dd>
             </dl>
             <dl>
               <dt>신청 가능 여부</dt>
-              <dd>-</dd>
+              <dd>{getFlag.length > data.limit_number -1 ? "불가능": "가능"}</dd>
+              {getFlag.length > data.limit_number -1 ? alert("정원이 가득참"):null}
             </dl>
             <dl >
               <dt>정원</dt>
-              <dd>100명</dd>
+              <dd>{data.limit_number}</dd>
             </dl>
             <dl>
               <dt>비용</dt>
@@ -75,7 +128,7 @@ export default function InfoType2a() {
           </div>
           <div className="btns">
             <StyledBtn onClick={onApplicate}>신청하기</StyledBtn>
-            {openModal && <PopupModal2 visible={openModal} closable={true} onclose={onClose}/>}
+            {openModal && getFlag.length < data.limit_number && <PopupModal2 visible={openModal} closable={true} onclose={onClose}/>}
             <ButtonType4></ButtonType4>
           </div>
         </div>

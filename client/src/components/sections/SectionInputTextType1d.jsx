@@ -65,7 +65,6 @@ let popupf = "N";
         pay_flag:pay,        
         cost:cost,
         place:place,
-        hit:hit,
         limit_number:fnum,
         map:map,
         popup_flag:popupf,

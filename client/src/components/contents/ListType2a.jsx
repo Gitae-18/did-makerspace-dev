@@ -37,9 +37,26 @@ export default function ListType2a() {
   },[token])
 
 
-  const onItem = () =>{
-    history(location.pathname + '/detail');
-  }
+  const onItem = useCallback(async(e,index)=>{
+    const hit_cnt = currentPost[index].hit;
+    const program_no = currentPost[index].program_no;
+    console.log(currentPost[index])
+    const response = await fetch(PreUri + '/classedu/classedu_cnt',{
+      method:Method.put,
+      headers:CommonHeader,
+      body:JSON.stringify(
+        {
+          hit : hit_cnt,
+          program_no:program_no,
+        }
+      )
+  })
+    if(!response.ok) {
+    console.log('잘못된 접근입니다.');
+    return;
+   }
+    history(location.pathname + '/detail',{state:{no:program_no}});
+  },[currentPost,itemList])
   useEffect(()=>{
     getItemList();
   },[getItemList,token])
@@ -52,9 +69,9 @@ export default function ListType2a() {
       {currentPost.map((item,index)=>(
         
         <li key={index}>
-        <div className="image_part"><img src="/images/class1.png" alt="no"/></div>
+        <div className="image_part"><img src="/images/class1.png" alt="no" onClick={(e)=>onItem(e,index)}/></div>
         <div className="text_part">
-          <h5 onClick={onItem}>{item.title}</h5>
+          <h5 onClick={(e)=>onItem(e,index)}>{item.title}</h5>
           <div className="tag">
             <span>무료</span>
           </div>

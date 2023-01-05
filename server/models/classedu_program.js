@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         hit:{
             type: DataTypes.INTEGER,
             allowNull:true,
+            defaultValue:0,
         },
         attached_file:{
             type: DataTypes.STRING(255),

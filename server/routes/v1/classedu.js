@@ -21,7 +21,7 @@ router.get('/edulist',verifyToken,async(req,res,next)=>{
     let result ;
     try{
         result = await ClasseduProgram.findAll({
-            attributes:['type','hit','content','title','cost','pay_flag','place','class_period_start','class_period_end','application_period_start','application_period_end','limit_number','popup_flag'],
+            attributes:['program_no','type','hit','content','title','cost','pay_flag','place','class_period_start','class_period_end','application_period_start','application_period_end','limit_number','popup_flag'],
             where:{type:type},
             order:[['created_at','DESC']],
             raw:true,
@@ -133,7 +133,6 @@ router.post('/addprogram',verifyToken,async(req,res,next)=>{
            limit_number:body.limit_number,
            cost : body.cost,
            map_url : body.map,
-           hit : body.hit,
            popup_flag : body.popup_flag,
            created_user_no:user_no,
            updated_user_no:user_no,
@@ -144,5 +143,53 @@ router.post('/addprogram',verifyToken,async(req,res,next)=>{
         return res.status(errorCode.internalServerError).json({});
     }
 })
+router.put('/classedu_cnt',async(req,res,next)=>{
+    const {hit,program_no} = req.body;
+    let hit_update
+    try {
+        hit_update = await ClasseduProgram.update({
+            hit:hit+1,
+        },
+        {
+            where:{program_no}
+        })
+        return res.send(hit_update);
+    } catch (error) {
+        console.log(error);
+    }
+})
+router.get('/class_receive',verifyToken,async(req,res,next)=>{
+    const no = req.query.no;
+    let result ;
+    try{
+        result = await ClasseduProgram.findOne({
+            attributes:['content','title','cost','pay_flag','place','class_period_start','class_period_end','application_period_start','application_period_end','limit_number'],
+            where:{program_no:no},
+            order:[['created_at','DESC']],
+            raw:true,
+        })
+    }
+    catch(error){
+        console.log(error)
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(result);
+})
 
+router.get('/class_application',verifyToken,async(req,res,next)=>{
+    const title = req.query.title;
+    let result;
+    try{
+        result = await ClasseduApplication.findAll({
+            attributes:['application_no'],
+            where:{title:title},
+            order:[['created_at','DESC']],
+            raw:true,
+        })
+    }
+    catch(error){
+        console.log(error)
+        return res.status(errorCode.internalServerError).json({});
+    }    res.status(errorCode.ok).json(result);
+})
 module.exports = router;

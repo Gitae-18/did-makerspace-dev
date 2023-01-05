@@ -7,9 +7,6 @@ export default function ListType2b() {
   const { token } = useSelector(state => state.user);
   const location = useLocation();
   const history = useNavigate();
-  const onItem = () =>{
-    history(location.pathname + '/detail');
-  }
   const [page,setPage] = useState(1);
   const [count,setCount] = useState(0);
   const [currentPage,setCurrentPage] = useState(1);
@@ -38,7 +35,26 @@ export default function ListType2b() {
     setCount(json.length);
   },[token])
   console.log(itemList);
-  
+  const onItem = useCallback(async(e,index)=>{
+    const hit_cnt = currentPost[index].hit;
+    const program_no = currentPost[index].program_no;
+    console.log(currentPost[index])
+    const response = await fetch(PreUri + '/classedu/classedu_cnt',{
+      method:Method.put,
+      headers:CommonHeader,
+      body:JSON.stringify(
+        {
+          hit : hit_cnt,
+          program_no:program_no,
+        }
+      )
+  })
+    if(!response.ok) {
+    console.log('잘못된 접근입니다.');
+    return;
+   }
+    history(location.pathname + '/detail',{state:{no:program_no}});
+  },[currentPost,itemList])
   const item = Object.values(itemList).map(item=>item);
   console.log(item);
   const tit = item;
@@ -56,9 +72,9 @@ export default function ListType2b() {
         {currentPost.map((item,index)=>(
         
             <li key={index}>
-            <div className="image_part"><img src="/images/woodtray.png" alt="no"/></div>
+            <div className="image_part"><img src="/images/woodtray.png" alt="no" onClick={(e)=>onItem(e,index)}/></div>
             <div className="text_part">
-              <h5 onClick={onItem}>{item.title}</h5>
+              <h5 onClick={(e)=>onItem(e,index)}>{item.title}</h5>
               <div className="tag">
                 <span>무료</span>
               </div>

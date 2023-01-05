@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import PropTypes from  'prop-types';
 import {Portal} from 'react-portal';
 import '../css/ModalStyle.css';
+import { useNavigate } from 'react-router-dom';
 import { setCookie,getCookie } from './cookie';
 
-function PopupModal2({classname,visible,onclose,closable}){
-
+function PopupModal2({classname,visible,onclose,closable,location}){
+const history = useNavigate();
 
 
    /*  const open = (e) =>{
@@ -19,6 +20,7 @@ function PopupModal2({classname,visible,onclose,closable}){
     const close = (e) => {
         console.log("on")
             onclose(e)
+        history(0)
     }
 
     return (
