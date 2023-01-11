@@ -19,14 +19,14 @@
 .section_text_type1 p {
   margin-bottom: 20px;
 }
-.section_text_type1 .text_part h3.title_type2 {
+.section_text_type1 .text_part h4.title_type2 {
   position:relative;
-  top:-72px;left:-10px;
+  top:-100px;left:-10px;
   font-size:1.4rem;
   font-weight:400;
   
 }
-.section_text_type1 .text_part h3.title_type2:after{
+.section_text_type1 .text_part h4.title_type2:after{
   border-bottom:3px solid #313f4f; 
   content:"";
   display: block;
@@ -134,9 +134,9 @@
    gap: 15px;
 
 }
-.section_tab_type1a .tabs_wrap .tab_inner .title_type1{
+.section_tab_type1a .tabs_wrap .tab_inner .title_type2{
   position:relative;
-  left:20px;
+  left:22px;
 }
 .section_tab_type1{
   position:relative;
@@ -144,7 +144,12 @@
   justify-content: center;
   left:10px;
   height:350px;
-  margin-top:-60px;
+  margin-top:-30px;
+  background-color: #2d2d2d;
+/*   background-image: linear-gradient(
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0.35)
+  ), url(/images/wallpaper.jpg); */
 }
 .section_tab_type1::before{
   position:absolute;
@@ -173,15 +178,23 @@
   font-weight:0;
   font-size:1.0rem;
 }
-.section_tab_type1 h3.title_type2{
+.section_tab_type1 .section_inner_wrap h3{
   position:relative;
-  left:-117px;
+  left:-120px;
   top:30px;
-  color:#fff;
+  color:rgb(255,255,255,0.7);
   font-size:1.4rem;
   font-weight: 400;
 }
-.section_tab_type1 .section_inner_wrap .tabs_wrap .tab_inner ol li
+.section_tab_type1 .section_inner_wrap h3:after{
+  border-bottom:3px solid #ffffff; 
+  content:"";
+  display: block;
+  width:130px;
+}
+.section_tab_type1 .section_inner_wrap .tabs_wrap .tab_inner ol li{
+  top:10px;
+}
 .section_tab_type1 .tab_btns_wrap > li,.section_tab_type1a .tab_btns_wrap > li {
   border-bottom: 3px solid transparent;
   padding: 4px;
@@ -320,8 +333,16 @@
   width:100%;
 }
 .section_banner_type1 .title_type2{
+  position:relative;
+  left:-24px;
   font-size:1.4rem;
   font-weight:400;
+}
+.section_banner_type1 .title_type2:after{
+  border-bottom:3px solid #313f4f; 
+  content:"";
+  display: block;
+  width:120px;
 }
 .section_banner_type1 .section_inner_wrap .swiper_wrap{
   position:relative;
