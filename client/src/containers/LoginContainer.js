@@ -65,9 +65,12 @@ export const LoginContainer = () => {
     }, [dispatch]);
 
     const onChange = useCallback((e) => {
+        console.log(e.target)
         dispatch({ type: CHANGE_INPUT, target: e.target });
-    }, [dispatch]);
+    }, []);
+/*    useEffect(()=>{
 
+   },[]) */
     return (
         <>
             {isLoggedIn

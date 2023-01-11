@@ -99,10 +99,7 @@ export default function InfoType2b() {
     setOpenModal(false);
   }
   return (
-    <div id="sub_page_wrap">
-    <SubSideMenu title={"교육프로그램"}></SubSideMenu>
-    <div className="sub_page_inner_wrap">
-      <div className="sub_inner">
+
     <div className="info_type2">
       <div className="title_part">
         <div className="image_part"><img className="woodtray" src="/images/woodtray.png" alt="no-image"/></div>
@@ -147,9 +144,7 @@ export default function InfoType2b() {
       </div>
       <GoBackBtn btnName="목록"></GoBackBtn>
     </div>
-    </div>
-    </div>
-    </div>
+
   );
 }
 const StyledBtn= styled.button`

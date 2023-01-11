@@ -14,6 +14,7 @@ import Terms from './components/Terms';
 import UGuide from './components/User/Guide';
 import NotCompelete from './components/NotCompeleted'
 import { useSelector } from 'react-redux';
+import { AuthLevel } from './CommonCode';
 import {CookiesProvider} from 'react-cookie';
 import PageSub01b2 from './components/pages/PageSub01/PageSub01b2';
 import PageSub01b3 from './components/pages/PageSub01/PageSub01b3';
@@ -44,18 +45,20 @@ import { ScheduleContainer as Schedule } from './containers/ScheduleContainer';
 import { UServiceContainer as UService } from './containers/UServiceContainer';
 import { ReservationEquipmentContainer as EReservation } from './containers/ReservationEquipmentContainer';
 import { EquipmentReservationContainer as EqReservation } from './containers/EquipmentReservationContainer';
-import { ClassEduContainer as ClassEduA } from './containers/ClassEduContainer';
+import { ClassEduContainer as ClassEduA } from './containers/ClassEdu/ClassEduContainer';
+import { MyClassContainer } from './containers/ClassEdu/MyReservContainer';
 import { MyReservContainer } from './containers/MyReservContainer';
-import { ClassContainer } from './containers/ClassContainer';
-import { EduContainer } from './containers/EduContainer';
-import { EduAddContainer } from './containers/EduAddContainer';
-import { ClassAddContainer } from './containers/ClassAddContainer';
+import { ClassContainer } from './containers/ClassEdu/ClassContainer';
+import { EduContainer } from './containers/ClassEdu/EduContainer';
+import { EduAddContainer } from './containers/ClassEdu/EduAddContainer';
+import { ClassAddContainer } from './containers/ClassEdu/ClassAddContainer';
 import { NoticeAddContainer } from './containers/NoticeAddContainer';
 import { NoticeContainer } from './containers/NoticeContainer';
 import { NoticeDetailContainer } from './containers/NoticeDetailContainer';
 import { FaqContainer } from './containers/FaqContainer';
 import { FaqAddContainer } from './containers/FaqAddContainer';
 import { FaqDetailContainer } from './containers/FaqDetailContainer';
+import { ClassEduControlContainer } from './containers/ClassEdu/ClassEduControlContainer';
 import Material from './components/Admin/Material/Material';
 import MaterialItem from './components/Admin/Material/MaterialItem';
 import MaterialList from './components/Admin/Material/MaterialList';
@@ -91,7 +94,10 @@ const App = () => {
   const { authority_level } = useSelector(state => state.user);
   let user_style = {
     position:"relative",
-    left:"100px",
+    left:"120px",
+  }
+  let admin_style = {
+    position:"absolute"
   }
   return (
     
@@ -101,7 +107,7 @@ const App = () => {
         <div className="mainmenu">
           <div className='gnb_cover'>
           <Link to="/"><span className='logo2'><img src="/images/logo.png" alt="로고"/></span></Link>
-          <Menu style={authority_level < 10? {user_style}:{}}/>
+          <Menu/>
           <Login />
           </div>
         </div>
@@ -136,7 +142,7 @@ const App = () => {
         
         <Route path="/didinfo/*" element = {<DidInfo/>}/>
         <Route path="/didinfo/spacedetail" element = {<DidInfo1Detail1/>}/>
-        <Route path='/InfoType1a' element = {<DidInfo1Detail2/>}/>     
+        <Route path="/info/InfoType1a" element = {<DidInfo1Detail2/>}/>     
         <Route path="/info/equipinfo" element = {<DidInfo2/>}/>
         <Route path="/info/workerinfo" element = {<DidInfo3/>}/>
         <Route path="/info/greetings" element = {<DidInfo4/>}/>
@@ -162,6 +168,7 @@ const App = () => {
         <Route path="/eduprogram" element = {<EduContainer/>}/>
         <Route path="/classprogram/detail" element = {<ClassEduA/>}/>
         <Route path="/eduprogram/detail" element = {<ClassEdu_program4/>}/>
+        <Route path="/classprogram/myreserv" element = {<MyClassContainer/>}/>
 
         <Route path="/contact" element = {<Contact/>}/>
         <Route path="/archivecontact/video" element = {<Contact2/>}/>
@@ -181,10 +188,12 @@ const App = () => {
         <Route path='/mentorcontrol/mentoringreport/detail' element = {<MentoringReportDetail/>}/>
         <Route path='/educontrol' element = {<EduAddContainer/>}/>
         <Route path='/classcontrol' element = {<ClassAddContainer/>}/>
+        <Route path="/classeducontrol" element={<ClassEduControlContainer/>}/>
 
         <Route path="/prototype/management" element = {<MService/>}/>
         <Route path="/prototype/application" element = {<UService/>}/>
-       {/*  <Route path="/statics" element = {<Service/>}/>
+
+        <Route path="/statics" element = {<Service/>}/>
         <Route path="/service/counsel"   element = {<StaticsAnalyze/>}/>
         <Route path="/service/application"  element = {<Service1/>}/>
         <Route path="/service/process"  element = {<Service2/>}/>
@@ -197,7 +206,7 @@ const App = () => {
         <Route path="/users/stastics"   element = {<Users/>}/>
         <Route path="/users/service"  element = {<Users1/>}/>
         <Route path="/users/purpose"  element = {<Users2/>}/>
-       */}
+      
 
 
         {/* <Route path="/test" component={Test} /> */}

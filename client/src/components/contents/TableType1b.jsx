@@ -116,7 +116,7 @@ const totalPages = ((items.totalCount - 1) / postsPerPage) + 1
 const onSelectItem = useCallback((e, i) => {
         e.preventDefault();
         dispatch({ type: EQUIP_CATEGORY_ITEM, target: items.items[i] });
-        history("/InfoType1a",{state:{name:i.model_name}});
+        history("/info/InfoType1a",{state:{name:i.model_name}});
     }, [items, dispatch, history]);
 
 
@@ -198,7 +198,7 @@ const onPagePrev = useCallback((e) => {
       
     }, [history, items, search]);
 
-console.log(page);
+
 const onPageNext = useCallback((e,newPageNumber) => {
   e.preventDefault();
      /*   const currPage = page + 1;
@@ -222,7 +222,7 @@ const onPageNext = useCallback((e,newPageNumber) => {
     }, [history, items, search]);
 
     
-console.log(totalPages);
+
 const onPage = useCallback((e, newPageNumber) => {
   e.preventDefault();
   const querySearch = (search.length > 0) ? ("&search=" + search) : "";

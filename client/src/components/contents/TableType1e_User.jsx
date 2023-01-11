@@ -7,7 +7,6 @@ import { M_NOTICE_SET } from "../../store/notice";
 import { Paging } from "./Paging";
 import styled from "styled-components";
 export default function TableType1e_User() {
-  const { token } = useSelector(state => state.user);
   const location = useLocation();
   const history = useNavigate();
   const dispatch = useDispatch();
@@ -25,7 +24,7 @@ export default function TableType1e_User() {
   const currentPost = data.slice(indexOfFirstPost, indexOfLastPost)
   
   const getData = useCallback(async()=>{
-    CommonHeader.authorization = token;
+
     let requri = PreUri + '/notice/noticelist';
     const response = await fetch(requri,{
       method:Method.get,
@@ -39,7 +38,7 @@ export default function TableType1e_User() {
     console.log(json);
     setData(json);
     setCount(json.length)
-  },[token])
+  },[])
 
 
   const onChange = (e) =>{
@@ -74,7 +73,7 @@ export default function TableType1e_User() {
   const onItem = useCallback(async(e,index)=>{
     const hit_cnt = data[index].hit;
     const notice_no = data[index].notice_no;
-    dispatch({ type: M_NOTICE_SET, target: notice_no });
+    //dispatch({ type: M_NOTICE_SET, target: notice_no });
     //조회수 증가
     const response = await fetch(PreUri + '/notice/notice_cnt',{
         method:Method.put,
@@ -94,7 +93,7 @@ export default function TableType1e_User() {
   },[data,dispatch])
   useEffect(()=>{
     getData();
-  },[getData,token])
+  },[getData])
   const activeEnter = (e) => {
     if(e.key === "Enter") {
       onSearch(e);

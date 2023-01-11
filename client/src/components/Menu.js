@@ -4,11 +4,12 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { CHANGE_MENU,STASTICS_ANALYZE } from "../store/management";
 import { CHANGE_CATEGORY } from "../store/material";
+import { AuthLevel } from '../CommonCode';
 import styled from 'styled-components';
 import '../css/common-s.css';
 import '../css/style-s.css';
 import '../css/Menu.css';
-import { set } from 'date-fns';
+import { formatRelative, set } from 'date-fns';
 import $ from 'jquery';
 const menuCompo = styled(Link)`
 `
@@ -17,10 +18,24 @@ let user_style = {
   left:"100px",
 }
 
-const UserMenu = ({authority_level,history,path}) => {
+const UserMenu = ({authority_level,path,viewDepth}) => {
   const [menuOpen,setMenuOpen] = useState(false);
   const [isHovering,setIsHovering] = useState(0);
-  
+  const dispatch = useDispatch();
+  const history = useNavigate();
+  const { sideNaviPos } = useSelector(state => state.management);
+  const outer1 = document.getElementsByClassName('dep2');
+	const onClick = useCallback((e, index) => {
+		e.preventDefault();
+		dispatch({ type: CHANGE_MENU, target: index });
+		console.log(viewDepth);
+		if (viewDepth && viewDepth === 2) {
+			
+			history(-1);
+		} else {
+			history('/management')
+		}
+	}, [dispatch, history, viewDepth]);
   
   const SubMenu1 = () =>{
     return(
@@ -76,6 +91,19 @@ const UserMenu = ({authority_level,history,path}) => {
       </ol>
     );
   }
+  const SubMenu7 = () => {
+    
+    return(
+      <ol className='menu_dep2'>
+        <li onClick={(e)=>onClick(e,0)}><NavLink>기업/회원 관리</NavLink></li>
+        <li onClick={(e)=>onClick(e,2)}><NavLink>기자재 품목 관리</NavLink></li>
+        <li onClick={(e)=>onClick(e,3)}><NavLink>서비스항목관리</NavLink></li> 
+        <li onClick={(e)=>onClick(e,4)}><NavLink>기/자재관리</NavLink></li> 
+        <li onClick={(e)=>onClick(e,5)}><NavLink>전문멘토관리</NavLink></li>   
+        <li onClick={(e)=>onClick(e,6)}><NavLink>교육/행사관리</NavLink></li>   
+      </ol>
+    );
+  }
   return(
   <>
   <ol className="menu">
@@ -101,7 +129,9 @@ const UserMenu = ({authority_level,history,path}) => {
     <li><Link to="/contact">Contact</Link>
           <SubMenu6/>
     </li>
-       
+    <li className='dep2' style={authority_level < AuthLevel.partner ?{"display":"block"}:{"display":"none"}}> <Link onClick={() => { dispatch({ type: CHANGE_MENU, target: 0 }); }} to="/management">운영 관리</Link>
+          <SubMenu7/>
+    </li>
    </ol>
     
   </>
@@ -210,11 +240,12 @@ const AdminMenu = ({viewDepth}) => {
     <li className='dep2'> <Link to="/notcomplete">멘토링</Link>
           <SubMenu5/>
     </li>
-    <li className='dep2'> <Link onClick={() => { dispatch({ type: CHANGE_MENU, target: 0 }); }} to="/management">운영 관리</Link>
-          <SubMenu7/>
-    </li>
+ 
     <li className='dep2'> <Link to="/contact">Contact</Link>
           <SubMenu6/>
+    </li>
+    <li className='dep2'> <Link onClick={() => { dispatch({ type: CHANGE_MENU, target: 0 }); }} to="/management">운영 관리</Link>
+          <SubMenu7/>
     </li>
     </ol>
     </>
@@ -231,7 +262,7 @@ export default function Menu({ authority_level }) {
 
   return (
     <div className="btn_box">
-      <CurrentMenu path={authority_level<1?path2:path1} history={history}/>
+      <CurrentMenu path={authority_level<1?path2:path1} history={history} />
     </div >
   );
 }

@@ -1,7 +1,7 @@
 import React,{useState}from "react";
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
 import { useSelector } from "react-redux";
-import SwiperCore from'swiper';
+import SwiperCore, { Controller } from'swiper';
 import { NavLink } from "react-router-dom";
 import { Navigation, Pagination, A11y ,Autoplay} from "swiper";
 import '../../css/swiper-bundle.min.css';
@@ -23,8 +23,8 @@ export default function SlideSwiper1() {
           type: "progressbar",
         }}
         navigation={true}
-        modules={[Pagination]}
-        autoplay={{delay:2500,disableOnInteraction:false}}
+        modules={[Pagination][Controller]}
+        autoplay={{delay:2400,disableOnInteraction:false}}
       >
         <SwiperSlide value={0} onChange={onChange}><NavLink to="didreservation"><img src="/images/reservation.jpg"/></NavLink></SwiperSlide>
         <SwiperSlide value={1}><NavLink to="didreservation"><img src="/images/reservation2.jpg"/></NavLink></SwiperSlide>
@@ -61,8 +61,8 @@ export function SlideSwiper3(){
   return(
     <div className="swiper_wrap swiper_type3">
       <Swiper
-        navigation={true}
-        modules={[Pagination]}
+        navigation={false}
+        modules={[Controller]}
         autoplay={{delay:2500,disableOnInteraction:false}}
       >
     <SwiperSlide value={0}>

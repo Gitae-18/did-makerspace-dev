@@ -12,7 +12,7 @@ export default function TextExtraType1a() {
           동영상 시청 후 온라인 시험을 통과해야만 장비 예약을 하실 수 있습니다.
         </li>
         <li>
-          시험은 총 <span>0</span>문항이며 통과 시 예약 자격을 얻으실 수
+          시험은 총 <span>10</span>문항이며 60점이상 통과이고 통과 시 예약 자격을 얻으실 수
           있습니다.
         </li>
       </ul>

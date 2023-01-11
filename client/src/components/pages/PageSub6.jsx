@@ -15,6 +15,7 @@ import PageSub06d5 from "./PageSub06/PageSub06d5";
 import PageSub06d3 from "./PageSub06/PageSub06d3";
 import TableType5e from "../contents/TableType5e";
 import PageSub06d2 from "./PageSub06/PageSub06d2";
+import Classedulist from "../contents/classedulist";
 import SideNavi from "../Admin/Management/SideNavi";
 import Menu from "../Menu";
 import SectionInputTextType1d from "../sections/SectionInputTextType1d";
@@ -94,7 +95,7 @@ export const ManagementEquipCategory = () =>{
         <>
          
         <div id="sub_page_wrap">
-          <SubSideMenu title={"기자재 품목 관리"} ></SubSideMenu>
+          <SubSideMenu subtitle={"기자재 품목 관리"} ></SubSideMenu>
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
               <EquipmentCategory/>
@@ -269,6 +270,23 @@ export const ClassEduControl2 = () =>{
         <div className="sub_page_inner_wrap">
           <div className="sub_inner">
             <SectionInputTextType1d_a/>
+          </div>
+        </div>
+      </div>
+      <div className="sub_page_outer">
+      </div>
+      </>
+    );
+}
+export const ClassEduTotalControl = () =>{
+  return (
+      <>
+       
+      <div id="sub_page_wrap">
+        <SideNavi/>
+        <div className="sub_page_inner_wrap">
+          <div className="sub_inner">
+            <Classedulist/>
           </div>
         </div>
       </div>

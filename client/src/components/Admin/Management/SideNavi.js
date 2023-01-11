@@ -19,7 +19,7 @@ export default function ({ viewDepth ,onCategory}) {
 	if(location.pathname.includes('mentorcontrol')){
 		titlevalue="전문멘토관리"
 	}
-	if(location.pathname.includes('educontrol'||'classcontrol')){
+	if((location.pathname.includes('educontrol'))||(location.pathname.includes('classcontrol'))){
 		titlevalue="교육/행사관리"
 	}
 	else{
@@ -52,7 +52,22 @@ export default function ({ viewDepth ,onCategory}) {
 		  classOnTarget.classList.add("on");
 		}
 	  };
-	
+	  const onItem = (e) =>{
+		const classOnTarget = e.target.parentElement;
+		const onRemoveTarget = classOnTarget.parentElement.children;
+	 
+		if (classOnTarget.classList.contains("on")) {
+		  classOnTarget.classList.remove("on");
+		}
+		else {
+		  for (let i = 0; i < onRemoveTarget.length; i++) {
+			onRemoveTarget[i].classList.remove("on");
+		  }
+		  classOnTarget.classList.add("on");
+		}
+		history('/classeducontrol')
+	  };
+	  
 	const SubModalControl = () =>{
 		const { token } = useSelector(state => state.user);
 		return(
@@ -89,11 +104,9 @@ export default function ({ viewDepth ,onCategory}) {
 				</ol>
 			  </li>
 			  <li>
-				<p onClick={Dep2Handler}>교육/행사관리</p>
-				<ol className="has_dep3">
-				  <li><NavLink to="/educontrol">교육프로그램 관리</NavLink></li>
-				  <li><NavLink to="/classcontrol">행사프로그램 관리</NavLink></li>
-				</ol>
+				<p onClick={onItem}>교육/행사관리</p>
+				{/*   <li><NavLink to="/educontrol">교육/행사 관리</NavLink></li>
+				  <li><NavLink to="/classcontrol">행사프로그램 관리</NavLink></li> */}
 			  </li>
 			  </ol>
 		)

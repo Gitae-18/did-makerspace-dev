@@ -66,7 +66,7 @@ export default function SectionTabType1a(props) {
   };
 
   return (
-    <section className="section_tab_type1">
+    <section className="section_tab_type1a">
       <SetTabBtns
         tabNames={["상세 안내", "장소 안내", "취소 안내"]}
       ></SetTabBtns>

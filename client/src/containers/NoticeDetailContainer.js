@@ -15,15 +15,11 @@ export const NoticeDetailContainer = (props) =>{
     });
     useEffect(() => {
         
-        if (isLoading) { return; }
-        if (!isLoggedIn) { return history('/notmember',{replace:false}); }
-        
-	}, [isLoading, isLoggedIn, authority_level, history])
+	}, [])
 
     const View = query ? ContactNoticeDetail : ContactNoticeDetail ;
 
     return(
-        (isLoading || !isLoggedIn ) ? <></>:
-        View? <View query={query}/> : <></>
+        <View query={query}/> 
     )
 }   

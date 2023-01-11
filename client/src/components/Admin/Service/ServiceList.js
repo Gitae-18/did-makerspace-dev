@@ -411,7 +411,7 @@ export default function ({ query , no }) {
     return (
         <div id="wrap" className="wrap service1">
             <div className="content_wrap">
-                <SubSideMenu title={"시제품 제작"} subtitle={"시제품제작관리"}/>
+                <SubSideMenu  subtitle={"시제품제작관리"}/>
                 <div className="content">
                 
                     <div className="top_menu">

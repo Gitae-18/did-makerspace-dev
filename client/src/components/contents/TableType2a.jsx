@@ -62,14 +62,19 @@ export default function TableType2a() {
    //
    let typepass = passflag.map((item)=>item.type);
    //
-   let pass;
-    for (let i = 0 ; i < passflag.length ; i++){
+   let pass =  passflag.map((item)=>item.pass_flag);
+   //
+    /* for (let i = 0 ; i < passflag.length ; i++){
       if(passflag[i].pass_flag==="Y" )
       {
         pass="Y";
       }
-    }
-  
+      else
+      {
+        pass="N";
+      }
+    } */
+
    const getItemList = useCallback(async(currentPage)=>{
       setLoading(true);
       let requri = PreUri + `${'/equipment/equipmentlist'}`;
@@ -108,7 +113,7 @@ export default function TableType2a() {
     setModalVisible(false);
   }
    const categoryNum = reservationList.map((item,index)=> item.equipment_category_no);
-
+  console.log(pass);
   return (
     <div id="sub_page_wrap">
       {modalVisible && <PopupModal3 visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal} />}
@@ -127,7 +132,6 @@ export default function TableType2a() {
           <tr>
             <th>사진</th>
             <th>모델명</th>
-            <th>구분</th>
             <th>스펙</th>
             <th>설치장소</th>
             <th>교육</th>
@@ -139,7 +143,6 @@ export default function TableType2a() {
             <tr key={i}>
                 <td><img alt="no image" src={item.model_name.includes("A0플로터")?flotersrc:item.model_name.includes("X-cut")?xcutsrc:item.model_name.includes("UV 프린터 : 329UV")?uvsrc:item.model_name.includes("FDM : 3DWOX") ?fdmsrc:null}/></td>
                 <td>{item.model_name}</td>
-                <td></td>
                 <td>{item.model_specification}</td>
                 <td>{item.location}</td>
                
@@ -148,9 +151,9 @@ export default function TableType2a() {
                 <ButtonType2test  active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active:nonactive} name={item.model_name} test={passflag === "N"?true:false}></ButtonType2test>
                  </td>
                  <td className="res_btn">
-                  { pass="Y" && typepass.includes(item.model_name) ?
+                  { pass.includes("Y") && typepass.includes(item.model_name) ?
                  <ButtonType3small categoryNo={categoryNum[i]} active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active : nonactive} btnName="예약하기"></ButtonType3small>:
-                 <ButtonType3small btnName="예약 불가"></ButtonType3small>
+                 <ButtonType3small btnName="예약 불가" style={{"background-color":"3f3f3f"}}></ButtonType3small>
                   }
                 </td>
                

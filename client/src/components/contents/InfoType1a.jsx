@@ -6,14 +6,19 @@ export default function InfoType1a() {
   const history = useNavigate();
   const location = useLocation();
   const eqname = location.state.name;
+  let src,src2;
+  let introduce;
+  if(eqname === "SLA : 3D SYSTEMS : ProX800 "){
+    src="/images/ProX800.jpg"
+ 
+  }
   const Desc1 = () => {
     return <p>최상의 디테일과 3D 입체기술의 완벽함을 구현한 대형 3D프린터</p>;
   };
   const DescImage = () => {
     return (
       <div className="images_wrap">
-        <div className="image_part">Image</div>
-        <div className="image_part">Image</div>
+        <div className="image_part"><img src={src} alt="no-image"/></div>
       </div>
     );
   };

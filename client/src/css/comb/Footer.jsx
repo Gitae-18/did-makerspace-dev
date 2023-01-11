@@ -63,10 +63,12 @@ export default function Footer() {
       <>
       <footer>
         <div className="wrap2">
+          <div className="footer_position">
           <div className="footer_inner_wrap">
           <FooterInfo></FooterInfo>
           </div>
           <FooterSiteMap></FooterSiteMap>
+          </div>
         </div>
       </footer>
       </>

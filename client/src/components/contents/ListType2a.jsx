@@ -3,10 +3,13 @@ import { useLocation,useNavigate } from "react-router-dom";
 import {useDispatch,useSelector}  from "react-redux";
 import { PreUri , CommonHeader ,  Method, getRspMsg } from "../../CommonCode";
 import Paging2 from "./Paging2";
+import styled from "styled-components";
+
 export default function ListType2a() {
   const { token } = useSelector(state => state.user);
   const location = useLocation();
   const history = useNavigate();
+  const [search,setSearch] = useState('');
   //페이징
   const [page,setPage] = useState(1);
   const [count,setCount] = useState(0);
@@ -57,6 +60,35 @@ export default function ListType2a() {
    }
     history(location.pathname + '/detail',{state:{no:program_no}});
   },[currentPost,itemList])
+  const onSearch = useCallback(async(e) =>{
+    e.preventDefault();
+    
+    if(search=== null || search === ''){
+      let requri = PreUri + '/classedu/edulist?type=' + type;
+      const response = await fetch(requri, {
+        method:Method.get,
+        headers:CommonHeader
+      });
+      const json = await response.json(); 
+      setItemList(json);
+    }
+    else{
+      const filterData = itemList.filter((item) => item.title.includes(search))
+      setItemList(filterData)
+      setCurrentPage(1)
+    }
+   setSearch('');
+
+  },[search])
+  const activeEnter = (e) => {
+    if(e.key === "Enter") {
+      onSearch(e);
+    }
+  }
+  const onChange = (e) =>{
+    e.preventDefault();
+    setSearch(e.target.value);
+  }
   useEffect(()=>{
     getItemList();
   },[getItemList,token])
@@ -65,6 +97,12 @@ export default function ListType2a() {
   }
   return (
     <div className="table_wrap list_type2">
+      <div className="table_extra">
+       <div className="table_search">
+         <input type="text" name="" id="" placeholder="제목을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange}/>
+           <StyledBtn onClick={(e)=>onSearch(e)} >조회</StyledBtn>
+       </div>
+      </div>
       <ol>
       {currentPost.map((item,index)=>(
         
@@ -97,3 +135,18 @@ export default function ListType2a() {
     </div>
   );
 }
+
+
+const StyledBtn= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:100px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
+border:1px solide #313f4f;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `

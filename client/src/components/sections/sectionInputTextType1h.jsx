@@ -38,7 +38,7 @@ export default function SectionInputTextType1h() {
   return (
     <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1e">
       <div className="title_wrap">
-        <TitleType1 title="공지사항"></TitleType1>
+        
       </div>
       <ul className="text_wrap">
       <li>

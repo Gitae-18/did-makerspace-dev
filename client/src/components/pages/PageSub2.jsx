@@ -55,7 +55,7 @@ export default function DidReservation({location,history}) {
         <>
   
         <div id="sub_page_wrap">
-          <SubSideMenu title={"전문 랩 투어"}></SubSideMenu>
+          <SubSideMenu title={"전문랩투어"}></SubSideMenu>
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
               <PageSub02c1/>

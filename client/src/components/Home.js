@@ -1,4 +1,4 @@
-import React,{useState}from 'react'
+import React,{useState,useEffect, useCallback}from 'react'
 import $ from 'jquery';
 import {withCookies,Cookies,ReactCookieProps} from 'react-cookie';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -10,12 +10,14 @@ import '../css/style-s.css';
 import SectionBannerType1 from "../components/sections/SectionBannerType1";
 import SectionTabType1 from "../components/sections/SectionTabType1";
 import SectionTextType1 from "../components/sections/SectionTextType1";
+import { NoticeHomeContainer } from '../containers/notice/NoticeHomeContainer';
 import "../css/comb/pages/page.css";
 import "../css/comb/contents/content.css";
 import "../css/comb/sections/sections.css";
 
 export default function () {
   const { token } = useSelector(state => state.user); 
+  const {isLoggedIn} = useSelector(state => state.user);
     $(document).ready(function () {
         $('.content_wrap').css('min-height', $(window).height() - 120);
         setTimeout(function(){ $('#modal').show();},300)
@@ -54,13 +56,15 @@ export default function () {
         }*/
         const MainBanner = () => {
           const [modalVisible,setModalVisible] = useState(true);
-          const closeModal = () =>{
+          const closeModal = useCallback (async(e) =>{
             setModalVisible(false);
-          }
+          },[])
+          console.log(modalVisible);
+         /*  if() */
         return (
             <div className="main_banner">
               <div className="wrap2">
-              {modalVisible && (<Modal visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal}></Modal>)}
+              {modalVisible && (<Modal visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal} isLoggedIn={isLoggedIn}></Modal>)}
                 <div className="text_part">
                   <h2>
                     <span>DID</span> Digital Factory in Daejeon 
@@ -83,9 +87,9 @@ export default function () {
             <SectionTextType1
               title="DID 주요 서비스"
             ></SectionTextType1>
-            <div className="separate1"></div>
-            <SectionTabType1 title="New 업데이트"></SectionTabType1>
-            <div className="separate2"></div>
+          
+            <NoticeHomeContainer title="New 공지사항"></NoticeHomeContainer>
+       
             <SectionBannerType1 title="DID 협력기관"></SectionBannerType1>
           </div>
         );}

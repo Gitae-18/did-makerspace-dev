@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import React,{useCallback,useState,useLayoutEffect} from "react";
 import {useLocation,useNavigate} from "react-router-dom";
 import { Link } from "react-router-dom";
+import { MdHome,MdChevronRight } from "react-icons/md";
 
 export default function SubSideMenu(props) {
   const [sidebar,setSidebar] = useState(false);
@@ -13,20 +14,28 @@ export default function SubSideMenu(props) {
   const location = useLocation();
   const history = useNavigate();
   const { authority_level } = useSelector(state => state.user);
-  useLayoutEffect(()=>{
-    if(url.pathname.split('/')[1]==='didinfo'){
-      setIsSpace(true);
-    }
-    if(url.pathname.split('/')[1]==="companyinfo"){
-      setIsCompany(true);
-    }
-  },[url.pathname])
+  console.log(url.pathname.split('/')[1])
+  console.log(isSpace)
+
   const SubModal = () => {
     
+    const showSidebar = () => setSidebar(true);
     const Dep2Handler = (e) => {
       const classOnTarget = e.target.parentElement;
       const onRemoveTarget = classOnTarget.parentElement.children;
-   
+      
+/*       if(!url.pathname.split('/')[1].includes("info")){
+       
+      }
+      else if (classOnTarget.classList.contains("on")) {
+        
+      }
+      else{
+        for (let i = 0; i < onRemoveTarget.length; i++) {
+         
+        }
+        classOnTarget.classList.add("on");
+      } */
       if (classOnTarget.classList.contains("on")) {
         classOnTarget.classList.remove("on");
       }
@@ -37,6 +46,9 @@ export default function SubSideMenu(props) {
         classOnTarget.classList.add("on");
       }
     };
+    useLayoutEffect((Dep2Handler)=>{
+      
+    },[url.pathname])
     const Dep3Handler = (e,props) => {
       const classOnTarget = e.target;
       //props.setValue(e.target.value);
@@ -46,6 +58,7 @@ export default function SubSideMenu(props) {
       }
       classOnTarget.classList.add("on");
     };
+
   const SubModal01 = (props) => {
 
       return (
@@ -53,9 +66,9 @@ export default function SubSideMenu(props) {
           <li>
             <p onClick={Dep2Handler}>시설소개</p>
             <ol className="has_dep3">
-              <li onClick={Dep3Handler} value="space"><Link to={"/didinfo"}> 공간소개 </Link></li>
-              <li onClick={Dep3Handler} value="equip"><Link to={"/info/equipinfo"}> 장비소개 </Link></li>
-              <li onClick={Dep3Handler} value="work"><Link to={"/info/workerinfo"}>운영인력소개</Link></li>
+              <li onClick={Dep3Handler}   value="space"><Link to={"/didinfo"}> 공간소개 </Link></li>
+              <li onClick={Dep3Handler}   value="equip"><Link to={"/info/equipinfo"}> 장비소개 </Link></li>
+              <li onClick={Dep3Handler}   value="work"><Link to={"/info/workerinfo"}>운영인력소개</Link></li>
             </ol>
           </li>
           <li>
@@ -231,7 +244,6 @@ export default function SubSideMenu(props) {
             <p onClick={Dep2Handler}>시제품제작관리</p>
             <ol className="has_dep3">
               <li onClick={Dep3Handler}><Link to ={'/mservice'}>시제품제작관리</Link></li>
-              <li onClick={Dep3Handler}><Link to ={'/mservice/*'}>시제품제작신청</Link></li>
             </ol>
           </li>
           <li>
@@ -291,11 +303,11 @@ export default function SubSideMenu(props) {
         </ol>
     )
    }
-  
+
     return (
       <>
-      <div className="sub_modal">
-        {url.pathname.includes("info") === true ? <SubModal01/> 
+      <div className="sub_modal"  sidebar={!sidebar}>
+        {url.pathname.includes("info") === true ? <SubModal01 isOpened={isSpace}/> 
         : url.pathname.includes("reservation") === true? <SubModal02/>:
         url.pathname.includes("mentor") === true && authority_level > 1?<SubModal04/>
         :url.pathname.includes('mentor')===true && authority_level<10? <MentoringUser/>
@@ -310,7 +322,7 @@ export default function SubSideMenu(props) {
 
   
   // 페이지 이동시 아래의 SubBread 컨트롤 필요
- 
+
   return (
     <div className="sub_side_menu">
       <SubModal></SubModal>
@@ -368,13 +380,18 @@ export default function SubSideMenu(props) {
         title : 'FAQ'
       }
     ]
+    let style={
+      position:"relative",
+      left:"10px"
+    }
     return (
       <div className="sub_bread">
         <h1>{props.subtitle ? props.subtitle:props.title}</h1>
         <div className="location">
-        <h2>{props.subtitle}</h2>
-        {props.subtitle ? <span>{">"}</span>:<></>}
-        <h3>{props.title}</h3>
+        <MdHome className="homeicon" style={!props.subtitle?{"left":"20px"}:{"left":"25px"}}/>
+        <h3>{props.subtitle}</h3>
+        {props.subtitle ? <span style={props.subtitle.length < 5?{"left":"20px"}:{"left":"10px"}}><MdChevronRight className="arrowicon"/></span>:<></>}
+        <h2>{props.title}</h2>
         </div>
       </div>
     );

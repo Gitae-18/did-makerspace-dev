@@ -2,7 +2,7 @@ import React,{useState,useCallback} from "react";
 import ButtonType2 from "./ButtonType2";
 import styled from "styled-components";
 import Paging2 from "./Paging2";
-import Data from './TableType1c.json';
+import { Data } from './Data'
 import { useEffect } from "react";
 export default function TableType1c() {
   const [data,setData] = useState([]);
@@ -52,7 +52,7 @@ const activeEnter = (e) => {
     <div className="table_wrap table_type1">
       <div className="table_extra">
         <p>
-          총 <span>{Data.length}</span>개의 글
+          총 <span>{data.length}</span>개의 글
         </p>
         <div className="table_search">
           <select name="" id="">

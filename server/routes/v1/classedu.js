@@ -35,6 +35,24 @@ router.get('/edulist',verifyToken,async(req,res,next)=>{
     res.status(errorCode.ok).json(result);
 })
 
+router.get('/classedulist',verifyToken,async(req,res,next)=>{
+    let body = req.body;
+   
+    let result ;
+    try{
+        result = await ClasseduProgram.findAll({
+            attributes:['program_no','type','hit','content','title','cost','pay_flag','place','class_period_start','class_period_end','application_period_start','application_period_end','limit_number','popup_flag'],
+            order:[['created_at','DESC']],
+            raw:true,
+        })
+    }
+    catch(error){
+        console.log(error)
+        return res.status(errorCode.internalServerError).json({});
+    }
+
+    res.status(errorCode.ok).json(result);
+})
 /* router.post('/classadd',async(req,res,next)=>{
     let body = req.body;
     const input = req.body;
@@ -183,6 +201,24 @@ router.get('/class_application',verifyToken,async(req,res,next)=>{
         result = await ClasseduApplication.findAll({
             attributes:['application_no'],
             where:{title:title},
+            order:[['created_at','DESC']],
+            raw:true,
+        })
+    }
+    catch(error){
+        console.log(error)
+        return res.status(errorCode.internalServerError).json({});
+    }    res.status(errorCode.ok).json(result);
+})
+
+router.get('/myclass_application',verifyToken,async(req,res,next)=>{
+    const title = req.query.title;
+    let user_no = req.decoded.user_no
+    let result;
+    try{
+        result = await ClasseduApplication.findAll({
+            attributes:['application_no','classedu_type','title','flag','created_at'],
+            where:{created_user_no:user_no},
             order:[['created_at','DESC']],
             raw:true,
         })

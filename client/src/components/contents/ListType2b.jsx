@@ -3,12 +3,14 @@ import { useLocation,useNavigate } from "react-router-dom";
 import { PreUri , CommonHeader ,  Method, getRspMsg } from "../../CommonCode";
 import {useDispatch,useSelector}  from "react-redux";
 import Paging2 from "./Paging2";
+import styled from "styled-components";
 export default function ListType2b() {
   const { token } = useSelector(state => state.user);
   const location = useLocation();
   const history = useNavigate();
   const [page,setPage] = useState(1);
   const [count,setCount] = useState(0);
+  const [search,setSearch] = useState('');
   const [currentPage,setCurrentPage] = useState(1);
   const [itemList,setItemList] = useState([]);
   const postPerPage = 10;
@@ -62,12 +64,51 @@ export default function ListType2b() {
   const sethandlePage = (e) =>{
     setCurrentPage(e);
   }
+  const onMove = () =>{
+    history('/classprogram/myreserv');
+  }
+  const onChange = (e) =>{
+    e.preventDefault();
+    setSearch(e.target.value);
+  }
+  const onSearch = useCallback(async(e) =>{
+    e.preventDefault();
+    
+    if(search=== null || search === ''){
+      let requri = PreUri + '/classedu/edulist?type=' + type;
+      const response = await fetch(requri, {
+        method:Method.get,
+        headers:CommonHeader
+      });
+      const json = await response.json(); 
+      setItemList(json);
+    }
+    else{
+      const filterData = itemList.filter((item) => item.title.includes(search))
+      setItemList(filterData)
+      setCurrentPage(1)
+    }
+   setSearch('');
+
+  },[search])
+  const activeEnter = (e) => {
+    if(e.key === "Enter") {
+      onSearch(e);
+    }
+  }
   //console.log(item);
   useEffect(()=>{
     getItemList();
   },[getItemList,token])
   return (
     <div className="table_wrap list_type2">
+    <div className="table_extra">
+    <StyledBtn2 onClick={onMove}>내예약정보</StyledBtn2>
+      <div className="table_search">
+       <input type="text" name="" id="" placeholder="제목을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange}/>
+          <StyledBtn onClick={(e)=>onSearch(e)} >조회</StyledBtn>
+      </div>
+      </div>
       <ol>
         {currentPost.map((item,index)=>(
         
@@ -100,3 +141,31 @@ export default function ListType2b() {
     </div>
   );
 }
+const StyledBtn= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:100px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
+border:1px solide #313f4f;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `
+ const StyledBtn2= styled.button`
+ color:#fff;
+ background-color:#313f4f;
+ width:140px;
+ height:30px;
+ font-size:0.8rem;
+ cursor:pointer;
+ position:relative;
+ left:0;
+ right:500px;
+  &:hover{
+     background-color:#transparent
+     color:#313f4f
+  }
+  `

@@ -48,9 +48,9 @@ router.put('/notice_cnt',async(req,res,next)=>{
         console.log(error);
     }
 })
-router.get('/noticelist',verifyToken,async(req,res,next)=>{
+router.get('/noticelist',async(req,res,next)=>{
     let body = req.body;
-    let user_no = req.decoded.user_no;
+
     let result;
     try{
         result = await Notice.findAll({
@@ -65,10 +65,8 @@ router.get('/noticelist',verifyToken,async(req,res,next)=>{
     }
     res.status(errorCode.ok).json(result);
 })
-router.get('/:notice_no/detail',verifyToken,async(req,res,next)=>{
+router.get('/:notice_no/detail',async(req,res,next)=>{
     let body = req.body;
-    let user_no = req.decoded.user_no;
-    let authority_level = req.decoded.authority_level;
     let notice_no = req.params.notice_no;
 
     let result;
@@ -80,6 +78,23 @@ router.get('/:notice_no/detail',verifyToken,async(req,res,next)=>{
     }
     catch(error){
         console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(result);
+})
+router.get('/noticehome',async(req,res,next)=>{
+    let body = req.body;
+    let result;
+    try{
+        result = await Notice.findAll({
+            attributes:['notice_no','title','created_at','hit'],
+            order:[['created_at','DESC']],
+            limit:3,
+            raw:true,
+        })
+    }
+    catch(error){
+        console.log(error);
         return res.status(errorCode.internalServerError).json({});
     }
     res.status(errorCode.ok).json(result);

@@ -4,8 +4,9 @@ import PropTypes from  'prop-types';
 import {Portal} from 'react-portal';
 import '../css/ModalStyle.css';
 import { setCookie,getCookie } from './cookie';
+import { useCallback } from 'react';
 
-function Modal({ className, onClose, maskClosable,closable,visible}){
+function Modal({ className, onClose, maskClosable,closable,visible,isLoggedIn}){
 
     const onMaskClick = (e) => {
         if (e.target === e.currentTarget) {
@@ -43,18 +44,20 @@ function Modal({ className, onClose, maskClosable,closable,visible}){
         }
     }
 
-    const close = (e) => {
+    const close = useCallback(async(e) => {
         if (onClose) {
-            onClose(e)
+            onClose(false)
         }
-    }
-
+        if(isLoggedIn){
+            onClose(true)
+        }
+    },[onClose])
     return (
         <Portal elementId="modal-root">
             <ModalOverlay visible={visible} />
             <ModalWrapper
                 className={className}
-                onClick={maskClosable ? onMaskClick : null}
+                onClick={maskClosable ? onMaskClick: null}
                 tabIndex="-1"
                 visible={visible}
             >

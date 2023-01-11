@@ -32,7 +32,7 @@ export default function SectionInputTextType1g() {
   return (
     <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1e">
       <div className="title_wrap">
-        <TitleType1 title="FAQ"></TitleType1>
+       
       </div>
       <ul className="text_wrap">
         <li>

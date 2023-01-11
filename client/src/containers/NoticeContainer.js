@@ -14,15 +14,12 @@ export const NoticeContainer = (props) =>{
     });
     useEffect(() => {
         
-        if (isLoading) { return; }
-        if (!isLoggedIn) { return history('/notmember',{replace:false}); }
-        
-	}, [isLoading, isLoggedIn, authority_level, history])
+	}, [])
 
     const View =  authority_level < AuthLevel.partner ? Contact6_User : Contact6   ;
  
     return(
-        (isLoading || !isLoggedIn   ) ? <></>:
-        View? <View query={query}/> : <></>
+ 
+      <View query={query}/> 
     )
 }   

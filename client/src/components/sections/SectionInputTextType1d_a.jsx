@@ -80,13 +80,10 @@ let popupf = "N";
   },[input,token]) */
   return (
     <>
-    <div id="sub_page_wrap">
-       <SideNavi/>
-       <div className="sub_page_inner_wrap">
-       <div className="sub_inner">
+
     <section className="section_input_text_type1 section_input_text_type1d">
       <div className="title_wrap">
-        <TitleType1 title="교육 프로그램 등록"></TitleType1>
+        <TitleType1 title="행사 프로그램 등록"></TitleType1>
       </div>
       <ul className="text_wrap">
         <li>
@@ -189,9 +186,7 @@ let popupf = "N";
         <StyledGrayBtn className='cancel'>취소</StyledGrayBtn>
      
     </section>
-    </div>
-    </div>
-    </div>
+ 
      <div className="sub_page_outer">
      </div>
      </>

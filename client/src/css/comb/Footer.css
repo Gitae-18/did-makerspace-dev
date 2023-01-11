@@ -26,9 +26,13 @@ footer *, footer *:hover {
 footer .wrap2 {
   padding-top:1px;
   display: flex;
+  position:relative;
   
 }
-
+footer .wrap2 .footer_position{
+  position:absolute;
+  padding:0px 50px;
+}
 footer .footer_inner_wrap {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -51,7 +55,7 @@ footer .site_map_wrap {
   position:absolute;
   width:200px;
   color:#2d2d2d; 
-  right:300px;
+  right:-1300%;
 }
 
 footer .site_map_wrap select {
@@ -60,6 +64,7 @@ footer .site_map_wrap select {
   border:1px solid #313f4f;
   color: #2d2d2d;
 }
+
 footer  .site_map_wrap .footer_site_map select option a{
   color:#2d2d2d;
 }
@@ -96,7 +101,7 @@ footer dl dt::after {
 .footer_info{
   position: absolute;
   margin-bottom:30px;
-
+  left:-30%;
 }
 .footer_info .contant{
   position:relative;

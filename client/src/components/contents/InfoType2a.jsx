@@ -26,7 +26,6 @@ export default function InfoType2a() {
 
   const getEduList = useCallback(async()=>{
     CommonHeader.authorization = token;
-    const tit = 0;
     let requri = PreUri + '/classedu/class_receive?no=' + no;
 
     const response = await fetch(requri,{

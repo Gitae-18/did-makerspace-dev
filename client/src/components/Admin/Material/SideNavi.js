@@ -82,7 +82,7 @@ export default function ({ onCategory, viewDepth }) {
    
     return (
       <div className="sub_side_menu">
-        <SubBread title={"서비스 관리"}></SubBread>	
+        <SubBread title={"자재 관리"}></SubBread>	
         <div className="sub_modal">
             <ol>
                 {sideNavi}

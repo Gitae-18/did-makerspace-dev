@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { Link, NavLink} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -53,7 +53,7 @@ export function LoggedInForm({onLogout, username}) {
     return (
         <form onSubmit={onLogout}>
             
-		<div className="member_box" style={authority_level<10?{left:"323px"}:{}}>
+		<div className="member_box" style={authority_level<10?{left:"311px"}:{}}>
 			<span ><strong>{username}</strong> 님</span>
 			<span className="my_info"><Link to="/myinfo">내 정보</Link></span>
         <button className="logout" type="submit" onClick={()=>onLogoutClick()}>로그아웃</button>

@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation,useNavigate,NavLink } from "react-router-dom";
+import Paging2 from "./Paging2";
 export default function ListType2d() {
   const location = useLocation();
   const history = useNavigate();

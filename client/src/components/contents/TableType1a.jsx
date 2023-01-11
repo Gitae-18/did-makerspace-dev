@@ -87,7 +87,7 @@ export default function TableType1a() {
   } */
   const onSearch = useCallback(async(e) =>{
     e.preventDefault();
-    console.log(search);
+
     if(search=== null || search === ''){
         let requri = PreUri + '/space/list';
       const response = await fetch(requri, {

@@ -16,10 +16,13 @@ export default function PageSub02a5() {
   const xcutsrc = "/images/xcut_TEST.png"
   const type = String(testtype);
   const [answer,setAnswer] = useState([]);
-  const printerAnswer = [2,1,3,5,5,4,1,1,4,1] || [2,1,3,5,5,4,4,1,4,4] 
-  const xcutAnswer = [3,4,4,2,1,3,5,1,4,1] || [3,4,4,2,2,3,5,1,4,4]
+  const printerAnswer = [2,1,3,5,5,4,1,1,4,1] 
+  const printerAnswer2 =  [2,1,3,5,5,4,4,1,4,4] 
+  const xcutAnswer = [3,4,4,2,1,3,5,1,4,1] 
+  const xcutAnswer2 =  [3,4,4,2,2,3,5,1,4,4]
   const uvprinterAnswer = [3,1,2,1,4,3,4,4,5,1]
-  const a0ploterAnswer = [5,2,2,3,5,3,3,1,1,1] || [5,4,2,3,5,4,3,1,2,5]
+  const a0ploterAnswer = [5,2,2,3,5,3,3,1,1,1] 
+  const a0ploterAnswer2 = [5,4,2,3,5,4,3,1,2,5]
   const [count,setCount] = useState(0);
   const [modalOpen,setModalOpen] = useState(false);
   const [passflag,setPassflag] = useState('');
@@ -60,7 +63,7 @@ export default function PageSub02a5() {
   const CheckAnswer = useCallback(async() =>{
     if(testtype==="FDM : 3DWOX 1X"){
     for(let i = 1 ; i< printerAnswer.length ; i++){
-      if(printerAnswer[i] === parseInt(answer[i]))
+      if(printerAnswer[i] === parseInt(answer[i]) || printerAnswer2[i] === parseInt(answer[i]))
       {
         setCount(count=>count + 1)
        counter++;
@@ -70,7 +73,7 @@ export default function PageSub02a5() {
   }
   if(testtype==="A0플로터 : HP 디자인젯 Z6"){
     for(let i = 0 ; i< a0ploterAnswer.length ; i++){
-      if(a0ploterAnswer[i] === parseInt(answer[i]))
+      if(a0ploterAnswer[i] === parseInt(answer[i]) || a0ploterAnswer2[i] === parseInt(answer[i]))
       {
       setCount(count=>count + 1)
        counter++;
@@ -88,7 +91,7 @@ export default function PageSub02a5() {
   }
   if(testtype==="X-cut"){
     for(let i = 0 ; i< xcutAnswer.length ; i++){
-      if(xcutAnswer[i] === parseInt(answer[i]))
+      if(xcutAnswer[i] === parseInt(answer[i]) || xcutAnswer2[i] === parseInt(answer[i]))
       {
         setCount(count=>count + 1)
        counter++;
@@ -112,6 +115,7 @@ export default function PageSub02a5() {
   else{
     setPassflag('N');
   }
+  console.log(passflag)
   },[answer])
   
   

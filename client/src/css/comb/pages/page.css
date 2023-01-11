@@ -28,7 +28,7 @@ section{
   background: url(/images/bg.jpg);
   background-size: cover;
   width:100%;
-  left:21px;
+  left:-4px;
 }
 
 .main_banner .text_part {
@@ -62,19 +62,5 @@ section{
  border: 1px solid #2c2c2c;
  font-size:0.8rem;
 }
- .separate1{
-  position:relative;
-  width:46%;
-  height:2px;
-  left:0;
-  bottom:4px;
-  background-color: #949393;
-}
-.separate2{
-  position:relative;
-  width:100%;
-  left:0;
-  height:2px;
-  background-color: #949393;
-}
+
 /*# sourceMappingURL=page.css.map */

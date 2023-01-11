@@ -1,10 +1,61 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect,useState} from "react";
+import {useNavigate,useLocation} from "react-router-dom"
+import { useSelector } from "react-redux";
+import { CommonHeader, PreUri, Method } from "../../CommonCode";
 import TitleType1 from "../contents/TitleType1";
-
+import styled from "styled-components";
+import { HiOutlinePlus } from "react-icons/hi2";
 export default function SectionTabType1(props) {
+ const history = useNavigate();
+ const [data,setData] = useState([]);
+
+  const getNotice = useCallback(async()=>{
+   
+    let uri = PreUri + '/notice/noticehome'
+
+    const response = await fetch(uri,{
+      method:"GET",
+      headers:{ "content-type": "application/json",},
+    })
+    if(!response.ok) {
+      console.log('잘못된 접근입니다.');
+      return;
+    }
+    const json = await response.json();
+    setData(json);
+
+  },[])
+  console.log(data);
   useEffect(() => {
-    document.getElementById("tab_btn0").classList.add("on");
-  });
+    /* document.getElementById("tab_btn0").classList.add("on"); */
+    getNotice()
+  },[getNotice]);
+
+
+  const goToNotice = () =>{
+    history('/notice')
+  }
+  const  onItem = useCallback(async(e,index) =>{
+    const hit_cnt = data[index].hit;
+    const notice_no = data[index].notice_no;
+    //dispatch({ type: M_NOTICE_SET, target: notice_no });
+    //조회수 증가
+    const response = await fetch(PreUri + '/notice/notice_cnt',{
+        method:Method.put,
+        headers:CommonHeader,
+        body:JSON.stringify(
+          {
+            hit : hit_cnt,
+            notice_no:notice_no,
+          }
+        )
+    })
+    if(!response.ok) {
+      console.log('잘못된 접근입니다.');
+      return;
+    }
+    history('/noticecontact/notice/detail',{state:{no:notice_no}});
+  },[data])
   // 내부 탭 내용 주입
   const Tabs = (props) => {
     return (
@@ -12,78 +63,25 @@ export default function SectionTabType1(props) {
         <li className="tab_inner on">
           {/* <h4>{props.tabNames[0]}</h4> */}
           <ol>
-            <li>장비 및 시설예약 New !
-              <ol>
-                <img src="/images/xcut.png" className="image1" alt="no-images"/>
-              </ol>
-              <ol>
-                <span>장비명 : &nbsp;X-cut </span>
-              </ol>
-            </li>
-            <li>장비 및 시설예약 New !
-              <ol>
-                <img src="/images/A0floter.png" className="image1" alt="no-images"/>
-              </ol>
-              <ol>
-                <span>장비명 : &nbsp; A0 플로터</span>
-              </ol>
-            </li>
-            <li>장비 및 시설예약 New !
-              <ol>
-                <img src="/images/fdm3dwox1.png" className="image1" alt="no-images"/>
-              </ol>
-              <ol>
-                <span>장비명 : &nbsp; FDM &nbsp;: &nbsp;3D-WOX</span>
-              </ol>
-            </li>
-          </ol>
-        </li>
-        <li className="tab_inner">
-          {/* <h4>{props.tabNames[1]}</h4> */}
-          <ol>
-            <li>시제품 제작 New !
-              <ol>
-                <img src="/images/service.jpg" className="image1" alt="no-images"/>
-              </ol>
-              <ol>
-                <span>제목 : &nbsp;무선 진동센서 하우징 개발 </span>
-              </ol>
-            </li>
-            <li>시제품 제작 New !
-              <ol>
-                <img src="/images/service.jpg" className="image1" alt="no-images"/>
-              </ol>
-              <ol>
-                <span>제목  : &nbsp; 3D 프린팅 셈플 제작 문의 </span>
-              </ol>
-            </li>
-            <li>시제품 제작 New !
-              <ol>
-                <img src="/images/service.jpg" className="image1" alt="no-images"/>
-              </ol>
-              <ol>
-                <span>제목  : &nbsp; 기계장치 고정 부품</span>
-              </ol>
-            </li>
-          </ol>
-        </li>
-        <li className="tab_inner">
-          {/* <h4>{props.tabNames[2]}</h4> */}
-          <ol>
-            <li>멘토링 New !
-              <ol>
-                내용이 없습니다.
-              </ol>
-            </li>
-            <li>멘토링 New !
-              <ol>
-                내용이 없습니다.
-              </ol>
-            </li>
-            <li>멘토링 New !
-              <ol>
-                내용이 없습니다.
-              </ol>
+            <li><span className="title">공지사항 new</span><HiOutlinePlus className="plus" onClick={goToNotice}/>
+               <div className="inner_text">   
+                <table>
+                  <thead>
+                    <th/>
+                    <th/>
+                    <th/>
+                   
+                  </thead>
+                  {data !== undefined && data.length > 0 && data.map((item,index) =>
+                  <tr key={index}>
+                    <td style={{"whiteSpace":"pre-wrap"}}><span onClick={(e)=>setTimeout(onItem(e,index),2000)}>{index+1}. {item.title}</span></td>
+                    <td/><td>{item.created_at.slice(0,10)}</td>
+                    
+                  </tr>
+                  )} 
+                </table>
+                </div>
+                
             </li>
           </ol>
         </li>
@@ -127,7 +125,7 @@ export default function SectionTabType1(props) {
       <div className="section_inner_wrap">
         <TitleType1 title={props.title}></TitleType1>
         <SetTabBtns
-          tabNames={["장비 및 시설예약", "시제품 제작", "멘토링"]}
+          tabNames={[]}
         ></SetTabBtns>
         <Tabs tabNames={["장비 및 시설예약", "시제품 제작", "멘토링"]}></Tabs>
       </div>

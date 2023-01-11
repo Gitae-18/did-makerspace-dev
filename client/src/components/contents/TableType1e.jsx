@@ -7,7 +7,7 @@ import { M_NOTICE_SET } from "../../store/notice";
 import { Paging } from "./Paging";
 import styled from "styled-components";
 export default function TableType1e() {
-  const { token } = useSelector(state => state.user);
+
   const location = useLocation();
   const history = useNavigate();
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ export default function TableType1e() {
   const currentPost = data.slice(indexOfFirstPost, indexOfLastPost)
   
   const getData = useCallback(async()=>{
-    CommonHeader.authorization = token;
+
     let requri = PreUri + '/notice/noticelist';
     const response = await fetch(requri,{
       method:Method.get,
@@ -39,7 +39,7 @@ export default function TableType1e() {
     console.log(json);
     setData(json);
     setCount(json.length)
-  },[token])
+  },[])
 
 
   const onChange = (e) =>{
@@ -94,7 +94,7 @@ export default function TableType1e() {
   },[data,dispatch])
   useEffect(()=>{
     getData();
-  },[getData,token])
+  },[getData])
   const activeEnter = (e) => {
     if(e.key === "Enter") {
       onSearch(e);

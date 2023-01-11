@@ -3,11 +3,12 @@ import TitleType1 from "./TitleType1";
 import { useSelector } from "react-redux";
 import { CommonHeader, PreUri, Method } from "../../CommonCode";
 import Paging2 from "./Paging2";
+import styled from "styled-components";
 export default function TableType2b() {
   const { token } = useSelector(state => state.user);
   const [reservList,setReservList] = useState([]);
 
-
+  const [search,setSearch] = useState('');
   const [loading,setLoading] = useState(false);
   const [currentPage,setCurrentPage] = useState(1);
   const [postPage, setPostPage] = useState(10);
@@ -38,6 +39,46 @@ export default function TableType2b() {
     setCount(json.length);
 
   },[token])
+  const activeEnter = (e) => {
+    if(e.key === "Enter") {
+      onSearch(e);
+    }
+  }
+  const handlePageChange = (e) =>{
+    setCurrentPage(e)
+  }
+
+  const onChange = (e) =>{
+    e.preventDefault();
+    setSearch(e.target.value);
+  }
+  const onSearch = useCallback(async(e) =>{
+    e.preventDefault();
+
+    if(search=== null || search === ''){
+        let requri = PreUri + '/reservation/myreserv';
+      const response = await fetch(requri, {
+        method:Method.get,
+        headers:CommonHeader
+      });
+      const json = await response.json(); 
+      setReservList(json);
+     
+  }
+  else{
+    const filterData = reservList.filter((item) => item.model_name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
+    setReservList(filterData)
+  
+    setCurrentPage(1)
+  }
+ setSearch('');
+},[search])
+
+
+
+
+
+
 
   const setPage = (e) =>{
     setCurrentPage(e);
@@ -50,9 +91,13 @@ export default function TableType2b() {
     <div className="table_wrap table_type2">
       <div className="table_extra">
         <TitleType1 title="내 예약 정보"></TitleType1>
+        <div className="table_search">
         <select name="" id="">
-          <option value="1">분류</option>
-        </select>
+            <option value="1">모델명</option>
+          </select>
+        <input type="text" name="" id="" placeholder="제목을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange}/>
+          <StyledBtn onClick={(e)=>onSearch(e)} >조회</StyledBtn>
+          </div>
       </div>
       <table>
         <caption className="blind">장비 예약</caption>
@@ -67,7 +112,7 @@ export default function TableType2b() {
           </tr>
         </thead>
         <tbody>
-          {reservList.length>0 ? reservList.map((item,index)=>(
+          {currentPost && reservList.length>0 ? currentPost.map((item,index)=>(
             <tr key={index}>
             <td>Image</td>
             <td>{item.model_name}</td>
@@ -88,3 +133,16 @@ export default function TableType2b() {
     </div>
   );
 }
+const StyledBtn= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:120px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
+border:1px solide #313f4f;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `
