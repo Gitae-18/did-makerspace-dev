@@ -61,7 +61,7 @@ export default function SectionTabType1(props) {
     return (
       <ol className="tabs_wrap">
         <li className="tab_inner on">
-          {/* <h4>{props.tabNames[0]}</h4> */}
+          <h3>New 공지사항</h3>
           <ol>
             <li><span className="title">공지사항 new</span><HiOutlinePlus className="plus" onClick={goToNotice}/>
                <div className="inner_text">   

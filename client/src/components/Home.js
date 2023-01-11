@@ -88,7 +88,7 @@ export default function () {
               title="DID 주요 서비스"
             ></SectionTextType1>
           
-            <NoticeHomeContainer title="New 공지사항"></NoticeHomeContainer>
+            <NoticeHomeContainer></NoticeHomeContainer>
        
             <SectionBannerType1 title="DID 협력기관"></SectionBannerType1>
           </div>
