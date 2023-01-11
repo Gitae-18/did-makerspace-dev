@@ -72,6 +72,7 @@ export default function ({ history }) {
 		<div id="wrap" className="wrap myInfo2">
 			<div className="content_wrap">
 				<div className="inner_wrap">
+					<div className="inner_content">
 					<h2>비밀번호 찾기</h2>
 					<span>*필수입력</span>
 					<div className="join_box">
@@ -109,5 +110,6 @@ export default function ({ history }) {
 				</div>
 			</div>
 		</div>
+	</div>
 	);
 }
