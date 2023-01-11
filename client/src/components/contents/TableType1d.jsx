@@ -8,7 +8,7 @@ import { Paging } from "./Paging";
 import ButtonType2 from "./ButtonType2";
 
 export default function TableType1d() {
-  const { token } = useSelector(state => state.user);
+
   const location = useLocation();
   const history = useNavigate();
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export default function TableType1d() {
    const currentPost = data.slice(indexOfFirstPost, indexOfLastPost)
    //리스트 json받아오기
    const getData = useCallback(async()=>{
-    CommonHeader.authorization = token;
+
     let requri = PreUri + '/faq/faqlist';
     const response = await fetch(requri,{
       method:Method.get,
@@ -41,7 +41,7 @@ export default function TableType1d() {
     console.log(json);
     setData(json);
     setCount(json.length)
-  },[token])
+  },[])
 
 
   //검색
@@ -98,7 +98,7 @@ export default function TableType1d() {
   //리랜더링
   useEffect(()=>{
     getData();
-  },[getData,token])
+  },[getData])
   //페이지 변경
   const handlePageChange = (e) =>{
     setCurrentPage(e)

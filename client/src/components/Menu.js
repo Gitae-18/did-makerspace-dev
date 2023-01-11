@@ -241,11 +241,12 @@ const AdminMenu = ({viewDepth}) => {
           <SubMenu5/>
     </li>
  
-    <li className='dep2'> <Link to="/contact">Contact</Link>
-          <SubMenu6/>
-    </li>
+  
     <li className='dep2'> <Link onClick={() => { dispatch({ type: CHANGE_MENU, target: 0 }); }} to="/management">운영 관리</Link>
           <SubMenu7/>
+    </li>
+    <li className='dep2'> <Link to="/contact">Contact</Link>
+          <SubMenu6/>
     </li>
     </ol>
     </>

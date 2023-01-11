@@ -32,6 +32,7 @@ router.post('/notices',verifyToken,async(req,res,next)=>{
         console.log(error);
         return res.status(errorCode.internalServerError).json({});
     }
+    res.status(errorCode.ok);
 })
 router.put('/notice_cnt',async(req,res,next)=>{
     const {hit,notice_no} = req.body;

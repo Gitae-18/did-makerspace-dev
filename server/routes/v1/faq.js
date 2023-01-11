@@ -31,11 +31,10 @@ router.post('/faqs',verifyToken,async(req,res,next)=>{
         console.log(error);
         return res.status(errorCode.internalServerError).json({});
     }
-
+    res.status(errorCode.ok);
 })
-router.get('/faqlist',verifyToken,async(req,res,next)=>{
+router.get('/faqlist',async(req,res,next)=>{
     let body = req.body;
-    let user_no = req.decoded.user_no;
     let result;
 
     try{
@@ -67,7 +66,7 @@ router.put('/faq_cnt',async(req,res,next)=>{
     }
 })
 
-router.get('/:faq_no/detail',verifyToken,async(req,res,next)=>{
+router.get('/:faq_no/detail',async(req,res,next)=>{
     let faq_no = req.params.faq_no;
 
     let result;

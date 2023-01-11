@@ -7,13 +7,11 @@ import { useSelector , useDispatch} from "react-redux";
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
 export default function SectionInputTextType1g() {
   const history = useNavigate();
-  const { token } = useSelector(state => state.user);
   const [data,setData] = useState([]);
   const location = useLocation();
   const no = location.state.no;
 
   const getData = useCallback(async()=>{
-    CommonHeader.authorization = token;
     let requri = PreUri + '/faq/'+ no +'/detail';
     const response = await fetch(requri,{
       method:Method.get,
@@ -25,7 +23,7 @@ export default function SectionInputTextType1g() {
     }
     const json = await response.json();
     setData(json);
-  },[token,no])
+  },[])
   useEffect(()=>{
     getData();
   },[getData])

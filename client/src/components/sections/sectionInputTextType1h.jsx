@@ -5,12 +5,15 @@ import styled from "styled-components";
 import ButtonType2 from "../contents/ButtonType2";
 import { useSelector , useDispatch} from "react-redux";
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
+import PopupSaveModal from "../PopupSaveModal";
 export default function SectionInputTextType1h() {
   const { token } = useSelector(state => state.user);
+  const [openModal,setOpenModal] = useState(false);
   const [text,setText] = useState("");
   const [title,setTitle] = useState('');
   const history = useNavigate();
-
+  const location = useLocation();
+  const url = location.pathname;
   const onMemoChange = (e) =>{ 
     setText(e.target.value);
  };
@@ -19,7 +22,7 @@ export default function SectionInputTextType1h() {
  }
   const sendData = useCallback(async()=>{
     CommonHeader.authorization = token;
-    
+    setOpenModal(true);
     const response = await fetch(PreUri+'/notice/notices',{
       method:Method.post,
       headers:CommonHeader,
@@ -35,6 +38,10 @@ export default function SectionInputTextType1h() {
       return(alert(getRspMsg(response.status)))
     }
   },[token,title,text])
+
+  const onClose = () =>{
+    setOpenModal(false);
+  }
   return (
     <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1e">
       <div className="title_wrap">
@@ -68,6 +75,7 @@ export default function SectionInputTextType1h() {
         </li>
       </ul>
       <StyledBtn onClick={sendData}>저장</StyledBtn>
+      {openModal && <PopupSaveModal visible={openModal} closable={true} onclose={onClose} url={url}/>}
     </section>
   );
 }

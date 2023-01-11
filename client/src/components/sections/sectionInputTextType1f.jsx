@@ -1,5 +1,5 @@
 import React ,{useState,useEffect,useCallback}from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import TitleType1 from "../contents/TitleType1";
 import styled from "styled-components";
 import ButtonType2 from "../contents/ButtonType2";
@@ -12,7 +12,9 @@ export default function SectionInputTextType1f() {
   const [text,setText] = useState("");
   const [title,setTitle] = useState('');
   const history = useNavigate();
-  
+  const location = useLocation();
+  const url = location.pathname;
+  console.log(url)
   const onMemoChange = (e) =>{ 
     setText(e.target.value);
  };
@@ -74,7 +76,7 @@ const onClose = () =>{
         </li>
       </ul>
       <StyledBtn onClick={sendData}>저장</StyledBtn>
-      {openModal && <PopupSaveModal visible={openModal} closable={true} onclose={onClose}/>}
+      {openModal && <PopupSaveModal visible={openModal} closable={true} onclose={onClose} url={url}/>}
     </section>
   );
 }

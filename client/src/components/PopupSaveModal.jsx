@@ -6,9 +6,9 @@ import {Portal} from 'react-portal';
 import '../css/ModalStyle.css';
 import { setCookie,getCookie } from './cookie';
 
-function PopupSaveModal({classname,visible,onclose,closable}){
+function PopupSaveModal({classname,visible,onclose,closable,url}){
     const history = useNavigate();
-
+    console.log(url);
    /*  const open = (e) =>{
        onClose(true)
     }
@@ -20,7 +20,13 @@ function PopupSaveModal({classname,visible,onclose,closable}){
             onclose(e)
     }
     const backToList = (e) =>{
-        history('/info/faq',{replace:true})
+        if(url.includes("info")){
+            history('/info/faq',{replace:true})
+        }
+        else if(url.includes("notice")){
+            history('/notice',{replace:true})
+        }
+       
     }
 
     return (
