@@ -9,20 +9,29 @@ import PopupSaveModal from "../PopupSaveModal";
 export default function SectionInputTextType1h() {
   const { token } = useSelector(state => state.user);
   const [openModal,setOpenModal] = useState(false);
+  const [imageFile,setImageFile] = useState([]);
   const [text,setText] = useState("");
   const [title,setTitle] = useState('');
   const history = useNavigate();
   const location = useLocation();
+  const no = location.state.notice_no;
   const url = location.pathname;
+  console.log(no);
   const onMemoChange = (e) =>{ 
     setText(e.target.value);
  };
  const onTitleChange = (e) =>{
    setTitle(e.target.value);
  }
+ const handleChangeFile = (e) =>{
+  setImageFile(e.target.files);
+}
+
+
+
   const sendData = useCallback(async()=>{
     CommonHeader.authorization = token;
-    setOpenModal(true);
+    
     const response = await fetch(PreUri+'/notice/notices',{
       method:Method.post,
       headers:CommonHeader,
@@ -37,8 +46,31 @@ export default function SectionInputTextType1h() {
     if(!response.ok){
       return(alert(getRspMsg(response.status)))
     }
-  },[token,title,text])
-
+    let myform = document.getElementById('file1');
+    const formData = new FormData();
+    let index = 0;
+   
+    for (let i = 0; i <imageFile.length; i++) {
+      formData.append("imageFiles", imageFile[i]);
+      index++;
+    }
+    for(let value of formData.values()){
+      console.log(value)
+    }
+    for(let key of formData.keys()){
+      console.log(key)
+    }
+    const respon = await fetch( PreUri +'/notice/'+ (no+1) +'/files',{
+       method:Method.post,
+       headers:{authorization:token},
+       body:formData,
+    })
+    if(!respon.ok){
+      return(alert(getRspMsg(respon.status)))
+    }
+  setOpenModal(true);
+  },[token,title,text,imageFile])
+  console.log(imageFile)
   const onClose = () =>{
     setOpenModal(false);
   }
@@ -71,7 +103,7 @@ export default function SectionInputTextType1h() {
         </li>
         <li>
           <label htmlFor="file01">파일#1</label>
-          <input type="file" name="file01" id="file01" className="w_auto" />
+          <input type="file" name="imageFiles" id="file1" className="w_auto" onChange={handleChangeFile} multiple accept="image/*"/>
         </li>
       </ul>
       <StyledBtn onClick={sendData}>저장</StyledBtn>

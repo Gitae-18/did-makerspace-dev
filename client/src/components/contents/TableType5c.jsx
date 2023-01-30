@@ -22,7 +22,7 @@ export default function TableType5c({query}) {
             <option value="1">제목</option>
           </select>
           <input type="text" name="" id="" placeholder="제목을 입력하세요" />
-          <StyledBtn btnName="조회">조회</StyledBtn>
+          <StyledBtn>검색</StyledBtn>
         </div>
       </div>
       <table>

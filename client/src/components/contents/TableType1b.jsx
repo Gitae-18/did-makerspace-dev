@@ -116,7 +116,7 @@ const totalPages = ((items.totalCount - 1) / postsPerPage) + 1
 const onSelectItem = useCallback((e, i) => {
         e.preventDefault();
         dispatch({ type: EQUIP_CATEGORY_ITEM, target: items.items[i] });
-        history("/info/InfoType1a",{state:{name:i.model_name}});
+        history("/didinfo/info/InfoType1a",{state:{name:i.model_name}});
     }, [items, dispatch, history]);
 
 
@@ -248,7 +248,7 @@ for (let i = 0; i < PageMax; i++) {
             <option value="1">모델명</option>
           </select>
           <input type="text"  value={search} name="search" onChange={(e) => setSearch(e.target.value)}   onKeyPress={(e) => { if (e.key === 'Enter') { onSearch(e) } }} placeholder="제목을 입력하세요" />
-          <button className="search_btn" type="button" onClick={onSearch}>조회</button>
+          <button className="search_btn" type="button" onClick={onSearch}>검색</button>
         </div>
       </div>
       <table>

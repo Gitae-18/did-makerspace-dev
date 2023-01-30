@@ -106,14 +106,11 @@ export default function TableType2a() {
    const setBtnClick = (e) =>{
       console.log(e.target.name);
    }
-   const onSend = () =>{
-     history()
-   }
+
    const closeModal = () =>{
     setModalVisible(false);
   }
    const categoryNum = reservationList.map((item,index)=> item.equipment_category_no);
-  console.log(pass);
   return (
     <div id="sub_page_wrap">
       {modalVisible && <PopupModal3 visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal} />}

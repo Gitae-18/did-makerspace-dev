@@ -23,9 +23,7 @@ export default function SectionTextType1(props) {
     <section className="section_text_type1">
       <div className="section_inner_wrap">
         <div className="flex_wrap flex_wrap_type1">
-     
-          
-
+        <TitleType1 title={props.title}></TitleType1>
           <div className="swiper_part">
           <div className="swiper_wrap swiper_type1">
       <Swiper
@@ -47,7 +45,6 @@ export default function SectionTextType1(props) {
     </div>
           </div>
           <div className="text_part">
-            <TitleType1 title={props.title}></TitleType1>
             <div className="swiper_wrap swiper_type3">
          <Swiper
          navigation={false}
@@ -65,10 +62,7 @@ export default function SectionTextType1(props) {
         <Ptag> 장비 예약은 해당장비의 시험을 치룬 뒤 통과여부를 판단하여 예약을 진행 
           하실 수 있게 됩니다. 예약 후 취소가 불가하니 신중하게 예약하시기 바랍니다.
         </Ptag>
-        <Ptag> 
-              공간 예약과 전문랩 투어 예약은 각 공간별 설명을 읽어보신 후 오프라인 (전화,이메일)으로 담당자에게 직접
-              문의 후 예약이 가능하십니다.
-        </Ptag>
+   
        
       </SwiperSlide>
       <SwiperSlide value={1}>
@@ -82,10 +76,7 @@ export default function SectionTextType1(props) {
         <Ptag> 장비 예약은 해당장비의 시험을 치룬 뒤 통과여부를 판단하여 예약을 진행 
           하실 수 있게 됩니다. 예약 후 취소가 불가하니 신중하게 예약하시기 바랍니다.
         </Ptag>
-        <Ptag> 
-              공간 예약과 전문랩 투어 예약은 각 공간별 설명을 읽어보신 후 오프라인 (전화,이메일)으로 담당자에게 직접
-              문의 후 예약이 가능하십니다. 
-        </Ptag>
+     
         </SwiperSlide>
     < SwiperSlide value={2}>
         <Hline>시제품 제작 신청</Hline> 
@@ -140,8 +131,14 @@ export default function SectionTextType1(props) {
   );
 }
 const Ptag = styled.p`
-font-size:0.8rem;
+font-size:16px;
+position:relative;
+top:10px;
 `
-const Hline = styled.h4`
-font-size:0.9rem;
+const Hline = styled.h3`
+font-size:30px;
+font-weight:500;
+margin-bottom:40px;
+top:-10px;
+position:relative;
 `

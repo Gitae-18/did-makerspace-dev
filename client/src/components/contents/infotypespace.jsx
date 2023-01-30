@@ -1,21 +1,42 @@
-import React from "react";
+import React,{useCallback,useState,useEffect} from "react";
 import { useNavigate, useLocation } from "react-router";
+import { PreUri,CommonHeader,Method} from "../../CommonCode";
 import ButtonType1 from "./ButtonType1";
 import TitleType1 from "./TitleType1";
 export default function InfoTypeSpace() {
   const location = useLocation();
   const history = useNavigate();
-  const namecontent = location.state.name;
-  const subname = location.state.subtitle;
+  const [info,setInfo] = useState([]);
+  const no = location.state.no;
+
   let src,src2;
   let introduce;
-  console.log(subname)
+  const getspaceInfo = useCallback(async()=>{
+    let requri = PreUri + '/space/' + no + '/detail';
+    const response = await fetch(requri, {
+      method:Method.get,
+      headers:CommonHeader
+    });
+    
+    if (!response.ok) {
+      console.log('잘못된 접근입니다.');
+      return;
+    }
+    const json = await response.json();
+    setInfo(json);
+  },[no])
+  useEffect(()=>{
+    getspaceInfo();
+  },[getspaceInfo])
+  const onBackpage = () =>{
+    history(-1);
+  }
+    console.log(info)
   const Desc1 = () => {
-    return <p>{subname}</p>;
+    return <p className="subtitle">{info.space_info}</p>;
   };
   const DescImage = () => {
-    console.log(namecontent)
-    switch(namecontent)
+    switch(info.space_name)
     {
       case "네트워킹라운지":
         src = "/images/Network1.jpg";
@@ -80,8 +101,10 @@ export default function InfoTypeSpace() {
     }
     return (
       <div className="images_wrap">
-        <div className="image_part1"><img src={src} alt="no-image"/></div>
-        <div className="image_part2"><img src={src2} alt="no-image"/></div>
+        <div className="images">
+        <div className="image_part1"><img className="img1" src={src} alt="no-image"/></div>
+        <div className="image_part2"><img className="img2" src={src2} alt="no-image"/></div>
+        </div>
       </div>
     );
   };
@@ -91,7 +114,7 @@ export default function InfoTypeSpace() {
         <dt>상세 설명</dt>
         <dd>
           <dl>
-            <dt style={{"width":"200px"}}>{namecontent}</dt>
+            <dt style={{"width":"200px"}}>{info.space_name}</dt>
             <dd style={{"whiteSpace":"pre-wrap"}}>{introduce}</dd>
           </dl>
         </dd>
@@ -110,9 +133,9 @@ export default function InfoTypeSpace() {
   return (
     <div className="info_type1">
       <div className="info_inner_wrap">
-        <TitleType1 title={namecontent}></TitleType1>
+        <TitleType1 title={info.space_name}></TitleType1>
         <InfoDescWrap></InfoDescWrap>
-        <ButtonType1 btnName="목록" onClick={history(-1)}></ButtonType1>
+        <ButtonType1 btnName="목록" onClick={onBackpage}></ButtonType1>
       </div>
     </div>
   );

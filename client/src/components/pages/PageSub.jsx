@@ -1,4 +1,5 @@
-import React ,{useState} from "react";
+import React ,{useState,useCallback,useEffect} from "react";
+import { CHANGE_DEPTH, MENU_CHANGE } from "../../store/sidemenu";
 import SubSideMenu from "../contents/SubSideMenu";
 import {SubBread} from "../contents/SubSideMenu";
 import PageSub01a1 from "./PageSub01/PageSub01a1";
@@ -35,6 +36,7 @@ import PageSub01d from "./PageSub01/PageSub01d";
 //import PageSub07c2 from "./PageSub07/PageSub07c2";
 import PageSub07c3 from "./PageSub07/PageSub07c3";
 import SectionInputTextType1f from "../sections/SectionInputTextType1f";
+import SectionInputTextType1f_update from "../sections/SectionInputTextType1f_update";
 import SectionInputTextType1g from "../sections/SectionInputTextType1g";
 //import PageSub03a1 from "./PageSub03/PageSub03a1";
 //import PageSub03a2 from "./PageSub03/PageSub03a2";
@@ -59,8 +61,18 @@ import InfoTypeSpace from "../contents/infotypespace";
 import Menu from "../Menu";
 import { EquipmentContainer } from "../../containers/EquipmentContainer";
 import TableType1d_User from "../contents/TableType1d_User";
+import { useDispatch,useSelector } from "react-redux";
 export default function DidInfo() {
   const [value,setValue] = useState("");
+  const dispatch = useDispatch();
+  const { sideNaviMenu } = useSelector(state => state.sidemenu);
+
+  useEffect(()=>{
+    return ()=>{
+      console.log("123");
+      dispatch({ type: MENU_CHANGE, target: 0 });
+    }
+  },[])
   return (
     <>
     <div id="sub_page_wrap">
@@ -79,6 +91,9 @@ export default function DidInfo() {
   );
 }
 export const DidInfo1Detail1 = () =>{
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
+
   return(
     <>
     
@@ -95,6 +110,9 @@ export const DidInfo1Detail1 = () =>{
 }
 
 export const DidInfo1Detail2 = ({location,history}) =>{
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
+
   return(
     <>
     
@@ -111,6 +129,9 @@ export const DidInfo1Detail2 = ({location,history}) =>{
 }
 
 export const DidInfo2 = ({location,history}) =>{
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
+
   return(
     <>
     
@@ -126,6 +147,9 @@ export const DidInfo2 = ({location,history}) =>{
   );
 }
 export const DidInfo3 = ({location,history}) => {
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
+
   return(
     <>
     
@@ -143,6 +167,9 @@ export const DidInfo3 = ({location,history}) => {
   );
 }
 export const DidInfo4 = ({location,history}) => {
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
+
   return(
     <>
     
@@ -158,6 +185,9 @@ export const DidInfo4 = ({location,history}) => {
   );
 }
 export const DidInfo5 = ({location,history}) => {
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
+
   return(
     <>
     
@@ -173,6 +203,9 @@ export const DidInfo5 = ({location,history}) => {
   );
 }
 export const DidInfo6= ({location,history}) => {
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
+
   return(
     <>
     
@@ -188,6 +221,9 @@ export const DidInfo6= ({location,history}) => {
   );
 }
 export const DidInfo7 = ({location,history}) => {
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
+
   return(
     <>
     
@@ -203,6 +239,9 @@ export const DidInfo7 = ({location,history}) => {
   );
 }
 export const DidInfo8 = ({location,history}) => {
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
+
   return(
     <>
     
@@ -218,6 +257,9 @@ export const DidInfo8 = ({location,history}) => {
   );
 }
 export const DidInfo9= () => {
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
+
   return(
     <>
     
@@ -233,6 +275,9 @@ export const DidInfo9= () => {
   );
 }
 export const DidInfo10= () => {
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
+
   return(
     <>
     
@@ -248,6 +293,9 @@ export const DidInfo10= () => {
   );
 }
 export const DidInfo1Detail = ({location,history}) =>{
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
+
   return(
     <>
     
@@ -261,8 +309,12 @@ export const DidInfo1Detail = ({location,history}) =>{
 </div>
 </>
 );
+
 }
 export const DidFaqWrite = ({location,history}) =>{
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
+
   return(
     <>
     
@@ -278,6 +330,24 @@ export const DidFaqWrite = ({location,history}) =>{
 );
 }
 
+export const DidFaqUpdate = () =>{
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
 
+  return(
+    <>
+    
+  <div id="sub_page_wrap">
+  <SubSideMenu  title={"FAQ"}></SubSideMenu>
+  <div className="sub_page_inner_wrap">
+    <div className="sub_inner">
+      <SectionInputTextType1f_update/>
+    </div>
+  </div>
+</div>
+</>
+);
+
+}
 
 

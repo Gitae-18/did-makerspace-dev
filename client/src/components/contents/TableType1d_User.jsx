@@ -123,7 +123,7 @@ export default function TableType1d_User() {
             <option value="1">이름</option>
           </select>
           <input type="text" name="" id="" placeholder="제목을 입력하세요" onChange={onChange} onKeyDown={(e) => activeEnter(e)} />
-          <StyledBtn onClick={onSearch}>조회</StyledBtn>
+          <StyledBtn onClick={onSearch}>검색</StyledBtn>
         </div>
       </div>
       <table>

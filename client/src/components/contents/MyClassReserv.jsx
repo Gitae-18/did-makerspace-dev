@@ -95,7 +95,7 @@ export default function MyClassReserv() {
             <option value="1">모델명</option>
           </select>
         <input type="text" name="" id="" placeholder="제목을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange}/>
-          <StyledBtn onClick={(e)=>onSearch(e)} >조회</StyledBtn>
+          <StyledBtn onClick={(e)=>onSearch(e)} >검색</StyledBtn>
           </div>
       </div>
       <table>

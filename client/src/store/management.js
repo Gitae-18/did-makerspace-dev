@@ -84,7 +84,6 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 serviceCategoryItem: action.target,
-                
             }
            
         case OLD_SERVICE_ITEM:

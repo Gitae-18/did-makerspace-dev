@@ -1,132 +1,83 @@
-import React from "react";
-import { useLocation,useNavigate,NavLink } from "react-router-dom";
+import React,{useState,useEffect,useCallback} from "react";
+import { useLocation,useNavigate } from "react-router-dom";
+import { PreUri,CommonHeader, Method, getRspMsg} from "../../CommonCode";
 import Paging2 from "./Paging2";
 export default function ListType2d() {
   const location = useLocation();
   const history = useNavigate();
-  const onItem = () =>{
-    history(location.pathname + '/detail');
+  const [data,setData] = useState([]);
+  const [page,setPage] = useState(1);
+  const [count,setCount] = useState(0);
+  const [currentPage,setCurrentPage] = useState(1);
+  const postPerPage = 10;
+  const indexOfLastPost = currentPage * postPerPage
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+  const currentPost = data.slice(indexOfFirstPost, indexOfLastPost)
+  const file_type = "text";
+  const onItem = useCallback(async(e,index)=>{
+    const hit_cnt = data[index].hit;
+    const url = data[index].url;
+    const file_no = data[index].file_no;
+    const response = await fetch(PreUri + '/archive/archive_cnt',{
+      method:Method.put,
+      headers:CommonHeader,
+      body:JSON.stringify(
+        {
+          hit : hit_cnt,
+          file_no: file_no,
+        }
+      )
+    })
+    if(!response.ok) {
+      console.log('잘못된 접근입니다.');
+      return;
+     }
+    history(location.pathname + '/detail',{state:{file_no:file_no}});
+  },[data])
+  const sethandlePage = (e) =>{
+    setCurrentPage(e);
   }
+  const getItem = useCallback(async() =>{
+    let requri = PreUri + '/archive/list?file_type='+ file_type;
+    const response = await fetch(requri,{
+      method:Method.get,
+      headers:CommonHeader,
+    });
+    if(!response.ok){
+      return(alert(getRspMsg(response.status)))
+    }
+    const json = await response.json();  
+    setData(json);
+    setCount(json.length);
+  },[])
+  console.log(data);
+  useEffect(()=>{
+    getItem();
+  },[getItem])
   return (
-    <div className="table_wrap list_type2 list_type2c">
+    <div className="table_wrap list_type2 list_type2c" style={count<7?{"padding":"0px 40px"}:null}>
       <ol>
-        <li>
-          <div className="image_part"><img src="/images/sketch.png" alt="no"/></div>
+        {currentPost.map((item,index)=>(
+          <li key={index}>
+          <div className="image_part"><img onClick={(e)=>onItem(e,index)} src={item.src} alt="no"/></div>
           <div className="text_part">
-            <h5 onClick={onItem}>스케치업을 이용한 단독주택모델링</h5>
+            <h5 onClick={(e)=>onItem(e,index)} >{item.title} </h5>
             <div className="dl_wrap">
               <dl>
                 <dt className="blind">날짜</dt>
-                <dd>2022.10.13</dd>
+                <dd>{item.created_at.slice(0,10)}</dd>
               </dl>
               <dl>
                 <dt>조회수</dt>
-                <dd>1000</dd>
+                <dd>{item.hit}</dd>
               </dl>
             </div>
           </div>
         </li>
-        <li>
-          <div className="image_part"><img src="/images/sketch.png" alt="no"/></div>
-          <div className="text_part">
-            <h5>레이저 가공기사용 교육자료</h5>
-            <div className="dl_wrap">
-              <dl>
-                <dt className="blind">날짜</dt>
-                <dd>2022.10.13</dd>
-              </dl>
-              <dl>
-                <dt>조회수</dt>
-                <dd>1000</dd>
-              </dl>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div className="image_part"><img src="/images/sketch.png" alt="no"/></div>
-          <div className="text_part">
-            <h5>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
-            <div className="dl_wrap">
-              <dl>
-                <dt className="blind">날짜</dt>
-                <dd>2022.10.13</dd>
-              </dl>
-              <dl>
-                <dt>조회수</dt>
-                <dd>1000</dd>
-              </dl>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div className="image_part"><img src="/images/sketch.png" alt="no"/></div>
-          <div className="text_part">
-            <h5>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
-            <div className="dl_wrap">
-              <dl>
-                <dt className="blind">날짜</dt>
-                <dd>2022.10.13</dd>
-              </dl>
-              <dl>
-                <dt>조회수</dt>
-                <dd>1000</dd>
-              </dl>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div className="image_part"><img src="/images/sketch.png" alt="no"/></div>
-          <div className="text_part">
-            <h5>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
-            <div className="dl_wrap">
-              <dl>
-                <dt className="blind">날짜</dt>
-                <dd>2022.10.13</dd>
-              </dl>
-              <dl>
-                <dt>조회수</dt>
-                <dd>1000</dd>
-              </dl>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div className="image_part"><img src="/images/sketch.png" alt="no"/></div>
-          <div className="text_part">
-            <h5>장비 매뉴얼 | 3DWOX 1X | 3D | </h5>
-            <div className="dl_wrap">
-              <dl>
-                <dt className="blind">날짜</dt>
-                <dd>2022.10.13</dd>
-              </dl>
-              <dl>
-                <dt>조회수</dt>
-                <dd>1000</dd>
-              </dl>
-            </div>
-          </div>
-        </li>
+        ))}
       </ol>
       <div className="page_control">
-        <div className="btn_first btn-s">
-          <img src="/images/backward-solid.svg" alt="처음으로" />
-        </div>
-        <div className="btn_prev">
-          <img src="/images/caret-left-solid.svg" alt="이전으로" />
-        </div>
-        <ol className="btn_page_num">
-          <li className="on">1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
-        </ol>
-        <div className="btn_next">
-          <img src="/images/caret-right-solid.svg" alt="다음으로" />
-        </div>
-        <div className="btn_last btn-s">
-          <img src="/images/forward-solid.svg" alt="끝으로" />
-        </div>
+      <Paging2 page={currentPage} count = {count} setPage={sethandlePage}/>
       </div>
     </div>
   );

@@ -39,6 +39,7 @@ export default function ({ query , no }) {
     const { token } = useSelector(state => state.user);
     console.log(token);
     const { authority_level } = useSelector(state => state.user);
+
     const dispatch = useDispatch();
     const location = useLocation();
     const history = useNavigate();
@@ -444,7 +445,7 @@ export default function ({ query , no }) {
                                     {MonthOption}
                                 </select></p>
                             </div>
-                            <button className="search" onClick={(e) => { onSearchByDate(e, "SELECT") }}>조회</button>
+                            <button className="search" onClick={(e) => { onSearchByDate(e, "SELECT") }}>검색</button>
                         </div>
                         <table>
                             <colgroup>

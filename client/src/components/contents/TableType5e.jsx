@@ -18,7 +18,7 @@ export default function TableType5e() {
             <option value="1">멘토명</option>
           </select>
           <input type="text" name="" id="" placeholder="제목을 입력하세요" />
-          <ButtonType2 btnName="조회"></ButtonType2>
+          <ButtonType2 btnName="검색"></ButtonType2>
         </div>
       </div>
       <table>

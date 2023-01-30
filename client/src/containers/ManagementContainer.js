@@ -46,7 +46,7 @@ export const ManagementContainer = () => {
     useEffect(() => {
         if (isLoading) { return; }
         if (!isLoggedIn) { return history('/notmember',{replace:false}); }
-        if (authority_level < AuthLevel.manager) { return history.replace('/notauthhorized',{replace:true}); }
+        if (authority_level < AuthLevel.manager) { return history('/notauthhorized',{replace:true}); }
 	}, [isLoading, isLoggedIn, authority_level, history])
 
     let View;
@@ -57,10 +57,10 @@ export const ManagementContainer = () => {
     } else {
         View = ListView[sideNaviPos];
     }
-
+ 
     return (
         (isLoading || !isLoggedIn || authority_level < AuthLevel.manager)
             ? <></>
-            : View ? <View location={location}  query={query} /> : <></>
+            : View ? <View location={location}  query={query} sideNaviPos={sideNaviPos} /> : <></>
     );
 }

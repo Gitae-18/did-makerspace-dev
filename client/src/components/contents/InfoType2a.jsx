@@ -12,7 +12,7 @@ import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRsp
 export default function InfoType2a() {
   const history = useNavigate();
   const location = useLocation();
-  const no = location.state.no;
+  const no = location.state.program_no;
   const dispatch = useDispatch();
   const [openModal,setOpenModal] = useState(false);
   const [closemodal,setCloseModal] = useState(false);
@@ -128,7 +128,7 @@ export default function InfoType2a() {
           <div className="btns">
             <StyledBtn onClick={onApplicate}>신청하기</StyledBtn>
             {openModal && getFlag.length < data.limit_number && <PopupModal2 visible={openModal} closable={true} onclose={onClose}/>}
-            <ButtonType4></ButtonType4>
+           
           </div>
         </div>
       </div>

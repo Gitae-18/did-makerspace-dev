@@ -23,8 +23,6 @@ export const StaticsAnalyze = ({ location, history }) => {
 function Service() {
 
 	return (
-
-
 		<div className="mainpage">
 			<div className='wrap-content'>
 				<Slidemenu />

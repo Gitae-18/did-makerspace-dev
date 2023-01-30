@@ -89,6 +89,9 @@ export default function ListType2a() {
     e.preventDefault();
     setSearch(e.target.value);
   }
+  const onMove = () =>{
+    history('/classprogram/myreserv');
+  }
   useEffect(()=>{
     getItemList();
   },[getItemList,token])
@@ -96,11 +99,13 @@ export default function ListType2a() {
     setCurrentPage(e);
   }
   return (
+    <div className="table_box">
     <div className="table_wrap list_type2">
       <div className="table_extra">
+      <StyledBtn2 onClick={onMove}>내 예약정보</StyledBtn2>
        <div className="table_search">
          <input type="text" name="" id="" placeholder="제목을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange}/>
-           <StyledBtn onClick={(e)=>onSearch(e)} >조회</StyledBtn>
+           <StyledBtn onClick={(e)=>onSearch(e)} >검색</StyledBtn>
        </div>
       </div>
       <ol>
@@ -133,6 +138,7 @@ export default function ListType2a() {
        <Paging2 page={currentPage} count = {count} setPage={sethandlePage}/>
       </div>
     </div>
+    </div>
   );
 }
 
@@ -150,3 +156,18 @@ border:1px solide #313f4f;
     color:#313f4f
  }
  `
+ const StyledBtn2= styled.button`
+ color:#fff;
+ background-color:#313f4f;
+ width:140px;
+ height:30px;
+ font-size:0.8rem;
+ cursor:pointer;
+ position:relative;
+ left:0;
+ right:500px;
+  &:hover{
+     background-color:#transparent
+     color:#313f4f
+  }
+  `

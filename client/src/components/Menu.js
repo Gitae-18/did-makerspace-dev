@@ -3,6 +3,7 @@ import { NavLink ,Link} from 'react-router-dom';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { CHANGE_MENU,STASTICS_ANALYZE } from "../store/management";
+import { MENU_CHANGE} from '../store/sidemenu';
 import { CHANGE_CATEGORY } from "../store/material";
 import { AuthLevel } from '../CommonCode';
 import styled from 'styled-components';
@@ -36,48 +37,51 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
 			history('/management')
 		}
 	}, [dispatch, history, viewDepth]);
-  
+  const onClick2 = useCallback((e, index) => {
+		e.preventDefault();
+		dispatch({ type: MENU_CHANGE, target: index });
+	}, [dispatch, history]);
   const SubMenu1 = () =>{
     return(
           <ol className='menu_dep2'>
-            <li className="page_target"><NavLink to={"/didinfo"}>시설 소개</NavLink></li>
-            <li className="page_target"><NavLink to={"/info/greetings"}>기관 소개</NavLink></li>
-            <li className="page_target"><NavLink to={"/info/way"}>오시는 길 </NavLink></li>
-            <li className="page_target"><NavLink to={"/info/faq"}>FAQ</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink to={"/didinfo"}>시설 소개</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink to={"/admin/info/greetings"}>기관 소개</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,2)}><NavLink to={"/info/way"}>오시는 길 </NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,3)}><NavLink to={"/info/faq"}>FAQ</NavLink></li>
            </ol>
     )
   }
   const SubMenu2 = () => {
     return(
     <ol className='menu_dep2'>
-      <li className="page_target"><NavLink to={"/didreservation"}>장비 예약</NavLink></li>
-      <li className="page_target"><NavLink to={"/reservation/space"}>공간 예약</NavLink></li>
-      <li className="page_target"><NavLink to={"/reservation/lab"}>전문 랩 투어 </NavLink></li>
+      <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink to={"/didreservation"}>장비 예약</NavLink></li>
+      <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink to={"/reservation/space"}>공간 예약</NavLink></li>
+      <li className="page_target" onClick={(e)=>onClick2(e,2)}><NavLink to={"/reservation/lab"}>전문 랩 투어 </NavLink></li>
     </ol>
     );
   }
   const SubMenu3 = () =>{
     return(
           <ol className='menu_dep2'>
-            <li className="page_target"><NavLink  to={'/uservice'}>시제품 제작</NavLink></li>
-            <li className="page_target"><NavLink>시제품 제작안내</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink  to={'/uservice'}>시제품 제작</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink>시제품 제작안내</NavLink></li>
           </ol>
     );
   }
   const SubMenu4 = () =>{
     return(
           <ol className='menu_dep2'>
-            <li><NavLink to={'/classprogram'}>교육프로그램</NavLink></li>
-            <li><NavLink to={'/eduprogram'}>행사프로그램</NavLink></li>
+            <li onClick={(e)=>onClick2(e,0)}><NavLink to={'/classprogram'}>교육프로그램</NavLink></li>
+            <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/eduprogram'}>행사프로그램</NavLink></li>
           </ol>
     );
   }
   const SubMenu5 = () => {
     return(
           <ol className='menu_dep2'>
-            <li><NavLink to={'/notcomplete'}>멘토링</NavLink></li>
-            <li><NavLink to={'/notcomplete'}>멘토 검색</NavLink></li> 
-            <li><NavLink to={'/notcomplete'}>멘토 칭찬</NavLink></li>   
+            <li onClick={(e)=>onClick2(e,0)}><NavLink to={'/notcomplete'}>멘토링</NavLink></li>
+            <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/notcomplete'}>멘토 검색</NavLink></li> 
+            <li onClick={(e)=>onClick2(e,2)}><NavLink to={'/notcomplete'}>멘토 칭찬</NavLink></li>   
           </ol>
     )
   }
@@ -85,9 +89,9 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
   const SubMenu6 = () => {
     return(
       <ol className='menu_dep2'>
-        <li><NavLink to={'/contact'}>연락처 안내</NavLink></li>
-        <li><NavLink to={'/archivecontact/video'}>자료실</NavLink></li>
-        <li><NavLink to={'/notice'}>공지사항</NavLink></li>   
+        <li onClick={(e)=>onClick2(e,0)}><NavLink to={'/contact'}>연락처 안내</NavLink></li>
+        <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/archivecontact/video'}>자료실</NavLink></li>
+        <li onClick={(e)=>onClick2(e,2)}><NavLink to={'/notice'}>공지사항</NavLink></li>   
       </ol>
     );
   }
@@ -97,8 +101,9 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
       <ol className='menu_dep2'>
         <li onClick={(e)=>onClick(e,0)}><NavLink>기업/회원 관리</NavLink></li>
         <li onClick={(e)=>onClick(e,2)}><NavLink>기자재 품목 관리</NavLink></li>
+        <li onClick={(e)=>onClick(e,2)}><NavLink>기자재관리</NavLink></li>
         <li onClick={(e)=>onClick(e,3)}><NavLink>서비스항목관리</NavLink></li> 
-        <li onClick={(e)=>onClick(e,4)}><NavLink>기/자재관리</NavLink></li> 
+        <li onClick={(e)=>onClick(e,3)}><NavLink>기/자재관리</NavLink></li> 
         <li onClick={(e)=>onClick(e,5)}><NavLink>전문멘토관리</NavLink></li>   
         <li onClick={(e)=>onClick(e,6)}><NavLink>교육/행사관리</NavLink></li>   
       </ol>
@@ -129,18 +134,21 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
     <li><Link to="/contact">Contact</Link>
           <SubMenu6/>
     </li>
-    <li className='dep2' style={authority_level < AuthLevel.partner ?{"display":"block"}:{"display":"none"}}> <Link onClick={() => { dispatch({ type: CHANGE_MENU, target: 0 }); }} to="/management">운영 관리</Link>
+    {/* <li className='dep2' style={authority_level < AuthLevel.partner ?{"display":"block"}:{"display":"none"}}> <Link onClick={() => { dispatch({ type: CHANGE_MENU, target: 0 }); }} to="/management">운영 관리</Link>
           <SubMenu7/>
-    </li>
+    </li> */}
    </ol>
     
   </>
 );}
 /*<Link onClick={() => { dispatch({ type: STASTICS_ANALYZE, target: 0 }); }} to="/statics">통계 분석</Link>*/
 const AdminMenu = ({viewDepth}) => {
+  const [menuOpen,setMenuOpen] = useState(false);
+  const [isHovering,setIsHovering] = useState(0);
   const dispatch = useDispatch();
   const history = useNavigate();
   const { sideNaviPos } = useSelector(state => state.management);
+  const { sideNaviMenu } = useSelector(state => state.sidemenu);
   const outer1 = document.getElementsByClassName('dep2');
 	const onClick = useCallback((e, index) => {
 		e.preventDefault();
@@ -153,47 +161,50 @@ const AdminMenu = ({viewDepth}) => {
 			history('/management')
 		}
 	}, [dispatch, history, viewDepth]);
+  const onClick2 = useCallback((e, index) => {
+		dispatch({ type: MENU_CHANGE, target: index });	
+	}, [dispatch, history, viewDepth]);
   const SubMenu1 = () =>{
     return(
           <ol className='menu_dep2'>
-            <li className="page_target"><NavLink to={"/didinfo"}>시설 소개</NavLink></li>
-            <li className="page_target"><NavLink to={"/info/greetings"}>기관 소개</NavLink></li>
-            <li className="page_target"><NavLink to={"/info/way"}>오시는 길 </NavLink></li>
-            <li className="page_target"><NavLink to={"/info/faq"}>FAQ</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink to={"/didinfo"}>시설 소개</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink to={"/admin/info/greetings"}>기관 소개</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,2)}><NavLink to={"/info/way"}>오시는 길 </NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,3)}><NavLink to={"/info/faq"}>FAQ</NavLink></li>
            </ol>
     )
   }
   const SubMenu2 = () => {
     return(
     <ol className='menu_dep2'>
-      <li className="page_target"><NavLink to={"/didreservation"}>장비 예약</NavLink></li>
-      <li className="page_target"><NavLink to={"/reservation/space"}>공간 예약</NavLink></li>
-      <li className="page_target"><NavLink to={"/reservation/lab"}>전문 랩 투어 </NavLink></li>
+      <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink to={"/didreservation"}>장비 예약</NavLink></li>
+      <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink to={"/reservation/space"}>공간 예약</NavLink></li>
+      <li className="page_target" onClick={(e)=>onClick2(e,2)}><NavLink to={"/reservation/lab"}>전문 랩 투어 </NavLink></li>
     </ol>
     );
   }
   const SubMenu3 = () =>{
     return(
           <ol className='menu_dep2'>
-            <li className="page_target"><NavLink to={'/mservice'}>시제품 제작관리</NavLink></li>
-            <li className="page_target"><NavLink to={'/mservice/guide'}>시제품 제작안내</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink to={'/mservice'}>시제품 제작관리</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink to={'/mservice/guide'}>시제품 제작안내</NavLink></li>
           </ol>
     );
   }
   const SubMenu4 = () =>{
     return(
           <ol className='menu_dep2'>
-            <li><NavLink to={'/classprogram'}>교육프로그램</NavLink></li>
-            <li><NavLink to={'/eduprogram'}>행사프로그램</NavLink></li>
+            <li onClick={(e)=>onClick2(e,0)}><NavLink to={'/classprogram'} >교육프로그램</NavLink></li>
+            <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/eduprogram'}>행사프로그램</NavLink></li>
           </ol>
     );
   }
   const SubMenu5 = () => {
     return(
           <ol className='menu_dep2'>
-            <li><NavLink to={'/notcomplete'}>멘토링 관리</NavLink></li>
-            <li><NavLink>멘토 검색</NavLink></li>
-            <li><NavLink>멘토 칭찬</NavLink></li>   
+            <li onClick={(e)=>onClick2(e,0)}><NavLink to={'/notcomplete'}>멘토링 관리</NavLink></li>
+            <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/notcomplete'}>멘토 검색</NavLink></li>
+            <li onClick={(e)=>onClick2(e,2)}><NavLink to={'/notcomplete'}>멘토 칭찬</NavLink></li>   
           </ol>
     )
   }
@@ -201,9 +212,9 @@ const AdminMenu = ({viewDepth}) => {
   const SubMenu6 = () => {
     return(
       <ol className='menu_dep2'>
-        <li><NavLink to={'/contact'}>연락처 안내</NavLink></li>
-        <li><NavLink to={'/archivecontact/video'}>자료실</NavLink></li>
-        <li><NavLink to={'/notice'}>공지사항</NavLink></li>   
+        <li onClick={(e)=>onClick2(e,0)}><NavLink to={'/contact'}>연락처 안내</NavLink></li>
+        <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/archivecontact/video'}>자료실</NavLink></li>
+        <li onClick={(e)=>onClick2(e,2)}><NavLink to={'/notice'}>공지사항</NavLink></li>   
       </ol>
     );
   }
@@ -213,13 +224,15 @@ const AdminMenu = ({viewDepth}) => {
       <ol className='menu_dep2'>
         <li onClick={(e)=>onClick(e,0)}><NavLink>기업/회원 관리</NavLink></li>
         <li onClick={(e)=>onClick(e,2)}><NavLink>기자재 품목 관리</NavLink></li>
-        <li onClick={(e)=>onClick(e,3)}><NavLink>서비스항목관리</NavLink></li> 
-        <li onClick={(e)=>onClick(e,4)}><NavLink>기/자재관리</NavLink></li> 
-        <li onClick={(e)=>onClick(e,5)}><NavLink>전문멘토관리</NavLink></li>   
+        <li onClick={(e)=>onClick(e,3)}><NavLink>기자재관리</NavLink></li>
+        <li onClick={(e)=>onClick(e,4)}><NavLink>서비스항목관리</NavLink></li> 
+        <li onClick={(e)=>onClick(e,5)}><NavLink>기/자재관리</NavLink></li> 
+        <li><NavLink to={'/notcomplete'}>전문멘토관리</NavLink></li>   
         <li onClick={(e)=>onClick(e,6)}><NavLink>교육/행사관리</NavLink></li>   
       </ol>
     );
   }
+
   return (
     <>
     <ol className='menu'>
@@ -263,7 +276,7 @@ export default function Menu({ authority_level }) {
 
   return (
     <div className="btn_box">
-      <CurrentMenu path={authority_level<1?path2:path1} history={history} />
+      <CurrentMenu history={history} />
     </div >
   );
 }

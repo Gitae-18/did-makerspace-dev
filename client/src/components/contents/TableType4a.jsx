@@ -16,7 +16,7 @@ export default function TableType4a() {
             <option value="1">월</option>
           </select>
           <input type="text" name="" id="" placeholder="제목을 입력하세요" />
-          <ButtonType2 btnName="조회"></ButtonType2>
+          <ButtonType2 btnName="검색"></ButtonType2>
         </div>
       </div>
       <table>

@@ -109,9 +109,16 @@ export default function TableType1d() {
       onSearch(e);
     }
   }
-  const goToWrite = () =>{
-    history('/info/write');
-  }
+  //수정
+  const onUpdate = useCallback(async(e,index) =>{
+    const faq_no = data[index].faq_no;  
+    history('/info/faq/update',{state:{faq_no:faq_no}})
+  },[data])
+  //새글쓰기
+  const goToWrite = useCallback(async(e) =>{
+    const faq_no = data[0].faq_no;
+    history('/info/write',{state:{faq_no:faq_no}});
+  },[data])
 
   return (
     <div className="table_wrap table_type1">
@@ -124,7 +131,7 @@ export default function TableType1d() {
             <option value="1">이름</option>
           </select>
           <input type="text" name="" id="" placeholder="제목을 입력하세요" onChange={onChange} onKeyDown={(e) => activeEnter(e)} />
-          <StyledBtn onClick={onSearch}>조회</StyledBtn>
+          <StyledBtn onClick={onSearch}>검색</StyledBtn>
         </div>
       </div>
       <table>
@@ -136,6 +143,7 @@ export default function TableType1d() {
             <th>작성자</th>
             <th>작성일</th>
             <th>조회수</th>
+            <th>수정</th>
           </tr>
         </thead>
         <tbody>
@@ -146,6 +154,7 @@ export default function TableType1d() {
             <td>최고관리자</td>
             <td>{item.created_at.slice(0,10)}</td>
             <td>{item.hit}</td>
+            <td><StyledBtn3 onClick={(e)=>onUpdate(e,index)}>수정</StyledBtn3></td>
           </tr>)):<div>게시물이 없습니다.</div>
           }
         </tbody>
@@ -172,3 +181,15 @@ border:1px solide #313f4f;
     color:#313f4f
  }
 `
+const StyledBtn3= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:50px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `

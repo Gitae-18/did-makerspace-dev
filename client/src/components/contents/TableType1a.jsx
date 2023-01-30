@@ -25,7 +25,7 @@ export default function TableType1a() {
   const [count,setCount] = useState(0);
   const [currentPage,setCurrentPage] = useState(1);
   const [currentPosts,setCurrentPosts] = useState([]);
-  const postPerPage = 10;
+  const postPerPage = 11;
   const offset = (page-1)*postPerPage;
   const indexOfLastPost = currentPage * postPerPage
   const indexOfFirstPost = indexOfLastPost - postPerPage;
@@ -72,9 +72,10 @@ export default function TableType1a() {
   const handlePageChange = (e) =>{
     setCurrentPage(e)
   }
-  const onMove = (e) =>{
-    history(location.pathname + '/spacedetail',{state:{name:e.space_name}});
-  }
+  const onMove = useCallback(async(e,index)=>{
+    const space_no = spaceList[index].space_no
+    history(location.pathname + '/spacedetail',{state:{no:space_no}});
+  },[spaceList,history])
   const onChange = (e) =>{
     e.preventDefault();
     setSearch(e.target.value);
@@ -139,9 +140,9 @@ export default function TableType1a() {
             {currentPost && spaceList.length >  0 ? currentPost.map((item,i)=>(
               <tr key={i}>
               <td>{item.space_no}</td>
-              <td><StyledSpan onClick={(e)=>onMove(item)}>{item.space_name}</StyledSpan></td>
-              <td><StyledSpan onClick={(e)=>onMove(item)}>{item.space_info}</StyledSpan></td>
-              <td><StyledImg alt="no imgae" src="/images/mokgong.png"/></td>
+              <td><StyledSpan onClick={(e)=>onMove(item,i)}>{item.space_name}</StyledSpan></td>
+              <td><StyledSpan onClick={(e)=>onMove(item,i)}>{item.space_info}</StyledSpan></td>
+              <td><StyledImg alt="no imgae" src={`/images/${item.src}`}/></td>
               <td>{item.location}</td>
               <td>월~금(09:00 - 18:00)</td>
               </tr>
@@ -150,7 +151,7 @@ export default function TableType1a() {
       </table>
       <div className="page_control">
       {/* <Paging2 page={page} count = {count} setPage={handlePageChange}/> */}
-        <Paging totalCount={count} page={page} postPerPage={postPerPage} pageRangeDisplayed={5} handlePageChange={handlePageChange}/>
+       {/*  <Paging totalCount={count} page={page} postPerPage={postPerPage} pageRangeDisplayed={5} handlePageChange={handlePageChange}/> */}
               {/* <Pagination
               activePage={page}
               itemsCountPerPage={10}

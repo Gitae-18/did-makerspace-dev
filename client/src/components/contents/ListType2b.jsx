@@ -55,6 +55,7 @@ export default function ListType2b() {
     console.log('잘못된 접근입니다.');
     return;
    }
+
     history(location.pathname + '/detail',{state:{no:program_no}});
   },[currentPost,itemList])
   const item = Object.values(itemList).map(item=>item);
@@ -71,6 +72,7 @@ export default function ListType2b() {
     e.preventDefault();
     setSearch(e.target.value);
   }
+ 
   const onSearch = useCallback(async(e) =>{
     e.preventDefault();
     
@@ -106,7 +108,7 @@ export default function ListType2b() {
     <StyledBtn2 onClick={onMove}>내예약정보</StyledBtn2>
       <div className="table_search">
        <input type="text" name="" id="" placeholder="제목을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange}/>
-          <StyledBtn onClick={(e)=>onSearch(e)} >조회</StyledBtn>
+          <StyledBtn onClick={(e)=>onSearch(e)} >검색</StyledBtn>
       </div>
       </div>
       <ol>

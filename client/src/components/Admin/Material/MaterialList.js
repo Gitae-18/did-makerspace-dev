@@ -255,7 +255,7 @@ export default function ({query}) {
 									{MonthOption}
 								</select></p>
 							</div>
-							<button className="search" onClick={onSearchByDate}>조회</button>
+							<button className="search" onClick={onSearchByDate}>검색</button>
 						</div>
 						<table>
 							<colgroup>

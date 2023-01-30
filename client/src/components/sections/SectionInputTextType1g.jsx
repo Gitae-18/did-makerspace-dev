@@ -35,7 +35,7 @@ export default function SectionInputTextType1g() {
       <ul className="text_wrap">
         <li>
           <label htmlFor="text01">제목</label>
-          <span>운영시간은 어떻게 되나요?</span>
+          <span>{data.title}</span>
         </li>
         <li className="textarea_wrap">
           <label htmlFor="text02">내용</label>

@@ -9,10 +9,12 @@ import PopupSaveModal from "../PopupSaveModal";
 export default function SectionInputTextType1f() {
   const { token } = useSelector(state => state.user);
   const [openModal,setOpenModal] = useState(false);
+  const [imageFile,setImageFile] = useState([]);
   const [text,setText] = useState("");
   const [title,setTitle] = useState('');
   const history = useNavigate();
   const location = useLocation();
+  const no = location.state.faq_no;
   const url = location.pathname;
   console.log(url)
   const onMemoChange = (e) =>{ 
@@ -21,9 +23,13 @@ export default function SectionInputTextType1f() {
  const onTitleChange = (e) =>{
    setTitle(e.target.value);
  }
+ const handleChangeFile = (e) =>{
+  setImageFile(e.target.files);
+}
+const formData = new FormData();
  const sendData = useCallback(async()=>{
   CommonHeader.authorization = token;
-  setOpenModal(true);
+ 
   
   const response = await fetch(PreUri+'/faq/faqs',{
     method:Method.post,
@@ -39,7 +45,24 @@ export default function SectionInputTextType1f() {
   if(!response.ok){
     return(alert(getRspMsg(response.status)))
   }
-},[token,title,text])
+
+  let index = 0;
+  
+  for (let i = 0; i <imageFile.length; i++) {
+    formData.append("imageFiles", imageFile[i]);
+    index++;
+  }
+
+  const res = await fetch( PreUri +'/faq/'+ (no+1) +'/files',{
+    method:Method.post,
+    headers: { authorization: token},
+    body:formData
+  })
+  if(!res.ok){
+    return(alert(getRspMsg(res.status)))
+}
+setOpenModal(true);
+},[token,title,text,imageFile])
 const onClose = () =>{
   setOpenModal(false);
 }
@@ -71,7 +94,7 @@ const onClose = () =>{
         </li>
         <li>
           <label htmlFor="file01">파일#1</label>
-          <input type="file" name="file01" id="file01" className="w_auto" />
+          <input type="file" name="file01" id="file01" className="w_auto" onChange={handleChangeFile} multiple accept="image/*"/>
           
         </li>
       </ul>

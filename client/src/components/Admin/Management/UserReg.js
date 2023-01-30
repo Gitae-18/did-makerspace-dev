@@ -196,7 +196,7 @@ export default function () {
 			<div className="content_wrap">
 				<SideNavi location={location} history={history} viewDepth={2} />
 				<div className="content">
-					<h2>회원 관리</h2>
+
 					<div className="form">
 						<h3>운영자/전문 상담사/파트 담당자 신규 등록</h3>
 						<span>*필수입력</span>

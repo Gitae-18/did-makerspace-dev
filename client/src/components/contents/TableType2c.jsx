@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useCallback} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate,useLocation,useParams } from "react-router";
+import ButtonType2 from "./ButtonType2";
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg } from '../../CommonCode';
 import Paging2 from "./Paging2";
 import dotenv from "dotenv";
@@ -11,7 +12,7 @@ export default function TableType2c() {
     const { token } = useSelector(state => state.user);
     const [loading,setLoading] = useState(false);
     const [currentPage,setCurrentPage] = useState(1);
-    const [postPage, setPostPage] = useState(10);
+    const [postPage, setPostPage] = useState(11);
     const [count,setCount] = useState(0);
     const indexOfLastPost = currentPage * postPage
     const indexOfFirstPost = indexOfLastPost - postPage
@@ -48,6 +49,7 @@ export default function TableType2c() {
   return (
     <div className="table_wrap table_type2">
       <div className="table_extra">
+      <ButtonType2 btnName="내 예약 정보 조회"></ButtonType2>
         <div></div>
         <div className="table_search">
           <select name="" id="">
@@ -56,7 +58,6 @@ export default function TableType2c() {
         </div>
       </div>
       <table>
-        <caption className="blind">공간소개</caption>
         <thead>
           <tr>
             <th>사진</th>
@@ -69,7 +70,7 @@ export default function TableType2c() {
         <tbody>
           {currentPost && posts.length >  0 ? currentPost.map((item,index)=>(
             <tr key={index}>
-            <td>image</td>
+            <td><img src={`/images/${item.src}` } style={{"width":"80px"}} alt="no-image"/></td>
             <td>{item.space_name}</td>
             <td>{item.space_info}</td>
             <td>{item.location}</td>
@@ -79,7 +80,7 @@ export default function TableType2c() {
         </tbody>
       </table>
       <div className="page_control">
-       <Paging2 page={currentPage} count = {count} setPage={setPage}/>
+       {/* <Paging2 page={currentPage} count = {count} setPage={setPage}/> */}
       </div>
     </div>
   );

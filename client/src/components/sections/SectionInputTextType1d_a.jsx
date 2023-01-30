@@ -5,13 +5,20 @@ import styled from "styled-components";
 import { useLocation,useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { CommonHeader,PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
+import { useRef } from "react";
+import PopupSecondSaveModal from "../PopupSecondSaveModal";
 import SideNavi from "../Admin/Management/SideNavi";
-const  SectionInputTextType1d_a = () => {
+export default function  SectionInputTextType1d_a(){
   const { token } = useSelector(state => state.user);
+  const {programNo} = useSelector(state=> state.classeduManage)
+  const [openModal,setOpenModal] = useState(false);
   const [pay,setPay] = useState("");
+  const [imageFile,setImageFile] = useState([]);
+  const [isChecked,setIsChecked] = useState(false);
   const location = useLocation();
-
+  const history = useNavigate();
   let type = location.pathname === "/educontrol" ? "edu" : "class";
+  const no = location.state.no;
   const [input,setInput] = useState({
     className: '',
     place: '',
@@ -35,23 +42,37 @@ const  SectionInputTextType1d_a = () => {
     })
 
   }
+  const onClose = () =>{
+    setOpenModal(false);
+  }
   const onMemoChange = (e) =>{ 
     setText(e.target.value);
  };
-let hit = 100;
-let popupf = "N";
 
-  
   const onChangePay = (e)=>{
     setPay(e.target.value);
   }
 
-  const sendData = useCallback(async()=>{
+  const handleChangeFile = (e) =>{
+    setImageFile(e.target.files);
+  }
+  const handleCheckBox = (e) =>{
+    if(e.target.checked){
+      setIsChecked(true);
+    }
+    else{
+      setIsChecked(false);
+    }
+  }
+
+  //formdata.append("image","image.png");
+  const formData = new FormData();
+  const sendData = useCallback(async(e)=>{
     CommonHeader.authorization = token;
     let requri =  PreUri + '/classedu/addprogram'
     const response = await fetch(requri,{
       method:Method.post,
-      heeaders:CommonHeader,
+      headers:CommonHeader,
       body:JSON.stringify({
         title:className,
         content:text,
@@ -61,19 +82,59 @@ let popupf = "N";
         application_period_start:application_period_start,
         application_period_end: application_period_end,
         pay_flag:pay,        
-        cost:cost,
         place:place,
         limit_number:fnum,
+        cost:cost,
         map:map,
-        popup_flag:popupf,
+        popup_flag:isChecked===true?"Y":"N",
       })
     })
     if(!response.ok){
       return(alert(getRspMsg(response.status)))
     }
+    let index = 0;
+  
+   /*  for (let i  = 0 ; i < imageFile.length; i++){
+      
+    } */
+   
+/*     if(imageFile !== undefined){
+      formData.append("imagefile", imageFile);
+    }
+ */
 
-  },[token,input])
+   
+    
+    for (let i = 0; i <imageFile.length; i++) {
+      formData.append("imageFiles", imageFile[i]);
+      index++;
+    }
+    //formData.append("imageFiles", imageFile);
+   
+    for(let value of formData.values()){
+      console.log(value)
+    }
+    for(let key of formData.keys()){
+      console.log(key)
+    }
+   /*  if(index > 0)
+    { */
+      console.log(no)
+      const res = await fetch( PreUri +'/classedu/'+ (no+1) +'/files',{
+        method:Method.post,
+        headers: { authorization: token},
+        body:formData
+      })
+      if(!res.ok){
+        return(alert(getRspMsg(res.status)))
+    }
+    //}
+    setOpenModal(true);
+  },[token,input,imageFile])
 
+ useEffect(()=>{
+
+ },[isChecked])
 /*   useEffect(()=>{
 //    onMemoChange();
     getData();
@@ -83,7 +144,6 @@ let popupf = "N";
 
     <section className="section_input_text_type1 section_input_text_type1d">
       <div className="title_wrap">
-        <TitleType1 title="행사 프로그램 등록"></TitleType1>
       </div>
       <ul className="text_wrap">
         <li>
@@ -167,7 +227,7 @@ let popupf = "N";
         </li>
         <li>
           <label htmlFor="file01">파일#1</label>
-          <input type="file" name="file01" id="file01" className="w_auto" />
+          <input type="file" name="imagefile" id="file01" className="w_auto" onChange={handleChangeFile} multiple accept="image/*" />
         </li>
         <li>
           <label htmlFor="checkbox01">팝업등록</label>
@@ -177,23 +237,22 @@ let popupf = "N";
             id="checkbox01"
             className="input_checkbox w_auto"
             value={popup} 
-            onChange={onChangeInput}
+            onChange={handleCheckBox}
           />
         </li>
       </ul>
     
         <StyledBtn className="apply" onClick={sendData}>등록</StyledBtn>
-        <StyledGrayBtn className='cancel'>취소</StyledGrayBtn>
+        {openModal && <PopupSecondSaveModal visible={openModal} closable={true} onclose={onClose}/>}
+        <StyledGrayBtn className='cancel' onClick={(e)=>history(-1)}>취소</StyledGrayBtn>
      
     </section>
- 
+
      <div className="sub_page_outer">
      </div>
      </>
   );
 }
-export default SectionInputTextType1d_a;
-
 const StyledBtn= styled.button`
 color:#fff;
 background-color:#313f4f;

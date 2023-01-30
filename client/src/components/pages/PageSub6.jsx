@@ -18,6 +18,7 @@ import PageSub06d2 from "./PageSub06/PageSub06d2";
 import Classedulist from "../contents/classedulist";
 import SideNavi from "../Admin/Management/SideNavi";
 import Menu from "../Menu";
+import SectionInputTextType1d_update from "../sections/SectionInputTextType1d_update";
 import SectionInputTextType1d from "../sections/SectionInputTextType1d";
 import SectionInputTextType1d_a from "../sections/SectionInputTextType1d_a";
 
@@ -278,7 +279,7 @@ export const ClassEduControl2 = () =>{
       </>
     );
 }
-export const ClassEduTotalControl = () =>{
+export const ClassEduTotalControl = ({no}) =>{
   return (
       <>
        
@@ -286,7 +287,24 @@ export const ClassEduTotalControl = () =>{
         <SideNavi/>
         <div className="sub_page_inner_wrap">
           <div className="sub_inner">
-            <Classedulist/>
+            <Classedulist no={no}/>
+          </div>
+        </div>
+      </div>
+      <div className="sub_page_outer">
+      </div>
+      </>
+    );
+}
+export const ClassEduUpdate = ({no}) =>{
+  return (
+      <>
+       
+      <div id="sub_page_wrap">
+        <SideNavi/>
+        <div className="sub_page_inner_wrap">
+          <div className="sub_inner">
+            <SectionInputTextType1d_update no={no}/>
           </div>
         </div>
       </div>

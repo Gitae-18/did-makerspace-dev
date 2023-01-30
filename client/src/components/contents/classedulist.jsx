@@ -1,15 +1,17 @@
 import React,{useState,useEffect, useCallback}from "react";
 import TitleType1 from "./TitleType1";
 import { useLocation,useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch} from "react-redux";
 import { CommonHeader, PreUri, Method } from "../../CommonCode";
+import { M_CLASS_SET } from "../../store/classedu_manage";
 import Paging2 from "./Paging2";
 import styled from "styled-components";
-export default function Classedulist() {
+export default function Classedulist({no}) {
   const { token } = useSelector(state => state.user);
   const [reservList,setReservList] = useState([]);
   const location = useLocation();
   const history = useNavigate();
+  const dispatch = useDispatch();
   const [data,setData] = useState([]);
   const [title,setTitle] = useState("")
   const [search,setSearch] = useState('');
@@ -48,7 +50,11 @@ export default function Classedulist() {
   const handlePageChange = (e) =>{
     setCurrentPage(e)
   }
-
+  //수정
+  const onUpdate = (e,index) =>{
+    const item = currentPost[index].program_no;  
+    history('/classedu/update',{state:{programno:item}})
+  }
   const onChange = (e) =>{
     e.preventDefault();
     setSearch(e.target.value);
@@ -75,12 +81,28 @@ export default function Classedulist() {
  setSearch('');
 },[search])
 
+  const onSelectItem = useCallback((e,index) => {
+    const item = currentPost[index].program_no;  
+    const list = currentPost[index]; 
+    const type = reservList[index].type;
+    console.log(type);
+
+    dispatch({ type: M_CLASS_SET, target: list });
+ 
+    if(type === "class"){
+      history("/eduprogram/detail",{state:{programno:item}});
+    }
+    if(type === "edu"){
+      history("/classprogram/detail",{state:{programno:item}});
+    }
+  },[history, currentPost,reservList, dispatch])
   const setPage = (e) =>{
     setCurrentPage(e);
   }
-  console.log(currentPost)
+
  const onBtnClick = (e) =>{
-    history('/'+ e.target.className.slice(17,))
+  const item = currentPost[0].program_no;
+    history('/'+ e.target.className.slice(17,),{state:{no:item}});
  }
   useEffect(()=>{
     getReservList();
@@ -93,7 +115,7 @@ export default function Classedulist() {
             <option value="1">제목</option>
           </select>
         <input type="text" name="" id="" placeholder="제목을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange}/>
-          <StyledBtn onClick={(e)=>onSearch(e)} >조회</StyledBtn>
+          <StyledBtn onClick={(e)=>onSearch(e)} >검색</StyledBtn>
           </div>
       </div>
       <table>
@@ -106,14 +128,15 @@ export default function Classedulist() {
             <th>교육기간</th>
             <th>신청기간</th>
             <th>조회수</th>
+            <th>수정</th>
           </tr>
         </thead>
         <tbody>
           {currentPost && reservList.length>0 ? currentPost.map((item,index)=>(
             <tr key={index}>
             <td>{item.program_no}</td>
-            <td>{item.title}</td>
-            <td>{item.type==="class"? "행사프로그램":"교육프로그램"}</td>
+            <td onClick={(e)=>onSelectItem(e,index)}>{item.title}</td>
+            <td onClick={(e)=>onSelectItem(e,index)}>{item.type==="class"? "행사프로그램":"교육프로그램"}</td>
             <td style={{"whiteSpace":"pre-wrap"}}>{item.class_period_start} ~ {item.class_period_end}</td>
             <td style={{"whiteSpace":"pre-wrap"}}> {item.application_period_start} ~ {item.application_period_end}
 {/*               <span className="date">{item.class_period_start.slice(0,10).replaceAll('-','/')}</span>
@@ -121,6 +144,7 @@ export default function Classedulist() {
               <span className="time">{item.class_period_start.slice(10,)}</span> */}
             </td>
             <td>{item.hit}</td>
+            <td><StyledBtn3 onClick={(e)=> onUpdate(e,index)}>수정</StyledBtn3></td> 
           </tr>)):<>내용이 비었습니다</>}
         </tbody>
       </table>
@@ -161,3 +185,15 @@ position:relative;
      color:#313f4f
   }
   `
+  const StyledBtn3= styled.button`
+  color:#fff;
+  background-color:#313f4f;
+  width:50px;
+  height:30px;
+  font-size:0.7rem;
+  cursor:pointer;
+   &:hover{
+      background-color:#transparent
+      color:#313f4f
+   }
+   `

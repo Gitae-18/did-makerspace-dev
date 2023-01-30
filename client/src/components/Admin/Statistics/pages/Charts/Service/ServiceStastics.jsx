@@ -282,7 +282,7 @@ function ServiceStatics() {
               </p>
             </div>
             <button className="search"onClick={() =>setDataFat(dataList.filter( (v) => v.created_at > NewDate && v.created_at < EndDate))}>
-              조회
+              검색
             </button>
           </div>
         </div>

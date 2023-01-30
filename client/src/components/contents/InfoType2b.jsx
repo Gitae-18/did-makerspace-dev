@@ -18,6 +18,7 @@ export default function InfoType2b() {
   const [openModal,setOpenModal] = useState(false);
   const [closemodal,setCloseModal] = useState(false);
   const [data,setData] = useState([]);
+  const [imageUrl,setImageUrl] = useState("");
   const [getFlag,setGetFlag] = useState([]);
   const [limit,setLimit] = useState("");
   const [title,setTitle] = useState("")
@@ -41,11 +42,27 @@ export default function InfoType2b() {
 
     const json = await response.json();
     setData(json);
-    setLimit(json.limit_number);
     setTitle(json.title);
   },[token])
 
-
+  const ongetImage = useCallback(async(e,index)=>{
+    let requri = PreUri + '/classedu/'+ no + '/getimage';
+    const response = await fetch(requri,{
+      method:Method.get,
+      headers:CommonHeader,
+    })
+    if(!response.ok) {
+      console.log('잘못된 접근입니다.');
+      return;
+    }
+    const json = await response.json();
+    setImageUrl(json.path);
+    const reader = new FileReader();
+    reader.onload = (event) =>{
+      const downloadImage = String(event.target?.result);
+    }
+  },[title])
+  console.log(imageUrl)
   let  button_click = document.getElementById('button_id');
   let counter;
  console.log(title);
@@ -93,8 +110,9 @@ export default function InfoType2b() {
  
   useEffect(()=>{
     getEduList();
+    ongetImage();
     getApplicationList(data);
-  },[getEduList,getApplicationList,token,title])
+  },[getEduList,getApplicationList,ongetImage,token,title])
   const onClose = () =>{
     setOpenModal(false);
   }
@@ -102,7 +120,7 @@ export default function InfoType2b() {
 
     <div className="info_type2">
       <div className="title_part">
-        <div className="image_part"><img className="woodtray" src="/images/woodtray.png" alt="no-image"/></div>
+        <div className="image_part"><img className="woodtray" src={'../../server/upload/newprogram/class.png'} alt="no-image"/></div>
         <div className="info_part">
           <TitleType1 title={title}></TitleType1>
           <div className="dl_wrap">
@@ -135,14 +153,14 @@ export default function InfoType2b() {
           <div className="btns">
             <StyledBtn id="button_id" onClick={onApplicate} disabled={getFlag.length>data.limit_number-1?true:false} type="submit">신청하기</StyledBtn>
             {openModal && getFlag.length < data.limit_number && <PopupModal2 visible={openModal} closable={true} onclose={onClose} history={history} location={location}/>}
-            <ButtonType4></ButtonType4>
+          
           </div>
         </div>
       </div>
       <div className="desc_part">
-        <SectionTabType1a></SectionTabType1a>
+        <SectionTabType1a content={data.content}></SectionTabType1a>
       </div>
-      <GoBackBtn btnName="목록"></GoBackBtn>
+      <StyledBtn2>목록</StyledBtn2>
     </div>
 
   );
@@ -156,6 +174,21 @@ font-size:0.8rem;
 cursor:pointer;
 position:relative;
 bottom:5px;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `
+ const StyledBtn2= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:120px;
+height:40px;
+font-size:0.8rem;
+cursor:pointer;
+position:absolute;
+left:600px;
+bottom:50px;
  &:hover{
     background-color:#transparent
     color:#313f4f

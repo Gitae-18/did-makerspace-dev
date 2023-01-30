@@ -63,27 +63,19 @@ export default function SectionTabType1(props) {
         <li className="tab_inner on">
           <h3>New 공지사항</h3>
           <ol>
-            <li><span className="title">공지사항 new</span><HiOutlinePlus className="plus" onClick={goToNotice}/>
-               <div className="inner_text">   
-                <table>
-                  <thead>
-                    <th/>
-                    <th/>
-                    <th/>
-                   
-                  </thead>
-                  {data !== undefined && data.length > 0 && data.map((item,index) =>
-                  <tr key={index}>
-                    <td style={{"whiteSpace":"pre-wrap"}}><span onClick={(e)=>setTimeout(onItem(e,index),2000)}>{index+1}. {item.title}</span></td>
-                    <td/><td>{item.created_at.slice(0,10)}</td>
-                    
-                  </tr>
-                  )} 
-                </table>
-                </div>
-                
+          {data !== undefined && data.length > 0 && data.map((item,index) =>(
+            <li key={index}>
+            <span className="title">공지사항 new</span><HiOutlinePlus className="plus" onClick={goToNotice}/>
+            <div className="text_part">
+            <span onClick={(e)=>setTimeout(onItem(e,index),2000)} className="sub_title">{index+1}. {item.title}</span>
+            <div className="date_part">
+            <span className="date">{item.created_at.slice(0,10)}</span>
+            </div>
+            </div>
             </li>
-          </ol>
+          )
+        )}
+        </ol>
         </li>
       </ol>
     );

@@ -22,7 +22,7 @@ export const NoticeAddContainer = (props) =>{
     const View = query.date ? AddNotice : AddNotice;
 
     return(
-        (isLoading || !isLoggedIn /* || authority_level < AuthLevel.partner */) ? <></>:
+        (isLoading || !isLoggedIn || authority_level < AuthLevel.partner) ? <></>:
         View? <View query={query}/> : <></>
     )
 }   

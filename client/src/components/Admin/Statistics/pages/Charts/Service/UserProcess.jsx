@@ -324,7 +324,7 @@ function UserProcess() {
                 )
               }
             >
-              조회
+              검색
             </button>
           </div>
         </div>

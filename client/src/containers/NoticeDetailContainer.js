@@ -14,12 +14,14 @@ export const NoticeDetailContainer = (props) =>{
         ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
     });
     useEffect(() => {
-        
-	}, [])
+        if (isLoading) { return; }
+        if (!isLoggedIn) { return history('/notmember',{replace:false}); }
+	}, [isLoading, isLoggedIn, authority_level, history])
 
     const View = query ? ContactNoticeDetail : ContactNoticeDetail ;
 
     return(
-        <View query={query}/> 
+        (isLoading || !isLoggedIn || authority_level < AuthLevel.partner) ? <></>:
+        View? <View query={query}/> : <></>
     )
 }   

@@ -7,17 +7,17 @@ export const dataLables = [
        submenu : [
        {
          title: '공간 소개',
-         path:'/info/spaceinfo',
+         path:'/didinfo',
          index : 1
        },
        {
          title: '장비 소개',
-         path:'/info/equipinfo',
+         path:'/didinfo/info/equipinfo',
          index : 2
        },
         {
          title: "운영인력소개",
-         path:'/info/workerinfo',
+         path:'/didinfo/info/workerinfo',
          index : 3
         }
       ]

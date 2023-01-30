@@ -12,7 +12,7 @@ export default function TableType1f() {
             <option value="1">이름</option>
           </select>
           <input type="text" name="" id="" placeholder="제목을 입력하세요" />
-          <StyledBtn btnName="조회"></StyledBtn>
+          <StyledBtn btnName="검색"></StyledBtn>
         </div>
       </div>
       <table>

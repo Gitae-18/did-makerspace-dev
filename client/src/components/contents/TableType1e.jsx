@@ -5,6 +5,7 @@ import {useSelector,useDispatch} from "react-redux";
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
 import { M_NOTICE_SET } from "../../store/notice";
 import { Paging } from "./Paging";
+import Paging2 from "./Paging2";
 import styled from "styled-components";
 export default function TableType1e() {
 
@@ -70,7 +71,10 @@ export default function TableType1e() {
   }
  setSearch('');
 },[search])
-
+  const onUpdate = useCallback(async(e,index)=>{
+    const notice_no = data[index].notice_no;
+    history("/noticecontact/notice/update",{state:{update_no:notice_no}})
+  },[data])
   const onItem = useCallback(async(e,index)=>{
     const hit_cnt = data[index].hit;
     const notice_no = data[index].notice_no;
@@ -100,9 +104,14 @@ export default function TableType1e() {
       onSearch(e);
     }
   }
-  const onWrite = () =>{
-    history('/noticecontact/addnotice');
+  const sethandlePage = (e) =>{
+    setCurrentPage(e);
   }
+  console.log(data)
+  const onWrite = useCallback(async(e) => {
+    const notice_no = data[0].notice_no;
+    history('/noticecontact/addnotice',{state:{notice_no:notice_no}});
+  },[data])
   return (
     <div className="table_wrap table_type1">
       <div className="table_extra">
@@ -114,7 +123,7 @@ export default function TableType1e() {
             <option value="1">제목</option>
           </select>
           <input type="text" name="" id="" placeholder="제목을 입력하세요" onChange={onChange} onKeyDown={(e) => activeEnter(e)}/>
-          <StyledBtn onClick={onSearch}>조회</StyledBtn>
+          <StyledBtn onClick={onSearch}>검색</StyledBtn>
         </div>
       </div>
       <table>
@@ -126,23 +135,25 @@ export default function TableType1e() {
             <th>작성자</th>
             <th>작성일</th>
             <th>조회수</th>
+            <th>수정/삭제</th>
           </tr>
         </thead>
         <tbody>
-          {data.length > 0 ? data.map((item,index)=>(
+          {currentPost.length > 0 ? currentPost.map((item,index)=>(
             <tr key={index}>
             <td onClick={(e)=>onItem(e,index)}>{item.notice_no}</td>
             <td onClick={(e)=>onItem(e,index)}>{item.title}</td>
             <td>최고관리자</td>
             <td>{item.created_at.slice(0,10)}</td>
             <td>{item.hit}</td>
+            <td><StyledBtn3 onClick={(e)=>onUpdate(e,index)}>수정</StyledBtn3></td>
           </tr>
           )):<div>게시물이 없습니다.</div>}
         </tbody>
       </table>
-      <StyledBtn2 onClick={onWrite}>글쓰기</StyledBtn2>
+      <StyledBtn2 onClick={(e)=>onWrite(e)}>글쓰기</StyledBtn2>
       <div className="page_control">
-      <Paging totalCount={count} page={page} postPerPage={postPerPage} pageRangeDisplayed={5} handlePageChange={handlePageChange}/>
+      <Paging2 page={currentPage} count = {count} setPage={sethandlePage}/>
       </div>
       
     </div>
@@ -172,6 +183,18 @@ height:30px;
 font-size:0.7rem;
 cursor:pointer;
 border:1px solide #313f4f;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `
+ const StyledBtn3= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:50px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
  &:hover{
     background-color:#transparent
     color:#313f4f
