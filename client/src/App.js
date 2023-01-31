@@ -55,10 +55,13 @@ import { ClassAddContainer } from './containers/ClassEdu/ClassAddContainer';
 import { NoticeAddContainer } from './containers/NoticeAddContainer';
 import { NoticeContainer } from './containers/NoticeContainer';
 import { NoticeDetailContainer } from './containers/NoticeDetailContainer';
-import { FaqContainer } from './containers/FaqContainer';
-import { FaqAddContainer } from './containers/FaqAddContainer';
-import { FaqDetailContainer } from './containers/FaqDetailContainer';
+import { FaqContainer } from './containers/Faq/FaqContainer';
+import { FaqAddContainer } from './containers/Faq/FaqAddContainer';
+import { FaqDetailContainer } from './containers/Faq/FaqDetailContainer';
 import { ClassEduControlContainer } from './containers/ClassEdu/ClassEduControlContainer';
+import { ClassEduUpdate } from './components/pages/PageSub6';
+import { FaqUpdateContainer } from './containers/Faq/FaqUpdateContainer';
+import { NoticeUpdateContainer } from './containers/notice/NoticeUpdateContainer';
 import Material from './components/Admin/Material/Material';
 import MaterialItem from './components/Admin/Material/MaterialItem';
 import MaterialList from './components/Admin/Material/MaterialList';
@@ -142,24 +145,25 @@ const App = () => {
         
         <Route path="/didinfo/*" element = {<DidInfo/>}/>
         <Route path="/didinfo/spacedetail" element = {<DidInfo1Detail1/>}/>
-        <Route path="/info/InfoType1a" element = {<DidInfo1Detail2/>}/>     
-        <Route path="/info/equipinfo" element = {<DidInfo2/>}/>
-        <Route path="/info/workerinfo" element = {<DidInfo3/>}/>
-        <Route path="/info/greetings" element = {<DidInfo4/>}/>
-        <Route path="/info/vision" element = {<DidInfo5/>}/>
-        <Route path="/info/organization" element = {<DidInfo6/>}/>
-        <Route path="/info/partner" element = {<DidInfo7/>}/>
-        <Route path="/info/way" element = {<DidInfo8/>}/>
-        <Route path="/info/faq/*" element = {<FaqContainer/>}/>
-        <Route path="/info/faq/faq1" element = {<FaqDetailContainer/>}/>
-        <Route path="/info/write" element = {<FaqAddContainer/>}/>
+        <Route path="/didinfo/info/InfoType1a" element = {<DidInfo1Detail2/>}/>     
+        <Route path="/didinfo/info/equipinfo" element = {<DidInfo2/>}/>
+        <Route path="/didinfo/info/workerinfo" element = {<DidInfo3/>}/>
+        <Route path="/didadmin/info/greetings" element = {<DidInfo4/>}/>
+        <Route path="/didadmin/info/vision" element = {<DidInfo5/>}/>
+        <Route path="/didadmin/info/organization" element = {<DidInfo6/>}/>
+        <Route path="/didadmin/info/partner" element = {<DidInfo7/>}/>
+        <Route path="/did/info/way" element = {<DidInfo8/>}/>
+        <Route path="/did/info/faq/*" element = {<FaqContainer/>}/>
+        <Route path="/did/info/faq/faq1" element = {<FaqDetailContainer/>}/>
+        <Route path="/did/info/write" element = {<FaqAddContainer/>}/>
+        <Route path="/did/info/faq/update" element = {<FaqUpdateContainer/>}/>
 
-        <Route path="/didreservation" element = {<EqReservation/>}/>
-        <Route path="/reservation/space" element = {<DidReservation2/>}/>
-        <Route path="/reservation/lab" element = {<DidReservation3/>}/>
-        <Route path="/reservation/myvation" element = {<MyReservContainer/>}/>
-        <Route path="/reservation/selectreserv" element = {<EReservation/>}/>
-        <Route path="/didreservation/test" element={<TestReservation/>}/>
+        <Route path="/eqreservation/equip" element = {<EqReservation/>}/>
+        <Route path="/eqreservation/space" element = {<DidReservation2/>}/>
+        <Route path="/eqreservation/lab" element = {<DidReservation3/>}/>
+        <Route path="/eqreservation/myvation" element = {<MyReservContainer/>}/>
+        <Route path="/eqreservation/selectreserv" element = {<EReservation/>}/>
+        <Route path="/eqeservation/test" element={<TestReservation/>}/>
 
         <Route path="/mentoring" element = {<Mentoring/>}/>
         <Route path="/umentoring/*" element = {<UMentoring/>}/>
@@ -171,15 +175,16 @@ const App = () => {
         <Route path="/classprogram/myreserv" element = {<MyClassContainer/>}/>
 
         <Route path="/contact" element = {<Contact/>}/>
-        <Route path="/archivecontact/video" element = {<Contact2/>}/>
-        <Route path="/archivecontact/text" element = {<Contact5/>}/>
-        <Route path="/archivecontact/basic" element = {<Contact3/>}/>
+        <Route path="/archive/video" element = {<Contact2/>}/>
+        <Route path="/archive/text" element = {<Contact5/>}/>
+        <Route path="/archive/basic" element = {<Contact3/>}/>
         <Route path="/notice" element = {<NoticeContainer/>}/>
-        <Route path="/noticecontact/addnotice" element = {<NoticeAddContainer/>}/>
-        <Route path="/noticecontact/notice/detail" element = {<NoticeDetailContainer/>}/>
-        <Route path='/archivecontact/video/detail' element = {<ContactDetail/>}/>
-        <Route path='/archivecontact/text/detail' element = {<BasicDetail/>}/>
-        <Route path='/archivecontact/basic/detail' element = {<ContactDetail2/>}/>
+        <Route path="/notice/addnotice" element = {<NoticeAddContainer/>}/>
+        <Route path="/notice/notice/detail" element = {<NoticeDetailContainer/>}/>
+        <Route path="/notice/notice/update" element = {<NoticeUpdateContainer/>}/>
+        <Route path='/archive/video/detail' element = {<ContactDetail/>}/>
+        <Route path='/archive/text/detail' element = {<BasicDetail/>}/>
+        <Route path='/archive/basic/detail' element = {<ContactDetail2/>}/>
         
         <Route path='/mentorcontrol/mentorapplication' element = {<MentorApplication/>}/>
         <Route path='/mentorcontrol/mentorapplication/detail' element = {<MentorApplicationDetail/>}/>
@@ -189,7 +194,7 @@ const App = () => {
         <Route path='/educontrol' element = {<EduAddContainer/>}/>
         <Route path='/classcontrol' element = {<ClassAddContainer/>}/>
         <Route path="/classeducontrol" element={<ClassEduControlContainer/>}/>
-
+        <Route path="/classedu/update" element={<ClassEduUpdate/>}/>
         <Route path="/prototype/management" element = {<MService/>}/>
         <Route path="/prototype/application" element = {<UService/>}/>
 

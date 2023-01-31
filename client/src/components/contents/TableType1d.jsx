@@ -92,7 +92,7 @@ export default function TableType1d() {
       console.log('잘못된 접근입니다.');
       return;
     }
-    history('/info/faq/faq1',{state:{no:faq_no}});
+    history('/did/info/faq/faq1',{state:{no:faq_no}});
   },[data])
 
   //리랜더링
@@ -112,12 +112,12 @@ export default function TableType1d() {
   //수정
   const onUpdate = useCallback(async(e,index) =>{
     const faq_no = data[index].faq_no;  
-    history('/info/faq/update',{state:{faq_no:faq_no}})
+    history('/did/info/faq/update',{state:{faq_no:faq_no}})
   },[data])
   //새글쓰기
   const goToWrite = useCallback(async(e) =>{
     const faq_no = data[0].faq_no;
-    history('/info/write',{state:{faq_no:faq_no}});
+    history('/did/info/write',{state:{faq_no:faq_no}});
   },[data])
 
   return (

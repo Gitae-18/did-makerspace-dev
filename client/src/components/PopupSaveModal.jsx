@@ -21,7 +21,7 @@ function PopupSaveModal({classname,visible,onclose,closable,url}){
     }
     const backToList = (e) =>{
         if(url.includes("info")){
-            history('/info/faq',{replace:true})
+            history('/did/info/faq',{replace:true})
         }
         else if(url.includes("notice")){
             history('/notice',{replace:true})

@@ -25,9 +25,18 @@ module.exports = (sequelize, DataTypes) => {
             allowNull:false,
         },
         title:{
-            type: DataTypes.STRING(55),
+            type: DataTypes.STRING(255),
             allowNull:false,
         },
+        src:{
+            type: DataTypes.STRING(255),
+            allowNull:true,
+        },
+        url:{
+            type: DataTypes.STRING(255),
+            allowNull:true,
+        }
+        ,
         created_user_no: {
             type: DataTypes.INTEGER,
             allowNull:true,

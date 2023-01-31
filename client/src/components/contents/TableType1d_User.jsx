@@ -91,7 +91,7 @@ export default function TableType1d_User() {
       console.log('잘못된 접근입니다.');
       return;
     }
-    history('/info/faq/faq1',{state:{no:faq_no}});
+    history('/did/info/faq/faq1',{state:{no:faq_no}});
   },[data])
 
   //리랜더링
@@ -109,7 +109,7 @@ export default function TableType1d_User() {
     }
   }
   const goToWrite = () =>{
-    history('/info/write');
+    history('/did/info/write');
   }
 
   return (

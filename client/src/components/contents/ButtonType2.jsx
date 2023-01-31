@@ -167,7 +167,7 @@ export function ButtonType3small(props) {
   const ClickTest= useCallback(() =>{
     const categoryNo = props.categoryNo
     if(props.active ==="active"){
-      history('/reservation/selectreserv?categoryNo=' + categoryNo,{state:{category:props.categoryNo}})
+      history('/eqreservation/equip/selectreserv?categoryNo=' + categoryNo,{state:{category:props.categoryNo}})
     }
   },[])
   return (
@@ -189,7 +189,7 @@ export function ButtonType4small(props) {
   }
   const ClickTest= useCallback(() =>{
     if(props.active ==="active"){
-      history('/reservation/selectreserv')
+      history('/eqreservation/equip/selectreserv')
     }
   },[history,location.pathname])
   return (

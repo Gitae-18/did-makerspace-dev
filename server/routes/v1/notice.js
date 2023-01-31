@@ -1,8 +1,9 @@
 'use strict';
 
 const express = require('express');
-const { verifyToken, errorCode, getErrMsg, authLevel, upload, makedir, SendMail } = require('../../middlewares/middlewares');
-const {User ,Company,Notice } = require('../../models');
+const jwt = require('jsonwebtoken');
+const { verifyToken, errorCode, getErrMsg, authLevel, makedir, SendMail  } = require('../../middlewares/middlewares');
+const {User ,Company,Notice,NoticeFile,ClassEduFile } = require('../../models');
 const { Op, or } = require("sequelize");
 const multer = require('multer');
 const path = require('path');
@@ -14,6 +15,185 @@ const { raw } = require('body-parser');
 
 const router = express.Router();
 
+
+
+async function InsertFileInfo(user_no, notice_no, files) {
+
+    const filepath = 'upload/newnotice';
+    if (files.length > 0) {
+        makedir(filepath);
+    }
+   
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const ext = path.extname(file.originalname);
+        const filename = 'u' + user_no + 's' + notice_no + 'os' + file.filename + ext;
+        fs.renameSync(file.path, filepath + '/' + filename, (err) => {
+            if (err) {
+                console.error(err);
+                return false;
+            }
+        });
+
+        let inputResult;
+        try {
+            inputResult = await NoticeFile.create({
+                notice_no,
+                original_name: file.originalname,
+                name: filename,
+                type: file.mimetype,
+                path: filepath,
+                filesize: file.size,
+                created_user_no: user_no,
+                updated_user_no: user_no,
+            });
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    }
+
+    return true;
+}
+
+
+async function SelectFileInfo(notice_no) {
+    let files;
+
+    try {
+        files = await NoticeFile.findAll({
+            attributes: ['attached_file_no', 'original_name', 'name', 'type', 'path', 'filesize'],
+            where: { 
+                notice_no,
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        return null;
+        //return res.status(errorCode.internalServerError).json({});
+    }
+
+    return files;
+}
+
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'upload/newnotice')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname)
+    }
+  });
+const upload = multer({
+    storage:storage,
+    limits:{files:10,fileSize: 20*1024*1024}
+})
+
+router.post('/:notice_no/files',verifyToken,upload.array('imageFiles'), async(req, res, next) =>{
+    let user_no = req.decoded.user_no;
+    let notice_no = req.params.notice_no; 
+
+
+    
+    console.log(req.files);
+    if(req.files.length>0)
+    {
+        makedir('upload/newnotice');
+    }
+    for(let i = 0; i<req.files.length;i++){
+        let inputResult;
+        try {
+            inputResult = await NoticeFile.create({
+                notice_no,
+                original_name: req.files[i].originalname,
+                name: req.files[i].filename,
+                type: req.files[i].mimetype,
+                path: req.files[i].path,
+                filesize:req.files[i].size,
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(errorCode.internalServerError).json({});
+        }
+    }
+    //InsertFileInfo(user_no,notice_no,req.files)
+    res.status(errorCode.ok).json({});
+    
+})
+router.put('/:notice_no/files',verifyToken,upload.array('imageFiles'), async(req, res, next) =>{
+    let user_no = req.decoded.user_no;
+    let notice_no = req.params.notice_no;
+
+    for(let i = 0; i<req.files.length;i++){
+        let inputResult;
+        try {
+            inputResult = await NoticeFile.update({
+                notice_no,
+                original_name: req.files[i].originalname,
+                name: req.files[i].filename,
+                type: req.files[i].mimetype,
+                path: req.files[i].path,
+                filesize:req.files[i].size,
+                created_user_no: user_no,
+                updated_user_no: user_no,
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(errorCode.internalServerError).json({});
+        }
+    }
+
+
+    res.status(errorCode.ok).json({});
+})
+router.get('/:notice_no/files',verifyToken,async (req, res, next) => {
+    let notice_no = req.params.notice_no;
+    let user_no = req.decoded.user_no;
+   
+
+/*     if (authority_level < authLevel.manager) {
+        return res.status(errorCode.notAcceptable).json({});
+    } */
+    
+    let files = await SelectFileInfo(notice_no);
+    if (!files) {
+        return res.status(errorCode.internalServerError).json({});
+    }
+
+
+    res.json(files);
+
+});
+
+router.get('/:notice_no/file/:file_no',verifyToken,async (req, res, next) => {
+    let notice_no = req.params.notice_no;
+    let user_no = req.decoded.user_no;
+    let attached_file_no = req.params.file_no;
+
+    let file_info;
+    try {
+        file_info = await NoticeFile.findOne({
+            attributes: ['attached_file_no', 'original_name', 'name', 'path', 'filesize'],
+            where: { 
+                attached_file_no
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+
+    const file = file_info.dataValues.path + '/' + file_info.dataValues.name;
+
+    res.download(file, file_info.dataValues.original_name, function(err) {
+        if (err) {
+            res.json({err:err});
+        } else {
+            res.end();
+        }
+    });
+});
 router.post('/notices',verifyToken,async(req,res,next)=>{
     let body = req.body;
     let user_no = req.decoded.user_no;
@@ -26,6 +206,28 @@ router.post('/notices',verifyToken,async(req,res,next)=>{
             content:body.content,
             created_user_no: user_no,
             updated_user_no: user_no,
+        })
+    }
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(result);
+})
+router.put('/:notice_no/notices',verifyToken,async(req,res,next)=>{
+    let body = req.body;
+    let user_no = req.decoded.user_no;
+    let notice_no = req.params.notice_no;
+    let result;
+
+    try{
+        result = await Notice.update({
+            title:body.title,
+            content:body.content,
+            created_user_no: user_no,
+            updated_user_no: user_no,
+        },{
+            where:{notice_no}
         })
     }
     catch(error){
@@ -90,7 +292,7 @@ router.get('/noticehome',async(req,res,next)=>{
         result = await Notice.findAll({
             attributes:['notice_no','title','created_at','hit'],
             order:[['created_at','DESC']],
-            limit:3,
+            limit:4,
             raw:true,
         })
     }

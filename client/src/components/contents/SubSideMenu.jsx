@@ -7,49 +7,68 @@ import { MdHome,MdChevronRight } from "react-icons/md";
 import SubSideSubmenu from "./SubSideSubmenu";
 import { SidebarData } from "../Admin/Statistics/SidebarData";
 import { MENU_CHANGE } from "../../store/sidemenu";
-import { exportDefaultSpecifier, isTemplateLiteral } from "../../../../../AppData/Local/Microsoft/TypeScript/4.9/node_modules/@babel/types/lib/index";
+import { useEffect } from "react";
+
+
 export default function SubSideMenu(props,onCategory) {
   const [sidebar,setSidebar] = useState(false);
   const [isItem1,setIsItem1] = useState(false);
   const [isItem2,setIsItem2] = useState(false);
   const [isItem3,setIsItem3] = useState(false);
   const [click,setClick] = useState(false);
+
   const { sideNaviMenu } = useSelector(state => state.sidemenu);
-  const url = useLocation();
-  const location = useLocation();
-  const history = useNavigate();
-  const dispatch = useDispatch();
   const { authority_level } = useSelector(state => state.user);
 
 
+  const location = useLocation();
+  const url = location.pathname;
+  const history = useNavigate();
+  const dispatch = useDispatch();
+
+
+
+  useEffect(()=>{
+    if(url.includes("didinfo"||url.includes("equip")||url.includes("classprogram")||url.includes("contact"))){
+      setIsItem1(true);
+      //setIsItem2(false);
+      //setIsItem3(false);
+    }
+    if(url.includes("admin")||url.includes("space")||url.includes("eduprogram")||url.includes("guide")||url.includes("archive")){
+      setIsItem2(true);
+      //setIsItem1(false);
+      //setIsItem3(false);
+    }
+    if(url.includes("way"||"faq")||url.includes("lab")){
+      setIsItem3(true);
+      //setIsItem1(false);
+      //setIsItem2(false);
+    }
+  })
   const SubModal = () => {
+
     const showSidebar = (e) => {
       setSidebar(!sidebar);
       setIsItem1(!isItem1);
     }
-
-    const openList = (value,title) =>{
-      if(title="didinfo"){
-      if(value === true) setIsItem1(false);
-      else{
-        setIsItem1(true);
-        setIsItem2(false);
-        setIsItem3(false);
+    /* const checkUrl = () =>{
+      let i;
+      switch(location.path.includes(i)){
+        case i==="info":
+          dispatch({ type: MENU_CHANGE, target: 0 });
+          return;
+        case i==="":
+          dispatch({ type: MENU_CHANGE, target: 0 });
+        return;
+        default:
+          return;
       }
-      }
-      else if(title="admininfo"){
-
-      }
-
-    }
-    let className;
- /*    for(let i = 0; i<10;i++){
-     className = (isItem1===true)&&(sideNaviMenu===0) ? "on" : "off";
     } */
     const onClick = useCallback((e, index) => {
       e.preventDefault();
       dispatch({ type: MENU_CHANGE, target: index });
     },[dispatch,history])
+   
     const Dep2Handler = (e) => {
       const classOnTarget = e.target.parentElement;
       const onRemoveTarget = classOnTarget.parentElement.children;
@@ -65,45 +84,39 @@ export default function SubSideMenu(props,onCategory) {
       }
       };
 
-
-
     const Dep3Handler = (e,props) => {   
       const classOnTarget = e.target;
       const onRemoveTarget = classOnTarget.parentElement.children;
 
       classOnTarget.classList.add("on");
     };
-    const controlClassname = (e) =>{
-      const classOnTarget = e.target;
-      classOnTarget.className = "";
-    }
-  const SubModal01 = (props) => {
 
+  const SubModal01 = (props) => {
       return (
         <ol>
-          <li sidebar={sidebar} className={sideNaviMenu===0?"on":"off"} >
+          <li sidebar={sidebar} className={url.includes("didinfo")?"on":"off"}/*  onClick={checkUrl} */>
             <p onClick={Dep2Handler}>시설소개</p>
             {/* <SubSideSubmenu  handleSubNav={()=>openList(isItem1,'didinfo')}isOpened={isItem1 && !isItem2 && !isItem3} item={SidebarData[0]}/> */}
             <ol className="has_dep3">
-              <li onClick={(e)=>onClick(e,0)} value="space" className={sideNaviMenu===0?"on":""}><button className="btn" onClick={(e)=>history("/didinfo")}> 공간소개 </button></li>
-              <li onClick={(e)=>onClick(e,0)} value="equip"className={sideNaviMenu===0?"on":""}><button className="btn" onClick={(e)=>history("/didinfo/info/equipinfo")}> 장비소개 </button></li>
-              <li onClick={(e)=>onClick(e,0)} value="work"className={sideNaviMenu===0?"on":""}><button className="btn" onClick={(e)=>history("/didinfo/info/workerinfo")}>운영인력소개</button></li>
+              <li onClick={(e)=>onClick(e,0)} value="space"><button className="btn" onClick={(e)=>history("/didinfo")}> 공간소개 </button></li>
+              <li onClick={(e)=>onClick(e,0)} value="equip"><button className="btn" onClick={(e)=>history("/didinfo/info/equipinfo")}> 장비소개 </button></li>
+              <li onClick={(e)=>onClick(e,0)} value="work"><button className="btn" onClick={(e)=>history("/didinfo/info/workerinfo")}>운영인력소개</button></li>
             </ol>
           </li>
-          <li className={sideNaviMenu===1?"on":"off"}>
+          <li className={url.includes("didadmin")?"on":"off"}>
             <p onClick={Dep2Handler}>기관소개</p>
             <ol className="has_dep3">
-              <li onClick={(e)=>onClick(e,1)}><button onClick={(e)=>history("/admin/info/greetings")}>인사말</button></li>
-              <li onClick={(e)=>onClick(e,1)}><button onClick={(e)=>history("/admin/info/vision")}>미션/비전</button></li>
-              <li onClick={(e)=>onClick(e,1)}><button onClick={(e)=>history("/admin/info/organization")}>조직도</button></li>
-              <li onClick={(e)=>onClick(e,1)}><button onClick={(e)=>history("/admin/info/partner")}>협력기관안내</button></li>
+              <li onClick={(e)=>onClick(e,1)}><button onClick={(e)=>history("/didadmin/info/greetings")}>인사말</button></li>
+              <li onClick={(e)=>onClick(e,1)}><button onClick={(e)=>history("/didadmin/info/vision")}>미션/비전</button></li>
+              <li onClick={(e)=>onClick(e,1)}><button onClick={(e)=>history("/didadmin/info/organization")}>조직도</button></li>
+              <li onClick={(e)=>onClick(e,1)}><button onClick={(e)=>history("/didadmin/info/partner")}>협력기관안내</button></li>
             </ol>
           </li>
-          <li className={sideNaviMenu===2?"on":"off"}>
-         <p onClick={(e)=>{onClick(e,2);history("/info/way")}}>오시는 길</p>
+          <li className={url.includes("way")?"on":"off"}>
+          <p onClick={(e)=>{onClick(e,2);history("/did/info/way")}}>오시는 길</p>
           </li>
-          <li className={sideNaviMenu===3?"on":"off"}>
-          <p onClick={(e)=>{onClick(e,3);history("/info/faq")}}>FAQ</p>
+          <li className={url.includes("faq")?"on":"off"}>
+          <p onClick={(e)=>{onClick(e,3);history("/did/info/faq")}}>FAQ</p>
           </li>
         </ol>
       );
@@ -111,45 +124,19 @@ export default function SubSideMenu(props,onCategory) {
     const SubModal02 = () => {
       return (
         <ol>
-          <li className={sideNaviMenu===0?"on":"off"}>
-          <p onClick={(e)=>{onClick(e,0);history("/didreservation")}}>장비 예약</p>
+          <li className={url.includes("equip")?"on":"off"}>
+          <p onClick={(e)=>{onClick(e,0);history("/eqreservation/equip")}}>장비 예약</p>
           </li>
-          <li className={sideNaviMenu===1?"on":"off"}>
-          <p onClick={(e)=>{onClick(e,1);history("/reservation/space")}}>공간 예약</p>
+          <li className={url.includes("space")?"on":"off"}>
+          <p onClick={(e)=>{onClick(e,1);history("/eqreservation/space")}}>공간 예약</p>
           </li>
-          <li className={sideNaviMenu===2?"on":"off"}>
-          <p onClick={(e)=>{onClick(e,2);history("/reservation/lab")}}>전문 랩 투어</p>
-          </li>
-        </ol>
-      );
-    };
-    const SubModal03_1 = () =>{
-      return (
-        <ol>
-          <li className={sideNaviMenu===0?"on":"off"}>
-            <p onClick={Dep2Handler}>시제품 제작 </p>
-              <ol className="has_dep3"></ol>
-              <li onClick={(e)=>onClick(e,0)} value="space"><button className="btn" onClick={(e)=>history("/uservice")}> 시제품 상담 신청 </button></li>
-              <li onClick={(e)=>onClick(e,0)} value="equip"><button className="btn" onClick={(e)=>history("/uservice")}> 시제품 제작 신청 </button></li>
-          </li>
-          <li className={sideNaviMenu===1?"on":"off"}>
-            <p  onClick={(e)=>{onClick(e,1);history("/mservice/guide")}}>상담 신청 관리</p>
-          </li>
-        </ol>
-      );
-    }
-    const SubModal03_2 = () => {
-      return (
-        <ol>
-          <li className={sideNaviMenu===0?"on":"off"}>
-            <p onClick={(e)=>Dep2Handler(e,0)}>시제품 제작 관리</p>
-          </li>
-          <li className={sideNaviMenu===1?"on":"off"}>
-            <p onClick={(e)=>Dep2Handler(e,1)}>상담 신청 관리</p>
+          <li className={url.includes("lab")?"on":"off"}>
+          <p onClick={(e)=>{onClick(e,2);history("/eqreservation/lab")}}>전문 랩 투어</p>
           </li>
         </ol>
       );
     };
+
     const SubModal04 = () => {
       return (
         <ol>
@@ -189,10 +176,10 @@ export default function SubSideMenu(props,onCategory) {
     const SubModal05 = () => {
       return (
         <ol>
-          <li className={sideNaviMenu===0?"on":"off"} >
+          <li className={url.includes("class")?"on":"off"} >
             <p onClick={(e)=>{onClick(e,0);history('/classprogram')}}>교육 프로그램</p>
           </li>
-          <li className={sideNaviMenu===1?"on":"off"}>
+          <li className={url.includes("edu")?"on":"off"}>
             <p onClick={(e)=>{onClick(e,1);history('/eduprogram');}}>행사 프로그램</p>
           </li>
         </ol>
@@ -239,18 +226,18 @@ export default function SubSideMenu(props,onCategory) {
     const SubModal07 = () => {
       return (
         <ol>
-          <li className={sideNaviMenu===0?"on":"off"}>
+          <li className={url.includes("contact")?"on":"off"}>
             <p onClick={(e)=>{onClick(e,0);history("/contact")}}>연락처 안내</p>
           </li>
-          <li className={sideNaviMenu===1?"on":"off"}>
+          <li className={url.includes("archive")?"on":"off"}>
             <p onClick={Dep2Handler}>자료실</p>
             <ol className="has_dep3">
-              <li onClick={(e)=>onClick(e,1)}><button  className="btn" onClick={(e)=>history('/archivecontact/video')}>영상 자료</button></li>
-              <li onClick={(e)=>onClick(e,1)}><button  className="btn" onClick={(e)=>history('/archivecontact/text')}>문서 자료</button></li>
-              <li onClick={(e)=>onClick(e,1)}><button  className="btn" onClick={(e)=>history('/archivecontact/basic')}>기초 학습 자료</button></li>
+              <li onClick={(e)=>onClick(e,1)}><button  className="btn" onClick={(e)=>history('/archive/video')}>영상 자료</button></li>
+              <li onClick={(e)=>onClick(e,1)}><button  className="btn" onClick={(e)=>history('/archive/text')}>문서 자료</button></li>
+              <li onClick={(e)=>onClick(e,1)}><button  className="btn" onClick={(e)=>history('/archive/basic')}>기초 학습 자료</button></li>
             </ol>
           </li>
-          <li className={sideNaviMenu===2?"on":"off"}>
+          <li className={url.includes("notice")?"on":"off"}>
             <p onClick={(e)=>{onClick(e,2);history("/notice")}}>공지사항</p>
           </li>
         </ol>
@@ -265,7 +252,7 @@ export default function SubSideMenu(props,onCategory) {
               <li onClick={(e)=>onClick(e,0)}><button className="btn" onClick={(e)=>history('/mservice')}>시제품제작관리</button></li>
             </ol>
           </li>
-          <li className={sideNaviMenu===1?"on":"off"}>
+          <li className={url.includes("guide")?"on":"off"}>
             <p onClick={(e)=>{onClick(e,1);history("/mservice/guide")}}>시제품제작안내</p>
           </li>
         </ol>
@@ -322,18 +309,17 @@ export default function SubSideMenu(props,onCategory) {
         </ol>
     )
    }
-
     return (
       <>
       <div className="sub_modal" >
-        {url.pathname.includes("info") === true ? <SubModal01/> 
-        : url.pathname.includes("reservation") === true? <SubModal02/>:
-        url.pathname.includes("mentor") === true && authority_level > 1?<SubModal04/>
-        :url.pathname.includes('mentor')===true && authority_level<10? <MentoringUser/>
-        :url.pathname.includes("program")===true?<SubModal05/>
-        :url.pathname.includes("contact")||url.pathname.includes("notice") === true?<SubModal07/>
-        :url.pathname.includes("mservice")===true && authority_level>10?<SubModal08/>
-        :url.pathname.includes("uservice")===true && authority_level<10?<SubModal09/>:<SubModal06/>}
+        {url.includes("info") === true ? <SubModal01/> 
+        : url.includes("reservation") === true? <SubModal02/>:
+        url.includes("mentor") === true && authority_level > 1?<SubModal04/>
+        :url.includes('mentor')===true && authority_level<10? <MentoringUser/>
+        :url.includes("program")===true?<SubModal05/>
+        :url.includes("contact")||url.includes("notice")||url.includes("archive") === true?<SubModal07/>
+        :url.includes("mservice")===true && authority_level>10?<SubModal08/>
+        :url.includes("uservice")===true && authority_level<10?<SubModal09/>:<SubModal06/>}
       </div>
       </>
       )
@@ -341,68 +327,15 @@ export default function SubSideMenu(props,onCategory) {
 
   
   // 페이지 이동시 아래의 SubBread 컨트롤 필요
-
   return (
     <div className="sub_side_menu">
       <SubModal></SubModal>
       <SubBread title={props.title} subtitle={props.subtitle}></SubBread>
     </div>
   );
-  };
 
+};
   export const SubBread = (props) => {
-    const [currentTitle,setCurrentTitle] = useState('시설소개');
-    const [currentsubmenu,setCurrentSubmenu] = useState('공간소개');
-    const dataLabels = [
-      {
-        title: '시설 소개',
-         submenu : [
-         {
-           title: '공간 소개',
-            index : 1
-         },
-         {
-           title: '장비 소개',
-           index : 2
-         },
-          {
-           title: "운영인력소개",
-           index : 3
-          }
-        ]
-      },
-      {
-        title : '기관 소개',
-        submenu : [
-          {
-            title: '인사말',
-             index : 1
-          },
-          {
-            title: '미션/비전',
-            index : 2
-          },
-           {
-            title: "조직도",
-            index : 3
-           },
-           {
-            title: "협력기관안내",
-            index : 4
-           }
-         ]
-      },
-      {
-        title : '오시는 길'
-      },
-      {
-        title : 'FAQ'
-      }
-    ]
-    let style={
-      position:"relative",
-      left:"10px"
-    }
     return (
       <div className="sub_bread">
         <h1>{props.subtitle ? props.subtitle:props.title}</h1>

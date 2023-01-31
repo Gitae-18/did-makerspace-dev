@@ -1,8 +1,8 @@
 'use strict';
 
 const express = require('express');
-const { verifyToken, errorCode, getErrMsg, authLevel, upload, makedir, SendMail } = require('../../middlewares/middlewares');
-const {User ,Company,Notice,Faq} = require('../../models');
+const { verifyToken, errorCode, getErrMsg, authLevel, makedir, SendMail } = require('../../middlewares/middlewares');
+const {User ,Company,Notice,Faq,FaqFile} = require('../../models');
 const { Op, or } = require("sequelize");
 const multer = require('multer');
 const path = require('path');
@@ -14,6 +14,70 @@ const { raw } = require('body-parser');
 
 const router = express.Router();
 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'upload/newfaq')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname + '-' + Date.now())
+    }
+  });
+const upload = multer({
+    storage:storage,
+    limits:{fileSize: 20*1024*1024}
+})
+router.post('/:faq_no/files',verifyToken,upload.array('imageFiles'), async(req, res, next) =>{
+    let user_no = req.decoded.user_no;
+    let faq_no = req.params.faq_no;
+
+    for(let i = 0; i<req.files.length;i++){
+        let inputResult;
+        try {
+            inputResult = await FaqFile.create({
+                faq_no,
+                original_name: req.files[i].originalname,
+                name: req.files[i].filename,
+                type: req.files[i].mimetype,
+                path: req.files[i].path,
+                filesize:req.files[i].size,
+                created_user_no: user_no,
+                updated_user_no: user_no,
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(errorCode.internalServerError).json({});
+        }
+    }
+
+
+    res.status(errorCode.ok).json({});
+})
+router.put('/:faq_no/files',verifyToken,upload.array('imageFiles'), async(req, res, next) =>{
+    let user_no = req.decoded.user_no;
+    let faq_no = req.params.faq_no;
+
+    for(let i = 0; i<req.files.length;i++){
+        let inputResult;
+        try {
+            inputResult = await FaqFile.update({
+                faq_no,
+                original_name: req.files[i].originalname,
+                name: req.files[i].filename,
+                type: req.files[i].mimetype,
+                path: req.files[i].path,
+                filesize:req.files[i].size,
+                created_user_no: user_no,
+                updated_user_no: user_no,
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(errorCode.internalServerError).json({});
+        }
+    }
+
+
+    res.status(errorCode.ok).json({});
+})
 router.post('/faqs',verifyToken,async(req,res,next)=>{
     let body = req.body;
     let user_no = req.decoded.user_no;
@@ -26,6 +90,27 @@ router.post('/faqs',verifyToken,async(req,res,next)=>{
             created_user_no: user_no,
             updated_user_no: user_no,
     })
+    }
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok);
+})
+router.put('/:faq_no/faqupdate',verifyToken,async(req,res,next)=>{
+    let body = req.body;
+    let user_no = req.decoded.user_no;
+    let faq_no = req.params.faq_no;
+
+    let result;
+    try{
+        result = await Faq.update({
+            title:body.title,
+            content:body.content,
+            created_user_no: user_no,
+            updated_user_no: user_no,},
+            {where:{faq_no}}
+            )
     }
     catch(error){
         console.log(error);

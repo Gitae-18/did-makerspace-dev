@@ -45,18 +45,18 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
     return(
           <ol className='menu_dep2'>
             <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink to={"/didinfo"}>시설 소개</NavLink></li>
-            <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink to={"/admin/info/greetings"}>기관 소개</NavLink></li>
-            <li className="page_target" onClick={(e)=>onClick2(e,2)}><NavLink to={"/info/way"}>오시는 길 </NavLink></li>
-            <li className="page_target" onClick={(e)=>onClick2(e,3)}><NavLink to={"/info/faq"}>FAQ</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink to={"/didadmin/info/greetings"}>기관 소개</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,2)}><NavLink to={"/did/info/way"}>오시는 길 </NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,3)}><NavLink to={"/did/info/faq"}>FAQ</NavLink></li>
            </ol>
     )
   }
   const SubMenu2 = () => {
     return(
     <ol className='menu_dep2'>
-      <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink to={"/didreservation"}>장비 예약</NavLink></li>
-      <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink to={"/reservation/space"}>공간 예약</NavLink></li>
-      <li className="page_target" onClick={(e)=>onClick2(e,2)}><NavLink to={"/reservation/lab"}>전문 랩 투어 </NavLink></li>
+      <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink to={"/eqreservation/equip"}>장비 예약</NavLink></li>
+      <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink to={"/eqreservation/space"}>공간 예약</NavLink></li>
+      <li className="page_target" onClick={(e)=>onClick2(e,2)}><NavLink to={"/eqreservation/lab"}>전문 랩 투어 </NavLink></li>
     </ol>
     );
   }
@@ -90,7 +90,7 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
     return(
       <ol className='menu_dep2'>
         <li onClick={(e)=>onClick2(e,0)}><NavLink to={'/contact'}>연락처 안내</NavLink></li>
-        <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/archivecontact/video'}>자료실</NavLink></li>
+        <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/archive/video'}>자료실</NavLink></li>
         <li onClick={(e)=>onClick2(e,2)}><NavLink to={'/notice'}>공지사항</NavLink></li>   
       </ol>
     );
@@ -115,11 +115,11 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
     <li><Link to="/didinfo">DID기술융합공작소</Link>
           <SubMenu1/>
     </li>
-    <li><Link to="/didreservation">장비 및 시설예약</Link>
+    <li><Link to="/eqreservation/equip">장비 및 시설예약</Link>
          <SubMenu2/>
     </li>
        
-    <li><Link to={path}>시제품 제작</Link>
+    <li><Link to={"/uservice"}>시제품 제작</Link>
           <SubMenu3/>
     </li>
         
@@ -168,18 +168,18 @@ const AdminMenu = ({viewDepth}) => {
     return(
           <ol className='menu_dep2'>
             <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink to={"/didinfo"}>시설 소개</NavLink></li>
-            <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink to={"/admin/info/greetings"}>기관 소개</NavLink></li>
-            <li className="page_target" onClick={(e)=>onClick2(e,2)}><NavLink to={"/info/way"}>오시는 길 </NavLink></li>
-            <li className="page_target" onClick={(e)=>onClick2(e,3)}><NavLink to={"/info/faq"}>FAQ</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink to={"/didadmin/info/greetings"}>기관 소개</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,2)}><NavLink to={"/did/info/way"}>오시는 길 </NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,3)}><NavLink to={"/did/info/faq"}>FAQ</NavLink></li>
            </ol>
     )
   }
   const SubMenu2 = () => {
     return(
     <ol className='menu_dep2'>
-      <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink to={"/didreservation"}>장비 예약</NavLink></li>
-      <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink to={"/reservation/space"}>공간 예약</NavLink></li>
-      <li className="page_target" onClick={(e)=>onClick2(e,2)}><NavLink to={"/reservation/lab"}>전문 랩 투어 </NavLink></li>
+      <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink to={"/eqreservation/equip"}>장비 예약</NavLink></li>
+      <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink to={"/eqreservation/space"}>공간 예약</NavLink></li>
+      <li className="page_target" onClick={(e)=>onClick2(e,2)}><NavLink to={"/eqreservation/lab"}>전문 랩 투어 </NavLink></li>
     </ol>
     );
   }
@@ -213,7 +213,7 @@ const AdminMenu = ({viewDepth}) => {
     return(
       <ol className='menu_dep2'>
         <li onClick={(e)=>onClick2(e,0)}><NavLink to={'/contact'}>연락처 안내</NavLink></li>
-        <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/archivecontact/video'}>자료실</NavLink></li>
+        <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/archive/video'}>자료실</NavLink></li>
         <li onClick={(e)=>onClick2(e,2)}><NavLink to={'/notice'}>공지사항</NavLink></li>   
       </ol>
     );
@@ -239,7 +239,7 @@ const AdminMenu = ({viewDepth}) => {
     <li className='dep2'><Link to="/didinfo">DID기술융합공작소</Link>
          <SubMenu1/>
     </li>
-    <li className='dep2'> <Link to="/didreservation">장비 및 시설예약</Link>
+    <li className='dep2'> <Link to="/eqreservation/equip">장비 및 시설예약</Link>
           <SubMenu2/>
     </li>
     <li className='dep2'> <Link to="/mservice">시제품 제작 관리</Link>

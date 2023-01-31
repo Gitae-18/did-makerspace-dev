@@ -14,23 +14,45 @@ router.get("/list", async(req,res,next)=>{
     
     let spacelist ;
     try{
-        spacelist = await Space.findAll(({
-            attributes:['space_no','space_name','space_info','location'],
+        spacelist = await Space.findAll({
+            attributes:['space_no','space_name','space_info','location','src'],
             order:[
                 ['created_at','DESC']
             ],
             required:false,
             raw:true,
             
-        }));  
-        res.json(spacelist);
+        });  
     }
     catch(error){
         console.log(error);
+        return res.status(errorCode.internalServerError).json({});
     }
-  
-    return 
-    
+    res.status(errorCode.ok).json(spacelist);
+});
+router.get('/:space_no/detail', async(req,res,next)=>{
+    const space_no = req.params.space_no;
+
+    console.log(space_no);
+    let spacelist ;
+    try{
+        spacelist = await Space.findOne({
+            attributes:['space_no','space_name','space_info','location','src'],
+            where:{space_no:space_no},
+            order:[
+                ['created_at','DESC']
+            ],
+            required:false,
+            raw:true,
+            
+        });  
+       
+    }
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.json(spacelist);
 });
 router.get('/reservation',async(req,res,next)=>{
     const body = req.body;
@@ -38,7 +60,7 @@ router.get('/reservation',async(req,res,next)=>{
 
     // 공간정보 불러오기
     let spacelist  = {
-        attributes:['space_name','space_info','location'],
+        attributes:['space_name','space_info','location','src'],
      order:[
         ['created_at','DESC']
      ],
@@ -54,7 +76,6 @@ router.get('/reservation',async(req,res,next)=>{
          return res.status(errorCode.internalServerError);
     }
     
-    return 
 })
 
 module.exports = router;

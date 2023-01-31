@@ -1,4 +1,5 @@
-import React ,{useState} from "react";
+import React ,{useState,useEffect} from "react";
+import { MENU_CHANGE } from "../../store/sidemenu";
 import SubSideMenu,{SubSideMenu2} from "../contents/SubSideMenu";
 
 import PageSub07a from "./PageSub07/PageSub07a";
@@ -16,8 +17,17 @@ import SectionInputTextType1e from "../sections/SectionInputTextType1e";
 import SectionInputTextType1h from "../sections/SectionInputTextType1h";
 import SectionInputTextType1h_update from "../sections/SectionInputTextType1h_update";
 import TableType1e_User from "../contents/TableType1e_User";
+import { useDispatch,useSelector } from "react-redux";
 export default function Contact({location,history}) {
     const [value,setValue] = useState("");
+    const dispatch = useDispatch();
+    const { sideNaviMenu } = useSelector(state => state.sidemenu);
+    useEffect(()=>{
+      return ()=>{
+        console.log("123");
+        dispatch({ type: MENU_CHANGE, target: 0 });
+      }
+    },[])
     return (
       <>
        

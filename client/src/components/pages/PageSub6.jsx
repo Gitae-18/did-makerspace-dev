@@ -1,4 +1,5 @@
-import React ,{useState} from "react";
+import React ,{useState,useEffect} from "react";
+import { MENU_CHANGE } from "../../store/sidemenu";
 import SubSideMenu,{SubSideMenu2} from "../contents/SubSideMenu";
 import Company from "../Admin/Management/Company";
 import Equipment from "../Admin/Management/Equipment";
@@ -21,8 +22,17 @@ import Menu from "../Menu";
 import SectionInputTextType1d_update from "../sections/SectionInputTextType1d_update";
 import SectionInputTextType1d from "../sections/SectionInputTextType1d";
 import SectionInputTextType1d_a from "../sections/SectionInputTextType1d_a";
+import { useDispatch,useSelector } from "react-redux";
 
 export default function ManagementCompany() {
+  const dispatch = useDispatch();
+  const { sideNaviMenu } = useSelector(state => state.sidemenu);
+  useEffect(()=>{
+    return ()=>{
+      console.log("123");
+      dispatch({ type: MENU_CHANGE, target: 0 });
+    }
+  },[])
     return (
         <>
          

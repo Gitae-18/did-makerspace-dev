@@ -17,6 +17,7 @@ export default function ({ viewDepth ,onCategory}) {
 	const dispatch = useDispatch();
 	const location = useLocation();
     const history = useNavigate();
+	const url = location.pathname;
 	let titlevalue ;
 	if(location.pathname.includes('mentorcontrol')){
 		titlevalue="전문멘토관리"
@@ -124,7 +125,7 @@ export default function ({ viewDepth ,onCategory}) {
 				  <li onClick={(e)=>{onClick(e,9);history("/notcomplete"/*"/mentorcontrol/mentoringreport" */)}}>멘토링 보고서</li>
 				</ol>
 			  </li>
-			  <li className={sideNaviPos===10?"on":"off"}>
+			  <li className={url.includes("classedu")?"on":"off"}>
 				<p onClick={(e)=>{onClick(e,10);onItem(e)}}>교육/행사관리</p>
 			  </li>
 			  </ol>
