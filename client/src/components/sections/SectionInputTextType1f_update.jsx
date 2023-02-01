@@ -4,13 +4,16 @@ import TitleType1 from "../contents/TitleType1";
 import styled from "styled-components";
 import ButtonType2 from "../contents/ButtonType2";
 import { useSelector , useDispatch} from "react-redux";
-import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
+import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg ,MaxFileCount} from "../../CommonCode";
+import fileDownload from 'js-file-download';
 import PopupSaveModal from "../PopupSaveModal";
 export default function SectionInputTextType1f_update() {
   const { token } = useSelector(state => state.user);
   const [openModal,setOpenModal] = useState(false);
   const [update,setUpdate] = useState(false);
   const [imageFile,setImageFile] = useState([]);
+  const [imageUrl,setImageUrl] = useState([]);
+  const [attachFile,setAttachFile] = useState({})
   const [data,setData] = useState([]);
   const [text,setText] = useState("");
   const [title,setTitle] = useState('');
@@ -28,6 +31,13 @@ export default function SectionInputTextType1f_update() {
  }
  const handleChangeFile = (e) =>{
   setImageFile(e.target.files);
+  const file = e.target.files[0];
+  const url = URL.createObjectURL(e.target.files[0]);
+  const reader =  new FileReader();
+  reader.onload=function(){
+    setImageUrl(reader.result)
+  }
+  reader.readAsDataURL(file)
 }
 const getData = useCallback(async()=>{
   CommonHeader.authorization = token;
@@ -45,9 +55,51 @@ const getData = useCallback(async()=>{
     setData(json);
   },[token])
   console.log(data);
+  const getFile = useCallback(async()=>{
+    CommonHeader.authorization = token;
+    const res = await fetch(PreUri + '/faq/' + no + '/files', {
+      method: Method.get,
+      headers: {
+        authorization: token,
+    }, 
+    })
+    const fileList = await res.json();
+    setAttachFile(fileList)
+  },[token,no ])
+  const arr =  Object.values(attachFile)
   useEffect(()=>{
     getData();
+    getFile();
   },[getData])
+  const onFileDownload = useCallback(async (e, fileInfo) => {
+  
+    let attached_file_no 
+    for(let i = 0; i < attachFile.length&&i<MaxFileCount; i++){
+      if(attachFile.legnth>1){
+        attached_file_no = attachFile.attached_file_no[i]
+      }
+      else{
+        attached_file_no = attachFile.attached_file_no
+      }
+    }
+    const response = await fetch(PreUri + '/notice/' + no + '/file/' + 6, {
+        responseType: 'blob',
+        method: Method.get,
+        headers: {
+          authorization: token}
+    });
+
+    if (!response.ok) {
+        console.log('response error');
+        return;
+    }
+    
+    if(fileInfo!==undefined){
+    fileDownload(await(await new Response(response.body)).blob(),fileInfo.original_name)
+    }
+    /* var fileDownload = require('js-file-download');
+    fileDownload(await (await new Response(response.body)).blob(), fileInfo.original_name); */
+}, [attachFile]);
 const formData = new FormData();
  const sendData = useCallback(async()=>{
   CommonHeader.authorization = token;
@@ -107,8 +159,10 @@ const BasicContent = () =>{
           ></textarea>
         </li>
         <li>
+        <li className="file_wrap">
           <label htmlFor="file01">파일#1</label>
-          <span>선택된파일 없음</span>
+          <span>{arr[0]!==undefined?arr[0].name:"파일이 없습니다"}</span><button className="download"  onClick={(e)=>onFileDownload(e,arr[0])}>다운로드</button>
+          </li>
         </li>
       </ul>
     )
@@ -141,7 +195,7 @@ const UpdateContent = () =>{
           <li>
             <label htmlFor="file01">파일#1</label>
             <input type="file" name="file01" id="file01" className="w_auto" onChange={handleChangeFile} multiple accept="image/*" />
-            
+            <img src={imageUrl} alt={imageUrl.name} style={{"width":"150px"}}/>            
           </li>
         </ul>
     )

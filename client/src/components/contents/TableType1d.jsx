@@ -75,6 +75,7 @@ export default function TableType1d() {
 
   //클릭시 상세페이지 이동
   const onItem = useCallback(async(e,index)=>{
+    if(data!==undefined){
     const hit_cnt = data[index].hit;
     const faq_no = data[index].faq_no;
     //조회수 증가
@@ -93,6 +94,7 @@ export default function TableType1d() {
       return;
     }
     history('/did/info/faq/faq1',{state:{no:faq_no}});
+  }
   },[data])
 
   //리랜더링
@@ -111,13 +113,17 @@ export default function TableType1d() {
   }
   //수정
   const onUpdate = useCallback(async(e,index) =>{
+    if(data!==undefined){
     const faq_no = data[index].faq_no;  
     history('/did/info/faq/update',{state:{faq_no:faq_no}})
+    }
   },[data])
   //새글쓰기
   const goToWrite = useCallback(async(e) =>{
+    if(data!==undefined){
     const faq_no = data[0].faq_no;
     history('/did/info/write',{state:{faq_no:faq_no}});
+    }
   },[data])
 
   return (

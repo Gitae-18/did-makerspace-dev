@@ -270,7 +270,7 @@ export default function SubSideMenu(props,onCategory) {
             </ol>
           </li>
           <li className={sideNaviMenu===1?"on":"off"}>
-            <p onClick={(e)=>{Dep2Handler(e,1);history("/noticecontact")}}>시제품제작안내</p>
+            <p onClick={(e)=>{Dep2Handler(e,1);history("/uservice/guide")}}>시제품제작안내</p>
           </li>
         </ol>
     )

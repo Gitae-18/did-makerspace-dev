@@ -54,7 +54,7 @@ export default function SectionTabType1(props) {
       console.log('잘못된 접근입니다.');
       return;
     }
-    history('/noticecontact/notice/detail',{state:{no:notice_no}});
+    history('/notice/notice/detail',{state:{no:notice_no}});
   },[data])
   // 내부 탭 내용 주입
   const Tabs = (props) => {

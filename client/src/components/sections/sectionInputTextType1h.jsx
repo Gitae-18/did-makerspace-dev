@@ -10,6 +10,7 @@ export default function SectionInputTextType1h() {
   const { token } = useSelector(state => state.user);
   const [openModal,setOpenModal] = useState(false);
   const [imageFile,setImageFile] = useState([]);
+  const [imageUrl,setImageUrl] = useState([]);
   const [text,setText] = useState("");
   const [title,setTitle] = useState('');
   const history = useNavigate();
@@ -25,6 +26,14 @@ export default function SectionInputTextType1h() {
  }
  const handleChangeFile = (e) =>{
   setImageFile(e.target.files);
+
+  const file = e.target.files[0];
+  const url = URL.createObjectURL(e.target.files[0]);
+  const reader =  new FileReader();
+  reader.onload=function(){
+    setImageUrl(reader.result)
+  }
+  reader.readAsDataURL(file)
 }
 
 
@@ -104,6 +113,7 @@ export default function SectionInputTextType1h() {
         <li>
           <label htmlFor="file01">파일#1</label>
           <input type="file" name="imageFiles" id="file1" className="w_auto" onChange={handleChangeFile} multiple accept="image/*"/>
+          <img src={imageUrl} alt={imageUrl.name} style={{"width":"150px"}}/>
         </li>
       </ul>
       <StyledBtn onClick={sendData}>저장</StyledBtn>

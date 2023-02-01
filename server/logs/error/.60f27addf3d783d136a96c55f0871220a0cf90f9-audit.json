@@ -1,0 +1,160 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\.60f27addf3d783d136a96c55f0871220a0cf90f9-audit.json",
+    "files": [
+        {
+            "date": 1671413196655,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2022-12-19.error.log",
+            "hash": "212a16f18b921acd69f38302723d4d3ebb389b33a6f8ee94172a2ab7dd011782"
+        },
+        {
+            "date": 1671498609964,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2022-12-20.error.log",
+            "hash": "24bc2e04c9543c41863bf712a5dfb1dc4dd738f8a6148fd1516327d523648011"
+        },
+        {
+            "date": 1671588398603,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2022-12-21.error.log",
+            "hash": "06fb7253faa02d3817d1764a5ed6e619ef4555ba62061582b500a57324cebdf4"
+        },
+        {
+            "date": 1671671263738,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2022-12-22.error.log",
+            "hash": "bbd64014b35561590356ac9a56e6fe47883fd3000cd745d5126793eb4197f01d"
+        },
+        {
+            "date": 1671757691027,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2022-12-23.error.log",
+            "hash": "e62839855396cd70d2f9742ccd38bb7e9a6e89a00fbd497933faeab322ef33dd"
+        },
+        {
+            "date": 1672016921345,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2022-12-26.error.log",
+            "hash": "19c75b267296a34d9790ec09c040bb6a26cab6ecc40ca5b68df320e2530d1f66"
+        },
+        {
+            "date": 1672104605312,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2022-12-27.error.log",
+            "hash": "37b1fb5e698367c986ecd7da7251330fd6382bf9b48c307b92c9a75f53d988de"
+        },
+        {
+            "date": 1672204758078,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2022-12-28.error.log",
+            "hash": "ba7ce2faf7e0e59691191bc6a40d3bc723e71c1916acc6801dd91e3d569a40ac"
+        },
+        {
+            "date": 1672294239977,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2022-12-29.error.log",
+            "hash": "e408f01945023ce3078b4b2930660a677ab5f85f04ae4888e586a03cb411f5d3"
+        },
+        {
+            "date": 1672361854209,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2022-12-30.error.log",
+            "hash": "1d13b38d2b4bf3c46a209cef7adfdd1352a7ac19dd9e473cb11be9812cca0897"
+        },
+        {
+            "date": 1672621432847,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-02.error.log",
+            "hash": "af8bb082a65cce5ad05eafdd220e12a0838e7015933752c6cf46ae7f2f2f7649"
+        },
+        {
+            "date": 1672710639428,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-03.error.log",
+            "hash": "ecedea2f43a02e98e0ca7c8de50a0c7f38163bf0306fadd10d29f50756c3e9f4"
+        },
+        {
+            "date": 1672794744253,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-04.error.log",
+            "hash": "52d11bc2b5d9f32c96676a957ff40dd4e7e32bb7218a0ec2bd8104d4c18466ae"
+        },
+        {
+            "date": 1672880785000,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-05.error.log",
+            "hash": "7962f79cb47c21244a077454503941a492d0df20d23c18702f5eb64fa09b846f"
+        },
+        {
+            "date": 1672967913274,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-06.error.log",
+            "hash": "67787d6ef0dbb5f5699be3c9cfc46ee9dccf6f7eb7b6503fd3ab2ea74fe008d7"
+        },
+        {
+            "date": 1673226069617,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-09.error.log",
+            "hash": "cba92b37c195613ab9e87de742a5aca7deb5e912e4db22b939008054f97b25b5"
+        },
+        {
+            "date": 1673313257270,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-10.error.log",
+            "hash": "0a54ee872cc75e6a583c12141e3051628884c564b40bd7205389c93acf78281f"
+        },
+        {
+            "date": 1673400137184,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-11.error.log",
+            "hash": "1e83de3e1e3eea7f9a4082697715a5a81040c5c64d7c29a552ee652a0ebb550c"
+        },
+        {
+            "date": 1673500574117,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-12.error.log",
+            "hash": "0de9ac1bf65ae0bc2f3430545aff0b44fb4f23d7c62c2f1193c8aeb939820898"
+        },
+        {
+            "date": 1673571781269,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-13.error.log",
+            "hash": "10984694891848621b7fe5b19d99b0beab13ac2e2a17da4e7e1127d067c5a130"
+        },
+        {
+            "date": 1673830961277,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-16.error.log",
+            "hash": "77f8ca3fa729907df26b93adb6e935ab462ff518f8a76ca4dce558d10812f355"
+        },
+        {
+            "date": 1673919152606,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-17.error.log",
+            "hash": "9e1dddb81dede8b06c365715398d41597427b67b31154257416f04dcdd28826b"
+        },
+        {
+            "date": 1674002834785,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-18.error.log",
+            "hash": "6d27c3b0f5dc448d8348882c81af389da27f88590ee28f369dd0e58a6bd5d689"
+        },
+        {
+            "date": 1674090021950,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-19.error.log",
+            "hash": "5e5378739e7e77e1f8e00604d3f141a21d7905dfd804abc29ca201d19346141d"
+        },
+        {
+            "date": 1674182015529,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-20.error.log",
+            "hash": "de04060303c4dc04b50d7075e300b7af861fed1112edd1b7a164fde2d736d86b"
+        },
+        {
+            "date": 1674608434099,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-25.error.log",
+            "hash": "d08103d510c8bf73f7dc5ca872d5b9ce18edc37f4a417e07d19308e651f112d1"
+        },
+        {
+            "date": 1674694934919,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-26.error.log",
+            "hash": "0c56c56748c4e9776efa4a3b4cf9b387064d01be7b1472571f91cc943d40b3d3"
+        },
+        {
+            "date": 1674781883458,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-27.error.log",
+            "hash": "020b0cf3a016c146209af04480b6b8ea78187e023b6e848902011425d581ad0a"
+        },
+        {
+            "date": 1675040520391,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-30.error.log",
+            "hash": "a0c501d01ebc6eb65e7d955f852fa590db2fc7d7c97a732441e413bbff7d3dbb"
+        },
+        {
+            "date": 1675127379913,
+            "name": "C:\\Users\\nicek\\did-makerspace-master\\server\\logs\\error\\2023-01-31.error.log",
+            "hash": "a70e1e900474ecab5ec2e7a51471f737b94040a7d7f1318a8fa176e49d605bbd"
+        }
+    ],
+    "hashType": "sha256"
+}

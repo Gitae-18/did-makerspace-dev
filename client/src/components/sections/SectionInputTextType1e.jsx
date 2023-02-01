@@ -51,11 +51,13 @@ export default function SectionInputTextType1e() {
     for(let i = 0; i < attachFile.length&&i<MaxFileCount; i++){
       if(attachFile.legnth>1){
         attached_file_no = attachFile.attached_file_no[i]
+        console.log(attached_file_no[i]);
       }
       else{
         attached_file_no = attachFile.attached_file_no
       }
     }
+ 
     const response = await fetch(PreUri + '/notice/' + no + '/file/' + 6, {
         responseType: 'blob',
         method: Method.get,
@@ -67,14 +69,14 @@ export default function SectionInputTextType1e() {
         console.log('response error');
         return;
     }
-    
+    console.log(response)
     if(fileInfo!==undefined){
-    fileDownload(await(await new Response(response.body)).blob(),fileInfo)
+    fileDownload(await(await new Response(response.body)).blob(),fileInfo.original_name)
     }
     /* var fileDownload = require('js-file-download');
     fileDownload(await (await new Response(response.body)).blob(), fileInfo.original_name); */
 }, [attachFile]);
-
+console.log(arr);
   return (
     <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1e">
       <div className="title_wrap">
@@ -98,7 +100,7 @@ export default function SectionInputTextType1e() {
         </li>
         <li className="file_wrap">
           <label htmlFor="file01">파일#1</label>
-          <span>{arr[0]!==undefined?arr[0].name:null}</span><button className="download"  onClick={(e)=>onFileDownload(e,arr[0].name)}>다운로드</button>
+          <span>{arr[0]!==undefined?arr[0].name:"파일이 없습니다"}</span><button className="download"  onClick={(e)=>onFileDownload(e,arr[0])}>다운로드</button>
         </li>
       </ul>
       <StyledBtn onClick={()=>history(-1)}>목록</StyledBtn>

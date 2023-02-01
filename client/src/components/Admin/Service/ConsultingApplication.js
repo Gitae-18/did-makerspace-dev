@@ -7,7 +7,7 @@ import {
 } from '../../../CommonCode';
 import TopNavi from './TopNavi';
 import SideNavi from './SideNavi';
-
+import SubSideMenu from '../../contents/SubSideMenu';
 import $ from 'jquery';
 
 import '../../../css/common-s.css';
@@ -330,6 +330,7 @@ export default ({ no }) => {
 	let DownloadFileItems = [];
 	if (consultingItem.attachedFile && consultingItem.attachedFile.length > 0) {
 		const files = consultingItem.attachedFile;
+        console.log(files)
 		for (let i = 0; i < files.length; i++) {
 			DownloadFileItems.push(
 				<FileDownload index={i}
@@ -343,7 +344,7 @@ export default ({ no }) => {
         (consultingFlag === false)
             ? <div id="wrap" className="wrap service2">
                 <div className="content_wrap">
-                    <SideNavi history={history} />
+                <SubSideMenu  subtitle={"시제품제작관리"}/>
                     <div className="content">
                         <div className="top_menu">
                             <TopNavi step={1} />
@@ -357,7 +358,7 @@ export default ({ no }) => {
             </div>
             : <div id="wrap" className="wrap service2">
                 <div className="content_wrap">
-                    <SideNavi history={history} />
+                <SubSideMenu  subtitle={"시제품제작관리"}/>
                     <div className="content">
                         <div className="top_menu">
                             <TopNavi step={1} />

@@ -4,7 +4,7 @@ import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import { CommonHeader, PreUri, Method, getRspMsg, /*AuthLevel,*/ MaxFileCount/*, MB, LIMIT*/ } from '../../../CommonCode';
 import TopNavi from './TopNavi';
 import SideNavi from './SideNavi';
-
+import SubSideMenu from '../../contents/SubSideMenu';
 import '../../../css/common-s.css';
 import '../../../css/style-s.css';
 
@@ -525,7 +525,7 @@ export default ({  no }) => {
     return (
         <div id="wrap" className="wrap service8">
             <div className="content_wrap">
-                <SideNavi history={history} />
+            <SubSideMenu  subtitle={"시제품제작관리"}/>
                 <div className="content">
                     <div className="top_menu">
                         <TopNavi step={4} />

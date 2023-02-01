@@ -678,7 +678,10 @@
 .section_input_text_type1.section_input_text_type1d .text_wrap li.textarea_wrap label {
   height: 200px;
 }
-
+.section_input_text_type1 .text_wrap li:nth-child(3){
+  height:auto;
+  max-height:500px;
+}
 .section_input_text_type1d button{
   margin-top:24px;
   background-color:#313f4f;
@@ -720,11 +723,11 @@
 }
 .section_input_text_type1e .file_wrap span{
   position:absolute;
-  left:180px;
+  left:150px;
 }
 .section_input_text_type1e .file_wrap .download{
   position:absolute;
-  left:300px;
+  left:270px;
   bottom:10px;
   color:#fff;
   cursor:pointer;

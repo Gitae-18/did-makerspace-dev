@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { CommonHeader, PreUri, Method, getRspMsg, AuthLevel, ConvertPhoneNumber/*, MaxFileCount, MB, LIMIT*/ } from '../../../CommonCode';
 import TopNavi from './TopNavi';
+import SubSideMenu from '../../contents/SubSideMenu';
 import SideNavi from './SideNavi';
 
 import $, { data } from 'jquery';
@@ -597,7 +598,7 @@ export default ({ no , query }) => {
 	return (
 		<div id="wrap" className="wrap service3">
 			<div className="content_wrap">
-                <SideNavi history={history} />
+            <SubSideMenu  subtitle={"시제품제작관리"}/>
 				<div className="content">
 					<div className="top_menu">
 						<TopNavi step={2} />
