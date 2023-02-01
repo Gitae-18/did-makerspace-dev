@@ -7,12 +7,15 @@ import { useSelector , useDispatch} from "react-redux";
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg ,MaxFileCount  } from "../../CommonCode";
 import fileDownload from 'js-file-download'
 import { SET_MATERIAL_PAGEINFO } from "../../store/management";
+
 export default function SectionInputTextType1g() {
   const history = useNavigate();
   const [data,setData] = useState([]);
   const [attachFile,setAttachFile] = useState({})
+
   const [image,setImage] = useState("");
   const [fileUrl,setFileUrl] = useState("");
+
   const { token } = useSelector(state => state.user);
   const location = useLocation();
   const no = location.state.no;
@@ -40,6 +43,7 @@ export default function SectionInputTextType1g() {
     })
     const fileList = await res.json();
     setAttachFile(fileList)
+
     let buff = new Buffer(res.data.images[0],"base64");
     let text = buff.toString("ascii");
     setImage(`data:image/png;base74,${text}`);
@@ -57,13 +61,17 @@ export default function SectionInputTextType1g() {
     const json = await response.json();
     setFileUrl(json);
   },[token])
+
+
+
   const arr =  Object.values(attachFile)
   useEffect(()=>{
     getData();
     getFile();
   },[getData])
   console.log(attachFile)
-  
+
+
   const onFileDownload = useCallback(async (e, fileInfo) => {
   
     let attached_file_no 

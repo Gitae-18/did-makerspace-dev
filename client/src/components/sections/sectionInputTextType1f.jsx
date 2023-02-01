@@ -35,6 +35,7 @@ export default function SectionInputTextType1f() {
   }
   reader.readAsDataURL(file)
 }
+
 const formData = new FormData();
  const sendData = useCallback(async()=>{
   CommonHeader.authorization = token;
@@ -72,12 +73,12 @@ const formData = new FormData();
   if(!res.ok){
     return(alert(getRspMsg(res.status)))
 }
-  const formurl = new FormData();
-  formurl.append('imagesurl',fileUrl)
   const responses = await fetch(PreUri + '/faq/'+(no+1)+'/filesurl',{
     method:Method.put,
     headers:CommonHeader,
-    body:fileUrl
+    body:JSON.stringify({
+      filesurl:fileUrl,
+    })
   })
   if(!responses.ok){
     return(alert(getRspMsg(res.status)))
@@ -114,6 +115,7 @@ const onClose = () =>{
             placeholder="내용을 입력하세요."
             onChange={onMemoChange}
           ></textarea>
+          {/* <img src={fileUrl} alt="no-image"/> */}
         </li>
         <li>
           <label htmlFor="file01">파일#1</label>
