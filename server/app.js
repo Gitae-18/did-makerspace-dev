@@ -4,6 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
+const jwt = require('jsonwebtoken')
 //const session = require('express-session');
 const helmet = require('helmet');
 const sequelize = require('./models').sequelize;
@@ -14,6 +15,7 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 
 const logger = require('./logger');
+const archiveRouter = require('./routes/v1/archive');
 const userRouter = require('./routes/v1/user');
 const companyRouter = require('./routes/v1/company');
 const scheduleRouter = require('./routes/v1/schedule');
@@ -31,6 +33,7 @@ const noticeRouter = require('./routes/v1/notice');
 const spaceRouter = require('./routes/v1/space');
 const userequipmentpassRouter = require('./routes/v1/userequipmentestpass');
 const faqRouter = require('./routes/v1/faq');
+
 //const surveyRouter = require('./routes/v1/survey');
 
 /*  for redis
@@ -54,6 +57,27 @@ if (!fs.existsSync('upload/temp')) {
 
 if (!fs.existsSync('upload/old_service')) {
     mkdirp.sync('upload/old_service', (error) => {
+        if (error) {
+            console.error(error);
+        }
+    });
+}
+if (!fs.existsSync('upload/newprogram')) {
+    mkdirp.sync('upload/newprogram', (error) => {
+        if (error) {
+            console.error(error);
+        }
+    });
+}
+if (!fs.existsSync('upload/newnotice')) {
+    mkdirp.sync('upload/newnotice', (error) => {
+        if (error) {
+            console.error(error);
+        }
+    });
+}
+if (!fs.existsSync('upload/newfaq')) {
+    mkdirp.sync('upload/newfaq', (error) => {
         if (error) {
             console.error(error);
         }
@@ -85,6 +109,7 @@ app.use(morgan('dev'));
 app.use(express.json());    // body-parser
 app.use(express.urlencoded({ extended: false }));   // body-parser
 app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use('/uploads',express.static('upload'));
 /*  // for session
 app.use(cookieParser());
 app.use(session({
@@ -148,6 +173,7 @@ app.use('/api/v1/userequipmentestpass',userequipmentpassRouter);
 app.use('/api/v1/classedu',classeduRouter);
 app.use('/api/v1/notice',noticeRouter);
 app.use('/api/v1/faq', faqRouter);
+app.use('/api/v1/archive',archiveRouter);
 //app.use('/api/v1/mentoring',mentoringRouter);
 //app.use('/api/v1/survey', surveyRouter);
 
@@ -169,3 +195,13 @@ app.listen(app.get('port'), () => {
     console.log('Express Server has started on port ' + app.get('port'));
 });
 
+
+
+const token = jwt.sign({ foo: 'bar' }, 'secret-key', (err, token) => {
+    if(err) {
+        console.log(err);
+        return;
+    }
+   
+}); 
+console.log(token);

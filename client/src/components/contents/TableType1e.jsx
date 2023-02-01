@@ -73,7 +73,7 @@ export default function TableType1e() {
 },[search])
   const onUpdate = useCallback(async(e,index)=>{
     const notice_no = data[index].notice_no;
-    history("/noticecontact/notice/update",{state:{update_no:notice_no}})
+    history("/notice/notice/update",{state:{update_no:notice_no}})
   },[data])
   const onItem = useCallback(async(e,index)=>{
     const hit_cnt = data[index].hit;
@@ -94,7 +94,7 @@ export default function TableType1e() {
       console.log('잘못된 접근입니다.');
       return;
     }
-    history('/noticecontact/notice/detail',{state:{no:notice_no}});
+    history('/notice/notice/detail',{state:{no:notice_no}});
   },[data,dispatch])
   useEffect(()=>{
     getData();
@@ -110,7 +110,7 @@ export default function TableType1e() {
   console.log(data)
   const onWrite = useCallback(async(e) => {
     const notice_no = data[0].notice_no;
-    history('/noticecontact/addnotice',{state:{notice_no:notice_no}});
+    history('/notice/addnotice',{state:{notice_no:notice_no}});
   },[data])
   return (
     <div className="table_wrap table_type1">

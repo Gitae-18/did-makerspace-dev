@@ -185,12 +185,12 @@ router.get('/:notice_no/file/:file_no',verifyToken,async (req, res, next) => {
     }
 
     const file = file_info.dataValues.path + '/' + file_info.dataValues.name;
-
+    console.log(file)
     res.download(file, file_info.dataValues.original_name, function(err) {
         if (err) {
-            res.json({err:err});
+            res.json({err:err.path});
         } else {
-            res.end();
+            res.end(err.path);
         }
     });
 });

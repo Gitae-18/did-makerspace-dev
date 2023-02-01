@@ -89,7 +89,7 @@ export default function TableType1e_User() {
       console.log('잘못된 접근입니다.');
       return;
     }
-    history('/noticecontact/notice/detail',{state:{no:notice_no}});
+    history('/notice/notice/detail',{state:{no:notice_no}});
   },[data,dispatch])
   useEffect(()=>{
     getData();
@@ -100,7 +100,7 @@ export default function TableType1e_User() {
     }
   }
   const onWrite = () =>{
-    history('/noticecontact/addnotice');
+    history('/notice/addnotice');
   }
   return (
     <div className="table_wrap table_type1">

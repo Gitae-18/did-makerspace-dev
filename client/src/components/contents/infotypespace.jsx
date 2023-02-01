@@ -59,7 +59,7 @@ export default function InfoTypeSpace() {
         break;
         case "3D프린팅Section1":
         src = "/images/printer1.jpg";
-        src2= "/images/Noimg.jpg";
+        src2= "/images/Noimg.png";
         introduce =`- 분말 형태의 재료를 이용하여 제품을 조형하느 선택적 레이저 소결(SLS : Selective Laser Sintering)방식의 3D프린터실(후처리를 위한 샌드블라스터 장비 운영)\n- 기능성 원형제작, 디자인 검증, 소량 생산 및 교체 파트용 최종 사용 제품 제작 지원\n- 메이커 및 창업기업의 시험 시제품 및 상용 시제품 제작 지원`
         break;
         case "3D프린팅Section2":

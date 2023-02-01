@@ -19,17 +19,40 @@ const storage = multer.diskStorage({
       cb(null, 'upload/newfaq')
     },
     filename: function (req, file, cb) {
-      cb(null, file.originalname + '-' + Date.now())
+      cb(null, file.originalname)
     }
   });
 const upload = multer({
     storage:storage,
     limits:{fileSize: 20*1024*1024}
 })
+
+async function SelectFileInfo(faq_no) {
+    let files;
+
+    try {
+        files = await FaqFile.findAll({
+            attributes: ['attached_file_no', 'original_name', 'name', 'type', 'path', 'filesize'],
+            where: { 
+                faq_no,
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        return null;
+        //return res.status(errorCode.internalServerError).json({});
+    }
+
+    return files;
+}
 router.post('/:faq_no/files',verifyToken,upload.array('imageFiles'), async(req, res, next) =>{
     let user_no = req.decoded.user_no;
     let faq_no = req.params.faq_no;
 
+    if(req.files.length>0)
+    {
+        makedir('upload/newfaq');
+    }
     for(let i = 0; i<req.files.length;i++){
         let inputResult;
         try {
@@ -56,6 +79,7 @@ router.put('/:faq_no/files',verifyToken,upload.array('imageFiles'), async(req, r
     let user_no = req.decoded.user_no;
     let faq_no = req.params.faq_no;
 
+
     for(let i = 0; i<req.files.length;i++){
         let inputResult;
         try {
@@ -78,6 +102,29 @@ router.put('/:faq_no/files',verifyToken,upload.array('imageFiles'), async(req, r
 
     res.status(errorCode.ok).json({});
 })
+router.put('/:faq_no/filesurl',verifyToken,async(req,res,next)=>{
+    let body = req.body;
+    let user_no = req.decoded.user_no;
+    let faq_no = req.params.faq_no;
+
+    console.log(req.files)
+    let result;
+    try{
+        result = await FaqFile.update({
+            filesurl:req.files.filesurl,
+            created_user_no: user_no,
+            updated_user_no: user_no,
+    },{ 
+        where: { faq_no },
+    }
+    )
+    }
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json({result});
+})
 router.post('/faqs',verifyToken,async(req,res,next)=>{
     let body = req.body;
     let user_no = req.decoded.user_no;
@@ -87,6 +134,7 @@ router.post('/faqs',verifyToken,async(req,res,next)=>{
         result = await Faq.create({
             title:body.title,
             content:body.content,
+            filesurl:body.filesurl,
             created_user_no: user_no,
             updated_user_no: user_no,
     })
@@ -95,8 +143,9 @@ router.post('/faqs',verifyToken,async(req,res,next)=>{
         console.log(error);
         return res.status(errorCode.internalServerError).json({});
     }
-    res.status(errorCode.ok);
+    res.status(errorCode.ok).json({});
 })
+
 router.put('/:faq_no/faqupdate',verifyToken,async(req,res,next)=>{
     let body = req.body;
     let user_no = req.decoded.user_no;
@@ -166,5 +215,70 @@ router.get('/:faq_no/detail',async(req,res,next)=>{
         return res.status(errorCode.internalServerError).json({});
     }
     res.status(errorCode.ok).json(result);
-})
+});
+router.get('/:faq_no/files',verifyToken,async (req, res, next) => {
+    let faq_no = req.params.faq_no;
+    let user_no = req.decoded.user_no;
+   
+
+/*     if (authority_level < authLevel.manager) {
+        return res.status(errorCode.notAcceptable).json({});
+    } */
+    
+    let files = await SelectFileInfo(faq_no);
+    if (!files) {
+        return res.status(errorCode.internalServerError).json({});
+    }
+
+
+    res.json(files);
+
+});
+router.get('/:faq_no/fileurl/:file_no',verifyToken,async (req, res, next) => {
+    let faq_no = req.params.faq_no;
+    let user_no = req.decoded.user_no;
+    let attached_file_no = req.params.file_no;
+
+    let file_info;
+    try {
+        file_info = await FaqFile.findOne({
+            attributes: ['attached_file_no', 'filesurl'],
+            where: { 
+                attached_file_no
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(file_info);
+});
+router.get('/:faq_no/file/:file_no',verifyToken,async (req, res, next) => {
+    let faq_no = req.params.faq_no;
+    let user_no = req.decoded.user_no;
+    let attached_file_no = req.params.file_no;
+
+    let file_info;
+    try {
+        file_info = await FaqFile.findOne({
+            attributes: ['attached_file_no', 'original_name', 'name', 'path', 'filesize'],
+            where: { 
+                attached_file_no
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+
+    const file = file_info.dataValues.path + '/' + file_info.dataValues.name;
+
+    res.download(file, file_info.dataValues.original_name, function(err) {
+        if (err) {
+            res.json({err:err});
+        } else {
+            res.end();
+        }
+    });
+});
 module.exports = router;

@@ -32,6 +32,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        filesurl:{
+            type: DataTypes.BLOB("long"),
+            allowNull:true,   
+            defaultValue:"/images/Noimg.png",
+       },
         created_user_no: {
             type: DataTypes.INTEGER,
             allowNull: true,

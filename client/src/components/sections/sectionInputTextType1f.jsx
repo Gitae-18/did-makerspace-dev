@@ -6,17 +6,19 @@ import ButtonType2 from "../contents/ButtonType2";
 import { useSelector , useDispatch} from "react-redux";
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
 import PopupSaveModal from "../PopupSaveModal";
+import { file } from "../../../../../AppData/Local/Microsoft/TypeScript/4.9/node_modules/@babel/types/lib/index";
 export default function SectionInputTextType1f() {
   const { token } = useSelector(state => state.user);
   const [openModal,setOpenModal] = useState(false);
   const [imageFile,setImageFile] = useState([]);
+  const [imageUrl,setImageUrl] = useState([]);
+  const [fileUrl,setFileUrl] = useState("");
   const [text,setText] = useState("");
   const [title,setTitle] = useState('');
   const history = useNavigate();
   const location = useLocation();
   const no = location.state.faq_no;
   const url = location.pathname;
-  console.log(url)
   const onMemoChange = (e) =>{ 
     setText(e.target.value);
  };
@@ -25,6 +27,13 @@ export default function SectionInputTextType1f() {
  }
  const handleChangeFile = (e) =>{
   setImageFile(e.target.files);
+  const file = e.target.files[0];
+  setFileUrl(URL.createObjectURL(e.target.files[0]));
+  const reader =  new FileReader();
+  reader.onload=function(){
+    setImageUrl(reader.result)
+  }
+  reader.readAsDataURL(file)
 }
 const formData = new FormData();
  const sendData = useCallback(async()=>{
@@ -38,6 +47,7 @@ const formData = new FormData();
       {
          title:title,
          content:text,
+         filesurl:fileUrl,
       }
     )
     
@@ -56,16 +66,29 @@ const formData = new FormData();
   const res = await fetch( PreUri +'/faq/'+ (no+1) +'/files',{
     method:Method.post,
     headers: { authorization: token},
-    body:formData
+    body:formData,
+   
   })
   if(!res.ok){
     return(alert(getRspMsg(res.status)))
 }
+  const formurl = new FormData();
+  formurl.append('imagesurl',fileUrl)
+  const responses = await fetch(PreUri + '/faq/'+(no+1)+'/filesurl',{
+    method:Method.put,
+    headers:CommonHeader,
+    body:fileUrl
+  })
+  if(!responses.ok){
+    return(alert(getRspMsg(res.status)))
+}
 setOpenModal(true);
 },[token,title,text,imageFile])
+console.log(typeof(fileUrl));
 const onClose = () =>{
   setOpenModal(false);
 }
+
   return (
     <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1e">
       <div className="title_wrap">
@@ -95,11 +118,11 @@ const onClose = () =>{
         <li>
           <label htmlFor="file01">파일#1</label>
           <input type="file" name="file01" id="file01" className="w_auto" onChange={handleChangeFile} multiple accept="image/*"/>
-          
+          <img src={imageUrl} alt={imageUrl.name} style={{"width":"150px"}}/>
         </li>
       </ul>
       <StyledBtn onClick={sendData}>저장</StyledBtn>
-      {openModal && <PopupSaveModal visible={openModal} closable={true} onclose={onClose} url={url}/>}
+      {openModal && <PopupSaveModal visible={openModal} closable={true} onclose={onClose} url={url} />}
     </section>
   );
 }

@@ -163,7 +163,7 @@ const App = () => {
         <Route path="/eqreservation/lab" element = {<DidReservation3/>}/>
         <Route path="/eqreservation/myvation" element = {<MyReservContainer/>}/>
         <Route path="/eqreservation/selectreserv" element = {<EReservation/>}/>
-        <Route path="/eqeservation/test" element={<TestReservation/>}/>
+        <Route path="/eqreservation/equip/test" element={<TestReservation/>}/>
 
         <Route path="/mentoring" element = {<Mentoring/>}/>
         <Route path="/umentoring/*" element = {<UMentoring/>}/>

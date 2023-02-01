@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         title: {
             type: DataTypes.STRING(55),
             allowNull: false,
-            unique: true,
         },
        content:{
             type: DataTypes.STRING(255),
@@ -26,6 +25,10 @@ module.exports = (sequelize, DataTypes) => {
             allowNull:false,
             defaultValue:0,
        },
+       filesurl:{
+            type: DataTypes.STRING(255),
+            allowNull:true,   
+       },
         created_user_no: {
             type: DataTypes.INTEGER,
             allowNull: true,
@@ -33,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
         updated_user_no: {
             type: DataTypes.INTEGER,
             allowNull: true,
-        },
+        }
     }, {
         timestamps: true, // created_at, updated_at
         paranoid: true,    // deleted_at

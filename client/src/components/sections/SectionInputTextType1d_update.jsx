@@ -17,6 +17,7 @@ export default function SectionInputTextType1d_update(){
   const [openModal,setOpenModal] = useState(false);
   const [pay,setPay] = useState("");
   const [imageFile,setImageFile] = useState([]);
+  const [imageUrl,setImageUrl] = useState([]);
   const [isChecked,setIsChecked] = useState(false);
   const location = useLocation();
   const history = useNavigate();
@@ -80,6 +81,13 @@ export default function SectionInputTextType1d_update(){
 
   const handleChangeFile = (e) =>{
     setImageFile(e.target.files);
+    const file = e.target.files[0];
+    const url = URL.createObjectURL(e.target.files[0]);
+    const reader =  new FileReader();
+    reader.onload=function(){
+      setImageUrl(reader.result)
+    }
+    reader.readAsDataURL(file)
   }
   const handleCheckBox = (e) =>{
     if(e.target.checked){
@@ -350,6 +358,7 @@ export default function SectionInputTextType1d_update(){
         <li>
           <label htmlFor="file01">파일#1</label>
           <input type="file" name="imagefile" id="file01" className="w_auto" onChange={handleChangeFile} multiple accept="image/*" />
+          <img src={imageUrl} alt={imageUrl.name} style={{"width":"150px"}}/>
         </li>
         <li>
           <label htmlFor="checkbox01">팝업등록</label>
