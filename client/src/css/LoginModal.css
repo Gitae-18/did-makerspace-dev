@@ -105,7 +105,7 @@
 #header .mainmenu .login_box .but_box{position:absolute;left:80px;bottom:-178px;}
 #header .mainmenu .login_box .loginsh{padding:0;display:inline-block;width:230px;background:#313f4f;color:#fff;font-size:16px;position:relative;border:0;height:50px;cursor:pointer;left:0px;}
 #header .mainmenu .login_box .loginsh svg{position:relative;right:10px;top:1px;}
-#header .mainmenu .login_box .closesh{display:inline-block; position:relative;background-color:#313f4f;border:0;cursor:pointer;left:0;width:230px;height:50px;color:#ffffff;margin-top:10px;}
+#header .mainmenu .login_box .closesh{padding:0;display:inline-block; position:relative;background-color:#313f4f;border:0;cursor:pointer;left:0px;width:230px;height:50px;color:#fff;margin-top:10px;}
 #header .mainmenu .login_box .closesh svg{position:relative;right:12px;top:1px;}
 @keyframes modal-show {
   from {

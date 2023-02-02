@@ -21,7 +21,7 @@ export const NoticeDetailContainer = (props) =>{
     const View = query ? ContactNoticeDetail : ContactNoticeDetail ;
 
     return(
-        (isLoading || !isLoggedIn || authority_level < AuthLevel.partner) ? <></>:
+        (isLoading || !isLoggedIn ) ? <></>:
         View? <View query={query}/> : <></>
     )
 }   

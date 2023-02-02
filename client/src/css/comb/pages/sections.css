@@ -248,7 +248,6 @@
 .section_tab_type1 .tab_inner ol > li:nth-child(3),.section_tab_type1a .tab_inner ol > li:nth-child(3){
   width: calc( 33.33% - 20px);
   height: 200px;
-
   border:none;
 } */
 .section_tab_type1 .tab_inner ol > li:nth-child(1),.section_tab_type1 .tab_inner ol > li:nth-child(2),.section_tab_type1a .tab_inner ol > li:nth-child(1),.section_tab_type1a .tab_inner ol > li:nth-child(2)  {
@@ -519,7 +518,7 @@
 }
 
 .section_input_text_type1 .text_wrap li.textarea_wrap textarea {
-  width: 100%;
+  width: 1000px;
   border: 2px solid #313f4f;
   padding: 12px;
   background-color: transparent;
@@ -597,7 +596,7 @@
 
 .section_input_text_type1.section_input_text_type1d .text_wrap li label {
   position: relative;
-  height: 60px;
+  height: 100%;
   padding: 12px;
   background-color: #313f4f;
   color: #fff;
@@ -675,9 +674,10 @@
           align-items: center;
 }
 
-.section_input_text_type1.section_input_text_type1d .text_wrap li.textarea_wrap label {
+/* faq,공지사항 label 간격 떨어뜨리는  코드
+ .section_input_text_type1.section_input_text_type1d .text_wrap li.textarea_wrap label {
   height: 200px;
-}
+} */
 .section_input_text_type1 .text_wrap li:nth-child(3){
   height:auto;
   max-height:500px;
@@ -717,18 +717,34 @@
 .section_input_text_type1e .btn_wrap .modify{
   margin-right:50px;
 }
-.section_input_text_type1e .file_wrap{
+.section_input_text_type1 .file_wrap{
   position:relative;
 
 }
-.section_input_text_type1e .file_wrap span{
+.section_input_text_type1 .file_wrap span{
   position:absolute;
   left:150px;
 }
-.section_input_text_type1e .file_wrap .download{
+.section_input_text_type1 .file_wrap .download{
   position:absolute;
   left:270px;
   bottom:10px;
   color:#fff;
   cursor:pointer;
+}
+.section_input_text_type1.section_input_text_type1g .text_wrap li.textarea_wrap label {
+  position:relative;
+  padding:200px 10px;
+}
+.section_input_text_type1.section_input_text_type1g .text_wrap li.textarea_wrap {
+  display:flex;
+  height:500px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.section_input_text_type1g .text_wrap li.textarea_wrap .image_part{
+  position:relative;
+  width:300px;
+  height:150px;
 }
