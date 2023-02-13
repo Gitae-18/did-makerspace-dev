@@ -383,7 +383,7 @@
 }
 .section_banner_type1 .section_inner_wrap .swiper_wrap{
   position:relative;
-  left:7%;
+  left:-7%;
   width:1600px;
   top:20px;
 }
