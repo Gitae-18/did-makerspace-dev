@@ -154,7 +154,7 @@ router.get('/:fileview_no/classedufile'/* ,verifyToken */, async (req, res, next
     //res.send(image);
 
 });
-router.get('/:fileview_no/noticeview',/* verifyToken, */async (req, res, next) => {
+/* router.get('/:fileview_no/noticeview',verifyToken,async (req, res, next) => {
     let notice_no = req.params.fileview_no;
 
 
@@ -184,5 +184,5 @@ router.get('/:fileview_no/noticeview',/* verifyToken, */async (req, res, next) =
     return res.set({ "Content-Type": "image/*" }).send({ file });
     //res.send(image);
 
-});
+}); */
 module.exports = router;
