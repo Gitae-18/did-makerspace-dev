@@ -90,10 +90,10 @@ export default function SectionInputTextType1h() {
     getPreViewImage();
   },[]) */
   const sendData = useCallback(async()=>{
-    let context = content.replace(/(<([^>]+)>)/gi, "");
+/*     let context = content.replace(/(<([^>]+)>)/gi, "");
     context = context.replace(/&nbsp;/gi,"");
     console.log(content);
-    console.log(typeof(context));
+    console.log(typeof(context)); */
     CommonHeader.authorization = token;
     const response = await fetch(PreUri+'/notice/notices',{
       method:Method.post,
@@ -101,7 +101,7 @@ export default function SectionInputTextType1h() {
       body:JSON.stringify(
         {
            title:title,
-           content:context,
+           content:text,
            popup:isChecked===true?"Y":"N",
         }
       )
