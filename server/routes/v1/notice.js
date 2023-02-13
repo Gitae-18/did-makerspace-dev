@@ -171,9 +171,9 @@ router.put('/:notice_no/files',verifyToken,upload.array('imageFiles'), async(req
 
     res.status(errorCode.ok).json({});
 })
-router.get('/:notice_no/files',verifyToken,async (req, res, next) => {
+router.get('/:notice_no/files'/* ,verifyToken */,async (req, res, next) => {
     let notice_no = req.params.notice_no;
-    let user_no = req.decoded.user_no;
+
    
 
 /*     if (authority_level < authLevel.manager) {
