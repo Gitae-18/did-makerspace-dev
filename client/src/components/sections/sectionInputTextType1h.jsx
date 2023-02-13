@@ -169,7 +169,7 @@ export default function SectionInputTextType1h() {
             onChange={onTitleChange}
           />
         </li>
-        <li className="textarea_wrap" style={{"height":"800px"}}>
+        <li className="textarea_wrap" style={{'height':'300px'}}>
           <label htmlFor="text02">내용</label>
          {/*  <Editor setContent={setContent}
           data={content}  no={no}/> */}
