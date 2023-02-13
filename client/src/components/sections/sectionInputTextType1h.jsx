@@ -169,7 +169,7 @@ export default function SectionInputTextType1h() {
             onChange={onTitleChange}
           />
         </li>
-        <li className="textarea_wrap" style={{"height":"800px"}}>
+        <Textli className="textarea_wrap">
           <label htmlFor="text02">내용</label>
          {/*  <Editor setContent={setContent}
           data={content}  no={no}/> */}
@@ -181,7 +181,7 @@ export default function SectionInputTextType1h() {
             placeholder="내용을 입력하세요."
             onChange={onMemoChange}
           ></textarea>
-        </li>
+        </Textli>
         <li>
           <label htmlFor="checkbox01">팝업등록</label>
           <input
@@ -221,6 +221,9 @@ border:1px solide #313f4f;
 `
 const Styledli = styled.li`
   display:none;
+`
+const Textli = styled.li`
+height:800px;
 `
 const ImgTag = styled.img`
 width:200px;
