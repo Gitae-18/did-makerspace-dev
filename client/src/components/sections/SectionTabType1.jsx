@@ -8,7 +8,7 @@ export default function SectionTabType1(props) {
  const history = useNavigate();
  const [data,setData] = useState([]);
 
-  const getNotice = useCallback(async()=>{
+  /* const getNotice = useCallback(async()=>{
    
     let uri = PreUri + '/notice/noticehome'
 
@@ -23,12 +23,11 @@ export default function SectionTabType1(props) {
     const json = await response.json();
     setData(json);
 
-  },[])
-  console.log(data);
+  },[]) */
   useEffect(() => {
     /* document.getElementById("tab_btn0").classList.add("on"); */
-    getNotice()
-  },[getNotice]);
+    //getNotice()
+  },[/* getNotice */]);
 
 
   const goToNotice = () =>{
