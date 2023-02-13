@@ -11,6 +11,7 @@ export default function SectionInputTextType1f_update() {
   const { token } = useSelector(state => state.user);
   const [openModal,setOpenModal] = useState(false);
   const [update,setUpdate] = useState(false);
+  const [fileNo,setFileNo] = useState([]);
   const [imageFile,setImageFile] = useState([]);
   const [imageUrl,setImageUrl] = useState([]);
   const [attachFile,setAttachFile] = useState({})
@@ -64,13 +65,26 @@ const getData = useCallback(async()=>{
     }, 
     })
     const fileList = await res.json();
+    if(fileList!==null||undefined)
+    {
     setAttachFile(fileList)
-  },[token,no ])
+    }
+  },[token,no])
   const arr =  Object.values(attachFile)
+  const getFileNo = useCallback(async()=>{
+    const response = await fetch(PreUri + '/faq/'+ no + '/filesno',{
+      method:Method.get,
+      headers:CommonHeader
+    })
+    const json = await response.json();
+
+    setFileNo(json);
+  },[no])
   useEffect(()=>{
     getData();
+    getFileNo();
     getFile();
-  },[getData])
+  },[getData,getFileNo])
   const onFileDownload = useCallback(async (e, fileInfo) => {
   
     let attached_file_no 
@@ -139,72 +153,58 @@ setOpenModal(true);
 const onClose = () =>{
   setOpenModal(false);
 }
-
-const BasicContent = () =>{
-    return(
-        <ul className="text_wrap">
-        <li>
-          <label htmlFor="text01">제목</label>
-          <span>{data.title}</span>
-        </li>
-        <li className="textarea_wrap">
-          <label htmlFor="text02">내용</label>
-          <textarea
-            name="text02"
-            id="text02"
-            cols="50"
-            rows="6"
-            readOnly={true}
-            value={data.content}
-          ></textarea>
-        </li>
-        <li>
-        <li className="file_wrap">
-          <label htmlFor="file01">파일#1</label>
-          <span>{arr[0]!==undefined?arr[0].name:"파일이 없습니다"}</span><button className="download"  onClick={(e)=>onFileDownload(e,arr[0])}>다운로드</button>
-          </li>
-        </li>
-      </ul>
+const FileDownload = useCallback((props) => {
+  return (<>
+    <button className="download" style={{ border: "0px", cursor: 'pointer' }} onClick={props.onClick}>{props.filename}</button>
+  </>);
+}, []);
+let DownloadMyFileItems = [];
+	if (fileNo && fileNo.length > 0) {
+		for (let i = 0; i < fileNo.length; i++) {
+			DownloadMyFileItems.push(
+				<FileDownload index={i}
+					filename={fileNo[i].original_name}
+					onClick={(e) => onFileDownload(e, fileNo[i])}
+					key={i} />);
+		};
+	}
+  else{
+    DownloadMyFileItems.push(
+    <button className="download" style={{ border: "0px", cursor: 'pointer' }} >파일이 없습니다.</button>
     )
-}
+  }
 
-const UpdateContent = () =>{
-    return(
-        <ul className="text_wrap">
-        <li>
-            <label htmlFor="text01">제목</label>
-            <input
-              type="text"
-              name="text01"
-              id="text01"
-              placeholder="제목을 입력하세요."
-              onChange={onTitleChange}
-            />
-          </li>
-          <li className="textarea_wrap">
-            <label htmlFor="text02">내용</label>
-            <textarea
-              name="text02"
-              id="text02"
-              cols="30"
-              rows="6"
-              placeholder="내용을 입력하세요."
-              onChange={onMemoChange}
-            ></textarea>
-          </li>
-          <li>
-            <label htmlFor="file01">파일#1</label>
-            <input type="file" name="file01" id="file01" className="w_auto" onChange={handleChangeFile} multiple accept="image/*" />
-            <img src={imageUrl} alt={imageUrl.name} style={{"width":"150px"}}/>            
-          </li>
-        </ul>
-    )
-}
   return (
     <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1e">
       <div className="title_wrap">
       </div>
-      {update === false ? <BasicContent/>:<UpdateContent/>}
+      <ul className="text_wrap">
+      <li>
+          <label htmlFor="text01">제목</label>
+          <input
+            type="text"
+            name="text01"
+            id="text01"
+            placeholder="제목을 입력하세요."
+            onChange={onTitleChange}
+          />
+        </li>
+        <li className="textarea_wrap"  style={{"height":"300px"}}>
+          <label htmlFor="text02">내용</label>
+          <textarea
+            name="text02"
+            id="text02"
+            cols="30"
+            rows="6"
+            placeholder="내용을 입력하세요."
+            onChange={onMemoChange}
+          ></textarea>
+        </li>
+        <li className="filearea_wrap">
+          <label htmlFor="file01">파일#1</label>
+          <input type="file" name="file01" id="file01" className="w_auto" onChange={handleChangeFile} multiple accept="image/*"/>
+        </li>
+      </ul>
       <div className="button_wrap">
       <StyledBtn2 className="modify"onClick={()=>setUpdate(true)}>수정</StyledBtn2>
       <StyledBtn className="save"onClick={sendData}>저장</StyledBtn>

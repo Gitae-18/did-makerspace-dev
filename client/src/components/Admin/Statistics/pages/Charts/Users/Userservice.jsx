@@ -294,7 +294,7 @@ function Userservice() {
               )
             }
           >
-            조회
+            검색
           </button>
         </div>
       </div>

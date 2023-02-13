@@ -53,7 +53,7 @@ export default function SectionInputTextType1d_update(){
 
   const getData = useCallback(async()=>{
     CommonHeader.authorization = token;
-    let requri = PreUri + '/classedu/class_receive?no=' + programno;
+    let requri = PreUri + '/classedu/'+ programno +'/class_receive';
     const response = await fetch(requri,{
         method:Method.get,
         headers:CommonHeader,
@@ -167,115 +167,18 @@ export default function SectionInputTextType1d_update(){
   },[token,input,imageFile])
 
 
- const BasicContent = () =>{
-    return(
-    <ul className="text_wrap">
-        <li>
-          <label htmlFor="text01">교육명</label>
-          <input
-            type="text"
-            name="className"
-            id="text01"
-            value={data.title}
-            readOnly
-            onChange={onChangeInput}/>
-        </li>
-        <li className="textarea_wrap">
-          <label htmlFor="text02">내용</label>
-          <textarea
-            name="text02"
-            id="text02"
-            cols="30"
-            rows="6"
-            value={data.content}
-            readOnly
-            onChange={onMemoChange}
-          ></textarea>
-        </li>
-        <li>
-          <label htmlFor="select01">유/무료</label>
-          <select name="select01" id="select01" onChange={onChangePay}>
-            <option value="Y">유료</option>
-            <option value="N">무료</option>
-          </select>
-        </li>
-        <li className="input_date_wrap">
-          <label htmlFor="date01_1">교육기간</label>
-          <input type="date" name="class_period_start" id="date01_1"  value={data.class_period_start} onChange={onChangeInput} readOnly/>
-          <span>~</span>
-          <input type="date" name="class_period_end" id="date01_2" value={data.class_period_end} onChange={onChangeInput} readOnly />
-        </li>
-        <li>
-          <label htmlFor="text03">장소</label>
-          <input
-            type="text"
-            name="place"
-            id="text03"
-            placeholder="입력하세요."
-            readOnly
-            value={data.place} onChange={onChangeInput}/>
-        </li>
-        <li className="input_date_wrap">
-          <label htmlFor="date02_1">접수기간</label>
-          <input type="date" name="application_period_start" id="date02_1" value={data.application_period_start} onChange={onChangeInput} readOnly/>
-          <span>~</span>
-          <input type="date" name="application_period_end" id="date02_2" value={data.application_period_end} onChange={onChangeInput} readOnly/>
-        </li>
-        <li className="input_number_wrap">
-          <label htmlFor="number01">정원</label>
-          <input
-            type="number"
-            name="fnum"
-            id="number01"
-            placeholder="0"
-            className="w_auto"
-            value={data.limit_number} 
-            onChange={onChangeInput}
-            readOnly
-          />
-          <span>명</span>
-        </li>
-        <li className="input_number_wrap">
-          <label htmlFor="number02">비용</label>
-          <input
-            type="number"
-            name="cost"
-            id="number02"
-            placeholder="0"
-            className="w_auto"
-            value={data.cost}
-            onChange={onChangeInput}
-            readOnly
-          />
-          <span>원</span>
-        </li>
-        <li>
-          <label htmlFor="text04">지도 URL</label>
-          <input type="text" name="map" id="text04" value={data.map} readOnly/>
-        </li>
-        <li>
-          <label htmlFor="file01">파일#1</label>
-          <input type="file" name="imagefile" id="file01" className="w_auto"  multiple accept="image/*" readOnly />
-        </li>
-        <li>
-          <label htmlFor="checkbox01">팝업등록</label>
-          <input
-            type="checkbox"
-            name="popup"
-            id="checkbox01"
-            className="input_checkbox w_auto"
-            value={data.popup}
-            checked={data.popup==="Y"?true:false} 
-            onChange={handleCheckBox}
-            readOnly
-          />
-        </li>
-      </ul>
-    )
- }
- const UpdateContent = () =>{
-    return(
-        <ul className="text_wrap">
+ 
+/*   useEffect(()=>{
+//    onMemoChange();
+    getData();
+  },[input,token]) */
+  return (
+    <>
+    
+    <section className="section_input_text_type1 section_input_text_type1p">
+      <div className="title_wrap">
+      </div>
+      <ul className="text_wrap">
         <li>
           <label htmlFor="text01">교육명</label>
           <input
@@ -352,11 +255,7 @@ export default function SectionInputTextType1d_update(){
           <span>원</span>
         </li>
         <li>
-          <label htmlFor="text04">지도 URL</label>
-          <input type="text" name="map" id="text04" value={map} onChange={onChangeInput}/>
-        </li>
-        <li>
-          <label htmlFor="file01">파일#1</label>
+          <label htmlFor="file01" style={imageFile.length>0?{"height":'150px'}:{"height":"60px"}}>파일#1</label>
           <input type="file" name="imagefile" id="file01" className="w_auto" onChange={handleChangeFile} multiple accept="image/*" />
           <img src={imageUrl} alt={imageUrl.name} style={{"width":"150px"}}/>
         </li>
@@ -372,22 +271,8 @@ export default function SectionInputTextType1d_update(){
           />
         </li>
       </ul>
-    )
- }
-/*   useEffect(()=>{
-//    onMemoChange();
-    getData();
-  },[input,token]) */
-  return (
-    <>
-    
-    <section className="section_input_text_type1 section_input_text_type1d">
-      <div className="title_wrap">
-      </div>
-      {update === false ? <BasicContent/> : <UpdateContent/>}
-        <StyledBtn className="update" onClick={(e)=>setUpdate(true)}>수정</StyledBtn>
-        <StyledBtn className="apply" onClick={sendData}>완료</StyledBtn>
-        {openModal && <PopupSecondSaveModal visible={openModal} closable={true} onclose={onClose}/>}
+        <StyledBtn className="apply" onClick={sendData}>수정</StyledBtn>
+        {openModal && <PopupSecondSaveModal visible={openModal} closable={true} onclose={onClose} update={true}/>}
         <StyledGrayBtn className='cancel' onClick={(e)=>history(-1)}>취소</StyledGrayBtn>
      
     </section>

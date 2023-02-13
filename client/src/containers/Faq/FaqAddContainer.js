@@ -6,7 +6,6 @@ import { AuthLevel } from '../../CommonCode';
 import qs from 'qs';
 export const FaqAddContainer = (props) =>{
     const { isLoading, isLoggedIn, authority_level } = useSelector(state => state.user);
-    const viewState = useSelector(state => state.reservation);
     const { search } = useLocation();
     const history = useNavigate();
     const query = qs.parse(search, {

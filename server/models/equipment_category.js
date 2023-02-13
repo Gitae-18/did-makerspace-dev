@@ -26,9 +26,19 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
+        model_detail:{
+            type: DataTypes.STRING(255),
+            allowNUll:true,
+            defaultValue:'해당 장비에 대한 상세설명이 없습니다',
+        },
         purpose: {
             type: DataTypes.STRING(45),
             allowNull: true,
+        },
+        src:{
+            type: DataTypes.STRING(255),
+            allowNull:true,
+            defaultValue:'/Noimg.png'
         },
         reservation_available: {
             type: DataTypes.CHAR(1),

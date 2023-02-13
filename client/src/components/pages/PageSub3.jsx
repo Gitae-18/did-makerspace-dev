@@ -25,7 +25,7 @@ export default function ClassEdu_Program() {
       <>
        
       <div id="sub_page_wrap">
-        <SubSideMenu subtitle={"교육프로그램"}></SubSideMenu>
+        <SubSideMenu title={"교육프로그램"}></SubSideMenu>
         <div className="sub_page_inner_wrap">
           <div className="sub_inner">
             <PageSub05b1/>
@@ -43,7 +43,7 @@ export default function ClassEdu_Program() {
         <>
          
         <div id="sub_page_wrap">
-          <SubSideMenu subtitle={"행사프로그램"}></SubSideMenu>
+          <SubSideMenu title={"행사프로그램"}></SubSideMenu>
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
               <PageSub05a1/>
@@ -59,7 +59,7 @@ export default function ClassEdu_Program() {
     return (
         <>
         <div id="sub_page_wrap">
-        <SubSideMenu subtitle={"교육프로그램"}></SubSideMenu>
+        <SubSideMenu title={"교육프로그램"}></SubSideMenu>
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
               <InfoType2b/>
@@ -92,7 +92,7 @@ export default function ClassEdu_Program() {
     return (
         <>
         <div id="sub_page_wrap">
-          <SubSideMenu subtitle={"교육/행사프로그램"}></SubSideMenu>
+          <SubSideMenu title={"내예약정보"}></SubSideMenu>
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
               <MyClassReserv/>

@@ -17,13 +17,17 @@ module.exports = (sequelize,DataTypes) => {
             allowNull:false,
         },
         content:{
-            type: DataTypes.STRING(255),
+            type: DataTypes.TEXT,
             allowNull:false,
         },
         hit:{
             type: DataTypes.INTEGER,
             allowNull:false,
             defaultValue:0,
+        },
+        popup:{
+            type: DataTypes.CHAR(5),
+            allowNull:true,
         },
         created_user_no: {
             type: DataTypes.INTEGER,

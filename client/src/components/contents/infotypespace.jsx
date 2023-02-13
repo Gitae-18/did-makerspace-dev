@@ -2,7 +2,9 @@ import React,{useCallback,useState,useEffect} from "react";
 import { useNavigate, useLocation } from "react-router";
 import { PreUri,CommonHeader,Method} from "../../CommonCode";
 import ButtonType1 from "./ButtonType1";
+import { BsListUl } from "react-icons/bs";
 import TitleType1 from "./TitleType1";
+import styled from "styled-components";
 export default function InfoTypeSpace() {
   const location = useLocation();
   const history = useNavigate();
@@ -135,8 +137,21 @@ export default function InfoTypeSpace() {
       <div className="info_inner_wrap">
         <TitleType1 title={info.space_name}></TitleType1>
         <InfoDescWrap></InfoDescWrap>
-        <ButtonType1 btnName="목록" onClick={onBackpage}></ButtonType1>
+        <StyledBtn  onClick={onBackpage}><BsListUl/>목록</StyledBtn>
       </div>
     </div>
   );
 }
+const StyledBtn= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:120px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
+border:1px solide #313f4f;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `

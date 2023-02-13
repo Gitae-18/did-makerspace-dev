@@ -7,7 +7,7 @@ export default function TitleType2(props) {
       <dl className="title_info">
         <dt>날짜</dt>
         <dd>{props.date}</dd>
-        <dt>조회</dt>
+        <dt>검색</dt>
         <dd>{props.hit}</dd>
       </dl>
     </div>

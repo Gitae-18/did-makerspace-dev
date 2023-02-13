@@ -42,8 +42,6 @@ export default function InfoType3a() {
       <dl className="dl_wrap">
         <dt>설명</dt>
         <dd style={{"whiteSpace":"pre-wrap"}}>{data.content}</dd>
-        <dt>첨부파일</dt>
-        <dd>첨부파일입니다.123</dd>
       </dl>
     );
   };

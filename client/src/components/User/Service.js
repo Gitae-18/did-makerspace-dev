@@ -6,11 +6,9 @@ import UServiceNavi from './ServiceNavi';
 import '../../css/common-s.css';
 import '../../css/style-s.css';
 import SubSideMenu from '../contents/SubSideMenu';
-import Menu from '../Menu';
 export default function () {
     const PageMax = 5;
     const { token } = useSelector(state => state.user);
-    const location = useLocation();
     const history = useNavigate();
     let ServiceItemRows = [];
     let PageList = [];

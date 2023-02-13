@@ -6,7 +6,7 @@ export default function ListType2d() {
   const location = useLocation();
   const history = useNavigate();
   const [data,setData] = useState([]);
-  const [page,setPage] = useState(1);
+  //const [page,setPage] = useState(1);
   const [count,setCount] = useState(0);
   const [currentPage,setCurrentPage] = useState(1);
   const postPerPage = 10;
@@ -16,7 +16,6 @@ export default function ListType2d() {
   const file_type = "text";
   const onItem = useCallback(async(e,index)=>{
     const hit_cnt = data[index].hit;
-    const url = data[index].url;
     const file_no = data[index].file_no;
     const response = await fetch(PreUri + '/archive/archive_cnt',{
       method:Method.put,

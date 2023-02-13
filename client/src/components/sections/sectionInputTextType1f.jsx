@@ -34,9 +34,12 @@ export default function SectionInputTextType1f() {
     setImageUrl(reader.result)
   }
   reader.readAsDataURL(file)
-}
 
+}
+console.log(imageUrl);
+console.log(fileUrl);
 const formData = new FormData();
+
  const sendData = useCallback(async()=>{
   CommonHeader.authorization = token;
  
@@ -73,23 +76,22 @@ const formData = new FormData();
   if(!res.ok){
     return(alert(getRspMsg(res.status)))
 }
+/*   const formurl = new FormData();
+  formurl.append('imagesurl',fileUrl)
   const responses = await fetch(PreUri + '/faq/'+(no+1)+'/filesurl',{
     method:Method.put,
     headers:CommonHeader,
-    body:JSON.stringify({
-      filesurl:fileUrl,
-    })
+    body:fileUrl
   })
   if(!responses.ok){
     return(alert(getRspMsg(res.status)))
-}
+} */
 setOpenModal(true);
 },[token,title,text,imageFile])
 console.log(typeof(fileUrl));
 const onClose = () =>{
   setOpenModal(false);
 }
-
   return (
     <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1e">
       <div className="title_wrap">
@@ -105,7 +107,7 @@ const onClose = () =>{
             onChange={onTitleChange}
           />
         </li>
-        <li className="textarea_wrap">
+        <li className="textarea_wrap"  style={{"height":"300px"}}>
           <label htmlFor="text02">내용</label>
           <textarea
             name="text02"
@@ -115,14 +117,13 @@ const onClose = () =>{
             placeholder="내용을 입력하세요."
             onChange={onMemoChange}
           ></textarea>
-          {/* <img src={fileUrl} alt="no-image"/> */}
         </li>
-        <li>
+        <li className="filearea_wrap">
           <label htmlFor="file01">파일#1</label>
           <input type="file" name="file01" id="file01" className="w_auto" onChange={handleChangeFile} multiple accept="image/*"/>
-          <img src={imageUrl} alt={imageUrl.name} style={{"width":"150px"}}/>
         </li>
       </ul>
+ 
       <StyledBtn onClick={sendData}>저장</StyledBtn>
       {openModal && <PopupSaveModal visible={openModal} closable={true} onclose={onClose} url={url} />}
     </section>

@@ -18,33 +18,37 @@ export default function ({ viewDepth ,onCategory}) {
 	const location = useLocation();
     const history = useNavigate();
 	const url = location.pathname;
-	let titlevalue ;
+	let title,subtitle;
 	if(location.pathname.includes('mentorcontrol')){
-		titlevalue="전문멘토관리"
+		title="전문멘토관리"
 	}
-	if((location.pathname.includes('educontrol'))||(location.pathname.includes('classcontrol'))){
-		titlevalue="교육/행사관리"
+	if((location.pathname.includes('edu'))||(location.pathname.includes('class'))){
+		title="교육/행사관리"
 	}
 	else if(sideNaviPos === 0){
-		titlevalue="기업관리"
+		title="기업/회원관리"
+		subtitle="기업관리"
 	}
 	else if(sideNaviPos === 1){
-		titlevalue="회원관리"
+		title="기업/회원관리"
+		subtitle="회원관리"
 	}
 	else if(sideNaviPos === 2){
-		titlevalue="기자재 품목관리"
+		title="기자재 품목관리"
 	}
 	else if(sideNaviPos === 3){
-		titlevalue="기자재 관리"
+		title="기자재 관리"
 	}
 	else if(sideNaviPos === 4){
-		titlevalue="서비스 항목관리"
+		title="서비스 항목관리"
 	}
 	else if(sideNaviPos === 5){
-		titlevalue="자재 분류관리"
+		title="기/자재관리"
+		subtitle="자재 분류관리"
 	}
 	else if(sideNaviPos === 6){
-		titlevalue="자재 항목관리"
+		title="기/자재관리"
+		subtitle="자재 항목관리"
 	}
 	
 	const onClick = useCallback((e, index) => {
@@ -134,7 +138,7 @@ export default function ({ viewDepth ,onCategory}) {
 	   
 	return (
 		<div className="sub_side_menu">
-			<SubBread2 title={titlevalue}></SubBread2>	
+			<SubBread2 title={title} subtitle={subtitle}></SubBread2>	
 			<div className="sub_modal">
 				<SubModalControl/>
 			</div>
@@ -143,64 +147,28 @@ export default function ({ viewDepth ,onCategory}) {
 }
 export const SubBread2 = (props) => {
 
-    const dataLabels = [
-      {
-        title: '시설 소개',
-         submenu : [
-         {
-           title: '공간 소개',
-            index : 1
-         },
-         {
-           title: '장비 소개',
-           index : 2
-         },
-          {
-           title: "운영인력소개",
-           index : 3
-          }
-        ]
-      },
-      {
-        title : '기관 소개',
-        submenu : [
-          {
-            title: '인사말',
-             index : 1
-          },
-          {
-            title: '미션/비전',
-            index : 2
-          },
-           {
-            title: "조직도",
-            index : 3
-           },
-           {
-            title: "협력기관안내",
-            index : 4
-           }
-         ]
-      },
-      {
-        title : '오시는 길'
-      },
-      {
-        title : 'FAQ'
-      }
-    ]
     let style={
       position:"relative",
       left:"10px"
     }
     return (
-      <div className="sub_bread">
+		<div className="sub_bread">
         <h1>{props.subtitle ? props.subtitle:props.title}</h1>
         <div className="location">
-        <MdHome className="homeicon" style={props.title.length < 5?{"left":"30px"}:props.title.length < 8 ? {"left":"10px"}:{"left":"0px"}}/>
-        <h3>{props.subtitle}</h3>
-        {props.subtitle ? <span style={props.subtitle.length < 5?{"left":"20px"}:{"left":"10px"}}><MdChevronRight className="arrowicon"/></span>:<></>}
-        <h2>{props.title}</h2>
+        <div className="title_area">
+		{props.subtitle?
+         <MdHome className="homeicon" style={props.subtitle.length===8?{'left':'75px'}:props.subtitle.length===6?{'left':'85px'}:props.subtitle.length===5?{'left':'95px'}:props.subtitle.length===4?{'left':'80px'}:{'left':'80px'}}/>:
+         <MdHome className="homeicon" style={props.title.length<4?{'left':'200px'}:props.title.length<5?{'left':'185px'}:props.title.length<6?{'left':'175px'}:
+         props.title.length<7?{'left':'170px'}: props.title.length<8?{'left':'160px'}:{'left':'150px'}}/>}
+         
+          {props.subtitle?<h2 style={props.subtitle.length === 3?{'left':'130px'}:props.subtitle.length === 4?{'left':'100px'}:props.subtitle.length === 5? {'left':'120px'}:props.subtitle.length === 6?{'left':'110px'}:{'left':'105px'}}>{props.title}</h2>:<h2 style={props.title.includes("오시는")?{'left':'203px'}:props.title.length===3?{'left':'225px'}:props.title.length===4?{'left':'205px'}:props.title.length===5?{'left':'195px'}:
+          props.title.length===6?{'left':'190px'}: props.title.length===7?{'left':'180px'}:props.title.length===8?{'left':'172px'}:{'left':'170px'}}>{props.title}</h2>}
+          
+          {props.subtitle?
+          <MdChevronRight className="arrowicon" style={props.subtitle.length===3?{'left':'170px'}:props.subtitle.length===4?{'left':'165px'}:props.subtitle.length===5?{'left':'160px'}
+          :props.subtitle.length===6?{'left':'150px'}:props.subtitle.length===8?{'left':'140px'}:{'left':'150px'}}/>:null}
+        </div>
+         {props.subtitle?<h3 style={props.subtitle.length===6?{'left':'142px'}:props.subtitle.length===5?{'left':'157px'}:props.subtitle.length===4?{'left':'162px'}:props.subtitle.length===3?{'left':'170px'}:{'left':'138px'}}>{props.subtitle}</h3>:null}
         </div>
       </div>
     );

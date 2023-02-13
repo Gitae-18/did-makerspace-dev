@@ -4,7 +4,7 @@ import { useNavigate,useLocation } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 export default function TableType4b() {
-  const { token } = useSelector(state => state.user);
+  //const { token } = useSelector(state => state.user);
   const history = useNavigate();
   const location = useLocation();
   const onItem = () =>{

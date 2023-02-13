@@ -2,20 +2,22 @@
     display: flex;
     justify-content: center;
     margin-top: 15px;
+    
 }
 ul{
     list-style: none;
     padding: 0;
+
 }
  ul.pagination li {
     display: inline-block;
-    width: 30px;
-    height: 30px;
+    width: 26px;
+    height: 26px;
     border: 1px solid #e2e2e2;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1rem;
+    font-size:11px;
  }
  ul.pagination li:first-child{
     border-radius: 5px 0 0 5px;
@@ -27,13 +29,15 @@ ul{
   
   ul.pagination li a {
     text-decoration: none;
-    color: #000000;
-    font-size: 1rem;
+    color: #313f4f;
   }
   
 
+  ul.pagination li.active{
+    background-color: #313f4f;
+  }
   ul.pagination li.active a{
-    color:#000;
+    color:#fff;
   }
 /*   ul.pagination li.active{
     background-color: #313f4f;

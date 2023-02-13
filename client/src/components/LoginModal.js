@@ -8,9 +8,9 @@ const LoginModal = (props) =>{
     const onLoginClick = () =>{
         history(1);
     }
- const {open, close , header, change,userid,password,isAutoLogin} = props;
+    const {open, close , header, change,userid,password,isAutoLogin} = props;
 
- return(
+    return(
     <div className={open ? 'openModal modalsh' : 'modals'}>
      
     { open ? 

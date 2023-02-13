@@ -1,24 +1,44 @@
-import React from "react";
-import { useNavigate,useLocation } from "react-router";
+import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router";
 import ButtonType1 from "./ButtonType1";
+import { PreUri, CommonHeader, Method } from "../../CommonCode";
 import TitleType1 from "./TitleType1";
+import { BsListUl } from "react-icons/bs";
+import styled from "styled-components";
 export default function InfoType1a() {
   const history = useNavigate();
   const location = useLocation();
-  const eqname = location.state.name;
-  let src,src2;
-  let introduce;
-  if(eqname === "SLA : 3D SYSTEMS : ProX800 "){
-    src="/images/ProX800.jpg"
- 
-  }
+  const eqno = location.state.no;
+  const headpath = "/images/equipment";
+  const [imagesrc, setImagesrc] = useState("");
+  const [info, setInfo] = useState([]);
+  const getequipInfo = useCallback(async () => {
+    let requri = PreUri + "/equipment/" + eqno + "/detail";
+    const response = await fetch(requri, {
+      method: Method.get,
+      headers: CommonHeader,
+    });
+
+    if (!response.ok) {
+      console.log("잘못된 접근입니다.");
+      return;
+    }
+    const json = await response.json();
+    setInfo(json);
+    setImagesrc(json.src);
+  }, [eqno]);
+  useEffect(() => {
+    getequipInfo();
+  }, [getequipInfo]);
   const Desc1 = () => {
-    return <p>최상의 디테일과 3D 입체기술의 완벽함을 구현한 대형 3D프린터</p>;
+    return <p>{info.model_detail}</p>;
   };
   const DescImage = () => {
     return (
       <div className="images_wrap">
-        <div className="image_part"><img src={src} alt="no-image"/></div>
+        <div className="image_part">
+          <StyledImg src={headpath + imagesrc} alt="no-image" />
+        </div>
       </div>
     );
   };
@@ -78,10 +98,33 @@ export default function InfoType1a() {
   return (
     <div className="info_type1">
       <div className="info_inner_wrap">
-        <TitleType1 title={eqname}></TitleType1>
+        <TitleType1 title={info.model_name}></TitleType1>
         <InfoDescWrap></InfoDescWrap>
-        <ButtonType1 btnName="목록" onClick={history(-1)}></ButtonType1>
+        <StyledBtn onClick={(e) => history(-1)}>
+          <BsListUl />
+          목록
+        </StyledBtn>
       </div>
     </div>
   );
 }
+const StyledBtn = styled.button`
+color:#fff;
+background-color:#313f4f;
+width:120px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
+border:1px solide #313f4f;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `;
+const StyledImg = styled.img`
+  width: 450px;
+  height: 400px;
+  cursor: pointer;
+  position: relative;
+  left: 70px;
+`;

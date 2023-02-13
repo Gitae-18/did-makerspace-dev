@@ -72,12 +72,12 @@ export default function TableType1e() {
  setSearch('');
 },[search])
   const onUpdate = useCallback(async(e,index)=>{
-    const notice_no = data[index].notice_no;
+    const notice_no = e.notice_no;
     history("/notice/notice/update",{state:{update_no:notice_no}})
   },[data])
   const onItem = useCallback(async(e,index)=>{
-    const hit_cnt = data[index].hit;
-    const notice_no = data[index].notice_no;
+    const hit_cnt = e.hit;
+    const notice_no = e.notice_no;
     dispatch({ type: M_NOTICE_SET, target: notice_no });
     //조회수 증가
     const response = await fetch(PreUri + '/notice/notice_cnt',{
@@ -108,8 +108,16 @@ export default function TableType1e() {
     setCurrentPage(e);
   }
   console.log(data)
+
+
   const onWrite = useCallback(async(e) => {
-    const notice_no = data[0].notice_no;
+    let notice_no;
+    if(data[0]!==undefined){
+     notice_no = data[0].notice_no;
+    }
+    else{
+     notice_no = 0
+    }
     history('/notice/addnotice',{state:{notice_no:notice_no}});
   },[data])
   return (
@@ -141,12 +149,12 @@ export default function TableType1e() {
         <tbody>
           {currentPost.length > 0 ? currentPost.map((item,index)=>(
             <tr key={index}>
-            <td onClick={(e)=>onItem(e,index)}>{item.notice_no}</td>
-            <td onClick={(e)=>onItem(e,index)}>{item.title}</td>
+            <td onClick={(e)=>onItem(item,index)}>{data.length - index - (currentPage - 1) * postPerPage}</td>
+            <td onClick={(e)=>onItem(item,index)}>{item.title}</td>
             <td>최고관리자</td>
             <td>{item.created_at.slice(0,10)}</td>
             <td>{item.hit}</td>
-            <td><StyledBtn3 onClick={(e)=>onUpdate(e,index)}>수정</StyledBtn3></td>
+            <td><StyledBtn3 onClick={(e)=>onUpdate(item,index)}>수정</StyledBtn3></td>
           </tr>
           )):<div>게시물이 없습니다.</div>}
         </tbody>

@@ -15,7 +15,7 @@ export const NoticeDetailContainer = (props) =>{
     });
     useEffect(() => {
         if (isLoading) { return; }
-        if (!isLoggedIn) { return history('/notmember',{replace:false}); }
+        if (!isLoggedIn) { return history('/notmember',{replace:true}); }
 	}, [isLoading, isLoggedIn, authority_level, history])
 
     const View = query ? ContactNoticeDetail : ContactNoticeDetail ;

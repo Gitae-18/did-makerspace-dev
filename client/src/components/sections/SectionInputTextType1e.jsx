@@ -5,10 +5,12 @@ import styled from "styled-components";
 import { useSelector , useDispatch} from "react-redux";
 import { useNavigate,useLocation } from "react-router-dom";
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg, MaxFileCount  } from "../../CommonCode";
+import ImageGettingNotice from "./ImageGeetingNotice";
 import fileDownload from 'js-file-download'
 export default function SectionInputTextType1e() {
   const [data,setData] = useState([]);
   const [attachFile,setAttachFile] = useState({})
+  const [fileNo,setFileNo] = useState([]);
   const history = useNavigate();
   const location = useLocation();
   const no = location.state.no;
@@ -35,16 +37,28 @@ export default function SectionInputTextType1e() {
     }, 
     })
     const fileList = await res.json();
+    if(fileList!==null||undefined)
+    {
     setAttachFile(fileList)
-  },[token,no ])
- console.log(typeof(attachFile))
+    }
+  },[token,no])
+
  const arr =  Object.values(attachFile)
 
+ const getFileNo = useCallback(async()=>{
+  const response = await fetch(PreUri + '/notice/'+ no + '/filesno',{
+    method:Method.get,
+    headers:CommonHeader
+  })
+  const json = await response.json();
 
+  setFileNo(json);
+},[no])
   useEffect(()=>{
     getData();
     getFile();
-  },[getData,getFile])
+    getFileNo();
+  },[getData,getFile,getFileNo])
   const onFileDownload = useCallback(async (e, fileInfo) => {
   
     let attached_file_no 
@@ -58,7 +72,7 @@ export default function SectionInputTextType1e() {
       }
     }
  
-    const response = await fetch(PreUri + '/notice/' + no + '/file/' + 6, {
+    const response = await fetch(PreUri + '/notice/' + no + '/file/' + fileInfo.attached_file_no, {
         responseType: 'blob',
         method: Method.get,
         headers: {
@@ -69,25 +83,46 @@ export default function SectionInputTextType1e() {
         console.log('response error');
         return;
     }
-    console.log(response)
+    console.log(response.data);
     if(fileInfo!==undefined){
-    fileDownload(await(await new Response(response.body)).blob(),fileInfo.original_name)
+    fileDownload(await(await new Response(response.data)).blob(),fileInfo.original_name)
     }
     /* var fileDownload = require('js-file-download');
     fileDownload(await (await new Response(response.body)).blob(), fileInfo.original_name); */
 }, [attachFile]);
-console.log(arr);
+const FileDownload = useCallback((props) => {
+  return (<>
+    <button className="download" style={{ border: "0px", cursor: 'pointer' }} onClick={props.onClick}>{props.filename}</button>
+  </>);
+}, []);
+let DownloadMyFileItems = [];
+	if (fileNo && fileNo.length > 0) {
+		for (let i = 0; i < fileNo.length; i++) {
+			DownloadMyFileItems.push(
+				<FileDownload index={i}
+					filename={fileNo[i].original_name}
+					onClick={(e) => onFileDownload(e, fileNo[i])}
+					key={i} />);
+		};
+	}
+  else{
+    DownloadMyFileItems.push(
+    <button className="download" style={{ border: "0px", cursor: 'pointer' }} >파일이 없습니다.</button>
+    )
+  }
   return (
-    <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1e">
+    <>
+     {attachFile[0] === undefined?
+    <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1g">
       <div className="title_wrap">
-        <TitleType1 title="공지사항"></TitleType1>
+        <TitleType1></TitleType1>
       </div>
       <ul className="text_wrap">
       <li>
           <label htmlFor="text01">제목</label>
           <span>{data.title}</span>
         </li>
-        <li className="textarea_wrap">
+        <li className="textarea_wrap" style={fileNo.length>0?{'height':'800px'}:{'height':'300px'}}>
           <label htmlFor="text02">내용</label>
           <textarea
             name="text02"
@@ -100,11 +135,46 @@ console.log(arr);
         </li>
         <li className="file_wrap">
           <label htmlFor="file01">파일#1</label>
-          <span>{arr[0]!==undefined?arr[0].name:"파일이 없습니다"}</span><button className="download"  onClick={(e)=>onFileDownload(e,arr[0])}>다운로드</button>
+          {/* <span>{arr[0]!==undefined?arr[0].name:"파일이 없습니다"}</span><button className="download"  onClick={(e)=>onFileDownload(e,arr[0])}>다운로드</button> */}
+          {DownloadMyFileItems}
         </li>
       </ul>
       <StyledBtn onClick={()=>history(-1)}>목록</StyledBtn>
     </section>
+    :
+    <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1g">
+    <div className="title_wrap">
+      <TitleType1></TitleType1>
+    </div>
+    <ul className="text_wrap">
+    <li>
+        <label htmlFor="text01">제목</label>
+        <span>{data.title}</span>
+      </li>
+      <li className="textarea_wrap"  style={fileNo.length>0?{'height':'800px'}:{'height':'300px'}}>
+        <label htmlFor="text02">내용</label>
+         <div className="textarea">
+          <textarea
+            name="text02"
+            id="text02"
+            cols="30"
+            rows="6"
+            readOnly={true}
+            value={data.content}
+           ></textarea>
+          <ImageGettingNotice attachFile={attachFile} no={no} token={token} CommonHeader={CommonHeader}/>
+        </div>
+      </li>
+      <li className="file_wrap">
+        <label htmlFor="file01">파일#1</label>
+        {/* <span>{arr[0]!==undefined?arr[0].name:"파일이 없습니다"}</span><button className="download"  onClick={(e)=>onFileDownload(e,arr[0])}>다운로드</button> */}
+        {DownloadMyFileItems}
+      </li>
+    </ul>
+    <StyledBtn onClick={()=>history(-1)}>목록</StyledBtn>
+  </section>
+    }
+    </>
   );
 }
 const StyledBtn= styled.button`

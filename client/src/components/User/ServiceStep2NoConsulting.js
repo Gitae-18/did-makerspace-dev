@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { CommonHeader, PreUri, Method, getRspMsg, MaxFileCount, MB, LIMIT } from '../../CommonCode';
 import { useSelector } from "react-redux"; import UServiceNavi from './ServiceNavi';
 import { useLocation,useNavigate } from 'react-router';
+import SubSideMenu from '../contents/SubSideMenu';
 import $ from 'jquery';
 
 import '../../css/common-s.css';
@@ -312,6 +313,7 @@ export default function ({query}) {
     return (
         <div id="wrap" className='wrap utilize7'>
             <div className="content_wrap">
+            <SubSideMenu title={"시제품제작"} subtitle={"시제품 제작신청"}/>
                 <div className="inner_wrap">
                     <div className="top_menu">
                         <UServiceNavi step={3} />

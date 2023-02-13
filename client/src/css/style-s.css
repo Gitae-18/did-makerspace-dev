@@ -211,7 +211,7 @@ width:6px;height:6px;border-radius:50%;background:#0f2753;position:absolute;top:
 
 /* utilize-7 */
 .wrap.utilize7{background:#fafafa;}
-.wrap.utilize7 .content_wrap .inner_wrap{width:820px;margin:0 auto;padding:68px 0 40px;top:10vh;position:relative;min-height:150vh;}
+.wrap.utilize7 .content_wrap .inner_wrap{width:820px;margin:0 auto;padding:68px 0 40px;top:150px;position:relative;min-height:150vh;}
 .wrap.utilize7 .content_wrap .inner_wrap .under{height:50vh;}
 .wrap.utilize7 .content_wrap .inner_wrap h2{font-size:22px;color:#222;padding-bottom:20px;}
 .wrap.utilize7 .content_wrap .inner_wrap .form{position:relative;padding:28px 24px;box-sizing:border-box;background:#fff;border:1px solid #e5e5e5;}
@@ -278,7 +278,7 @@ display:block;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);}
-.wrap.utilize7 .content_wrap .inner_wrap .btn_apply{display:block;position:relative;width:190px;height:50px;line-height:50px;color:#fff;font-size:16px;font-weight:500;border-radius:40px;margin:46px auto 0;background:#0f2753;text-align:center;border:0;cursor:pointer;}
+.wrap.utilize7 .content_wrap .inner_wrap .btn_apply{display:block;position:relative;width:190px;height:50px;line-height:50px;color:#fff;font-size:0.8rem;font-weight:500;margin:46px auto 0;background:#313f4f;text-align:center;border:0;cursor:pointer;}
 .wrap.utilize7 .add{width:30px;height:	30px;border:0;cursor:pointer;color:#fff;font-weight:700;border-radius:50%;background:#0f2753;box-shadow:1px 1px 10px rgba(0,0,0,0.2);font-size:26px;position:absolute;right:-16px;bottom:32px;font-family:'Roboto';line-height:29px;}
 
 
@@ -1383,7 +1383,7 @@ display:block;
 
 /* myInfo-1 */
 .wrap.myInfo1{background:#fafafa;}
-.wrap.myInfo1 .content_wrap{position:relative;margin-left:100px;top:100px;margin-bottom:200px;}
+.wrap.myInfo1 .content_wrap{position:relative;margin-left:200px;top:100px;margin-bottom:250px;}
 .wrap.myInfo1 .content_wrap .inner_wrap{width:820px;margin:0 auto;padding:68px 0 40px;}
 .wrap.myInfo1 .content_wrap .inner_wrap h2{font-size:22px;color:#222;padding-bottom:20px;}
 .wrap.myInfo1 .content_wrap .inner_wrap .join_box{background:#fff;border:1px solid #e5e5e5;padding:28px 26px;}
@@ -1398,11 +1398,11 @@ display:block;
 .wrap.myInfo1 .content_wrap .inner_wrap .join_box input:disabled{border:1px solid #e5e5e5; background:#f8f8f8;}
 .wrap.myInfo1 .content_wrap .inner_wrap .join_box input.short{width:256px;}
 .wrap.myInfo1 .content_wrap .inner_wrap .join_box input.middle{width:374px;}
-.wrap.myInfo1 .content_wrap .inner_wrap .join_box button{padding:0;width:96px;background:#0f2753;color:#fff;font-size:14px;margin-left:20px;border:0;cursor:pointer;}
+.wrap.myInfo1 .content_wrap .inner_wrap .join_box button{padding:0;width:96px;background:#313f4f;color:#fff;font-size:14px;margin-left:20px;border:0;cursor:pointer;}
 .wrap.myInfo1 .content_wrap .inner_wrap .join_box button.close_btn{padding:0;width:20px;height:20px;background:url("/images/close.png") no-repeat;background-color:#ffffff;background-size:contain;color:#fff;margin-left:0px;border:1px solid #afafaf;cursor:pointer;position:relative;top:16px;left:584px;z-index:1;}
 .wrap.myInfo1 .content_wrap .inner_wrap .join_box h3{padding:24px 0 18px;font-size:14px;font-weight:600;}
 .wrap.myInfo1 .content_wrap .btn_box{position:relative;left:50%;transform:translateX(-50%);-webkit-transform:translateX(-50%);display:inline-block;font-size:0;letter-spacing:0;}
-.wrap.myInfo1 .content_wrap .btn_box button{display:inline-block;width:190px;height:50px;line-height:50px;color:#fff;font-size:16px;font-weight:500;border-radius:40px;margin:46px auto 0;background:#0f2753;text-align:center;letter-spacing:-1px;border:0;cursor:pointer;}
+.wrap.myInfo1 .content_wrap .btn_box button{display:inline-block;width:120px;height:30px;line-height:30px;color:#fff;font-size:0.8rem;font-weight:500;margin:46px auto 0;background:#0f2753;text-align:center;letter-spacing:-1px;border:0;cursor:pointer;}
 .wrap.myInfo1 .content_wrap .btn_box .modify_pw{background:#576786;margin:0 16px;box-sizing:border-box;}
 .wrap.myInfo1 .content_wrap .btn_box .quit{background:#bbb;}
 
@@ -1523,7 +1523,7 @@ display:block;
 .wrap.materials1 .content_wrap .content .status .search_box input{width:198px;height:30px;border:1px solid #bbb;box-sizing:border-box;padding:0 12px;font-size:0.7rem;border: 1px solid #313f4f;margin-right:10px;}
 .wrap.materials1 .content_wrap .content .status .search_box button{color:#fff;
   background-color:#313f4f;cursor:pointer;font-size:0.7rem;width:120px;height:30px;position:absolute; /* background:url(/images/ico_search.png) no-repeat 0 0; */border:0;cursor:pointer;}
-.wrap.materials1 .content_wrap .content .btn_apply{display:block;width:190px;height:40px;line-height:40px;color:#fff;font-size:16px;font-weight:500;margin:46px auto 0;background:#313f4f;text-align:center;border:0;cursor:pointer;}
+.wrap.materials1 .content_wrap .content .btn_apply{display:block;width:190px;height:40px;line-height:40px;color:#fff;font-size:0.8rem;font-weight:500;margin:46px auto 0;background:#313f4f;text-align:center;border:0;cursor:pointer;}
 
 
 /* materials-2 */
@@ -1543,7 +1543,7 @@ display:block;
 .wrap.materials2 .content_wrap .content .form span{display:block;font-size:12px;text-align:right;margin-bottom:4px;}
 /*.wrap.materials2 .content_wrap .content .btn_apply{display:block;width:190px;height:50px;line-height:50px;color:#fff;font-size:16px;font-weight:500;border-radius:40px;margin:46px auto 0;background:#0f2753;text-align:center;border:0;cursor:pointer;}*/
 .wrap.materials2 .content_wrap .btn_box{position:relative;left:50%;transform:translateX(-50%);-webkit-transform:translateX(-50%);display:inline-block;font-size:0;letter-spacing:0;}
-.wrap.materials2 .content_wrap .btn_box button{display:inline-block;width:190px;height:50px;line-height:50px;color:#fff;font-size:16px;font-weight:500;border-radius:40px;margin:46px auto 40px;background:#0f2753;text-align:center;letter-spacing:-1px;border:0;cursor:pointer;}
+.wrap.materials2 .content_wrap .btn_box button{display:inline-block;width:190px;height:50px;line-height:50px;color:#fff;font-size:0.8rem;font-weight:500;border-radius:40px;margin:46px auto 40px;background:#0f2753;text-align:center;letter-spacing:-1px;border:0;cursor:pointer;}
 .wrap.materials2 .content_wrap .btn_box .btn_left{background:#bbb;margin-right:16px;}
 
 
@@ -1593,7 +1593,7 @@ display:block;
 .wrap.management1 .content_wrap .content .page_num button.prev{width:8px;height:40px;background:url(/images/arrow_prev.png) no-repeat 50% 50%;margin-right:18px;position:relative;bottom:7px;}
 .wrap.management1 .content_wrap .content .page_num button.next{width:8px;height:40px;background:url(/images/arrow_next.png) no-repeat 50% 50%;margin-left:18px;position:relative;bottom:7px;}
 .wrap.management1 .content_wrap .content .page_num button.last{width:11px;height:40px;background:url(/images/arrow_last.png) no-repeat 50% 50%;position:relative;bottom:7px;}
-.wrap.management1 .content_wrap .content .btn_apply{display:block;width:190px;height:40px;line-height:40px;color:#fff;font-size:16px;font-weight:500;margin:46px auto 0;background:#313f4f;text-align:center;border:0;cursor:pointer;}
+.wrap.management1 .content_wrap .content .btn_apply{display:block;width:190px;height:40px;line-height:40px;color:#fff;font-size:0.8rem;font-weight:500;margin:46px auto 0;background:#313f4f;text-align:center;border:0;cursor:pointer;}
 
 
 /* management-2 */
@@ -1661,7 +1661,7 @@ display:block;
 .wrap.management4 .content_wrap .content .table .search_box input{width:198px;height:30px;border:1px solid #bbb;box-sizing:border-box;padding:0 12px;font-size:0.7rem;border: 1px solid #313f4f;margin-right:10px;}
 .wrap.management4 .content_wrap .content .table .search_box button{color:#fff;background-color:#313f4f;cursor:pointer;font-size:0.7rem;width:120px;height:30px;position:absolute; /* background:url(/images/ico_search.png) no-repeat 0 0; */border:0;cursor:pointer;}
 .wrap.management1 .content_wrap .content .table table{width:100%;border-collapse:collapse;margin-bottom:20px;}
-.wrap.management4 .content_wrap .content .btn_apply{display:block;width:214px;height:50px;line-height:50px;color:#fff;font-size:16px;font-weight:500;border-radius:40px;margin:46px auto 0;background:#0f2753;text-align:center;border:0;cursor:pointer;}
+.wrap.management4 .content_wrap .content .btn_apply{display:block;width:214px;height:40px;line-height:40px;color:#fff;font-size:0.8rem;font-weight:500;margin:46px auto 0;background:#313f4f;text-align:center;border:0;cursor:pointer;}
 
 
 /* management-5 */
@@ -1728,7 +1728,7 @@ display:block;
 .wrap.management7 .content_wrap .content .table .search_box input{width:198px;height:30px;border:1px solid #bbb;box-sizing:border-box;padding:0 12px;font-size:0.7rem;border: 1px solid #313f4f;margin-right:10px;}
 .wrap.management7 .content_wrap .content .table .search_box button{color:#fff;background-color:#313f4f;cursor:pointer;font-size:0.7rem;width:120px;height:30px;position:absolute; /* background:url(/images/ico_search.png) no-repeat 0 0; */border:0;cursor:pointer;}
 .wrap.management1 .content_wrap .content .table table{width:100%;border-collapse:collapse;margin-bottom:20px;}
-.wrap.management7 .content_wrap .content .btn_apply{display:block;width:190px;height:50px;line-height:50px;color:#fff;font-size:16px;font-weight:500;border-radius:40px;margin:46px auto 0;background:#0f2753;text-align:center;border:0;cursor:pointer;}
+.wrap.management7 .content_wrap .content .btn_apply{display:block;width:190px;height:40px;line-height:40px;color:#fff;font-size:0.8rem;font-weight:500;margin:46px auto 0;background:#313f4f;text-align:center;border:0;cursor:pointer;}
 
 
 /* management-8 */
@@ -1779,7 +1779,7 @@ display:block;
 .wrap.management9 .content_wrap .content .table .search_box input{width:198px;height:30px;border:1px solid #bbb;box-sizing:border-box;padding:0 12px;font-size:0.7rem;border: 1px solid #313f4f;margin-right:10px;}
 .wrap.management9 .content_wrap .content .table .search_box button{color:#fff;background-color:#313f4f;cursor:pointer;font-size:0.7rem;width:120px;height:30px;position:absolute; /* background:url(/images/ico_search.png) no-repeat 0 0; */border:0;cursor:pointer;}
 .wrap.management1 .content_wrap .content .table table{width:100%;border-collapse:collapse;margin-bottom:20px;}
-.wrap.management9 .content_wrap .content .btn_apply{display:block;width:190px;height:50px;line-height:50px;color:#fff;font-size:16px;font-weight:500;border-radius:40px;margin:46px auto 0;background:#0f2753;text-align:center;border:0;cursor:pointer;}
+.wrap.management9 .content_wrap .content .btn_apply{display:block;width:190px;height:40px;line-height:40px;color:#fff;font-size:0.8rem;font-weight:500;margin:46px auto 0;background:#313f4f;text-align:center;border:0;cursor:pointer;}
 
 
 /* management-10 */
@@ -1814,7 +1814,7 @@ display:block;
 .wrap.management11 .content_wrap .content .form table td input{border:1px solid #e5e5e5;box-sizing:border-box;height:40px;line-height:40px;padding:0 12px;width:100%;}
 .wrap.management11 .content_wrap .content .form table td select{width:258px;height:40px;line-height:40px;padding:0 12px;box-sizing:border-box;border:1px solid #e5e5e5;font-size:13px;-webkit-appearance: none;-moz-appearance: none;appearance: none;background:url(/images/arrow_down.png) no-repeat 95% 50%;}
 .wrap.management11 .content_wrap .content .form span{display:block;font-size:12px;text-align:right;margin-bottom:4px;}
-.wrap.management11 .content_wrap .content .btn_apply{display:block;width:190px;height:50px;line-height:50px;color:#fff;font-size:16px;font-weight:500;border-radius:40px;margin:46px auto 0;background:#0f2753;text-align:center;border:0;cursor:pointer;}
+.wrap.management11 .content_wrap .content .btn_apply{display:block;width:190px;height:40px;line-height:40px;color:#fff;font-size:0.8rem;font-weight:500;margin:46px auto 0;background:#313f4f;text-align:center;border:0;cursor:pointer;}
 
 
 /* management-12 */
@@ -1852,7 +1852,7 @@ display:block;
 .wrap.management12 .content_wrap .content .table .search_box input{width:198px;height:30px;border:1px solid #bbb;box-sizing:border-box;padding:0 12px;font-size:0.7rem;border: 1px solid #313f4f;margin-right:10px;}
 .wrap.management12 .content_wrap .content .table .search_box button{color:#fff;background-color:#313f4f;cursor:pointer;font-size:0.7rem;width:120px;height:30px;position:absolute; /* background:url(/images/ico_search.png) no-repeat 0 0; */border:0;cursor:pointer;}
 .wrap.management1 .content_wrap .content .table table{width:100%;border-collapse:collapse;margin-bottom:20px;}
-.wrap.management12 .content_wrap .content .btn_apply{display:block;width:190px;height:50px;line-height:50px;color:#fff;font-size:16px;font-weight:500;border-radius:40px;margin:46px auto 0;background:#0f2753;text-align:center;border:0;cursor:pointer;}
+.wrap.management12 .content_wrap .content .btn_apply{display:block;width:190px;height:40px;line-height:40px;color:#fff;font-size:0.8rem;font-weight:500;margin:46px auto 0;background:#313f4f;text-align:center;border:0;cursor:pointer;}
 
 /* management-13 */
 .wrap.management13{background:#fff;}
@@ -1919,7 +1919,7 @@ display:block;
 .wrap.management15 .content_wrap .content .table .search_box input{width:198px;height:30px;border:1px solid #bbb;box-sizing:border-box;padding:0 12px;font-size:0.7rem;border: 1px solid #313f4f;margin-right:10px;}
 .wrap.management15 .content_wrap .content .table .search_box button{color:#fff;background-color:#313f4f;cursor:pointer;font-size:0.7rem;width:120px;height:30px;position:absolute; /* background:url(/images/ico_search.png) no-repeat 0 0; */border:0;cursor:pointer;}
 .wrap.management1 .content_wrap .content .table table{width:100%;border-collapse:collapse;margin-bottom:20px;}
-.wrap.management15 .content_wrap .content .btn_apply{display:block;width:190px;height:50px;line-height:50px;color:#fff;font-size:16px;font-weight:500;border-radius:40px;margin:46px auto 0;background:#0f2753;text-align:center;border:0;cursor:pointer;}
+.wrap.management15 .content_wrap .content .btn_apply{display:block;width:190px;height:40px;line-height:40px;color:#fff;font-size:0.8rem;font-weight:500;margin:46px auto 0;background:#313f4f;text-align:center;border:0;cursor:pointer;}
 
 
 /* management-16 */

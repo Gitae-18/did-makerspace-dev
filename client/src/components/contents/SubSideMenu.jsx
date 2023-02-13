@@ -340,11 +340,20 @@ export default function SubSideMenu(props,onCategory) {
       <div className="sub_bread">
         <h1>{props.subtitle ? props.subtitle:props.title}</h1>
         <div className="location">
-        {props.subtitle ?<MdHome className="homeicon" style={!props.subtitle || props.subtitle.length< 5 ?{"left":"30px"}:!props.subtitle || props.subtitle.length < 6 ?{"left":"20px"}:{"left":"15px"}}/>:
-        <MdHome className="homeicon" style={!props.subtitle || props.subtitle.length< 5 ?{"left":"30px"}:!props.subtitle || props.subtitle.length < 6 ?{"left":"25px"}:{"left":"40px"}}/>}
-        <h3>{props.subtitle}</h3>
-        {props.title ? <span style={props.title.length < 5?{"left":"20px"}:props.title.length < 7?{"left":"10px"}:{"left":"5px"}}>{props.subtitle?<MdChevronRight className="arrowicon"/>:<></>}</span>:<></>}
-        <h2>{props.title}</h2>
+        <div className="title_area">
+         {props.subtitle?
+         <MdHome className="homeicon" style={props.subtitle.length===8?{'left':'75px'}:props.subtitle.length===6?{'left':'85px'}:props.subtitle.length===5?{'left':'95px'}:props.subtitle.length===4?{'left':'105px'}:{'left':'105px'}}/>:
+         <MdHome className="homeicon" style={props.title.length<4?{'left':'200px'}:props.title.length<5?{'left':'185px'}:props.title.length<6?{'left':'175px'}:
+         props.title.length<7?{'left':'160px'}:{'left':'155px'}}/>}
+         
+          {props.subtitle?<h2 style={props.subtitle.length === 3?{'left':'130px'}:props.subtitle.length === 4?{'left':'129px'}:props.subtitle.length === 5? {'left':'120px'}:props.subtitle.length === 8?{'left':'95px'}:{'left':'108px'}}>{props.title}</h2>:<h2 style={props.title.includes("오시는")?{'left':'203px'}:props.title.length===3?{'left':'225px'}:props.title.length===4?{'left':'205px'}:props.title.length===5?{'left':'195px'}:
+          props.title.length===6?{'left':'180px'}: props.title.length===7?{'left':'174px'}:props.title.length===9?{'left':'160px'}:{'left':'173px'}}>{props.title}</h2>}
+          
+          {props.subtitle?
+          <MdChevronRight className="arrowicon" style={props.subtitle.length===3?{'left':'170px'}:props.subtitle.length===4?{'left':'165px'}:props.subtitle.length===5?{'left':'160px'}
+          :props.subtitle.length===6?{'left':'145px'}:props.subtitle.length===8?{'left':'140px'}:{'left':'140px'}}/>:null}
+        </div>
+         {props.subtitle?<h3 style={props.subtitle.length===8?{'left':'132px'}:props.subtitle.length===6?{'left':'142px'}:props.subtitle.length===5?{'left':'157px'}:props.subtitle.length===4?{'left':'162px'}:props.subtitle.length===3?{'left':'170px'}:{'left':'180px'}}>{props.subtitle}</h3>:null}
         </div>
       </div>
     );

@@ -102,7 +102,7 @@ router.put('/:faq_no/files',verifyToken,upload.array('imageFiles'), async(req, r
 
     res.status(errorCode.ok).json({});
 })
-router.put('/:faq_no/filesurl',verifyToken,async(req,res,next)=>{
+/* router.put('/:faq_no/filesurl',verifyToken,async(req,res,next)=>{
     let body = req.body;
     let user_no = req.decoded.user_no;
     let faq_no = req.params.faq_no;
@@ -124,7 +124,7 @@ router.put('/:faq_no/filesurl',verifyToken,async(req,res,next)=>{
         return res.status(errorCode.internalServerError).json({});
     }
     res.status(errorCode.ok).json({result});
-})
+}) */
 router.post('/faqs',verifyToken,async(req,res,next)=>{
     let body = req.body;
     let user_no = req.decoded.user_no;
@@ -229,9 +229,33 @@ router.get('/:faq_no/files',verifyToken,async (req, res, next) => {
     if (!files) {
         return res.status(errorCode.internalServerError).json({});
     }
-
+    
 
     res.json(files);
+
+});
+
+router.get('/:faq_no/filesno',async (req, res, next) => {
+    let faq_no = req.params.faq_no;
+   
+    console.log(faq_no)
+/*     if (authority_level < authLevel.manager) {
+        return res.status(errorCode.notAcceptable).json({});
+    } */let files
+    try{
+     files= await FaqFile.findAll({
+        attributes:['attached_file_no','original_name','path','type','filesize'],
+        where:{faq_no}
+    });
+    }  
+    catch (error) {
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    } 
+    
+    
+
+    res.status(errorCode.ok).json(files);
 
 });
 router.get('/:faq_no/fileurl/:file_no',verifyToken,async (req, res, next) => {
@@ -263,15 +287,15 @@ router.get('/:faq_no/file/:file_no',verifyToken,async (req, res, next) => {
         file_info = await FaqFile.findOne({
             attributes: ['attached_file_no', 'original_name', 'name', 'path', 'filesize'],
             where: { 
-                attached_file_no
+                faq_no
             }
         });
     } catch (error) {
         console.error(error);
         return res.status(errorCode.internalServerError).json({});
     }
-
-    const file = file_info.dataValues.path + '/' + file_info.dataValues.name;
+    const path = "upload/newfaq/";
+    const file = path + file_info.dataValues.name;
 
     res.download(file, file_info.dataValues.original_name, function(err) {
         if (err) {
@@ -280,5 +304,43 @@ router.get('/:faq_no/file/:file_no',verifyToken,async (req, res, next) => {
             res.end();
         }
     });
+});
+
+router.get('/:faq_no/fileinfo',verifyToken,async (req, res, next) => {
+    let faq_no = req.params.faq_no;
+    let user_no = req.decoded.user_no;
+   
+
+/*     if (authority_level < authLevel.manager) {
+        return res.status(errorCode.notAcceptable).json({});
+    } */
+    
+    let files = await SelectFileInfo(faq_no);
+    if (!files) {
+        return res.status(errorCode.internalServerError).json({});
+    }
+    
+    
+    let file_data= files[0].dataValues;
+    
+    const path = "upload/newfaq/";
+    console.log(path)
+    const file_name = path + file_data.name ;
+    console.log(file_name)
+    let file = fs.readFileSync(file_name,{encoding:'utf8',flag:'r'})
+    let encode = fs.readFile(file_name,'utf8',(err,data)=>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            console.log(data)
+        }
+    })
+    //console.log(encode);
+    console.log(file);
+    res.setHeader('Content-Length',file.length);
+    res.write(file,'binary');
+    res.end();
+    //res.json(file)
 });
 module.exports = router;

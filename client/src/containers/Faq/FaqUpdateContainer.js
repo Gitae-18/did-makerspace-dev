@@ -6,7 +6,6 @@ import { DidFaqUpdate } from "../../components/pages/PageSub";
 import qs from 'qs';
 export const FaqUpdateContainer = (props) =>{
     const { isLoading, isLoggedIn, authority_level } = useSelector(state => state.user);
-    const viewState = useSelector(state => state.reservation);
     const { search } = useLocation();
     const history = useNavigate();
     const query = qs.parse(search, {

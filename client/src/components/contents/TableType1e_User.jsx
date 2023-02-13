@@ -6,6 +6,7 @@ import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRsp
 import { M_NOTICE_SET } from "../../store/notice";
 import { Paging } from "./Paging";
 import styled from "styled-components";
+import Paging2 from "./Paging2";
 export default function TableType1e_User() {
   const location = useLocation();
   const history = useNavigate();
@@ -71,8 +72,8 @@ export default function TableType1e_User() {
 },[search])
 
   const onItem = useCallback(async(e,index)=>{
-    const hit_cnt = data[index].hit;
-    const notice_no = data[index].notice_no;
+    const hit_cnt = e.hit;
+    const notice_no = e.notice_no;
     //dispatch({ type: M_NOTICE_SET, target: notice_no });
     //조회수 증가
     const response = await fetch(PreUri + '/notice/notice_cnt',{
@@ -99,8 +100,16 @@ export default function TableType1e_User() {
       onSearch(e);
     }
   }
+  let rowNumber;
+  for(let i = 0 ; i<data.length;i++){
+     rowNumber = data.totalCount - i - (currentPage - 1) * 10;
+  }
+  
   const onWrite = () =>{
     history('/notice/addnotice');
+  }
+  const sethandlePage = (e) =>{
+    setCurrentPage(e);
   }
   return (
     <div className="table_wrap table_type1">
@@ -130,8 +139,8 @@ export default function TableType1e_User() {
         <tbody>
           {data.length > 0 ? data.map((item,index)=>(
             <tr key={index}>
-            <td onClick={(e)=>onItem(e,index)}>{item.notice_no}</td>
-            <td onClick={(e)=>onItem(e,index)}>{item.title}</td>
+            <td onClick={(e)=>onItem(item,index)}>{index+currentPage*postPerPage-9}</td>
+            <td onClick={(e)=>onItem(item,index)}>{item.title}</td>
             <td>최고관리자</td>
             <td>{item.created_at.slice(0,10)}</td>
             <td>{item.hit}</td>
@@ -140,7 +149,7 @@ export default function TableType1e_User() {
         </tbody>
       </table>
       <div className="page_control">
-      <Paging totalCount={count} page={page} postPerPage={postPerPage} pageRangeDisplayed={5} handlePageChange={handlePageChange}/>
+      <Paging2 page={currentPage} count = {count} setPage={sethandlePage}/>
       </div>
       
     </div>

@@ -5,8 +5,7 @@ import { DidInfo9,DidInfo10 } from "../../components/pages/PageSub";
 import { AuthLevel } from '../../CommonCode';
 import qs from 'qs';
 export const FaqContainer = (props) =>{
-    const { isLoading, isLoggedIn, authority_level } = useSelector(state => state.user);
-    const viewState = useSelector(state => state.reservation);
+    const { /* isLoading, isLoggedIn, */ authority_level } = useSelector(state => state.user);
     const { search } = useLocation();
     const history = useNavigate();
     const query = qs.parse(search, {

@@ -14,8 +14,14 @@
   position:relative;
   left:0;
   top:40px;
+  padding:0px 90px;
+  text-align:left;
+  
 }
-
+.modal-text div{
+  line-height: 27px;
+ 
+}
 .Modal {
   font-family: sans-serif;
   text-align: center;
@@ -27,8 +33,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(28, 28, 28, 0.19);
-  backdrop-filter: blur(6px);
   opacity: 1;
   animation-timing-function: ease-out;
   animation-duration: 0.3s;
@@ -45,24 +49,25 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 1200px;
 }
 
 .modal__content {
   width: 800px;
-  height: 500px;
+  height: 800px;
   box-shadow: 0px 100px 80px rgba(184, 184, 184, 0.07),
     0px 25.8162px 19px 4px rgba(178, 178, 178, 0.0456112),
     0px 7.779px 7.30492px rgba(0, 0, 0, 0.035),
     0px 1.48838px 2.0843px rgba(0, 0, 0, 0.0243888);
-  border-radius: 20px;
+  border-radius: 10px;
   background: transparent;
   color: #000;
   margin: 0rem 4rem;
+  z-index:1000;
 }
 
 .modal__close {
-  background-color: white;
+  background-color: rgb(185, 185, 185);
   border-radius: 50%;
   cursor: pointer;
   position: relative;

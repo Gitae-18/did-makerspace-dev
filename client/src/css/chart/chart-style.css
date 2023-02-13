@@ -7,7 +7,7 @@
 /* common */
 
 body {font-family:"Nanum Gothic", "NanumGothicBold", "Malgun Gothic", "sans-serif";font-weight:0;font-size:16px;letter-spacing:-1px;line-height:1.2;box-sizing:border-box;overflow-x:hidden;max-width:1594px;margin:0 auto;}
-.wrap{position:relative;height: auto; }
+.wrap{position:relative;height: auto;}
 .num,.eng{font-family:'Roboto', sans-serif;letter-spacing:0;}
 input:focus,select:focus,textarea:focus,button:focus{outline:none;}
 button{letter-spacing:-1px;}
@@ -257,7 +257,7 @@ width:6px;height:6px;border-radius:50%;background:#0f2753;position:absolute;top:
 /* intro */
 .wrap.intro .content_wrap{position:relative;text-align:center;background:url(/images/bg.jpg) no-repeat 50% 50%;min-height:840px;justify-content: center;}
 .wrap.intro .content_wrap .text_box{position:absolute;left:50%;top:50%;transform:translate(-50%, -50%);-webkit-transform:translate(-50%, -50%);width:546px;}
-.wrap.intro .content_wrap .text_box p{font-size:40px;font-weight:700;color:#fff;}
+.wrap.intro .content_wrap .text_box p{font-size:40px;font-weight:500;color:#fff;}
 .wrap.intro .content_wrap .text_box span{display:block;font-size:18px;font-weight:500;line-height:1.8;margin-top:60px;color:#fff;}
 
 
@@ -331,7 +331,7 @@ width:6px;height:6px;border-radius:50%;background:#0f2753;position:absolute;top:
 .wrap.statistics .content_wrap .logo {width:80px;height:40px;background: url(/images/logo2.png) no-repeat;position:absolute;top:1%;}
 .wrap.statistics .content_wrap .sidebar{height:88em;}
 .wrap.statistics .content_wrap .content{padding: 68px 22px 40px 0;margin-left:164px;box-sizing: border-box;}
-.wrap.statistics .content_wrap .content .did{font-weight: 700;color:#0f2753;}
+.wrap.statistics .content_wrap .content .did{font-weight: 500;color:#0f2753;}
 .wrap.statistics .content_wrap .content h2{font-size: 22px;color: #576786;padding:20px 0;text-align:center;}
 .wrap.statistics .content_wrap .content .table{position:relative;z-index:10}
 .wrap.statistics .content_wrap .content .table_btn{position:absolute;left:50%;transform:translateX(-50%);-webkit-transform:translateX(-50%);top:-42px;height:30px;width:650px;}

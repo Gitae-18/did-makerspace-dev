@@ -26,12 +26,12 @@ export default function SlideSwiper1() {
         modules={[Pagination][Controller]}
         autoplay={{delay:2400,disableOnInteraction:false}}
       >
-        <SwiperSlide value={0} onChange={onChange}><NavLink to="didreservation"><img src="/images/reservation.jpg"/></NavLink></SwiperSlide>
-        <SwiperSlide value={1}><NavLink to="didreservation"><img src="/images/reservation2.jpg"/></NavLink></SwiperSlide>
-        <SwiperSlide value={2}><NavLink to={authority_level<10?'uservice':'mservice'}><img src="/images/service.jpg"/></NavLink></SwiperSlide>
-        <SwiperSlide value={3}><NavLink to={authority_level<10?'uservice':'mservice'}><img src="/images/service2.jpg"/></NavLink></SwiperSlide>
-        <SwiperSlide value={4}><NavLink to={authority_level<10?'umentoring':'mentoring'}><img src="/images/mentoring.jpg"/></NavLink></SwiperSlide>
-        <SwiperSlide value={5}><NavLink to={authority_level<10?'umentoring':'mentoring'}><img src="/images/mentoring2.jpg"/></NavLink></SwiperSlide>
+        <SwiperSlide value={0} onChange={onChange}><NavLink to="didreservation"><img src="/images/reservation.jpg" alt="no-image"/></NavLink></SwiperSlide>
+        <SwiperSlide value={1}><NavLink to="didreservation"><img src="/images/reservation2.jpg" alt="no-image"/></NavLink></SwiperSlide>
+        <SwiperSlide value={2}><NavLink to={authority_level<10?'uservice':'mservice'}><img src="/images/service.jpg" alt="no-image"/></NavLink></SwiperSlide>
+        <SwiperSlide value={3}><NavLink to={authority_level<10?'uservice':'mservice'}><img src="/images/service2.jpg" alt="no-image"/></NavLink></SwiperSlide>
+        <SwiperSlide value={4}><NavLink to={authority_level<10?'umentoring':'mentoring'}><img src="/images/mentoring.jpg" alt="no-image"/></NavLink></SwiperSlide>
+        <SwiperSlide value={5}><NavLink to={authority_level<10?'umentoring':'mentoring'}><img src="/images/mentoring2.jpg" alt="no-image"/></NavLink></SwiperSlide>
       </Swiper>
     </div>
   );
@@ -47,12 +47,12 @@ export function SlideSwiper2() {
         autoplay={{delay:3500}}
         loop = {[false]}
       >
-        <SwiperSlide><img src="/images/banner_01.png"/></SwiperSlide>
-        <SwiperSlide><img src="/images/banner_02.png"/></SwiperSlide>
-        <SwiperSlide><img src="/images/banner_03.png"/></SwiperSlide>
-        <SwiperSlide><img src="/images/banner_04.png"/></SwiperSlide>
-        <SwiperSlide><img src="/images/banner_05.png"/></SwiperSlide>
-        <SwiperSlide><img src="/images/banner_06.png"/></SwiperSlide>
+        <SwiperSlide><img src="/images/banner_01.png" alt="no-image"/></SwiperSlide>
+        <SwiperSlide><img src="/images/banner_02.png" alt="no-image"/></SwiperSlide>
+        <SwiperSlide><img src="/images/banner_03.png" alt="no-image"/></SwiperSlide>
+        <SwiperSlide><img src="/images/banner_04.png" alt="no-image"/></SwiperSlide>
+        <SwiperSlide><img src="/images/banner_07.png" alt="no-image"/></SwiperSlide>
+        <SwiperSlide><img src="/images/banner_06.png" alt="no-image"/></SwiperSlide>
       </Swiper>
     </div>
   );

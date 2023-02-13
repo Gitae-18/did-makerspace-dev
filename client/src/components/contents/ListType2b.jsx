@@ -2,12 +2,15 @@ import React,{useEffect,useState,useCallback} from "react";
 import { useLocation,useNavigate } from "react-router-dom";
 import { PreUri , CommonHeader ,  Method, getRspMsg } from "../../CommonCode";
 import {useDispatch,useSelector}  from "react-redux";
+import ImageGetProgramList from "../sections/ImageGetProgramList";
 import Paging2 from "./Paging2";
 import styled from "styled-components";
 export default function ListType2b() {
   const { token } = useSelector(state => state.user);
   const location = useLocation();
   const history = useNavigate();
+  const [fileNo,setFileNo] = useState({});
+  const [attachFile,setAttachFile] = useState({});
   const [page,setPage] = useState(1);
   const [count,setCount] = useState(0);
   const [search,setSearch] = useState('');
@@ -38,9 +41,9 @@ export default function ListType2b() {
   },[token])
   console.log(itemList);
   const onItem = useCallback(async(e,index)=>{
-    const hit_cnt = currentPost[index].hit;
-    const program_no = currentPost[index].program_no;
-    console.log(currentPost[index])
+    const hit_cnt = e.hit;
+    const program_no = e.program_no;
+    
     const response = await fetch(PreUri + '/classedu/classedu_cnt',{
       method:Method.put,
       headers:CommonHeader,
@@ -98,14 +101,50 @@ export default function ListType2b() {
       onSearch(e);
     }
   }
+  let no;
+  for(let i = 0; i<itemList.length;i++){
+    no = itemList[i].program_no;
+  }
+
+  const getFile = useCallback(async()=>{
+    if(no!==undefined){
+    CommonHeader.authorization = token;
+    const res = await fetch(PreUri + '/classedu/' + no + '/files', {
+      method: Method.get,
+      headers: {
+        authorization: token,
+    }, 
+    })
+    const fileList = await res.json();
+    if(fileList!==null||undefined)
+    {
+    setAttachFile(fileList)
+    }
+    }
+  },[no,token])
+  const getFileNo = useCallback(async()=>{
+    if(no!==undefined){
+    const response = await fetch(PreUri + '/classedu/'+ no + '/filesno',{
+      method:Method.get,
+      headers:CommonHeader
+    })
+    
+    const json = await response.json(); 
+    setFileNo(json);
+    }
+  },[no])
+
   //console.log(item);
   useEffect(()=>{
+    getFile();
+    getFileNo();
     getItemList();
-  },[getItemList,token])
+  },[getFile,getFileNo,getItemList,token])
+
   return (
     <div className="table_wrap list_type2">
     <div className="table_extra">
-    <StyledBtn2 onClick={onMove}>내예약정보</StyledBtn2>
+    <StyledBtn2 onClick={onMove}>내 예약정보</StyledBtn2>
       <div className="table_search">
        <input type="text" name="" id="" placeholder="제목을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange}/>
           <StyledBtn onClick={(e)=>onSearch(e)} >검색</StyledBtn>
@@ -115,9 +154,9 @@ export default function ListType2b() {
         {currentPost.map((item,index)=>(
         
             <li key={index}>
-            <div className="image_part"><img src="/images/woodtray.png" alt="no" onClick={(e)=>onItem(e,index)}/></div>
+            <ImageGetProgramList attachFile={attachFile} no={/* itemList.length - index - (currentPage - 1) * postPerPage */itemList[index].program_no} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)}/>
             <div className="text_part">
-              <h5 onClick={(e)=>onItem(e,index)}>{item.title}</h5>
+              <h5 onClick={(e)=>onItem(item,index)}>{item.title}</h5>
               <div className="tag">
                 <span>무료</span>
               </div>

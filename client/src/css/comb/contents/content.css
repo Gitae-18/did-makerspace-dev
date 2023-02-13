@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "VITRO CORE";
+  font-family:"Nanum Gothic", "NanumGothicBold", "Malgun Gothic", "sans-serif";
   src: url(/public/font/font_01.ttf);
 }
 
@@ -76,6 +76,7 @@ table tr td{
 }
 .btn_type2 .resinfo > a {
   color:#fff;
+  line-height: 36px;
 }
 
 
@@ -115,7 +116,7 @@ table tr td{
 
 .tp_btn.btn_white a {
   color: #313f4f;
-  font-weight: 600;
+  font-weight: 300;
 }
 
 .btn_type4 {
@@ -579,7 +580,7 @@ h3.title_type2 {
 }
 
 .table_extra > p > span {
-  font-weight: 800;
+  font-weight: 400;
 }
 .list_type2 .table_extra{
   width:470px;
@@ -689,7 +690,7 @@ h3.title_type2 {
 }
 
 .table_wrap table thead th {
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .table_wrap table tbody tr {
@@ -1086,7 +1087,7 @@ h3.title_type2 {
 
 .list_type1.list_type1c dl ul li:last-of-type {
   list-style: none;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .list_type1.list_type1c ol {
@@ -1155,7 +1156,7 @@ h3.title_type2 {
       -ms-flex-align: center;
           align-items: center;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .list_type2 > ol > li .text_part dl * {
@@ -1267,6 +1268,15 @@ h3.title_type2 {
   
   margin-bottom:50px;
 }
+.info_inner_wrap button svg{
+  width:12px;
+  position:relative;
+  top:2px;
+  font-weight:500;
+  right:5px;
+  height:12px;
+  filter:brightness(1.5);
+}
 .info_inner_wrap .btn_type1{
   height:40px;
   text-align: center;
@@ -1284,7 +1294,7 @@ h3.title_type2 {
 }
 
 .info_type1 .info_inner_wrap .info_desc_wrap > p {
-  font-weight: 700;
+  font-weight: 400;
   font-size: 18px;
   text-align: center;
 }
@@ -1311,7 +1321,7 @@ h3.title_type2 {
   justify-content: center;
   position:absolute;
   top:50px;
-  left:180px;
+  left:190px;
 
 }
 .info_type1 .info_inner_wrap .info_desc_wrap .images_wrap .images .image_part1 .img1{
@@ -1322,7 +1332,7 @@ h3.title_type2 {
   height:auto;
   position:absolute;
   justify-content: center;
-  left:180px;
+  left:190px;
   top:400px;
 }
 .info_type1 .info_inner_wrap .info_desc_wrap .images_wrap .images .image_part2 .img2{
@@ -1338,7 +1348,7 @@ h3.title_type2 {
 
 .info_type1 .info_inner_wrap .info_desc_wrap .dl_wrap > dt {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 400;
   color: #313f4f;
 }
 
@@ -1417,17 +1427,19 @@ h3.title_type2 {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  width: calc( 100% - 300px);
-  height: 100%;
+  width: calc( 100% - 250px);
+  height: 280px;
 }
 
 .info_type2 .title_part .info_part dl {
+  position:relative;
+  top:10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .info_type2 .title_part .info_part dl dt::after {
@@ -1480,7 +1492,7 @@ h3.title_type2 {
   border-bottom: 1px solid #313f4f;
   font-size: 18px;
   color: #313f4f;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .info_type3 .info_desc_wrap .dl_wrap dd {
@@ -1798,5 +1810,16 @@ h3.title_type2 {
   position:relative;
   width:900px;
   left:200px;
+}
+.modal-contents .image_part{
+  position:absolute;
+  left:-260px;
+  top:-55px;
+  
+}
+.modal-contents .delete_service{
+  position:relative;
+  top:10px;
+  left:50px;
 }
 /*# sourceMappingURL=content.css.map */

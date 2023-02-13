@@ -19,6 +19,7 @@ export default function SectionInputTextType1h_update() {
   const [text,setText] = useState("");
   const [title,setTitle] = useState('');
   const [update,setUpdate] = useState(false);
+  const [isChecked,setIsChecked] = useState(false);
   const history = useNavigate();
   const location = useLocation();
   const n_no = location.state.no;
@@ -146,70 +147,57 @@ export default function SectionInputTextType1h_update() {
   useEffect(()=>{
     getData();
   },[getData])
-  const UpdateContent = () =>{
-    return(
-        <ul className="text_wrap">
-        <li>
-            <label htmlFor="text01">제목</label>
-            <input
-              type="text"
-              name="text01"
-              id="text01"
-              placeholder="제목을 입력하세요."
-              onChange={onTitleChange}
-            />
-          </li>
-          <li className="textarea_wrap">
-            <label htmlFor="text02">내용</label>
-            <textarea
-              name="text02"
-              id="text02"
-              cols="30"
-              rows="6"
-              placeholder="내용을 입력하세요."
-              onChange={onMemoChange}
-            ></textarea>
-          </li>
-          <li>
-          <li className="file_wrap">
-            <label htmlFor="file01">파일#1</label>
-            <input type="file" name="file01" id="file01" className="w_auto" onChange={handleChangeFile} multiple accept="image/*"/>
-            <img src={imageUrl} alt={imageUrl.name} style={{"width":"150px"}}/> 
-          </li>
-          </li>
-        </ul>
-    )
-  }
-  const BasicContent = () =>{
-    return(
-        <ul className="text_wrap">
-        <li>
-            <label htmlFor="text01">제목</label>
-            <span>{data.title}</span>
-          </li>
-          <li className="textarea_wrap">
-            <label htmlFor="text02">내용</label>
-            <textarea
-              name="text02"
-              id="text02"
-              cols="30"
-              rows="6"
-              readOnly={true}
-              value={data.content}
-            ></textarea>
-          </li>
-          <li>
-            <label htmlFor="file01">파일#1</label>
-            <span>{arr[0]!==undefined?arr[0].name:"파일이 없습니다"}</span><button className="download"  onClick={(e)=>onFileDownload(e,arr[0])}>다운로드</button>
-          </li>
-        </ul>
-    )
+  const handleCheckBox = (e) =>{
+    if(e.target.checked){
+      setIsChecked(true);
+    }
+    else{
+      setIsChecked(false);
+    }
   }
   return (
     <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1e">
       <div className="title_wrap">
       </div>
-      {update === false ? <BasicContent/>:<UpdateContent/>}
+      <ul className="text_wrap">
+      <li>
+          <label htmlFor="text01">제목</label>
+          <input
+            type="text"
+            name="text01"
+            id="text01"
+            placeholder="제목을 입력하세요."
+            onChange={onTitleChange}
+          />
+        </li>
+        <li className="textarea_wrap" style={{"height":"300px"}}>
+          <label htmlFor="text02">내용</label>
+          <textarea
+            name="text02"
+            id="text02"
+            cols="30"
+            rows="6"
+            placeholder="내용을 입력하세요."
+            onChange={onMemoChange}
+          ></textarea>
+        </li>
+        <li>
+          <label htmlFor="checkbox01">팝업등록</label>
+          <input
+            type="checkbox"
+            name="popup"
+            id="checkbox01"
+            className="input_checkbox w_auto"
+            value={isChecked}
+            onChange={handleCheckBox}
+          />
+        </li>
+        <li className="filearea_wrap">
+          <label htmlFor="file01">파일#1</label>
+          <input type="file" name="imageFiles" id="file1" className="w_auto" onChange={handleChangeFile} multiple accept="image/*"/>
+        </li>
+        
+      </ul>
       <div className="btn_wrap">
       <StyledBtn2 className="modify"onClick={()=>setUpdate(true)}>수정</StyledBtn2>
       <StyledBtn onClick={sendData}>저장</StyledBtn>

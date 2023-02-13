@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
        content:{
-            type: DataTypes.STRING(255),
+            type: DataTypes.TEXT,
             allowNull:false,
        },
        attached_file:{

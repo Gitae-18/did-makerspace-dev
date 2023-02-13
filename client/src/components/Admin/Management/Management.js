@@ -1,5 +1,5 @@
 import React from "react";
-import{Routes,Route,BrowserRouter,Link} from 'react-router-dom'
+import{Routes,Route,/* BrowserRouter,Link */} from 'react-router-dom'
 import ManagementCompany,{ManagementEquipCategory,ManagementEquipment,ManagementMaterial,ManagementMaterialDepart,ManagementMaterialItem,ManagementMember,ManagementServiceCateogry} from "../../pages/PageSub6";
 import MaterialItem from "../Material/MaterialItem";
 import MaterialList from "../Material/MaterialList";
@@ -14,8 +14,6 @@ import MaterialItemEdit from "./MaterialItemEdit";
 import MaterialItemReg from "./MaterialItemReg";
 import ServiceCategoryEdit from "./ServiceCategoryEdit";
 import ServiceCategoryReg from "./ServiceCategoryReg";
-import SubSideMenu from "../../contents/SubSideMenu";
-import Company from "./Company";
 
 export default function Management(){
     return(

@@ -116,11 +116,11 @@ export default function TableType1a() {
           총 <span>{spaceList.length}</span>개의 글
         </p>
         <div className="table_search">
-          <select name="" id="">
+         {/*  <select name="" id="">
             <option value="1">공간명</option>
-          </select>
-          <input type="text" name="" id="" placeholder="제목을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange}/>
-          <StyledBtn onClick={(e)=>onSearch(e)} >조회</StyledBtn>
+          </select> */}
+          <input type="text" name="" id="" placeholder="공간명을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange}/>
+          <StyledBtn onClick={(e)=>onSearch(e)} >검색</StyledBtn>
         </div>
       </div>
       <table className="table_space">

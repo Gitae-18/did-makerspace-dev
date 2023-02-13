@@ -16,23 +16,6 @@ import NotCompelete from './components/NotCompeleted'
 import { useSelector } from 'react-redux';
 import { AuthLevel } from './CommonCode';
 import {CookiesProvider} from 'react-cookie';
-import PageSub01b2 from './components/pages/PageSub01/PageSub01b2';
-import PageSub01b3 from './components/pages/PageSub01/PageSub01b3';
-import PageSub01b4 from './components/pages/PageSub01/PageSub01b4';
-import PageSub01c from './components/pages/PageSub01/PageSub01c';
-import PageSub01d from './components/pages/PageSub01/PageSub01d';
-import PageSub02a1 from './components/pages/PageSub02/PageSub02a1';
-import PageSub02a2 from './components/pages/PageSub02/PageSub02a2';
-import PageSub02a3 from './components/pages/PageSub02/PageSub02a3';
-import PageSub02a4 from './components/pages/PageSub02/PageSub02a4';
-import PageSub02a5 from './components/pages/PageSub02/PageSub02a5';
-import PageSub02a6 from './components/pages/PageSub02/PageSub02a6';
-import PageSub02a7 from './components/pages/PageSub02/PageSub02a7';
-import PageSub03a1 from './components/pages/PageSub03/PageSub03a1';
-import PageSub03a2 from './components/pages/PageSub03/PageSub03a2';
-import TableType1a from './components/contents/TableType1a';
-import TableType1b from './components/contents/TableType1b';
-import TableType1c from './components/contents/TableType1c';
 import { JoinContainer as Join } from './containers/JoinContainer';
 import { LoginContainer as Login } from './containers/LoginContainer';
 import { ManagementContainer as Management1 } from './containers/ManagementContainer';
@@ -62,11 +45,6 @@ import { ClassEduControlContainer } from './containers/ClassEdu/ClassEduControlC
 import { ClassEduUpdate } from './components/pages/PageSub6';
 import { FaqUpdateContainer } from './containers/Faq/FaqUpdateContainer';
 import { NoticeUpdateContainer } from './containers/notice/NoticeUpdateContainer';
-import Material from './components/Admin/Material/Material';
-import MaterialItem from './components/Admin/Material/MaterialItem';
-import MaterialList from './components/Admin/Material/MaterialList';
-import MaterialReg from './components/Admin/Material/MaterialReg';
-import Management from './components/Admin/Management/Management';
 import './css/common-s.css';
 import './css/style-s.css';
 import Materials, { Materials1, Materials2, Materials3 } from './components/Admin/Statistics/pages/Materials';
@@ -122,7 +100,8 @@ const App = () => {
         <Route path="/"  element = {<Home/>}/>
         <Route path="/join" element = {<Join/>} />
         <Route path="/uguide"  element = {<UGuide/>} />
-        <Route path="/uservice"  element = {<UService/>} />
+        <Route path="/uservice/*"  element = {<UService/>} />
+        <Route path="/uservice/guide"  element = {<MserviceGuide/>} />
         <Route path="/mservice/"  element = {<MService/>} />
         <Route path="/mservice/*"  element = {<MServiceDetail/>} />
         <Route path="/mservice/guide" element = {<MserviceGuide/>}/>
@@ -162,7 +141,7 @@ const App = () => {
         <Route path="/eqreservation/space" element = {<DidReservation2/>}/>
         <Route path="/eqreservation/lab" element = {<DidReservation3/>}/>
         <Route path="/eqreservation/myvation" element = {<MyReservContainer/>}/>
-        <Route path="/eqreservation/selectreserv" element = {<EReservation/>}/>
+        <Route path="/eqreservation/equip/selectreserv" element = {<EReservation/>}/>
         <Route path="/eqreservation/equip/test" element={<TestReservation/>}/>
 
         <Route path="/mentoring" element = {<Mentoring/>}/>
@@ -178,7 +157,7 @@ const App = () => {
         <Route path="/archive/video" element = {<Contact2/>}/>
         <Route path="/archive/text" element = {<Contact5/>}/>
         <Route path="/archive/basic" element = {<Contact3/>}/>
-        <Route path="/notice" element = {<NoticeContainer/>}/>
+        <Route path="/notice/*" element = {<NoticeContainer/>}/>
         <Route path="/notice/addnotice" element = {<NoticeAddContainer/>}/>
         <Route path="/notice/notice/detail" element = {<NoticeDetailContainer/>}/>
         <Route path="/notice/notice/update" element = {<NoticeUpdateContainer/>}/>

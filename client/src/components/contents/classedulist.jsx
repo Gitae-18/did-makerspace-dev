@@ -51,8 +51,9 @@ export default function Classedulist({no}) {
     setCurrentPage(e)
   }
   //수정
+
   const onUpdate = (e,index) =>{
-    const item = currentPost[index].program_no;  
+    const item = reservList[index].program_no;  
     history('/classedu/update',{state:{programno:item}})
   }
   const onChange = (e) =>{
@@ -80,30 +81,43 @@ export default function Classedulist({no}) {
   }
  setSearch('');
 },[search])
-
+ console.log(reservList)
   const onSelectItem = useCallback((e,index) => {
-    const item = currentPost[index].program_no;  
-    const list = currentPost[index]; 
-    const type = reservList[index].type;
-    console.log(type);
-
-    dispatch({ type: M_CLASS_SET, target: list });
+    let item,type;
+    if(reservList!== undefined){
+     item = reservList[index].program_no;  
+    const list = reservList[index]; 
+     type = reservList[index].type;
+    console.log(item);
+/*     dispatch({ type: M_CLASS_SET, target: list }); */
  
-    if(type === "class"){
-      history("/eduprogram/detail",{state:{programno:item}});
-    }
     if(type === "edu"){
-      history("/classprogram/detail",{state:{programno:item}});
+      history("/eduprogram/detail",{state:{no:item}});
     }
+    if(type === "class"){
+      history("/classprogram/detail",{state:{no:item}});
+    }
+  }
   },[history, currentPost,reservList, dispatch])
   const setPage = (e) =>{
     setCurrentPage(e);
   }
-
  const onBtnClick = (e) =>{
-  const item = currentPost[0].program_no;
-    history('/'+ e.target.className.slice(17,),{state:{no:item}});
+   let item ;
+  if(currentPost[0]!==undefined){
+   item = currentPost[0].program_no;
+    
+  }
+  else{
+   item = 0;  
+  }
+  if(e.target.className.includes('educontrol')){
+  history('/educontrol',{state:{no:item}});
  }
+ else{
+  history('/classcontrol',{state:{no:item}});
+ }
+}
   useEffect(()=>{
     getReservList();
   },[getReservList,token])

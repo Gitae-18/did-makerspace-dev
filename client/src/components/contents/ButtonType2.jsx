@@ -2,7 +2,11 @@ import React,{useCallback,useEffect,useState} from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { BiLoaderAlt } from "react-icons/bi";
 import { Link,useNavigate,useLocation} from "react-router-dom";
-
+import {Portal} from 'react-portal';
+import PropTypes from  'prop-types';
+import styled from "styled-components";
+import VideoModal from "./VideoModal";
+import '../../css/ModalStyle.css'
 export default function ButtonType2(props) {
   let classNames = "btn_type2 tp_btn";
   // 회색 버튼일 경우 props로 bgc="gray" 받아와서 해당 버튼에 class btn_gray 추가
@@ -14,7 +18,7 @@ export default function ButtonType2(props) {
 
   return (
     <div className={classNames}>
-      <span className="resinfo"><Link to="/reservation/myvation">{props.btnName}</Link></span>
+      <span className="resinfo"><Link to="/eqreservation/myvation">{props.btnName}</Link></span>
     </div>
   );
 }
@@ -78,51 +82,43 @@ export  const GoBackBtn =(props)=>{
   );
 }
 
+
 export function ButtonType2small(props) {
   const [modal,setModal] = useState(false);
   const [videoLoading,setVideoLoading] = useState(true);
+  const [bg,setBg] = useState(true);
   const [modelList,setModelList] = useState([]);
   const [videoLink, setVideoLink] = useState("https://www.youtube.com/embed/1fqwqZlxJ-c");
-  const openModal = () =>{
-      setModal(!modal);
-  };
-
+  const onMaskClick=(e)=>{
+    if(e.target === e.currentTarget){
+      props.onClose(e)
+    }
+  }
+  const closeModal = ()=>{
+     setModal(false);
+  }
   const spinner = () =>{
       setVideoLoading(!videoLoading);
   };
-  let classNames = "btn_type2 tp_btn btn_type2_small";
-  if (props.bgc === "gray") {
-    classNames += " btn_gray";
-  } else if (props.bgc === "white") {
-    classNames += " btn_white";
+  const close = (e) =>{
+    if(props.onClose){
+      props.onClose(e)
+    }
   }
-
-/*   if(props.modelName.includes("A0플로터 : HP 디자인젯 Z6"||"A0플로터 : 디자인젯 Z5600ps-44in")){
-    setVideoLink("https://www.youtube.com/embed/qBw5-KbJ9Vs")
-   }
-   else if(props.modelName.includes("X-cut")){
-    setVideoLink("https://www.youtube.com/embed/zpf5MHCSkI8")
-   }
-   else if(props.modelName.includes("UV 프린터 : 329UV")){
-    setVideoLink("https://www.youtube.com/embed/QtZxg1LiilM")
-   }
-   else if(props.modelName.includes("FDM : 3DWOX")){
-    setVideoLink("https://www.youtube.com/embed/c-pkmy2TEiw")
-   }
-   else{
-    setVideoLink("https://www.youtube.com/embed/1fqwqZlxJ-c")
-   } */
-
+  const openModal = () =>{
+    setModal(true);
+};
+console.log(modal)
+  let classNames = " btn_white";
   return (
-    <button type="button" className={classNames} onClick={openModal}>
-       {modal ? (
-        <section className="modal__bg">
+    <button type="button" className="btn_type2 tp_btn btn_type2_small"  onClick={openModal}>
+      {modal ? (
+        <div className="modal__bg" onClick={closeModal}>
           <div className="modal__align">
-            <div className="modal__content" modal={modal}>
+            <div className="modal__content" modal={modal} >
               <IoCloseOutline
                 className="modal__close"
                 arial-label="Close modal"
-                onClick={setModal}
               />
               <div className="modal__video-align">
                 {videoLoading ? (
@@ -148,7 +144,7 @@ export function ButtonType2small(props) {
               </div>
             </div>
           </div>
-        </section>
+        </div>
       ) : null}
      {props.btnName}
     </button>
@@ -230,10 +226,55 @@ export function ButtonType2test(props) {
     }
   },[history,location.pathname])
 
-
   return (
-    <div className={classNames} onClick={ClickTest}>
-      {props.test === true ? "시험 결과보기" : "시험보기"}
-    </div>
+    <button className={classNames} onClick={ClickTest} >
+      {props.btnName}
+    </button>
   );
 }
+ButtonType2small.propTypes = {
+  visible: PropTypes.bool,
+}
+ButtonType2small.defaultProps={
+  closable:true,
+  maskClosable:true,
+  visible:false,
+}
+const ModalWrapper = styled.div`
+    display: ${(props) => (props.visible ? 'block' : 'none')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+`
+const ModalOverlay = styled.section`
+    display: ${(props) => (props.visible ? 'block' : 'none')};
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    animation-timing-function: ease-out;
+    animation-duration: 0.3s;
+    animation-name: modal-video;
+    -webkit-transition: opacity 0.3s ease-out;
+    -moz-transition: opacity 0.3s ease-out;
+    -ms-transition: opacity 0.3s ease-out;
+    -o-transition: opacity 0.3s ease-out;
+    transition: opacity 0.3s ease-out;
+    z-index: 100;
+`
+const ModalInner = styled.div`
+width: 800px;
+height: 800px;
+box-shadow: 0px 100px 80px rgba(184, 184, 184, 0.07),
+  0px 25.8162px 19px 4px rgba(178, 178, 178, 0.0456112),
+  0px 7.779px 7.30492px rgba(0, 0, 0, 0.035),
+  0px 1.48838px 2.0843px rgba(0, 0, 0, 0.0243888);
+border-radius: 10px;
+background: transparent;
+color: #000;
+margin: 0rem 4rem;
+z-index:1000;
+`

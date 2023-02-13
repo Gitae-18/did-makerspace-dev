@@ -28,14 +28,9 @@ export const UServiceContainer = () => {
     });
 
     const CurrentPage = useCallback(() => {
-        if (isLoading) {
-            return <></>;
-        }
-
-        if (!isLoggedIn) {
-            history('/notmember',{replace:true});
-            return history('/',{replace:true});
-        }
+        if (isLoading) { return<></>; }
+        if (!isLoggedIn) { history('/notmember',{replace:true}) 
+                        return<></>; }
         switch (query.step) {
         case '1':
             if (query.next === 'confirm') {

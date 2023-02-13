@@ -1,23 +1,21 @@
 import React, { /*useState, useEffect, */useCallback,useEffect,useState /*useMemo*/ } from 'react';
 import { NavLink ,Link} from 'react-router-dom';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate} from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { CHANGE_MENU,STASTICS_ANALYZE } from "../store/management";
+import { CHANGE_MENU} from "../store/management";
 import { MENU_CHANGE} from '../store/sidemenu';
 import { CHANGE_CATEGORY } from "../store/material";
-import { AuthLevel } from '../CommonCode';
-import styled from 'styled-components';
+/* import { AuthLevel } from '../CommonCode';
+import styled from 'styled-components'; */
 import '../css/common-s.css';
 import '../css/style-s.css';
 import '../css/Menu.css';
-import { formatRelative, set } from 'date-fns';
-import $ from 'jquery';
-const menuCompo = styled(Link)`
+/* const menuCompo = styled(Link)`
 `
 let user_style = {
   position:"relative",
   left:"100px",
-}
+} */
 
 const UserMenu = ({authority_level,path,viewDepth}) => {
   const [menuOpen,setMenuOpen] = useState(false);

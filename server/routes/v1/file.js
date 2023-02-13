@@ -29,7 +29,7 @@ router.get('/:file_no/download', verifyToken, async (req, res, next) => {
     }
 
     const file = file_info.dataValues.path + '/' + file_info.dataValues.name;
-
+    console.log(file);
     res.download(file, file_info.dataValues.original_name, function(err) {
         if (err) {
             res.json({err:err});

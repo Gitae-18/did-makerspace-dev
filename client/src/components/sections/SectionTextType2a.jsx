@@ -3,7 +3,7 @@ import {GoBackBtn} from "../contents/ButtonType2";
 import TitleType1 from "../contents/TitleType1";
 import {useNavigate} from "react-router-dom";
 export default function SectionTextType2a() {
-  const history = useNavigate();
+ // const history = useNavigate();
   
   return (
     <section className="section_text_type2">

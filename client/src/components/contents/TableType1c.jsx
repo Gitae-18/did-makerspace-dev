@@ -55,11 +55,11 @@ const activeEnter = (e) => {
           총 <span>{data.length}</span>개의 글
         </p>
         <div className="table_search">
-          <select name="" id="">
+        {/*   <select name="" id="">
             <option value="1">이름</option>
-          </select>
-          <input type="text" name="" id="" placeholder="제목을 입력하세요" onChange={onChange} onKeyDown={(e) => activeEnter(e)}/>
-          <StyledBtn onClick={onSearch}>조회</StyledBtn>
+          </select> */}
+          <input type="text" name="" id="" placeholder="이름을 입력하세요" onChange={onChange} onKeyDown={(e) => activeEnter(e)}/>
+          <StyledBtn onClick={onSearch}>검색</StyledBtn>
         </div>
       </div>
       <table>

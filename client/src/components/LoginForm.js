@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,memo} from 'react';
 import { Link, NavLink} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -11,7 +11,7 @@ import LoginModal from './LoginModal';
 import '../css/common-s.css';
 import '../css/style-s.css'; 
 
-export function LoginForm({onLoginStart, onChange, userId, password, isAutoLogin}) {
+ function LoginForm ({onLoginStart, onChange, userId, password, isAutoLogin}){
     const history = useNavigate();
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => {
@@ -37,7 +37,7 @@ export function LoginForm({onLoginStart, onChange, userId, password, isAutoLogin
         </form>
     );
 }
-
+export default React.memo(LoginForm);
 export function LoggedInForm({onLogout, username}) {
     const { token, authority_level } = useSelector(state => state.user);
     //let alarmOn = (false) ? "name on" : "name off";

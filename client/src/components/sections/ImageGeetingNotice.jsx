@@ -30,6 +30,6 @@ export default function ImageGettingNotice({no,token,attachFile}){
         getFileName();
       },[])
     return(
-        <div className="image_part"><img src={"data:image/*;base64,"+ fileurl2}  alt="no-image" style={{"width":"200px","height":"150px"}}/></div>
+        <div className="image_part"><img src={"data:image/*;base64,"+ fileurl2}  alt="no-image" style={{"width":"300px","height":"400px"}}/></div>
     )
 }

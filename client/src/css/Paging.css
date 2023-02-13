@@ -15,7 +15,7 @@
     display: flexbox;
     justify-content: center;
     align-items: center;
-    font-size: 1rem;
+    font-size: 0.8rem;
  }
  .pagination div .first{
   background-color: #313f4f;
@@ -31,7 +31,7 @@
  .pagination div button span {
     text-decoration: none;
     color: #000000;
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
   
   .pagination div button.active span {

@@ -71,7 +71,7 @@ export default function Mentoring({location,history}) {
     return(
       <>
       <div id="sub_page_wrap">
-        <SubSideMenu subtitle={"시제품제작안내"} ></SubSideMenu>
+        <SubSideMenu title={"시제품제작안내"}></SubSideMenu>
         <div className="sub_page_inner_wrap">
           <div className="sub_inner">
             <MServiceGuide/>

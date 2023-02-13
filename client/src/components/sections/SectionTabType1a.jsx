@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import TitleType1 from "../contents/TitleType1";
 
-export default function SectionTabType1a({props,content}) {
+export default function SectionTabType1a({ props, content }) {
   useEffect(() => {
     document.getElementById("tab_btn0").classList.add("on");
   });
@@ -11,17 +11,17 @@ export default function SectionTabType1a({props,content}) {
       <ol className="tabs_wrap">
         <li className="tab_inner on">
           <TitleType1 title={props.tabNames[0]}></TitleType1>
-          <div className="inner" style={{"whiteSpace":"pre-wrap"}}>
-              {content}
-            </div>
-        </li>
-        <li className="tab_inner">
-          <TitleType1 title={props.tabNames[1]}></TitleType1>
-          <div className="inner">DID기술융합공작소 2층 PC교육장 (홈페이지 오시는 길 참조)</div>
+          <div className="inner" style={{ whiteSpace: "pre-wrap" }}>
+            {content}
+          </div>
         </li>
         <li className="tab_inner">
           <TitleType1 title={props.tabNames[2]}></TitleType1>
-          <div className="inner">취소는 인원 미달시 취소가 되며 <br/>교육 취소 시 교육 상세안내 옆 '취소안내' 확인 후 전화 또는 이메일 요청</div>
+          <div className="inner">
+            취소는 인원 미달시 취소가 되며 <br />
+            교육 취소 시 교육 상세안내 옆 '취소안내' 확인 후 전화 또는 이메일
+            요청
+          </div>
         </li>
       </ol>
     );
@@ -52,7 +52,7 @@ export default function SectionTabType1a({props,content}) {
       </li>
     ));
     return (
-      <div>
+      <div className="tab">
         <ol className="tab_btns_wrap">{myTabBtns}</ol>
       </div>
     );
@@ -60,10 +60,8 @@ export default function SectionTabType1a({props,content}) {
 
   return (
     <section className="section_tab_type1a">
-      <SetTabBtns
-        tabNames={["상세 안내", "장소 안내", "취소 안내"]}
-      ></SetTabBtns>
-      <Tabs tabNames={["상세 안내", "장소 안내", "취소 안내"]}></Tabs>
+      <SetTabBtns tabNames={["상세 안내", "취소 안내"]}></SetTabBtns>
+      <Tabs tabNames={["상세 안내", "취소 안내"]}></Tabs>
     </section>
   );
 }

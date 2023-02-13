@@ -33,7 +33,7 @@ const noticeRouter = require('./routes/v1/notice');
 const spaceRouter = require('./routes/v1/space');
 const userequipmentpassRouter = require('./routes/v1/userequipmentestpass');
 const faqRouter = require('./routes/v1/faq');
-
+const fileviewRouter = require('./routes/v1/fileview');
 //const surveyRouter = require('./routes/v1/survey');
 
 /*  for redis
@@ -109,7 +109,7 @@ app.use(morgan('dev'));
 app.use(express.json());    // body-parser
 app.use(express.urlencoded({ extended: false }));   // body-parser
 app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use('/uploads',express.static('upload'));
+app.use('/upload',express.static('./upload/newfaq'));
 /*  // for session
 app.use(cookieParser());
 app.use(session({
@@ -174,6 +174,7 @@ app.use('/api/v1/classedu',classeduRouter);
 app.use('/api/v1/notice',noticeRouter);
 app.use('/api/v1/faq', faqRouter);
 app.use('/api/v1/archive',archiveRouter);
+app.use('/api/v1/fileview',fileviewRouter);
 //app.use('/api/v1/mentoring',mentoringRouter);
 //app.use('/api/v1/survey', surveyRouter);
 

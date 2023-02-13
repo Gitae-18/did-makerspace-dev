@@ -5,6 +5,8 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import Modal from './Modal'
+import PopupModalHome from './PopupModalHome';
+import { CommonHeader,PreUri, Method } from '../CommonCode';
 import '../css/common-s.css';
 import '../css/style-s.css';
 import SectionBannerType1 from "../components/sections/SectionBannerType1";
@@ -15,7 +17,7 @@ import "../css/comb/pages/page.css";
 import "../css/comb/contents/content.css";
 import "../css/comb/sections/sections.css";
 
-export default function () {
+function Home() {
   const { token } = useSelector(state => state.user); 
   const {isLoggedIn} = useSelector(state => state.user);
     $(document).ready(function () {
@@ -56,15 +58,41 @@ export default function () {
         }*/
         const MainBanner = () => {
           const [modalVisible,setModalVisible] = useState(true);
+          const [modalControl1,setModalControl1] = useState(true);
+          const [data,setData] = useState("");
           const closeModal = useCallback (async(e) =>{
             setModalVisible(false);
           },[])
+          const closeModal2 = useCallback (async(e) =>{
+            setModalControl1(false);
+          },[])
           console.log(modalVisible);
          /*  if() */
+
+         
+            const getRecentNotice = useCallback(async() =>{
+              let requri = PreUri + '/notice/recentnotice';
+              const response = await fetch(requri,{
+                method:Method.get,
+                headers:CommonHeader,
+              })
+            if(!response.ok) {
+            console.log('잘못된 접근입니다.');
+            return;
+            }
+            const json = await response.json();
+            setData(json);
+           },[])
+
+           useEffect(()=>{
+            getRecentNotice();
+           },[])
+           console.log(data.notice_no);
         return (
             <div className="main_banner">
               <div className="wrap2">
               {modalVisible && (<Modal visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal} isLoggedIn={isLoggedIn}></Modal>)}
+              {modalControl1 && data && (<PopupModalHome visible={modalControl1} closable={true} maskClosable={true} onClose={closeModal2} isLoggedIn={isLoggedIn} token={token} no={data.notice_no}/>)}
                 <div className="text_part">
                   <h2>
                     <span>DID</span> Digital Factory in Daejeon 
@@ -93,3 +121,4 @@ export default function () {
             <SectionBannerType1 title="DID 협력기관"></SectionBannerType1>
           </div>
         );}
+export default React.memo(Home);

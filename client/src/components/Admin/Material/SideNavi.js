@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import { CommonHeader, PreUri, Method } from '../../../CommonCode';
 import { useSelector, useDispatch } from "react-redux";
 import { SET_CATEGORY/*, CHANGE_CATEGORY */} from "../../../store/material";
-import {useLocation,useNavigate,useParams} from 'react-router-dom';
+//import {useLocation,useNavigate/* ,useParams */} from 'react-router-dom';
 import { SubBread } from '../../contents/SubSideMenu';
 import '../../../css/common-s.css';
 import '../../../css/style-s.css';
@@ -12,8 +12,8 @@ import '../../../css/style-s.css';
 export default function ({ onCategory, viewDepth }) {
 	const dispatch = useDispatch();
   const mountedRef = useRef(true);
-  const location = useLocation();
-  const history = useNavigate();
+  //const location = useLocation();
+  //const history = useNavigate();
 	const { token } = useSelector(state => state.user);
 	const { categoryList, categoryIndex } = useSelector(state => state.material);
 
@@ -82,7 +82,7 @@ export default function ({ onCategory, viewDepth }) {
    
     return (
       <div className="sub_side_menu">
-        <SubBread title={"자재 관리"}></SubBread>	
+        <SubBread title={"자재관리"}></SubBread>	
         <div className="sub_modal">
             <ol>
                 {sideNavi}

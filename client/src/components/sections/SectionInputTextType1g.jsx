@@ -12,6 +12,7 @@ export default function SectionInputTextType1g() {
   const history = useNavigate();
   const [data,setData] = useState([]);
   const [attachFile,setAttachFile] = useState({})
+  const [fileNo,setFileNo] = useState({});
   const { token } = useSelector(state => state.user);
   const location = useLocation();
   const no = location.state.no;
@@ -44,13 +45,23 @@ export default function SectionInputTextType1g() {
     }
   },[token,no])
 
+  const getFileNo = useCallback(async()=>{
+    const response = await fetch(PreUri + '/faq/'+ no + '/filesno',{
+      method:Method.get,
+      headers:CommonHeader
+    })
+    const json = await response.json();
+
+    setFileNo(json);
+  },[no])
   const arr =  Object.values(attachFile)
 
   useEffect(()=>{
     getData();
     getFile();
-  },[])
-  
+    getFileNo();
+  },[no])
+
   const onFileDownload = useCallback(async (e, fileInfo) => {
   
     let attached_file_no 
@@ -62,7 +73,7 @@ export default function SectionInputTextType1g() {
         attached_file_no = attachFile.attached_file_no
       }
     }
-    const response = await fetch(PreUri + '/faq/' + no + '/file/' + 6, {
+    const response = await fetch(PreUri + '/faq/' + no + '/file/' + fileInfo.attached_file_no, {
         responseType: 'blob',
         method: Method.get,
         headers: {
@@ -73,25 +84,48 @@ export default function SectionInputTextType1g() {
         console.log('response error');
         return;
     }
-    
+    console.log(fileInfo.original_name);
     if(fileInfo!==undefined){
     fileDownload(await(await new Response(response.body)).blob(),fileInfo.original_name)
     }
     /* var fileDownload = require('js-file-download');
     fileDownload(await (await new Response(response.body)).blob(), fileInfo.original_name); */
-}, [attachFile]);
+}, [attachFile,fileNo]);
+
+
+const FileDownload = useCallback((props) => {
+  return (<>
+    <button className="download" style={{ border: "0px", cursor: 'pointer' }} onClick={props.onClick}>{props.filename}</button>
+  </>);
+}, []);
+let DownloadMyFileItems = [];
+	if (fileNo && fileNo.length > 0) {
+		for (let i = 0; i < fileNo.length; i++) {
+			DownloadMyFileItems.push(
+				<FileDownload index={i}
+					filename={fileNo[i].original_name}
+					onClick={(e) => onFileDownload(e, fileNo[i])}
+					key={i} />);
+		};
+	}
+  else{
+    DownloadMyFileItems.push(
+    <button className="download" style={{ border: "0px", cursor: 'pointer' }} >파일이 없습니다.</button>
+    )
+  }
+
   return (
     <>
    
 
       {attachFile[0] === undefined?
-      <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1e "> 
+      <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1g "> 
       <ul className="text_wrap">
       <li>
         <label htmlFor="text01">제목</label>
         <span>{data.title}</span>
       </li>
-      <li className="textarea_wrap">
+      <li className="textarea_wrap" style={fileNo.length>0?{'height':'800px'}:{'height':'300px'}}>
         <label htmlFor="text02">내용</label>
         <div className="textarea">
         <textarea
@@ -106,7 +140,8 @@ export default function SectionInputTextType1g() {
       </li>
       <li className="file_wrap">
         <label htmlFor="file01">파일#1</label>
-        <span>{arr[0]!==undefined?arr[0].name:"파일이 없습니다"}</span><button className="download"  onClick={(e)=>onFileDownload(e,arr[0])}>다운로드</button>
+        {/* <span>{arr[0]!==undefined?arr[0].name:"파일이 없습니다"}</span> */}{/* <button className="download"  onClick={(e)=>onFileDownload(e,fileNo[0])}>다운로드</button> */}
+        {DownloadMyFileItems}
       </li>
     </ul>
     <StyledBtn onClick={()=>history(-1)}>목록</StyledBtn>
@@ -114,10 +149,10 @@ export default function SectionInputTextType1g() {
      <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1g">
      <ul className="text_wrap">
        <li>
-         <label htmlFor="text01">제목</label>
+         <StyledLabel htmlFor="text01">제목</StyledLabel>
          <span>{data.title}</span>
        </li>
-       <li className="textarea_wrap">
+       <li className="textarea_wrap" style={fileNo.length>0?{'height':'800px'}:{'height':'300px'}}>
          <label htmlFor="text02">내용</label>
          <div className="textarea">
          <textarea
@@ -133,7 +168,8 @@ export default function SectionInputTextType1g() {
        </li>
        <li className="file_wrap">
          <label htmlFor="file01">파일#1</label>
-         <span>{arr[0]!==undefined?arr[0].name:"파일이 없습니다"}</span><button className="download"  onClick={(e)=>onFileDownload(e,arr[0])}>다운로드</button>
+         {/* <span>{arr[0]!==undefined?arr[0].name:"파일이 없습니다"}</span> */}
+         {DownloadMyFileItems}
        </li>
      </ul>
      <StyledBtn onClick={()=>history(-1)}>목록</StyledBtn>
@@ -146,7 +182,7 @@ const StyledBtn= styled.button`
 color:#fff;
 background-color:#313f4f;
 width:120px;
-height:40px;
+height:30px;
 font-size:0.8rem;
 cursor:pointer;
 border:1px solide #313f4f;
@@ -154,4 +190,7 @@ border:1px solide #313f4f;
     background-color:#transparent
     color:#313f4f
  }
+`
+const StyledLabel = styled.label`
+position:relative;
 `

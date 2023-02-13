@@ -41,8 +41,8 @@
   position: relative;
   display: inline-block;
   padding-bottom: 12px;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 19px;
+  font-weight: 400;
   line-height: 1.2em;
   overflow: hidden;
 }
@@ -51,7 +51,7 @@
   display: inline-block;
   padding-bottom: 12px;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.2em;
   overflow: hidden;
 }
@@ -91,14 +91,14 @@
 
  .sub_side_menu .sub_modal > ol > li > ol > li {
   line-height: 2em;
-  font-weight: 500;
+  font-weight: 400;
   color: #7f7f7f;
   
 }
 
  .sub_side_menu .sub_modal > ol > li > ol > li.on {
   color: #2d2d2d;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .sub_side_menu .sub_modal > ol > li > ol > li.on > button{
@@ -139,63 +139,57 @@
 }
 .sub_side_menu .sub_bread > *{
   position:relative;
-  top:5px;
 }
-.sub_side_menu .sub_bread h2,
-.sub_side_menu .sub_bread h3,
-.sub_side_menu .sub_bread span{
-float:right;
-padding:0 40px;
-}
-.sub_side_menu .location{
+.sub_side_menu .sub_bread .location{
     position:absolute;
     right:0;
-    display: inline-block;
-    width: auto;
-    text-align: right;
+    width:200px;
 }
-.sub_side_menu .location .homeicon{
-  position:relative;
-  top:11px;
+.sub_side_menu .sub_bread .location .title_area h2{
+  position:absolute;
+  left:100px;
 }
-.sub_side_menu .location .arrowicon{
-  position:relative;
-  right:1px;
-  top:2px;
-}
-.sub_side_menu .location span{
-  width:10px;
-  padding:0;
-  margin:0 3px;
+.sub_side_menu .sub_bread .location h3{
   position:absolute;
 }
-.sub_side_menu .location h2,.sub_side_menu .location h3{
- padding: 0;
- width:80px;
+.sub_side_menu .sub_bread .location .title_area .homeicon{
+  position:relative;
+  top:18px;
+  width:20px;
+}
+.sub_side_menu .sub_bread .location .title_area .arrowicon{
+  position:absolute;
+  width:50px;
+  top:38px;
+  left:150px;
+}
+.sub_side_menu .sub_bread .location .title_area{
+  position:relative;
+  right:50px;
+}
+.sub_side_menu .sub_bread .location .title_area h2,.sub_side_menu .location h3{
+ width:85px;
 }
  .sub_side_menu .sub_bread h2 {
   position: relative;
-  top:11px;
+  top:16px;
   font-size:0.8rem;
   color:black;
 }
 .sub_side_menu .sub_bread h3{
+  position: relative;
   font-size:0.7rem;
   color:black;
 }
 
- .sub_side_menu .sub_bread span {
-  position: relative;
-  top: 10px;
-  
-}
-
  .sub_page_wrap{
   height:calc(100vh - 20px);
+  white-space: nowrap;
+  overflow:auto;
  }
  .sub_side_menu .sub_bread h3 {
   position: relative;
-  top:10px;
+  top:16px;
 }
 
  .sub_page_inner_wrap {
@@ -287,8 +281,10 @@ padding:0 40px;
 }
 
 #pageSub01b2 .image_part .img2{
+  position:relative;
   height:800px;
-  width:80%;
+  width:60%;
+  left:100px;
 }
 
 
@@ -348,7 +344,7 @@ padding:0 40px;
   justify-content: center;
   position: relative;
   margin-top:60px;
-  left:41%;
+  left:42.5%;
 }
 
 #pageSub02a5 input{
@@ -386,6 +382,7 @@ padding:0 40px;
 } */
 .sub_page_outer{
   margin-bottom:40px;
+  
 }
 #pageSub02a5 .tp_btn .resinfo a{
  position: relative;

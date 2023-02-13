@@ -1,11 +1,10 @@
 import React,{useState,useEffect,useCallback} from "react";
-import { Navigate, Route, Routes ,Outlet} from 'react-router';
-import {useSelector,useDispatch} from "react-redux";
-import { NavLink , Link ,useNavigate,useLocation} from "react-router-dom";
-import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
+//import { Navigate, Route, Routes ,Outlet} from 'react-router';
+import {useDispatch} from "react-redux";
+import {useNavigate,useLocation} from "react-router-dom";
+import { CommonHeader, PreUri, Method } from "../../CommonCode";
 import styled from "styled-components";
-import { Paging } from "./Paging";
-import ButtonType2 from "./ButtonType2";
+import Paging2 from "./Paging2";
 
 export default function TableType1d() {
 
@@ -15,13 +14,13 @@ export default function TableType1d() {
   const [data,setData] = useState([]);
 
    //pagenation
-   const [page,setPage] = useState(1);
+   //const [page,setPage] = useState(1);
    const [search,setSearch] = useState('');
    const [count,setCount] = useState(0);
    const [currentPage,setCurrentPage] = useState(1);
    const [currentPosts,setCurrentPosts] = useState([]);
    const postPerPage = 10;
-   const offset = (page-1)*postPerPage;
+   //const offset = (page-1)*postPerPage;
    const indexOfLastPost = currentPage * postPerPage
    const indexOfFirstPost = indexOfLastPost - postPerPage;
    const currentPost = data.slice(indexOfFirstPost, indexOfLastPost)
@@ -76,8 +75,8 @@ export default function TableType1d() {
   //클릭시 상세페이지 이동
   const onItem = useCallback(async(e,index)=>{
     if(data!==undefined){
-    const hit_cnt = data[index].hit;
-    const faq_no = data[index].faq_no;
+    const hit_cnt = e.hit;
+    const faq_no = e.faq_no;
     //조회수 증가
     const response = await fetch(PreUri + '/faq/faq_cnt',{
         method:Method.put,
@@ -105,6 +104,12 @@ export default function TableType1d() {
   const handlePageChange = (e) =>{
     setCurrentPage(e)
   }
+  const setPage = (e) =>{
+    setCurrentPage(e);
+  }
+  const sethandlePage = (e) =>{
+    setCurrentPage(e);
+  }
   // 키보드 엔터시 검색
   const activeEnter = (e) => {
     if(e.key === "Enter") {
@@ -114,15 +119,19 @@ export default function TableType1d() {
   //수정
   const onUpdate = useCallback(async(e,index) =>{
     if(data!==undefined){
-    const faq_no = data[index].faq_no;  
+    const faq_no = e.faq_no;  
     history('/did/info/faq/update',{state:{faq_no:faq_no}})
     }
   },[data])
   //새글쓰기
   const goToWrite = useCallback(async(e) =>{
-    if(data!==undefined){
+    if(data[0]!==undefined){
     const faq_no = data[0].faq_no;
     history('/did/info/write',{state:{faq_no:faq_no}});
+    }
+    else{
+      const faq_no = 0;
+      history('/did/info/write',{state:{faq_no:faq_no}});
     }
   },[data])
 
@@ -153,14 +162,14 @@ export default function TableType1d() {
           </tr>
         </thead>
         <tbody>
-          {data.length > 0 ? data.map((item,index)=>(
+          {currentPost.length > 0 ? currentPost.map((item,index)=>(
           <tr key={index}>
-            <td onClick={(e)=>onItem(e,index)}>{item.faq_no}</td>
-            <td onClick={(e)=>onItem(e,index)}>{item.title}</td> 
+            <td onClick={(e)=>onItem(item,index)}>{data.length - index - (currentPage - 1) * postPerPage}</td>
+            <td onClick={(e)=>onItem(item,index)}>{item.title}</td> 
             <td>최고관리자</td>
             <td>{item.created_at.slice(0,10)}</td>
             <td>{item.hit}</td>
-            <td><StyledBtn3 onClick={(e)=>onUpdate(e,index)}>수정</StyledBtn3></td>
+            <td><StyledBtn3 onClick={(e)=>onUpdate(item,index)}>수정</StyledBtn3></td>
           </tr>)):<div>게시물이 없습니다.</div>
           }
         </tbody>
@@ -169,7 +178,7 @@ export default function TableType1d() {
         <StyledBtn onClick={goToWrite}>글쓰기</StyledBtn>
       </div>
       <div className="page_control">
-      <Paging totalCount={count} page={page} postPerPage={postPerPage} pageRangeDisplayed={5} handlePageChange={handlePageChange}/>
+      <Paging2 page={currentPage} count = {count} setPage={setPage} />
       </div>
     </div>
   );

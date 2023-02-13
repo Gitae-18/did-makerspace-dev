@@ -150,7 +150,7 @@ export default function  SectionInputTextType1d_a(){
   return (
     <>
 
-    <section className="section_input_text_type1 section_input_text_type1d">
+    <section className="section_input_text_type1 section_input_text_type1p">
       <div className="title_wrap">
       </div>
       <ul className="text_wrap">
@@ -230,11 +230,7 @@ export default function  SectionInputTextType1d_a(){
           <span>원</span>
         </li>
         <li>
-          <label htmlFor="text04">지도 URL</label>
-          <input type="text" name="map" id="text04" value={map} onChange={onChangeInput}/>
-        </li>
-        <li>
-          <label htmlFor="file01">파일#1</label>
+          <label htmlFor="file01" style={imageFile.length>0?{"height":'150px'}:{"height":"60px"}}>파일#1</label>
           <input type="file" name="imagefile" id="file01" className="w_auto" onChange={handleChangeFile} multiple accept="image/*" />
           <img src={imageUrl} alt={imageUrl.name} style={{"width":"150px"}}/>
         </li>

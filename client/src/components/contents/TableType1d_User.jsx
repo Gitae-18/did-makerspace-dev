@@ -1,11 +1,10 @@
 import React,{useState,useEffect,useCallback} from "react";
-import { Navigate, Route, Routes ,Outlet} from 'react-router';
-import {useSelector,useDispatch} from "react-redux";
-import { NavLink , Link ,useNavigate,useLocation} from "react-router-dom";
-import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
+//import { Navigate, Route, Routes ,Outlet} from 'react-router';
+import {useDispatch} from "react-redux";
+import {/*  NavLink , Link , */useNavigate,useLocation} from "react-router-dom";
+import { CommonHeader, PreUri, Method  } from "../../CommonCode";
 import styled from "styled-components";
-import { Paging } from "./Paging";
-import ButtonType2 from "./ButtonType2";
+import Paging2 from "./Paging2";
 
 export default function TableType1d_User() {
   const location = useLocation();
@@ -14,13 +13,13 @@ export default function TableType1d_User() {
   const [data,setData] = useState([]);
 
    //pagenation
-   const [page,setPage] = useState(1);
+   //const [page,setPage] = useState(1);
    const [search,setSearch] = useState('');
    const [count,setCount] = useState(0);
    const [currentPage,setCurrentPage] = useState(1);
    const [currentPosts,setCurrentPosts] = useState([]);
    const postPerPage = 10;
-   const offset = (page-1)*postPerPage;
+   //const offset = (page-1)*postPerPage;
    const indexOfLastPost = currentPage * postPerPage
    const indexOfFirstPost = indexOfLastPost - postPerPage;
    const currentPost = data.slice(indexOfFirstPost, indexOfLastPost)
@@ -42,7 +41,9 @@ export default function TableType1d_User() {
     setCount(json.length)
   },[])
 
-
+  const setPage = (e) =>{
+    setCurrentPage(e);
+  }
   //검색
   const onChange = (e) =>{
     e.preventDefault();
@@ -74,8 +75,8 @@ export default function TableType1d_User() {
 
   //클릭시 상세페이지 이동
   const onItem = useCallback(async(e,index)=>{
-    const hit_cnt = data[index].hit;
-    const faq_no = data[index].faq_no;
+    const hit_cnt = e.hit;
+    const faq_no = e.faq_no;
     //조회수 증가
     const response = await fetch(PreUri + '/faq/faq_cnt',{
         method:Method.put,
@@ -138,10 +139,10 @@ export default function TableType1d_User() {
           </tr>
         </thead>
         <tbody>
-          {data.length > 0 ? data.map((item,index)=>(
+          {currentPost.length > 0 ? currentPost.map((item,index)=>(
           <tr key={index}>
-            <td onClick={(e)=>onItem(e,index)}>{item.faq_no}</td>
-            <td onClick={(e)=>onItem(e,index)}>{item.title}</td> 
+            <td onClick={(e)=>onItem(item,index)}>{index+currentPage*postPerPage-9}</td>
+            <td onClick={(e)=>onItem(item,index)}>{item.title}</td> 
             <td>최고관리자</td>
             <td>{item.created_at.slice(0,10)}</td>
             <td>{item.hit}</td>
@@ -153,7 +154,7 @@ export default function TableType1d_User() {
       
       </div>
       <div className="page_control">
-      <Paging totalCount={count} page={page} postPerPage={postPerPage} pageRangeDisplayed={5} handlePageChange={handlePageChange}/>
+      <Paging2 page={currentPage} count = {count} setPage={setPage} />
       </div>
     </div>
   );

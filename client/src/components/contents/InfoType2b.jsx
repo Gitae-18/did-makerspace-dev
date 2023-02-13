@@ -8,28 +8,37 @@ import SectionTabType1a from "../sections/SectionTabType1a";
 import styled from "styled-components";
 import PopupModal2 from "../PopupModal2";
 import SubSideMenu from "./SubSideMenu";
+import ImageProgram from "../sections/ImageProgram";
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
 import { COUNT_INCREASE } from "../../store/action";
+import { IoLocation,IoCalendarSharp,IoPerson } from "react-icons/io5";
+import { RiReservedFill ,RiCheckFill} from "react-icons/ri";
+import { FaMoneyCheck } from "react-icons/fa";
+import { BsListUl } from "react-icons/bs";
 export default function InfoType2b() {
   const history = useNavigate();
   const location = useLocation();
   const no = location.state.no;
+  const programno = location.state.programno;
   const dispatch = useDispatch();
   const [openModal,setOpenModal] = useState(false);
   const [closemodal,setCloseModal] = useState(false);
   const [data,setData] = useState([]);
   const [imageUrl,setImageUrl] = useState("");
+  const [attachFile,setAttachFile] = useState({})
+  const [fileNo,setFileNo] = useState({});
   const [getFlag,setGetFlag] = useState([]);
   const [limit,setLimit] = useState("");
   const [title,setTitle] = useState("")
   const [count,setCount] = useState();
+  const [cost,setCost] = useState();
   const { token } = useSelector(state => state.user);
   let type = "edu";
 
   const getEduList = useCallback(async()=>{
     CommonHeader.authorization = token;
     const tit = 0;
-    let requri = PreUri + '/classedu/class_receive?no=' + no;
+    let requri = PreUri + '/classedu/'+ no +'/class_receive';
 
     const response = await fetch(requri,{
       method:Method.get,
@@ -42,9 +51,11 @@ export default function InfoType2b() {
 
     const json = await response.json();
     setData(json);
+    setCost(json.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     setTitle(json.title);
   },[token])
-
+  console.log(cost);
+/* 
   const ongetImage = useCallback(async(e,index)=>{
     let requri = PreUri + '/classedu/'+ no + '/getimage';
     const response = await fetch(requri,{
@@ -62,10 +73,10 @@ export default function InfoType2b() {
       const downloadImage = String(event.target?.result);
     }
   },[title])
-  console.log(imageUrl)
+ */
   let  button_click = document.getElementById('button_id');
   let counter;
- console.log(title);
+
   const getApplicationList = useCallback(async()=>{
     CommonHeader.authorization = token;
     let uri = PreUri + '/classedu/class_application?title=' + encodeURI(title)
@@ -83,12 +94,11 @@ export default function InfoType2b() {
     setGetFlag(json)
   },[token,title])
  
-  console.log(getFlag);
   const onApplicate = useCallback(async() =>{
     setOpenModal(true);
    // dispatch({ type: COUNT_INCREASE, target: count });
     CommonHeader.authorization = token;
-   
+   console.log(title);
     const response = await fetch(PreUri + '/classedu/class_application',{
       method:Method.post,
       headers:CommonHeader,
@@ -107,47 +117,73 @@ export default function InfoType2b() {
  /*  const memo = useMemo(()=>{
     return onApplicate();
   }) */
- 
-  useEffect(()=>{
+  const getFile = useCallback(async()=>{
+    CommonHeader.authorization = token;
+    const res = await fetch(PreUri + '/classedu/' + no + '/files', {
+      method: Method.get,
+      headers: {
+        authorization: token,
+    }, 
+    })
+    const fileList = await res.json();
+    if(fileList!==null||undefined)
+    {
+    setAttachFile(fileList)
+    }
+  },[token,no])
+  const getFileNo = useCallback(async()=>{
+    const response = await fetch(PreUri + '/classedu/'+ no + '/filesno',{
+      method:Method.get,
+      headers:CommonHeader
+    })
+    const json = await response.json();
+
+    setFileNo(json);
+  },[no])
+  useEffect(()=>{   
+    getFile();
     getEduList();
-    ongetImage();
+    getFileNo();
     getApplicationList(data);
-  },[getEduList,getApplicationList,ongetImage,token,title])
+  },[getEduList,getApplicationList,token,title,getFile,getFileNo])
   const onClose = () =>{
     setOpenModal(false);
   }
+ 
   return (
 
     <div className="info_type2">
       <div className="title_part">
-        <div className="image_part"><img className="woodtray" src={'../../server/upload/newprogram/class.png'} alt="no-image"/></div>
+       <ImageProgram attachFile={attachFile} no={no} token={token} CommonHeader={CommonHeader} />
         <div className="info_part">
           <TitleType1 title={title}></TitleType1>
+     
           <div className="dl_wrap">
             <dl>
-              <dt>일시</dt>
+              <dt><IoCalendarSharp/>일시</dt>
               <dd>{data.class_period_start}</dd>
             </dl>
             <dl>
-              <dt>장소</dt>
+              <dt><IoLocation/>장소</dt>
               <dd>{data.place}</dd>
             </dl>
             <dl>
-              <dt>점수 및 등록 기간</dt>
+              <dt><RiReservedFill/>점수 및 등록 기간</dt>
               <dd>{data.application_period_start} ~ {data.application_period_end}</dd>
             </dl>
             <dl>
-              <dt>신청 가능 여부</dt>
+              <dt><RiCheckFill/>신청 가능 여부</dt>
               <dd>{getFlag.length > data.limit_number -1 ? "불가능": "가능"}</dd>
               {getFlag.length > data.limit_number -1 ? alert("정원이 가득참"):null}
             </dl>
             <dl>
-              <dt>정원</dt>
+              <dt><IoPerson/>정원</dt>
               <dd>{data.limit_number}명</dd>
             </dl>
+            
             <dl>
-              <dt>비용</dt>
-              <dd>25,000원</dd>
+              <dt><FaMoneyCheck/>비용</dt>
+              <dd>{cost}원</dd>
             </dl>
           </div>
           <div className="btns">
@@ -160,7 +196,7 @@ export default function InfoType2b() {
       <div className="desc_part">
         <SectionTabType1a content={data.content}></SectionTabType1a>
       </div>
-      <StyledBtn2>목록</StyledBtn2>
+      <StyledBtn2 onClick={(e)=>history('/classprogram')}><BsListUl style={{"position":"relative","top":"2px",'right':'1px'}}/>목록</StyledBtn2>
     </div>
 
   );

@@ -96,9 +96,6 @@ const upload = multer({
 router.post('/:program_no/files',verifyToken,upload.array('imageFiles'), async(req, res, next) => {
      let user_no = req.decoded.user_no;
      let program_no = req.params.program_no;
-
-
-    console.log(req.files)
  
     for(let i = 0; i<req.files.length;i++){
         let inputResult;
@@ -363,8 +360,9 @@ router.put('/classedu_cnt',async(req,res,next)=>{
         console.log(error);
     }
 })
-router.get('/class_receive',verifyToken,async(req,res,next)=>{
-    const no = req.query.no;
+router.get('/:program_no/class_receive',verifyToken,async(req,res,next)=>{
+    let user_no = req.decoded.user_no;
+    const no = req.params.program_no;
     let result ;
     try{
         result = await ClasseduProgram.findOne({
@@ -417,7 +415,7 @@ router.get('/myclass_application',verifyToken,async(req,res,next)=>{
     }    
     res.status(errorCode.ok).json(result);
 })
-router.get('/:program_no/getimage',async(req,res,next)=>{
+router.get('/:program_no/getimage',verifyToken,async(req,res,next)=>{
     let program_no = req.params.program_no;
     
     let file_info;
@@ -434,5 +432,45 @@ router.get('/:program_no/getimage',async(req,res,next)=>{
  
     res.send(file_info)
 })
+router.get('/:program_no/files',verifyToken,async (req, res, next) => {
+    let program_no = req.params.program_no;
+    let user_no = req.decoded.user_no;
+   
 
+/*     if (authority_level < authLevel.manager) {
+        return res.status(errorCode.notAcceptable).json({});
+    } */
+    
+    let files = await SelectFileInfo(program_no);
+    if (!files) {
+        return res.status(errorCode.internalServerError).json({});
+    }
+    
+
+    res.json(files);
+
+});
+router.get('/:program_no/filesno',async (req, res, next) => {
+    let program_no = req.params.program_no;
+   
+
+/*     if (authority_level < authLevel.manager) {
+        return res.status(errorCode.notAcceptable).json({});
+    } */let files
+    try{
+     files= await ClassEduFile.findAll({
+        attributes:['attached_file_no','original_name','path','type','filesize'],
+        where:{program_no}
+    });
+    }  
+    catch (error) {
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    } 
+    
+    
+
+    res.status(errorCode.ok).json(files);
+
+});
 module.exports = router;

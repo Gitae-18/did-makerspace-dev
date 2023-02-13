@@ -2,6 +2,7 @@ import React,{useEffect,useState,useCallback} from "react";
 import { useLocation,useNavigate } from "react-router-dom";
 import {useDispatch,useSelector}  from "react-redux";
 import { PreUri , CommonHeader ,  Method, getRspMsg } from "../../CommonCode";
+import ImageGetProgramList from "../sections/ImageGetProgramList";
 import Paging2 from "./Paging2";
 import styled from "styled-components";
 
@@ -10,8 +11,10 @@ export default function ListType2a() {
   const location = useLocation();
   const history = useNavigate();
   const [search,setSearch] = useState('');
+  const [fileNo,setFileNo] = useState({});
   //페이징
   const [page,setPage] = useState(1);
+  const [attachFile,setAttachFile] = useState({});
   const [count,setCount] = useState(0);
   const [currentPage,setCurrentPage] = useState(1);
   const [itemList,setItemList] = useState([]);
@@ -41,9 +44,16 @@ export default function ListType2a() {
 
 
   const onItem = useCallback(async(e,index)=>{
-    const hit_cnt = currentPost[index].hit;
-    const program_no = currentPost[index].program_no;
-    console.log(currentPost[index])
+    const hit_cnt = e.hit;
+   /*  let program_no;
+    if(itemList[0]!==undefined){
+      program_no = itemList[index].notice_no;
+    }
+    else{
+      program_no = 1
+    } */
+    const program_no = e.program_no;
+    
     const response = await fetch(PreUri + '/classedu/classedu_cnt',{
       method:Method.put,
       headers:CommonHeader,
@@ -92,12 +102,48 @@ export default function ListType2a() {
   const onMove = () =>{
     history('/classprogram/myreserv');
   }
+  let no;
+  for(let i = 0; i<itemList.length;i++){
+    no = itemList[i].program_no;
+  }
+ 
+  const getFile = useCallback(async()=>{
+    if(no!==undefined){
+    CommonHeader.authorization = token;
+    const res = await fetch(PreUri + '/classedu/' + no + '/files', {
+      method: Method.get,
+      headers: {
+        authorization: token,
+    }, 
+    })
+    const fileList = await res.json();
+    if(fileList!==null||undefined)
+    {
+    setAttachFile(fileList)
+    }
+    }
+  },[no,token])
+  const getFileNo = useCallback(async()=>{
+    if(no!==undefined){
+    const response = await fetch(PreUri + '/classedu/'+ no + '/filesno',{
+      method:Method.get,
+      headers:CommonHeader
+    })
+    
+    const json = await response.json(); 
+    setFileNo(json);
+    }
+  },[no])
+  console.log(itemList);
   useEffect(()=>{
+    getFile();
+    getFileNo();
     getItemList();
-  },[getItemList,token])
+  },[getFile,getItemList,getFileNo,token])
   const sethandlePage = (e) =>{
     setCurrentPage(e);
   }
+ 
   return (
     <div className="table_box">
     <div className="table_wrap list_type2">
@@ -109,12 +155,12 @@ export default function ListType2a() {
        </div>
       </div>
       <ol>
-      {currentPost.map((item,index)=>(
+      {currentPost!==undefined?currentPost.map((item,index)=>(
         
         <li key={index}>
-        <div className="image_part"><img src="/images/class1.png" alt="no" onClick={(e)=>onItem(e,index)}/></div>
-        <div className="text_part">
-          <h5 onClick={(e)=>onItem(e,index)}>{item.title}</h5>
+       <ImageGetProgramList attachFile={attachFile} no={itemList[index].program_no} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)}/>
+        <div className="text_part" onClick={(e)=>onItem(item,index)}>
+          <h5 >{item.title}</h5>
           <div className="tag">
             <span>무료</span>
           </div>
@@ -132,7 +178,7 @@ export default function ListType2a() {
           </dl>
         </div>
       </li>
-    ))}
+    )):null}
       </ol>
       <div className="page_control">
        <Paging2 page={currentPage} count = {count} setPage={sethandlePage}/>

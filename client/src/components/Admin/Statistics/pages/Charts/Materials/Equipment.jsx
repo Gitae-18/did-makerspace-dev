@@ -5,8 +5,6 @@ import "../../../../../../css/chart/Datepicker.css";
 import xlsx from "xlsx";
 import Chart from "react-apexcharts";
 import "../../../../../../css/chart/Material.css";
-import SearchBar from "../../Materials/SearchBar";
-
 const fileType =
   "application/vnd.openxmlformats-officedocument .spreadsheetml .sheet;charset = UTF-8";
 function Equipment() {

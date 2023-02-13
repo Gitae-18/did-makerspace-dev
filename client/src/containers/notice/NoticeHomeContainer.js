@@ -5,8 +5,8 @@ import SectionTabType1 from "../../components/sections/SectionTabType1";
 import { AuthLevel } from '../../CommonCode';
 import qs from 'qs';
 export const NoticeHomeContainer = (props) =>{
-    const { isLoading, isLoggedIn, authority_level } = useSelector(state => state.user);
-    const viewState = useSelector(state => state.reservation);
+    const { /* isLoading, isLoggedIn, */ authority_level } = useSelector(state => state.user);
+    //const viewState = useSelector(state => state.reservation);
     const { search } = useLocation();
     const history = useNavigate();
     const query = qs.parse(search, {

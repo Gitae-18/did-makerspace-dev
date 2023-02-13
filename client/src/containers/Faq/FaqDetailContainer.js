@@ -14,7 +14,7 @@ export const FaqDetailContainer = (props) =>{
     });
     useEffect(() => {
         if (isLoading) { return; }
-        if (!isLoggedIn) { return history('/notmember',{replace:false}); }
+        if (!isLoggedIn) { return history('/notmember',{replace:true}); }
 	}, [isLoading, isLoggedIn, authority_level, history])
 
     const View = query ? DidInfo1Detail : DidInfo1Detail  ;

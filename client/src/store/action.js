@@ -12,5 +12,9 @@ export default (state = initialState, action) => {
                 ...state,
                 count:action.target,
             }
+        default:
+            return
+        
+        
     }
 }

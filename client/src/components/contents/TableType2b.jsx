@@ -90,7 +90,6 @@ export default function TableType2b() {
   return (
     <div className="table_wrap table_type2">
       <div className="table_extra">
-        <TitleType1 title="내 예약 정보"></TitleType1>
         <div className="table_search">
 
           </div>

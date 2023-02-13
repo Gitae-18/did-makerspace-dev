@@ -6,7 +6,6 @@ import { UpdateNotice } from "../../components/pages/PageSub4";
 import qs from 'qs';
 export const NoticeUpdateContainer = (props) =>{
     const { isLoading, isLoggedIn, authority_level } = useSelector(state => state.user);
-    const viewState = useSelector(state => state.reservation);
     const { search } = useLocation();
     const history = useNavigate();
     const query = qs.parse(search, {
@@ -16,6 +15,7 @@ export const NoticeUpdateContainer = (props) =>{
         if (isLoading) { return; }
         if (!isLoggedIn) { return history('/notmember',{replace:true}); }
 	}, [isLoading, isLoggedIn, authority_level, history])
+
     const View = query ? UpdateNotice : UpdateNotice  ;
 
     return(

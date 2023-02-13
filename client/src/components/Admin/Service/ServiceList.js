@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useCallback,useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate,useLocation ,useParams} from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg } from '../../../CommonCode';
-import { M_SERVICE_DELETE, M_SERVICE_SET } from "../../../store/manager_service";
-import SideNavi from './SideNavi';
+import { /* M_SERVICE_DELETE, */ M_SERVICE_SET } from "../../../store/manager_service";
 import SubSideMenu from '../../contents/SubSideMenu';
+import PopupDeleteModal from '../../PopupDeleteModal';
 import '../../../css/Paging.css';
 import '../../../css/common-s.css';
 import '../../../css/style-s.css';
-import Service from '../../User/Service';
-import ServiceStatics from '../Statistics/pages/Charts/Service/ServiceStastics';
+
 
 
 function makeQuery(step, dateType, year, month, company,serviceNo) {
@@ -37,13 +36,12 @@ function makeQuery(step, dateType, year, month, company,serviceNo) {
 
 export default function ({ query , no }) {
     const { token } = useSelector(state => state.user);
-    console.log(token);
-    const { authority_level } = useSelector(state => state.user);
+    //const { authority_level } = useSelector(state => state.user);
 
     const dispatch = useDispatch();
     const location = useLocation();
     const history = useNavigate();
-    const mountedRef = useRef(true);
+    //const mountedRef = useRef(true);
     const [info,setInfo] = useState("");
     const [deleted,setDeleted] = useState(false);
     const [checkValue, setCheckValue] = useState([]);
@@ -64,13 +62,14 @@ export default function ({ query , no }) {
     let ServiceItemRow2 = [];
     let PageList = [];
 
-    const [deletecol,setDeletecol] = useState('flase');
+    const [modalvisible,setModalVisible] = useState(false);
     const [companyNo,setCompanyNo] = useState(0);
     const [company,setCompany] = useState(0);
     const [step, setStep] = useState(0);
     const [dateType, setDateType] = useState("ALL");
     const [year, setYear] = useState(0);
     const [month, setMonth] = useState(0);
+    const [dropno,setDropNo] = useState();
     const [companyName,setCompanyName] = useState([]);
     const [serviceItems, setServiceItems] = useState({
         totalCount: 0,
@@ -93,8 +92,11 @@ export default function ({ query , no }) {
         const data = await res.json();
         setCompanyName(data.items);
     })
+console.log(modalvisible);
 
-
+    const closeModal = () =>{
+        setModalVisible(false);
+    }
     const getServiceList = useCallback(async (query) => {
        
 
@@ -205,26 +207,7 @@ export default function ({ query , no }) {
         getCompanyList(query);
     }, [getServiceList, query],[getCompanyList,query] )
  
-  
-    const ServiceItemRow = useCallback((props) => {
-           return (<>                                                                                                                                                              
-            <tr id = "id">
-                <td className="num"  onClick={props.onClick}>{props.index}</td>
-                <td className="tit" onClick={props.onClick}>{props.title}</td>
-                <td >{props.userName}</td>
-                <td >{ProgressCode[props.progress]}</td>
-                <td >{StatusCode[props.status]}</td>
-                <td className="num" >{props.requestDate}</td>
-                <td className="num" >{props.updateDate}</td>
-                <td className="name" ></td>
-                {(props.progress === 'STEP_01' && props.status === 'DRP') || props.progress === 'STEP_04'
-                    ? <td className="btn" ><button onClick={props.onPrint}>보고서 출력</button></td>
-                    : <td />
-                }
-                <td className="btn" ><button onClick={props.onDelete}>삭제</button></td>
-            </tr>
-        </>);
-    }, [serviceno]);
+
     let cal = serviceItems.items
 
     /* const ServiceDrop = useCallback((async(e,i,serviceno)=>{
@@ -337,7 +320,28 @@ export default function ({ query , no }) {
             key={i}>{pageNum}</button>);
     }
 
-    
+      
+    const ServiceItemRow = useCallback((props) => {
+        return (<>                                                                                                                                                              
+         <tr id = "id">
+             <td className="num"  onClick={props.onClick}>{props.index}</td>
+             <td className="tit" onClick={props.onClick}>{props.title}</td>
+             <td >{props.userName}</td>
+             <td >{ProgressCode[props.progress]}</td>
+             <td >{StatusCode[props.status]}</td>
+             <td className="num" >{props.requestDate}</td>
+             <td className="num" >{props.updateDate}</td>
+             <td className="name" ></td>
+             {(props.progress === 'STEP_01' && props.status === 'DRP') || props.progress === 'STEP_04'
+                 ? <td className="btn" ><button onClick={props.onPrint}>보고서 출력</button></td>
+                 : <td />
+             }
+             <td className="btn" ><button onClick={props.onDelete}>삭제</button></td>
+             
+         </tr>
+         
+     </>);
+    }, [serviceno]);
     
     
  
@@ -346,7 +350,6 @@ export default function ({ query , no }) {
             const item = serviceItems.items[i];
             const rowNumber = serviceItems.totalCount - i - (serviceItems.currentPage - 1) * serviceItems.limit;
             const serviceno = serviceItems.items.service_no;
-            let serviceNo,title,name,progress,status;
             if (rowNumber < 1) { break;}
             ServiceItemRows.push(
                 <ServiceItemRow index={rowNumber}
@@ -363,40 +366,15 @@ export default function ({ query , no }) {
                     onClick={(e) => onSelectItem(e, i)}
                     onPrint={(e) => onPrint(e, i)}
                     onDelete = {(e) =>DropItem(item.service_no,i)}
-                    key={i}/>)
+                    key={i}/>
+                   )
             };
     }
     
     const DropItem = useCallback(async(e,i)=>{
-
-        /* for(let i = 0 ; i<ServiceItemRow.length;i++){
-        serviceNum = ServiceItemRow[i][2].service_no; 
-        }
-        console.log(serviceNum); */
         setDeleted(true);
-        CommonHeader.authorization = token;
-        const service_number = e;
-
-        const response = await fetch(PreUri + '/service/'+ service_number+'/dropitem',
-            {
-                method:Method.delete,
-                headers:CommonHeader,
-            })
-            if(!response.ok){
-                alert(getRspMsg(response.status));
-                return;
-            }
-            alert("삭제되었습니다");
-            history(0);
-            /*   let item;
-                for(let i = 1 ; i<serviceItems.items.length && i < serviceItems.limit;i++)
-                { item = serviceItems.items[i].service_no;}
-                if(item[i]===undefined )
-                {
-                    console.log("서비스넘버가 없습니다")
-                }
-                return item[i] */
-                
+        setModalVisible(true);
+        setDropNo(e);
         },[token,serviceItems])
       
 
@@ -412,7 +390,7 @@ export default function ({ query , no }) {
     return (
         <div id="wrap" className="wrap service1">
             <div className="content_wrap">
-                <SubSideMenu  subtitle={"시제품제작관리"}/>
+                <SubSideMenu  title={"시제품제작관리"}/>
                 <div className="content">
                 
                     <div className="top_menu">
@@ -467,6 +445,7 @@ export default function ({ query , no }) {
                             </thead>
                             <tbody>
                                 {ServiceItemRows}
+                                {modalvisible&& <PopupDeleteModal  no={dropno} visible={modalvisible} closable={true} maskClosable={true} onclose={closeModal} token={token} serviceItems={serviceItems} />}
                             </tbody>
                         </table>
                         <div className="page_control">

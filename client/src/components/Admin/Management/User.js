@@ -151,7 +151,7 @@ export default function ({  query }) {
                 <div className="content">
                     <div className="table">
                         <div className="search_box">
-                            <input type="text" value={search} placeholder="검색어를 입력하세요" name="search" onChange={(e) => setSearch(e.target.value)}
+                            <input type="text" value={search} placeholder="회원명을 입력하세요" name="search" onChange={(e) => setSearch(e.target.value)}
                                 onKeyPress={(e) => { if (e.key === 'Enter') { onSearch(e) } }} />
                             <button onClick={onSearch}>검색</button>
                         </div>

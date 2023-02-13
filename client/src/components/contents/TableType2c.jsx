@@ -49,7 +49,6 @@ export default function TableType2c() {
   return (
     <div className="table_wrap table_type2">
       <div className="table_extra">
-      <ButtonType2 btnName="내 예약 정보 조회"></ButtonType2>
         <div></div>
         <div className="table_search">
           <select name="" id="">

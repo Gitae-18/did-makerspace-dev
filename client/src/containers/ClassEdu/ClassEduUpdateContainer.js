@@ -8,7 +8,6 @@ import qs from 'qs';
 export const ClassEduUpdateContainer = (props) =>{
     const { isLoading, isLoggedIn, authority_level } = useSelector(state => state.user);
     const locae = useSelector(state => state.classeduManage)
-    const viewState = useSelector(state => state.reservation);
     const { search } = useLocation();
     const history = useNavigate();
     const query = qs.parse(search, {

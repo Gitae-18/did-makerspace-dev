@@ -1,12 +1,12 @@
-import React, { /*useState,*/ useEffect, useCallback, /*useMemo*/ } from 'react';
+import React, { /*useState,*/ useEffect, useCallback, /*useMemo*/ memo} from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { LoginForm, LoggedInForm } from "../components/LoginForm";
+import LoginForm,{LoggedInForm } from "../components/LoginForm";
 import { useLocation,usenavigate } from 'react-router-dom';
 import { CHANGE_INPUT, LOGIN_START, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, LOAD_USER } from "../store/user";
 import { CommonHeader, PreUri, Method } from '../CommonCode';
 import {Navigate, useNavigate} from 'react-router-dom';
 import { redirect } from 'react-router';
-export const LoginContainer = () => {
+export const LoginContainer = memo(() => {
     const { userId, password, isAutoLogin,
         isLoginStart, isLoggedIn, userName } = useSelector(state => state.user);
     const dispatch = useDispatch();
@@ -66,6 +66,7 @@ export const LoginContainer = () => {
 
     const onChange = useCallback((e) => {
         console.log(e.target)
+        e.preventDefault();
         dispatch({ type: CHANGE_INPUT, target: e.target });
     }, []);
 /*    useEffect(()=>{
@@ -80,4 +81,4 @@ export const LoginContainer = () => {
             }
         </>
     );
-};
+});

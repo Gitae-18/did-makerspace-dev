@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect,useState} from "react";
-import {useNavigate,useLocation} from "react-router-dom"
-import { useSelector } from "react-redux";
+import {useNavigate/* ,useLocation */} from "react-router-dom"
 import { CommonHeader, PreUri, Method } from "../../CommonCode";
 import TitleType1 from "../contents/TitleType1";
-import styled from "styled-components";
+//import styled from "styled-components";
 import { HiOutlinePlus } from "react-icons/hi2";
 export default function SectionTabType1(props) {
  const history = useNavigate();
@@ -67,7 +66,7 @@ export default function SectionTabType1(props) {
             <li key={index}>
             <span className="title">공지사항 new</span><HiOutlinePlus className="plus" onClick={goToNotice}/>
             <div className="text_part">
-            <span onClick={(e)=>setTimeout(onItem(e,index),2000)} className="sub_title">{index+1}. {item.title}</span>
+            <span onClick={(e)=>setTimeout(onItem(e,index),2000)} className="sub_title" style={{"whiteSpace":"pre-line","wordBreak":"break-word"}}>{index+1}. {item.title}</span>
             <div className="date_part">
             <span className="date">{item.created_at.slice(0,10)}</span>
             </div>

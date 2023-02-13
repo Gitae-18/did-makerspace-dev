@@ -5,8 +5,7 @@ import { Contact6,Contact6_User } from "../components/pages/PageSub4";
 import { AuthLevel } from '../CommonCode';
 import qs from 'qs';
 export const NoticeContainer = (props) =>{
-    const { isLoading, isLoggedIn, authority_level } = useSelector(state => state.user);
-    const viewState = useSelector(state => state.reservation);
+    const { /* isLoading, isLoggedIn, */ authority_level } = useSelector(state => state.user);
     const { search } = useLocation();
     const history = useNavigate();
     const query = qs.parse(search, {

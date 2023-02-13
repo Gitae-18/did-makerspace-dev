@@ -82,14 +82,13 @@ export default function MyClassReserv() {
   const setPage = (e) =>{
     setCurrentPage(e);
   }
-
+  console.log(reservList)
   useEffect(()=>{
     getReservList();
   },[getReservList,token])
   return (
     <div className="table_wrap table_type2">
       <div className="table_extra">
-        <TitleType1 title="내 예약 정보"></TitleType1>
         <div className="table_search">
         <select name="" id="">
             <option value="1">모델명</option>
@@ -109,9 +108,9 @@ export default function MyClassReserv() {
           </tr>
         </thead>
         <tbody>
-          {currentPost && reservList.length>0 ? currentPost.map((item,index)=>(
+          {currentPost && reservList.length>0 ? reservList.map((item,index)=>(
             <tr key={index}>
-            <td>{item.application_no}</td>
+            <td>{reservList.length - index - (currentPage - 1) * 10}</td>
             <td>{item.classedu_type==="class"? "행사프로그램":"교육프로그램"}</td>
             <td>{item.title}</td>
             <td>

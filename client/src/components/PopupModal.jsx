@@ -1,179 +1,177 @@
-import React, {useEffect,useState} from 'react';
-import styled from 'styled-components';
-import PropTypes from  'prop-types';
-import {Portal} from 'react-portal';
-import '../css/ModalStyle.css';
-import { setCookie,getCookie } from './cookie';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import { Portal } from "react-portal";
+import "../css/ModalStyle.css";
+import { setCookie, getCookie } from "./cookie";
 
-function PopupModal({ className, onClose, maskClosable,closable,visible}){
-    const onMaskClick = (e) => {
-        if (e.target === e.currentTarget) {
-            onClose(e);
-        }
+function PopupModal({ className, onClose, maskClosable, closable, visible }) {
+  const onMaskClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose(e);
     }
-    // 이전 방문 날짜
-    const VISITED_BEFORE_DATE = localStorage.getItem('Visit')
-    // 현재 날짜
-    const VISITED_NOW_DATE = Math.floor(new Date().getDate())
+  };
+  // 이전 방문 날짜
+  const VISITED_BEFORE_DATE = localStorage.getItem("Visit");
+  // 현재 날짜
+  const VISITED_NOW_DATE = Math.floor(new Date().getDate());
 
-        // 팝업 오늘 하루닫기 체크
-        if(VISITED_BEFORE_DATE !== null){
-            //날짜가 같을 경우
-            if(VISITED_BEFORE_DATE === VISITED_NOW_DATE){
-                localStorage.removeItem('Visit')
-                onClose(false);
-            }
-            if(VISITED_BEFORE_DATE !== VISITED_NOW_DATE){
-                onClose(true);
-            }
-        }
-       
-
-
-     const Dayclose = (e) => {
-        if (onClose) {
-            onClose(e)
-
-            const expiry = new Date()
-            // +1일 계산
-            const expiryDate = expiry.getDate() + 1
-            // 로컬스토리지 저장
-            localStorage.setItem('Visit', expiryDate)
-        }
+  // 팝업 오늘 하루닫기 체크
+  if (VISITED_BEFORE_DATE !== null) {
+    //날짜가 같을 경우
+    if (VISITED_BEFORE_DATE === VISITED_NOW_DATE) {
+      localStorage.removeItem("Visit");
+      onClose(false);
     }
-
-    const close = (e) => {
-        if (onClose) {
-            onClose(e)
-        }
+    if (VISITED_BEFORE_DATE !== VISITED_NOW_DATE) {
+      onClose(true);
     }
+  }
 
-    return (
-        <Portal elementId="modal-root">
-            <ModalOverlay visible={visible} />
-            <ModalWrapper
-                className={className}
-                onClick={maskClosable ? onMaskClick : null}
-                tabIndex="-1"
-                visible={visible}
-            >
-                <ModalInner tabIndex="0" className="modal-inner">
-                    <ModalInner2>
-                        <ImgStyle>
-                        <Imgtag src="/images/logo.png" alt="no=images" className="modal-image"/><Title>DID기술융합공작소 안내사항</Title> 
-                        <div className="modal-contents">
-                           <div>해당 페이지는 현재 업데이트 중에 있습니다.<br/>
-                                홈 화면으로 이동바랍니다
-                           </div>
-                        </div>
-                        </ImgStyle>
-                        {closable && (
-                            <CloseStyle>
-                                <Close className="modal-close" onClick={Dayclose}>
-                                    오늘 하루 닫기
-                                </Close>
-                                <Close className="modal-close" onClick={close}>
-                                    닫기
-                                </Close>
-                            </CloseStyle>
-                        )}
-                    </ModalInner2>
-                </ModalInner>
-            </ModalWrapper>
-        </Portal>
-    )
+  const Dayclose = (e) => {
+    if (onClose) {
+      onClose(e);
+
+      const expiry = new Date();
+      // +1일 계산
+      const expiryDate = expiry.getDate() + 1;
+      // 로컬스토리지 저장
+      localStorage.setItem("Visit", expiryDate);
+    }
+  };
+
+  const close = (e) => {
+    if (onClose) {
+      onClose(e);
+    }
+  };
+
+  return (
+    <Portal elementId="modal-root">
+      <ModalOverlay visible={visible} />
+      <ModalWrapper className={className} tabIndex="-1" visible={visible}>
+        <ModalInner tabIndex="0" className="modal-inner">
+          <ModalInner2>
+            <ImgStyle>
+              <Imgtag
+                src="/images/logo.png"
+                alt="no=images"
+                className="modal-image"
+              />
+              <Title>DID기술융합공작소 안내사항</Title>
+              <div className="modal-contents">
+                <div>
+                  해당 페이지는 현재 업데이트 중에 있습니다.
+                  <br />홈 화면으로 이동바랍니다
+                </div>
+              </div>
+            </ImgStyle>
+            {closable && (
+              <CloseStyle>
+                <Close className="modal-close" onClick={Dayclose}>
+                  오늘 하루 닫기
+                </Close>
+                <Close className="modal-close" onClick={close}>
+                  닫기
+                </Close>
+              </CloseStyle>
+            )}
+          </ModalInner2>
+        </ModalInner>
+      </ModalWrapper>
+    </Portal>
+  );
 }
 
 PopupModal.propTypes = {
-    visible: PropTypes.bool,
-}
-
+  visible: PropTypes.bool,
+};
 
 const SubTitle = styled.h2`
-width:200px;
-height:20px;
-position:relative;
-`
+  width: 200px;
+  height: 20px;
+  position: relative;
+`;
 const ModalInner2 = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const Title = styled.h1`
-font-weight:500;
-font-size :1.3em;
-background-color: #ffffff;
-position:absolute;
-left:60px;
-top:60px;
-`
+  font-weight: 500;
+  font-size: 1.3em;
+  background-color: #ffffff;
+  position: absolute;
+  left: 60px;
+  top: 60px;
+`;
 const ImgStyle = styled.div`
-background-color:#ffffff;
-width:800px;
-height:300px;
-box-sizing:border-box;
-border: solid #000000 2px;
-`
+  background-color: #ffffff;
+  width: 800px;
+  height: 300px;
+  box-sizing: border-box;
+  border: solid #000000 2px;
+`;
 const Imgtag = styled.img`
- width:50px;
- height:50px;
- left:20px;
- top:10px;
- position:relative;
- display:block;
-`
+  width: 50px;
+  height: 50px;
+  left: 20px;
+  top: 10px;
+  position: relative;
+  display: block;
+`;
 const CloseStyle = styled.div`
-    display: flex;
-    justify-content: space-between;
-    background-color: #282828;
-    width: 210px;
-    padding: 15px;
-    border-radius: 0 0 15px 15px;
-    color: #ffffff;
-`
+  display: flex;
+  justify-content: space-between;
+  background-color: #282828;
+  width: 210px;
+  padding: 15px;
+  border-radius: 0 0 15px 15px;
+  color: #ffffff;
+`;
 
 const Close = styled.span`
-    cursor: pointer;
-`
+  cursor: pointer;
+`;
 
 const ModalWrapper = styled.div`
-    box-sizing: border-box;
-    display: ${(props) => (props.visible ? 'block' : 'none')};
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    overflow: auto;
-    outline: 0;
-`
+  box-sizing: border-box;
+  display: ${(props) => (props.visible ? "block" : "none")};
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  overflow: auto;
+  outline: 0;
+`;
 
 const ModalOverlay = styled.div`
-    box-sizing: border-box;
-    display: ${(props) => (props.visible ? 'block' : 'none')};
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 999;
-`
+  box-sizing: border-box;
+  display: ${(props) => (props.visible ? "block" : "none")};
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+`;
 
 const ModalInner = styled.div`
-    box-sizing: border-box;
-    position: relative;
-    // box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
-    // background-color: #fff;
-    // border-radius: 10px;
-    width: 360px;
-    max-width: 480px;
-    top: 50%;
-    transform: translateY(-50%);
-    margin: 0 auto;
-    padding: 40px 20px;
-`
+  box-sizing: border-box;
+  position: relative;
+  // box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+  // background-color: #fff;
+  // border-radius: 10px;
+  width: 360px;
+  max-width: 480px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 auto;
+  padding: 40px 20px;
+`;
 
-export default React.memo(PopupModal)
+export default React.memo(PopupModal);

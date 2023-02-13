@@ -1,13 +1,14 @@
 import React,{useState,useEffect,useCallback,useMemo} from "react";
 import TextExtraType1b from "../../contents/TextExtraType1b";
 import ButtonType2 from "../../contents/ButtonType2";
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {useDispatch,useSelector}  from "react-redux";
 import { CommonHeader, Method, PreUri ,getRspMsg} from "../../../CommonCode";
 import ModalSend from "./ModalSend";
 export default function PageSub02a5() {
   const location = useLocation();
+  const history = useNavigate();
   const testtype = location.state.name;
   const { token } = useSelector(state => state.user);
   const printsrc = "/images/3DPRINTER_TEST.png"
@@ -150,6 +151,8 @@ export default function PageSub02a5() {
      return(alert(getRspMsg(response.status)))
    }
    setModalOpen(false);
+   alert('제출되었습니다')
+   history('/eqreservation/equip');
   },[token,passflag])
 
   useEffect(()=>{
@@ -219,6 +222,8 @@ height:30px;
 font-size:0.7rem;
 cursor:pointer;
 border:1px solide #313f4f;
+position:relative;
+left:150px;
  &:hover{
     background-color:#transparent
     color:#313f4f
