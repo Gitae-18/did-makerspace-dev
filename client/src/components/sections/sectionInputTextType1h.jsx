@@ -75,7 +75,7 @@ export default function SectionInputTextType1h() {
             return(alert(getRspMsg(response.status)))
           }
         },[image,no]); */
-  const getPreViewImage = useCallback(async()=>{
+/*   const getPreViewImage = useCallback(async()=>{
     const res = await fetch(PreUri + '/fileview/'+ (no+1) +'/noticeview',  {
       method: Method.get,
       headers: {
@@ -85,10 +85,10 @@ export default function SectionInputTextType1h() {
     const fileName = await res.json();
     const filesrc = btoa(fileName.file);
     setFileUrl2(filesrc);
-  },[token,no])
-  useEffect(()=>{
+  },[token,no]) */
+/*   useEffect(()=>{
     getPreViewImage();
-  },[])
+  },[]) */
   const sendData = useCallback(async()=>{
     let context = content.replace(/(<([^>]+)>)/gi, "");
     context = context.replace(/&nbsp;/gi,"");
@@ -169,7 +169,7 @@ export default function SectionInputTextType1h() {
             onChange={onTitleChange}
           />
         </li>
-        <Textli className="textarea_wrap">
+        <li className="textarea_wrap" style={{"height":"800px"}}>
           <label htmlFor="text02">내용</label>
          {/*  <Editor setContent={setContent}
           data={content}  no={no}/> */}
@@ -181,7 +181,7 @@ export default function SectionInputTextType1h() {
             placeholder="내용을 입력하세요."
             onChange={onMemoChange}
           ></textarea>
-        </Textli>
+        </li>
         <li>
           <label htmlFor="checkbox01">팝업등록</label>
           <input
