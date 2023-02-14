@@ -169,19 +169,7 @@ export default function SectionInputTextType1h() {
             onChange={onTitleChange}
           />
         </li>
-        <li className="textarea_wrap" style={{'height':'300px'}}>
-          <label htmlFor="text02">내용</label>
-         {/*  <Editor setContent={setContent}
-          data={content}  no={no}/> */}
-          <textarea
-            name="text02"
-            id="text02"
-            cols="30"
-            rows="6"
-            placeholder="내용을 입력하세요."
-            onChange={onMemoChange}
-          ></textarea>
-        </li>
+       
         <li>
           <label htmlFor="checkbox01">팝업등록</label>
           <input
