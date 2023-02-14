@@ -4,11 +4,11 @@ import { CommonHeader, PreUri, Method } from "../../CommonCode";
 import TitleType1 from "../contents/TitleType1";
 //import styled from "styled-components";
 import { HiOutlinePlus } from "react-icons/hi2";
-export default function SectionTabType1(props) {
+export default function Section1(props) {
  const history = useNavigate();
  const [data,setData] = useState([]);
 
-  /* const getNotice = useCallback(async()=>{
+  const getNotice = useCallback(async()=>{
    
     let uri = PreUri + '/notice/noticehome'
 
@@ -23,11 +23,11 @@ export default function SectionTabType1(props) {
     const json = await response.json();
     setData(json);
 
-  },[]) */
+  },[])
   useEffect(() => {
     /* document.getElementById("tab_btn0").classList.add("on"); */
-    //getNotice()
-  },[/* getNotice */]);
+    getNotice()
+  },[getNotice]);
 
 
   const goToNotice = () =>{

@@ -90,18 +90,7 @@ router.get('/:fileview_no/noticefile',/* verifyToken, */async (req, res, next) =
     console.log(file_name)
     let file = fs.readFileSync(`${file_name}`, 'binary')
     let encode = Buffer.from(file).toString('base64');
-    /*    let encode = fs.readFile(file_name,'utf8',(err,data)=>{
-           if(err){
-               console.log(err)
-           }
-           else{
-               console.log(data)
-           }
-       }) */
-    //console.log(encode);
-    /*   res.setHeader('Content-Length',file.length);
-      res.write(file,'binary');
-      res.end(); */
+
     let params = [file, encode];
     return res.set({ "Content-Type": "image/*" }).send({ file });
     //res.send(image);
@@ -110,12 +99,6 @@ router.get('/:fileview_no/noticefile',/* verifyToken, */async (req, res, next) =
 router.get('/:fileview_no/classedufile'/* ,verifyToken */, async (req, res, next) => {
     let program_no = req.params.fileview_no;
 
-    /*     const imgPath = path.resolve("./upload/newfaq/","banner05.png")
-        const imgMime = mime.getType(imgPath)
-        console.log(imgMime); */
-    /*     if (authority_level < authLevel.manager) {
-            return res.status(errorCode.notAcceptable).json({});
-        } */
     let files;
     try {
         files = await ClassEduFile.findAll({
@@ -137,18 +120,7 @@ router.get('/:fileview_no/classedufile'/* ,verifyToken */, async (req, res, next
     console.log(file_name)
     let file = fs.readFileSync(`${file_name}`, 'binary')
     let encode = Buffer.from(file).toString('base64');
-    /*    let encode = fs.readFile(file_name,'utf8',(err,data)=>{
-           if(err){
-               console.log(err)
-           }
-           else{
-               console.log(data)
-           }
-       }) */
-    //console.log(encode);
-    /*   res.setHeader('Content-Length',file.length);
-      res.write(file,'binary');
-      res.end(); */
+
     let params = [file, encode];
     return res.set({ "Content-Type": "image/*" }).send({ file });
     //res.send(image);
