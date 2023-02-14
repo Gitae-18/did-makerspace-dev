@@ -26,11 +26,13 @@ export const UServiceContainer = () => {
      const query = qs.parse(search, {
         ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
     });
-
+    useEffect(() => {
+        
+        if (isLoading) { return; }
+        if (!isLoggedIn) { return history('/notmember',{replace:true}); }
+        
+	}, [isLoading, isLoggedIn,history])
     const CurrentPage = useCallback(() => {
-        if (isLoading) { return<></>; }
-        if (!isLoggedIn) { history('/notmember',{replace:true}) 
-                        return<></>; }
         switch (query.step) {
         case '1':
             if (query.next === 'confirm') {

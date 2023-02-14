@@ -156,19 +156,19 @@ export const SubBread2 = (props) => {
         <h1>{props.subtitle ? props.subtitle:props.title}</h1>
         <div className="location">
         <div className="title_area">
-		{props.subtitle?
+		{props.subtitle&&props.subtitle.length>0?
          <MdHome className="homeicon" style={props.subtitle.length===8?{'left':'75px'}:props.subtitle.length===6?{'left':'85px'}:props.subtitle.length===5?{'left':'95px'}:props.subtitle.length===4?{'left':'80px'}:{'left':'80px'}}/>:
          <MdHome className="homeicon" style={props.title.length<4?{'left':'200px'}:props.title.length<5?{'left':'185px'}:props.title.length<6?{'left':'175px'}:
          props.title.length<7?{'left':'170px'}: props.title.length<8?{'left':'160px'}:{'left':'150px'}}/>}
          
-          {props.subtitle?<h2 style={props.subtitle.length === 3?{'left':'130px'}:props.subtitle.length === 4?{'left':'100px'}:props.subtitle.length === 5? {'left':'120px'}:props.subtitle.length === 6?{'left':'110px'}:{'left':'105px'}}>{props.title}</h2>:<h2 style={props.title.includes("오시는")?{'left':'203px'}:props.title.length===3?{'left':'225px'}:props.title.length===4?{'left':'205px'}:props.title.length===5?{'left':'195px'}:
+          {props.subtitle&&props.subtitle.length>0?<h2 style={props.subtitle.length === 3?{'left':'130px'}:props.subtitle.length === 4?{'left':'100px'}:props.subtitle.length === 5? {'left':'120px'}:props.subtitle.length === 6?{'left':'110px'}:{'left':'105px'}}>{props.title}</h2>:<h2 style={props.title.includes("오시는")?{'left':'203px'}:props.title.length===3?{'left':'225px'}:props.title.length===4?{'left':'205px'}:props.title.length===5?{'left':'195px'}:
           props.title.length===6?{'left':'190px'}: props.title.length===7?{'left':'180px'}:props.title.length===8?{'left':'172px'}:{'left':'170px'}}>{props.title}</h2>}
           
-          {props.subtitle?
+          {props.subtitle&&props.subtitle.length>0?
           <MdChevronRight className="arrowicon" style={props.subtitle.length===3?{'left':'170px'}:props.subtitle.length===4?{'left':'165px'}:props.subtitle.length===5?{'left':'160px'}
           :props.subtitle.length===6?{'left':'150px'}:props.subtitle.length===8?{'left':'140px'}:{'left':'150px'}}/>:null}
         </div>
-         {props.subtitle?<h3 style={props.subtitle.length===6?{'left':'142px'}:props.subtitle.length===5?{'left':'157px'}:props.subtitle.length===4?{'left':'162px'}:props.subtitle.length===3?{'left':'170px'}:{'left':'138px'}}>{props.subtitle}</h3>:null}
+         {props.subtitle&&props.subtitle.length>0?<h3 style={props.subtitle.length===6?{'left':'142px'}:props.subtitle.length===5?{'left':'157px'}:props.subtitle.length===4?{'left':'162px'}:props.subtitle.length===3?{'left':'170px'}:{'left':'138px'}}>{props.subtitle}</h3>:null}
         </div>
       </div>
     );
