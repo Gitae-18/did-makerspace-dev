@@ -139,7 +139,7 @@ export default function TableType1a() {
           {/* <Posts posts={currentPosts} onMove={onMove} /> */}
             {currentPost && spaceList.length >  0 ? currentPost.map((item,i)=>(
               <tr key={i}>
-              <td>{item.space_no}</td>
+              <td>{spaceList.length - i - (currentPage - 1) * postPerPage}</td>
               <td><StyledSpan onClick={(e)=>onMove(item,i)}>{item.space_name}</StyledSpan></td>
               <td><StyledSpan onClick={(e)=>onMove(item,i)}>{item.space_info}</StyledSpan></td>
               <td><StyledImg alt="no imgae" src={`/images/${item.src}`}/></td>
