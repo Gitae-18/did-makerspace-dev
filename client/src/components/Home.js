@@ -70,7 +70,7 @@ function Home() {
          /*  if() */
 
          
-    /*         const getRecentNotice = useCallback(async() =>{
+            const getRecentNotice = useCallback(async() =>{
               let requri = PreUri + '/notice/recentnotice';
               const response = await fetch(requri,{
                 method:Method.get,
@@ -87,7 +87,7 @@ function Home() {
            useEffect(()=>{
             getRecentNotice();
            },[])
-           console.log(data.notice_no); */
+           console.log(data.notice_no);
         return (
             <div className="main_banner">
               <div className="wrap2">
