@@ -87,7 +87,7 @@ function PopupModal3({
       <ModalOverlay visible={visible} />
       <ModalWrapper
         className={className}
-        onClick={maskClosable ? onMaskClick : null}
+        /* onClick={maskClosable ? onMaskClick : null} */
         tabIndex="-1"
         visible={visible}
       >
