@@ -244,7 +244,7 @@ export default function ({ query , no }) {
 
         let addQuery = makeQuery(step, dateType, year, month, company);
         addQuery = (addQuery.length > 0) ? "&" + addQuery : "";
-        history((location.pathname) + '?page=' + newPageNumber + addQuery,{replace:false});
+        history(location.pathname + '?page=' + newPageNumber + addQuery,{replace:false});
     }, [history, step, dateType, year, month,company]);
 
     const onPagePrev = useCallback((e) => {
@@ -290,7 +290,7 @@ export default function ({ query , no }) {
         let addQuery = makeQuery(step, dateType, year, month, company);
         addQuery = (addQuery.length > 0) ? "?" + addQuery : "";
         //history.push(window.location.pathname + addQuery);
-        history(location.pathname + addQuery,{replace:false});
+        history(location.pathname + addQuery,{replace:true});
     }, [history, step, year, month,company]);
 
     const onSelectStep = useCallback((e, selstep) => {
@@ -298,7 +298,7 @@ export default function ({ query , no }) {
         let addQuery = makeQuery(selstep, dateType, year, month, company);
         addQuery = (addQuery.length > 0) ? "?" + addQuery : "";
         // history.push(window.location.pathname + addQuery);
-       history((location.pathname) + addQuery,{replace:false});
+       history(location.pathname + addQuery,{replace:true});
     }, [history, dateType, year, month,company]);
     const onSelect = (e) =>{
         setCompanyNo(e.target.value);
@@ -309,7 +309,7 @@ export default function ({ query , no }) {
         e.preventDefault();
         let addQuery = makeQuery(step,dateType, year, month, company)
         addQuery = (addQuery.length>0)?"?" + addQuery: "";
-       history((location.pathname) + addQuery,{replace:false});
+       history(location.pathname + addQuery,{replace:true});
     },[history,step,dateType,year, month,company]);
     for (let i = 0; i < PageMax; i++) {
         let pageNum = i + 1 + serviceItems.pageOffset;
