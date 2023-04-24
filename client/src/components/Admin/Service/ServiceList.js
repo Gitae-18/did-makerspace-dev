@@ -244,7 +244,7 @@ export default function ({ query , no }) {
 
         let addQuery = makeQuery(step, dateType, year, month, company);
         addQuery = (addQuery.length > 0) ? "&" + addQuery : "";
-        history((location.pathname+location.search+location.hash) + '?page=' + newPageNumber + addQuery);
+        history((location.pathname+location.search+location.hash) + '?page=' + newPageNumber + addQuery,{replace:false});
     }, [history, step, dateType, year, month,company]);
 
     const onPagePrev = useCallback((e) => {
@@ -274,7 +274,7 @@ export default function ({ query , no }) {
         e.preventDefault();
         const item = serviceItems.items[index];
         dispatch({ type: M_SERVICE_SET, target: item });
-        history('/mservice/detail');
+        history('/mservice/detail',{replace:false});
     }, [history, serviceItems, dispatch]);
    
     
@@ -290,7 +290,7 @@ export default function ({ query , no }) {
         let addQuery = makeQuery(step, dateType, year, month, company);
         addQuery = (addQuery.length > 0) ? "?" + addQuery : "";
         //history.push(window.location.pathname + addQuery);
-        history(location.pathname + addQuery,{replace:true});
+        history(location.pathname + addQuery,{replace:false});
     }, [history, step, year, month,company]);
 
     const onSelectStep = useCallback((e, selstep) => {
@@ -298,7 +298,7 @@ export default function ({ query , no }) {
         let addQuery = makeQuery(selstep, dateType, year, month, company);
         addQuery = (addQuery.length > 0) ? "?" + addQuery : "";
         // history.push(window.location.pathname + addQuery);
-       history((location.pathname+location.search+location.hash) + addQuery,{replace:true});
+       history((location.pathname+location.search+location.hash) + addQuery,{replace:false});
     }, [history, dateType, year, month,company]);
     const onSelect = (e) =>{
         setCompanyNo(e.target.value);
@@ -309,7 +309,7 @@ export default function ({ query , no }) {
         e.preventDefault();
         let addQuery = makeQuery(step,dateType, year, month, company)
         addQuery = (addQuery.length>0)?"?" + addQuery: "";
-       history((location.pathname+location.search+location.hash) + addQuery,{replace:true});
+       history((location.pathname+location.search+location.hash) + addQuery,{replace:false});
     },[history,step,dateType,year, month,company]);
     for (let i = 0; i < PageMax; i++) {
         let pageNum = i + 1 + serviceItems.pageOffset;
