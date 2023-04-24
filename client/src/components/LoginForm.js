@@ -22,11 +22,7 @@ import '../css/style-s.css';
       };
     const onLoginClick = () =>{
         history(1);
-    }
-
-    const onSiteMove = (url) =>{
-        window.open(url,"_blank");
-      }
+    }   
     return (
         <form onSubmit={onLoginStart}>
         
@@ -36,12 +32,7 @@ import '../css/style-s.css';
             </div>
             <div className="login_button">
                 <LoginButton className="log_on" onClick={openModal}>로그인하기</LoginButton>
-        <div className="sns_map">
-            <img src="/images/blog_ico.png" onClick={()=>onSiteMove("https://blog.naver.com/didmakerspace")} className='blog'  style={{"cursor":"pointer"}}/>
-            <img src="/images/instagram_ico.png" onClick={()=>onSiteMove("https://www.instagram.com/didmakerspace/?hl=ko")} className='blog'  style={{"cursor":"pointer"}}/>
-            <img src="/images/youtube_ico.png" onClick={()=>onSiteMove("https://www.youtube.com/channel/UCPjkOSeubw8elE8Qg6lhHfQ")} className='blog'  style={{"cursor":"pointer"}}/>
-            <img src="/images/kako_ico.png" onClick={()=>onSiteMove("https://pf.kakao.com/_HuxckT")} className='blog' style={{"cursor":"pointer"}}/>
-        </div>
+        
                 {modalOpen && <LoginModal open={modalOpen} close={closeModal} change={onChange} userid={userId} password={password} isAutoLogin={isAutoLogin} onLoginClick={onLoginClick}/>}
             </div>
         </form>
@@ -61,10 +52,6 @@ export function LoggedInForm({onLogout, username}) {
         history('/');
     }
   
-        const onSiteMove = (url) =>{
-          window.open(url,"_blank");
-        }
-    console.log(username.length)
     return (
         <form onSubmit={onLogout}>
             
@@ -72,18 +59,6 @@ export function LoggedInForm({onLogout, username}) {
 			<span ><strong>{username}</strong> 님</span>
 			<span className="my_info"><Link to="/myinfo">내 정보</Link></span>
         <button className="logout" type="submit" onClick={()=>onLogoutClick()}>로그아웃</button>
-        <div className="sns_map">
-            <img src="/images/blog_ico.png" onClick={()=>onSiteMove("https://blog.naver.com/didmakerspace")} className='blog'  style={{"cursor":"pointer"}}/>
-            <img src="/images/instagram_ico.png" onClick={()=>onSiteMove("https://www.instagram.com/didmakerspace/?hl=ko")} className='blog'  style={{"cursor":"pointer"}}/>
-            <img src="/images/youtube_ico.png" onClick={()=>onSiteMove("https://www.youtube.com/channel/UCPjkOSeubw8elE8Qg6lhHfQ")} className='blog'  style={{"cursor":"pointer"}}/>
-            <img src="/images/kako_ico.png" onClick={()=>onSiteMove("https://pf.kakao.com/_HuxckT")} className='blog' style={{"cursor":"pointer"}}/>
-        </div>
-        {/* <div className="sns_map" style={{"position":"relative","left":"173px","top":"10px"}}>
-            <img src="/images/blog_ico.png" onClick={()=>onSiteMove("https://blog.naver.com/didmakerspace")} className='blog'  style={{"cursor":"pointer","left":"9px"}}/>
-            <img src="/images/instagram_ico.png" onClick={()=>onSiteMove("https://www.instagram.com/didmakerspace/?hl=ko")} className='blog'  style={{"cursor":"pointer","left":"37px"}}/>
-            <img src="/images/youtube_ico.png" onClick={()=>onSiteMove("https://www.youtube.com/channel/UCPjkOSeubw8elE8Qg6lhHfQ")} className='blog'  style={{"cursor":"pointer","left":"66px"}}/>
-            <img src="/images/kako_ico.png" onClick={()=>onSiteMove("https://pf.kakao.com/_HuxckT")} className='blog' style={{"cursor":"pointer","left":"93px"}}/>
-        </div> */}
         </div>
         </form>
     );

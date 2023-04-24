@@ -151,7 +151,6 @@ form{float:left;}
 #header .mainmenu form .login_button .openModal section .login_box .closesh > span{color:#fff}
 #header .mainmenu form .login_button .openModal section .login_box{position:relative;left:80px;top:150px;height:100px;}
 #header .mainmenu form .login_button{float:left;position:absolute;width:150px;height:80px;top:60px;}
-#header .mainmenu form .login_button .sns_map{position:absolute;left:455px;display:flex;bottom:20px;}
 #header .mainmenu form .login_button .log_on{width:100px;height:90px;cursor: pointer;position:relative;left:442px;bottom:70px;height:90px;line-height: 100px;} 
 #header .mainmenu .login_box p.chkBox input[type=checkbox] {
   position: absolute;

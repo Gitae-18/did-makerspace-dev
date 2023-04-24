@@ -91,7 +91,9 @@ function Home() {
            useEffect(()=>{
             getRecentNotice();
            },[])
-
+           const onSiteMove = (url) =>{
+            window.open(url,"_blank");
+          }
         return (
             <div className="main_banner">
               <div className="wrap2">
@@ -110,6 +112,12 @@ function Home() {
                   One-Stop 서비스를 제공하는 전문 메이커 스페이스입니다.
                   </p>
                 </div>
+            <div className="sns_map">
+              <img src="/images/blog_ico.png" onClick={()=>onSiteMove("https://blog.naver.com/didmakerspace")} className='blog'  style={{"cursor":"pointer"}}/>
+              <img src="/images/instagram_ico.png" onClick={()=>onSiteMove("https://www.instagram.com/didmakerspace/?hl=ko")} className='blog'  style={{"cursor":"pointer"}}/>
+              <img src="/images/youtube_ico.png" onClick={()=>onSiteMove("https://www.youtube.com/channel/UCPjkOSeubw8elE8Qg6lhHfQ")} className='blog'  style={{"cursor":"pointer"}}/>
+              <img src="/images/kako_ico.png" onClick={()=>onSiteMove("https://pf.kakao.com/_HuxckT")} className='blog' style={{"cursor":"pointer"}}/>
+            </div>
               </div>
             </div>
           );
