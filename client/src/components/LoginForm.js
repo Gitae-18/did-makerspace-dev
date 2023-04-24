@@ -11,7 +11,7 @@ import LoginModal from './LoginModal';
 import '../css/common-s.css';
 import '../css/style-s.css'; 
 
- function LoginForm ({onLoginStart, onChange, userId, password, isAutoLogin}){
+  function LoginForm ({onLoginStart, onChange, userId, password, isAutoLogin}){
     const history = useNavigate();
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => {
@@ -23,21 +23,31 @@ import '../css/style-s.css';
     const onLoginClick = () =>{
         history(1);
     }
-  
+
+    const onSiteMove = (url) =>{
+        window.open(url,"_blank");
+      }
     return (
         <form onSubmit={onLoginStart}>
+        
             <div className='join_box'>
             <Link className="join" to="/join">회원가입</Link>
             <Link className="find_pw" to="/findpw">비밀번호 찾기</Link>
             </div>
             <div className="login_button">
                 <LoginButton className="log_on" onClick={openModal}>로그인하기</LoginButton>
+        <div className="sns_map">
+            <img src="/images/blog_ico.png" onClick={()=>onSiteMove("https://blog.naver.com/didmakerspace")} className='blog'  style={{"cursor":"pointer"}}/>
+            <img src="/images/instagram_ico.png" onClick={()=>onSiteMove("https://www.instagram.com/didmakerspace/?hl=ko")} className='blog'  style={{"cursor":"pointer"}}/>
+            <img src="/images/youtube_ico.png" onClick={()=>onSiteMove("https://www.youtube.com/channel/UCPjkOSeubw8elE8Qg6lhHfQ")} className='blog'  style={{"cursor":"pointer"}}/>
+            <img src="/images/kako_ico.png" onClick={()=>onSiteMove("https://pf.kakao.com/_HuxckT")} className='blog' style={{"cursor":"pointer"}}/>
+        </div>
                 {modalOpen && <LoginModal open={modalOpen} close={closeModal} change={onChange} userid={userId} password={password} isAutoLogin={isAutoLogin} onLoginClick={onLoginClick}/>}
             </div>
         </form>
     );
 }
-export default React.memo(LoginForm);
+export default (LoginForm)
 export function LoggedInForm({onLogout, username}) {
     const { token, authority_level } = useSelector(state => state.user);
     //let alarmOn = (false) ? "name on" : "name off";
@@ -50,6 +60,11 @@ export function LoggedInForm({onLogout, username}) {
     const onLogoutClick = () =>{
         history('/');
     }
+  
+        const onSiteMove = (url) =>{
+          window.open(url,"_blank");
+        }
+    console.log(username.length)
     return (
         <form onSubmit={onLogout}>
             
@@ -57,6 +72,12 @@ export function LoggedInForm({onLogout, username}) {
 			<span ><strong>{username}</strong> 님</span>
 			<span className="my_info"><Link to="/myinfo">내 정보</Link></span>
         <button className="logout" type="submit" onClick={()=>onLogoutClick()}>로그아웃</button>
+        <div className="sns_map" style={{"position":"relative","left":"173px","top":"10px"}}>
+            <img src="/images/blog_ico.png" onClick={()=>onSiteMove("https://blog.naver.com/didmakerspace")} className='blog'  style={{"cursor":"pointer","left":"9px"}}/>
+            <img src="/images/instagram_ico.png" onClick={()=>onSiteMove("https://www.instagram.com/didmakerspace/?hl=ko")} className='blog'  style={{"cursor":"pointer","left":"37px"}}/>
+            <img src="/images/youtube_ico.png" onClick={()=>onSiteMove("https://www.youtube.com/channel/UCPjkOSeubw8elE8Qg6lhHfQ")} className='blog'  style={{"cursor":"pointer","left":"66px"}}/>
+            <img src="/images/kako_ico.png" onClick={()=>onSiteMove("https://pf.kakao.com/_HuxckT")} className='blog' style={{"cursor":"pointer","left":"93px"}}/>
+        </div>
         </div>
         </form>
     );
@@ -152,3 +173,17 @@ const LoginButton = styled.button`
  color:#ffffff;
  font-size:0.8rem;
 `
+const SnsMap = styled.div`
+width:100px;
+height:auto;
+display:flex;
+position:absolute;
+left:160px;
+`
+const Imgtag = styled.img`
+  width: 25px;
+  height: 15px;
+  position:relative;
+  padding:0px;
+  bottom:0px;
+`;

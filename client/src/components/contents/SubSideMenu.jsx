@@ -94,15 +94,6 @@ export default function SubSideMenu(props,onCategory) {
   const SubModal01 = (props) => {
       return (
         <ol>
-          <li sidebar={sidebar} className={url.includes("didinfo")?"on":"off"}/*  onClick={checkUrl} */>
-            <p onClick={Dep2Handler}>시설소개</p>
-            {/* <SubSideSubmenu  handleSubNav={()=>openList(isItem1,'didinfo')}isOpened={isItem1 && !isItem2 && !isItem3} item={SidebarData[0]}/> */}
-            <ol className="has_dep3">
-              <li onClick={(e)=>onClick(e,0)} value="space"><button className="btn" onClick={(e)=>history("/didinfo")}> 공간소개 </button></li>
-              <li onClick={(e)=>onClick(e,0)} value="equip"><button className="btn" onClick={(e)=>history("/didinfo/info/equipinfo")}> 장비소개 </button></li>
-              <li onClick={(e)=>onClick(e,0)} value="work"><button className="btn" onClick={(e)=>history("/didinfo/info/workerinfo")}>운영인력소개</button></li>
-            </ol>
-          </li>
           <li className={url.includes("didadmin")?"on":"off"}>
             <p onClick={Dep2Handler}>기관소개</p>
             <ol className="has_dep3">
@@ -112,6 +103,16 @@ export default function SubSideMenu(props,onCategory) {
               <li onClick={(e)=>onClick(e,1)}><button onClick={(e)=>history("/didadmin/info/partner")}>협력기관안내</button></li>
             </ol>
           </li>
+          <li sidebar={sidebar} className={url.includes("didinfo")?"on":"off"}/*  onClick={checkUrl} */>
+            <p onClick={Dep2Handler}>시설소개</p>
+            {/* <SubSideSubmenu  handleSubNav={()=>openList(isItem1,'didinfo')}isOpened={isItem1 && !isItem2 && !isItem3} item={SidebarData[0]}/> */}
+            <ol className="has_dep3">
+              <li onClick={(e)=>onClick(e,0)} value="space"><button className="btn" onClick={(e)=>history("/didinfo")}> 공간소개 </button></li>
+              <li onClick={(e)=>onClick(e,0)} value="equip"><button className="btn" onClick={(e)=>history("/didinfo/info/equipinfo")}> 장비소개 </button></li>
+              <li onClick={(e)=>onClick(e,0)} value="work"><button className="btn" onClick={(e)=>history("/didinfo/info/workerinfo")}>운영인력소개</button></li>
+            </ol>
+          </li>
+          
           <li className={url.includes("way")?"on":"off"}>
           <p onClick={(e)=>{onClick(e,2);history("/did/info/way")}}>오시는 길</p>
           </li>

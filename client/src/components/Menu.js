@@ -42,8 +42,8 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
   const SubMenu1 = () =>{
     return(
           <ol className='menu_dep2'>
-            <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink to={"/didinfo"}>시설 소개</NavLink></li>
             <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink to={"/didadmin/info/greetings"}>기관 소개</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink to={"/didinfo"}>시설 소개</NavLink></li>
             <li className="page_target" onClick={(e)=>onClick2(e,2)}><NavLink to={"/did/info/way"}>오시는 길 </NavLink></li>
             <li className="page_target" onClick={(e)=>onClick2(e,3)}><NavLink to={"/did/info/faq"}>FAQ</NavLink></li>
            </ol>
@@ -110,7 +110,7 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
   return(
   <>
   <ol className="menu">
-    <li><Link to="/didinfo">DID기술융합공작소</Link>
+    <li><Link to="/didadmin/info/greetings">DID기술융합공작소</Link>
           <SubMenu1/>
     </li>
     <li><Link to="/eqreservation/equip">장비 및 시설예약</Link>
@@ -165,8 +165,8 @@ const AdminMenu = ({viewDepth}) => {
   const SubMenu1 = () =>{
     return(
           <ol className='menu_dep2'>
-            <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink to={"/didinfo"}>시설 소개</NavLink></li>
             <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink to={"/didadmin/info/greetings"}>기관 소개</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink to={"/didinfo"}>시설 소개</NavLink></li>
             <li className="page_target" onClick={(e)=>onClick2(e,2)}><NavLink to={"/did/info/way"}>오시는 길 </NavLink></li>
             <li className="page_target" onClick={(e)=>onClick2(e,3)}><NavLink to={"/did/info/faq"}>FAQ</NavLink></li>
            </ol>
@@ -234,7 +234,7 @@ const AdminMenu = ({viewDepth}) => {
   return (
     <>
     <ol className='menu'>
-    <li className='dep2'><Link to="/didinfo">DID기술융합공작소</Link>
+    <li className='dep2'><Link to="/didadmin/info/greetings">DID기술융합공작소</Link>
          <SubMenu1/>
     </li>
     <li className='dep2'> <Link to="/eqreservation/equip">장비 및 시설예약</Link>
