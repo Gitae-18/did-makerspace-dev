@@ -274,7 +274,7 @@ export default function ({ query , no }) {
         e.preventDefault();
         const item = serviceItems.items[index];
         dispatch({ type: M_SERVICE_SET, target: item });
-        history('/mservice/detail',{replace:false});
+        history('/mservice/detail');
     }, [history, serviceItems, dispatch]);
    
     
