@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import moment from 'moment';
 import Modal from './Modal'
 import PopupModalHome from './PopupModalHome';
+import PopupModalAbout from './PopupModalAbout';
 import { CommonHeader,PreUri, Method } from '../CommonCode';
 import '../css/common-s.css';
 import '../css/style-s.css';
@@ -59,6 +60,7 @@ function Home() {
         const MainBanner = () => {
           const [modalVisible,setModalVisible] = useState(true);
           const [modalControl1,setModalControl1] = useState(true);
+          const [modalSet,setModalSet] = useState(true);
           const [data,setData] = useState("");
           const closeModal = useCallback (async(e) =>{
             setModalVisible(false);
@@ -66,7 +68,9 @@ function Home() {
           const closeModal2 = useCallback (async(e) =>{
             setModalControl1(false);
           },[])
-          console.log(modalVisible);
+          const closeModal3 = useCallback(async(e)=>{
+            setModalSet(false);
+          },[])
          /*  if() */
 
          
@@ -87,12 +91,14 @@ function Home() {
            useEffect(()=>{
             getRecentNotice();
            },[])
-           console.log(data.notice_no);
+
         return (
             <div className="main_banner">
               <div className="wrap2">
               {modalVisible && (<Modal visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal} isLoggedIn={isLoggedIn}></Modal>)}
+              {modalSet &&(<PopupModalAbout visible={modalSet} closable={true} maskClosable={true} onClose={closeModal3} isLoggedIn={isLoggedIn}/>)}
               {modalControl1 && data && (<PopupModalHome visible={modalControl1} closable={true} maskClosable={true} onClose={closeModal2} isLoggedIn={isLoggedIn} token={token} no={data.notice_no}/>)}
+              
                 <div className="text_part">
                   <h2>
                     <span>DID</span> Digital Factory in Daejeon 

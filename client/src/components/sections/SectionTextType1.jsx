@@ -2,7 +2,7 @@ import React,{useState}from "react";
 import ButtonType3 from "../contents/ButtonType3";
 import { Swiper,SwiperSlide} from "swiper/react/swiper-react";
 import SwiperCore from'swiper';
-import  { Autoplay, Navigation, Pagination, Controller, EffectFade, A11y } from 'swiper'; 
+import  { Autoplay, Navigation, Pagination, Controller, EffectFade, A11y} from 'swiper'; 
 import '../../css/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import SlideSwiper1,{SlideSwiper3}from "../contents/SlideSwiper";
@@ -30,17 +30,18 @@ export default function SectionTextType1(props) {
         pagination={{
           type: "progressbar",
         }}
+        loop={true}
         navigation={true}
         modules={[Pagination][Controller]}
         controller ={{control:controlledSwiper}}
         autoplay={{delay:2400,disableOnInteraction:false}}
       >
         <SwiperSlide value={0} onChange={onChange}><NavLink to="didreservation"><img src="/images/reservation.jpg"/></NavLink></SwiperSlide>
-        <SwiperSlide value={1}><NavLink to="didreservation"><img src="/images/reservation2.jpg"/></NavLink></SwiperSlide>
-        <SwiperSlide value={2}><NavLink to={authority_level<10?'uservice':'mservice'}><img src="/images/service.jpg"/></NavLink></SwiperSlide>
-        <SwiperSlide value={3}><NavLink to={authority_level<10?'uservice':'mservice'}><img src="/images/service2.jpg"/></NavLink></SwiperSlide>
-        <SwiperSlide value={4}><NavLink to={authority_level<10?'umentoring':'mentoring'}><img src="/images/mentoring.jpg"/></NavLink></SwiperSlide>
-        <SwiperSlide value={5}><NavLink to={authority_level<10?'umentoring':'mentoring'}><img src="/images/mentoring2.jpg"/></NavLink></SwiperSlide>
+{/*         <SwiperSlide value={1}><NavLink to="didreservation"><img src="/images/reservation2.jpg"/></NavLink></SwiperSlide> */}
+        <SwiperSlide value={1}><NavLink to={authority_level<10?'uservice':'mservice'}><img src="/images/service.jpg"/></NavLink></SwiperSlide>
+{/*         <SwiperSlide value={3}><NavLink to={authority_level<10?'uservice':'mservice'}><img src="/images/service2.jpg"/></NavLink></SwiperSlide> */}
+        <SwiperSlide value={2}><NavLink to={authority_level<10?'umentoring':'mentoring'}><img src="/images/mentoring.jpg"/></NavLink></SwiperSlide>
+{/*         <SwiperSlide value={5}><NavLink to={authority_level<10?'umentoring':'mentoring'}><img src="/images/mentoring2.jpg"/></NavLink></SwiperSlide> */}
       </Swiper>
     </div>
           </div>
@@ -49,9 +50,10 @@ export default function SectionTextType1(props) {
          <Swiper
          navigation={false}
          modules={[Controller]}
+         loop={true}
          onSwiper = {setControlledSwiper}
         >
-    <SwiperSlide value={0}>
+    <SwiperSlide value={3}>
         <Hline>장비 및 시설예약</Hline>
         <Ptag>DID기술융합공작소의 주요 서비스                         
           (장비 및 시설예약, 시제품 제작, 멘토링)로 이동할 수 있고,</Ptag>
@@ -65,7 +67,7 @@ export default function SectionTextType1(props) {
    
        
       </SwiperSlide>
-      <SwiperSlide value={1}>
+    {/*   <SwiperSlide value={1}>
         <Hline>장비 및 시설예약</Hline>
         <Ptag>DID기술융합공작소의 주요 서비스                         
           (장비 및 시설예약, 시제품 제작, 멘토링)로 이동할 수 있고,</Ptag>
@@ -77,8 +79,8 @@ export default function SectionTextType1(props) {
           하실 수 있게 됩니다. 예약 후 취소가 불가하니 신중하게 예약하시기 바랍니다.
         </Ptag>
      
-        </SwiperSlide>
-    < SwiperSlide value={2}>
+        </SwiperSlide> */}
+    < SwiperSlide value={4}>
         <Hline>시제품 제작 신청</Hline> 
         <Ptag>"DID기술융합공작소의 주요 서비스                         
           (장비 및 시설예약, 시제품 제작, 멘토링)로 이동할 수 있고,</Ptag>
@@ -91,7 +93,7 @@ export default function SectionTextType1(props) {
               처음 이용하시는 분들께서는 상담 신청부터 진행하시는 것을 추천드립니다.</Ptag>
 
       </SwiperSlide>
-    <SwiperSlide value={3}>
+   {/*  <SwiperSlide value={3}>
     <Hline>시제품 제작 신청</Hline> 
         <Ptag>"DID기술융합공작소의 주요 서비스                         
           (장비 및 시설예약, 시제품 제작, 멘토링)로 이동할 수 있고,</Ptag>
@@ -103,16 +105,7 @@ export default function SectionTextType1(props) {
         <Ptag> 시제품 제작시에는 상담 신청과 제작 신청으로 스텝이 나뉘게 되며 
               처음 이용하시는 분들께서는 상담 신청부터 진행하시는 것을 추천드립니다.
               </Ptag>
-       </SwiperSlide>
-    <SwiperSlide value={4}>
-        <Hline>멘토링 신청</Hline>
-        <Ptag>"DID기술융합공작소의 주요 서비스                         
-          (장비 및 시설예약, 시제품 제작, 멘토링)로 이동할 수 있고,</Ptag>
-        <Ptag> 멘토링 메뉴에서는 멘토링을 받고 싶은 멘토를 선정하고 분야를 선정하여 멘토에게 멘토링을 받으실 수 있습니다.
-               멘토링은 총 5회까지 추가진행이 가능하며 멘토링 후에는 보고서가 작성되어집니다.
-        </Ptag>
-        <Ptag> 전문 멘토를 희망하시는 분은 전문멘토 신청메뉴를 통하여 전문멘토가 되실 수 있습니다.</Ptag>
-       </SwiperSlide>
+       </SwiperSlide> */}
     <SwiperSlide value={5}>
         <Hline>멘토링 신청</Hline>
         <Ptag>"DID기술융합공작소의 주요 서비스                         
@@ -122,6 +115,15 @@ export default function SectionTextType1(props) {
         </Ptag>
         <Ptag> 전문 멘토를 희망하시는 분은 전문멘토 신청메뉴를 통하여 전문멘토가 되실 수 있습니다.</Ptag>
        </SwiperSlide>
+{/*     <SwiperSlide value={5}>
+        <Hline>멘토링 신청</Hline>
+        <Ptag>"DID기술융합공작소의 주요 서비스                         
+          (장비 및 시설예약, 시제품 제작, 멘토링)로 이동할 수 있고,</Ptag>
+        <Ptag> 멘토링 메뉴에서는 멘토링을 받고 싶은 멘토를 선정하고 분야를 선정하여 멘토에게 멘토링을 받으실 수 있습니다.
+               멘토링은 총 5회까지 추가진행이 가능하며 멘토링 후에는 보고서가 작성되어집니다.
+        </Ptag>
+        <Ptag> 전문 멘토를 희망하시는 분은 전문멘토 신청메뉴를 통하여 전문멘토가 되실 수 있습니다.</Ptag>
+       </SwiperSlide> */}
     </Swiper>
   </div>
           </div>

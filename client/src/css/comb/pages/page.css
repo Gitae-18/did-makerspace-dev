@@ -27,7 +27,7 @@ section{
   height: 280px;
   background: url(/images/bg.jpg);
   background-size: cover;
-  width:100%;
+  width:auto;
   left:-4px;
 }
 
@@ -62,5 +62,7 @@ section{
  border: 1px solid #2c2c2c;
  font-size:0.8rem;
 }
+#pageIndex{
 
+}
 /*# sourceMappingURL=page.css.map */

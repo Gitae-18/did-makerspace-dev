@@ -76,7 +76,12 @@
   height: calc(100% + 15px);
   background-color: #313f4f;
 }
-
+@media screen and (max-width:1000px)
+{
+  .section_text_type1 .swiper_part::after{
+    width:300px;
+  }
+}
 .section_text_type2 .title_type1 {
   margin-bottom: 0;
   margin-top: 24px;
