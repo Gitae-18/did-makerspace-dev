@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { Portal } from "react-portal";
 import PopupImageGet from "./sections/PopupImageGet";
 import { CommonHeader, PreUri, Method } from "../CommonCode";
-import "../css/ModalStyle2.css";
 
 function PopupModalAbout({
   className,
