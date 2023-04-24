@@ -72,12 +72,18 @@ export function LoggedInForm({onLogout, username}) {
 			<span ><strong>{username}</strong> 님</span>
 			<span className="my_info"><Link to="/myinfo">내 정보</Link></span>
         <button className="logout" type="submit" onClick={()=>onLogoutClick()}>로그아웃</button>
-        <div className="sns_map" style={{"position":"relative","left":"173px","top":"10px"}}>
+        <div className="sns_map">
+            <img src="/images/blog_ico.png" onClick={()=>onSiteMove("https://blog.naver.com/didmakerspace")} className='blog'  style={{"cursor":"pointer"}}/>
+            <img src="/images/instagram_ico.png" onClick={()=>onSiteMove("https://www.instagram.com/didmakerspace/?hl=ko")} className='blog'  style={{"cursor":"pointer"}}/>
+            <img src="/images/youtube_ico.png" onClick={()=>onSiteMove("https://www.youtube.com/channel/UCPjkOSeubw8elE8Qg6lhHfQ")} className='blog'  style={{"cursor":"pointer"}}/>
+            <img src="/images/kako_ico.png" onClick={()=>onSiteMove("https://pf.kakao.com/_HuxckT")} className='blog' style={{"cursor":"pointer"}}/>
+        </div>
+        {/* <div className="sns_map" style={{"position":"relative","left":"173px","top":"10px"}}>
             <img src="/images/blog_ico.png" onClick={()=>onSiteMove("https://blog.naver.com/didmakerspace")} className='blog'  style={{"cursor":"pointer","left":"9px"}}/>
             <img src="/images/instagram_ico.png" onClick={()=>onSiteMove("https://www.instagram.com/didmakerspace/?hl=ko")} className='blog'  style={{"cursor":"pointer","left":"37px"}}/>
             <img src="/images/youtube_ico.png" onClick={()=>onSiteMove("https://www.youtube.com/channel/UCPjkOSeubw8elE8Qg6lhHfQ")} className='blog'  style={{"cursor":"pointer","left":"66px"}}/>
             <img src="/images/kako_ico.png" onClick={()=>onSiteMove("https://pf.kakao.com/_HuxckT")} className='blog' style={{"cursor":"pointer","left":"93px"}}/>
-        </div>
+        </div> */}
         </div>
         </form>
     );
