@@ -11,7 +11,6 @@ import $, { data } from 'jquery';
 import '../../../css/common-s.css';
 import '../../../css/style-s.css';
 
-
 export default ({ no , query }) => {
 	const mountedRef = useRef(true);
 	const { token, authority_level } = useSelector(state => state.user);

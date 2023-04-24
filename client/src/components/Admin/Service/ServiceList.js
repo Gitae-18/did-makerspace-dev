@@ -92,7 +92,6 @@ export default function ({ query , no }) {
         const data = await res.json();
         setCompanyName(data.items);
     })
-console.log(modalvisible);
 
     const closeModal = () =>{
         setModalVisible(false);

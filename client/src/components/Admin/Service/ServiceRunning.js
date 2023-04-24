@@ -818,7 +818,7 @@ export default ({ no }) => {
     return (
         <div id="wrap" className="wrap service6">
             <div className="content_wrap">
-                <SideNavi history={history} />
+                <SubSideMenu  title={"시제품제작관리"}/>
                 <div className="content">
                     <div className="top_menu">
                         <TopNavi step={3} />
