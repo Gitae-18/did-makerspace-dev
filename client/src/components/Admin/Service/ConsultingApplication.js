@@ -70,7 +70,6 @@ export default ({ no }) => {
 			alert(getRspMsg(response.status));
 			return;
 		}
-        let cons  = await response.json();
 		const consulting = await response.json();
 		let cResult = undefined;
             
