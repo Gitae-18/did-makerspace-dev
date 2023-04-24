@@ -4,7 +4,7 @@ import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import { CommonHeader, PreUri, Method, getRspMsg, AuthLevel, MaxFileCount, MB, LIMIT } from '../../../CommonCode';
 import TopNavi from './TopNavi';
 import SideNavi from './SideNavi';
-
+import SubSideMenu from '../../contents/SubSideMenu';
 import $ from 'jquery';
 
 import '../../../css/common-s.css';
