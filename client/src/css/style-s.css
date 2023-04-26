@@ -983,9 +983,9 @@ display:block;
 
 /* schedule */
 .wrap.schedule{background:#fff;}
-.wrap.schedule .content_wrap .content{padding-left:132px;padding:20px 22px 40px 164px;box-sizing:border-box;}
-.wrap.schedule .content_wrap .content div.calendar table{width:100%;border-collapse:collapse;font-size:14px;}
-.wrap.schedule .content_wrap .content div.calendar h2{font-size:24px;color:#222;padding-left:56px}
+.wrap.schedule .content_wrap .content{padding-left:137px;box-sizing:border-box;position:relative;top:200px;margin-bottom:250px;}
+.wrap.schedule .content_wrap .content div.calendar table{width:100%;border-collapse:collapse;font-size:14px;max-width: 1300px;}
+.wrap.schedule .content_wrap .content div.calendar h2{font-size:24px;color:#222;padding-left:3px}
 .wrap.schedule .content_wrap .content div.calendar table td{font-size:12px;}
 .wrap.schedule .content_wrap .content .date_box{position:relative;height:32px;line-height:32px;margin-bottom:18px;}
 .wrap.schedule .content_wrap .content .date_box h3{text-align:center;font-size:22px;font-family:'Roboto';}
@@ -995,14 +995,14 @@ display:block;
 .wrap.schedule .content_wrap .content .date_box .r_box ul:after{display:block;content:"";clear:both;}
 .wrap.schedule .content_wrap .content .date_box .r_box ul li{float:left;}
 .wrap.schedule .content_wrap .content .date_box .r_box ul li a{color:#fff;padding:0 8px;height:30px;}
-.wrap.schedule .content_wrap .content .date_box .r_box ul li a.on{background:#1e345d;}
+.wrap.schedule .content_wrap .content .date_box .r_box ul li a.on{background:#313f4f;}
 .wrap.schedule .content_wrap .content .date_box .r_box ul li a.first{border-radius:4px 0 0 4px;}
 .wrap.schedule .content_wrap .content .date_box .r_box ul li a.last{border-radius:0 4px 4px 0;}
-.wrap.schedule .content_wrap .content .date_box a{float:left;font-size:12px;background:#576786;}
-.wrap.schedule .content_wrap .content .date_box a.prev{width:28px;height:30px;background:#576786 url(/images/arrow_schedule_prev.png) no-repeat 50% 50%;border-radius:4px 0 0 4px;border-right:1px solid #1e345d;background-size:5px;}
-.wrap.schedule .content_wrap .content .date_box a.next{width:28px;height:30px;background:#576786 url(/images/arrow_schedule_next.png) no-repeat 50% 50%;border-radius:0 4px 4px 0;background-size:5px;}
-.wrap.schedule .content_wrap .content .date_box a.today{color:#fff;line-height:30px;margin-left:5px;padding:0 8px;border-radius:4px;height:30px;}
-
+.wrap.schedule .content_wrap .content .date_box a{float:right;font-size:12px;background:#313f4f;}
+.wrap.schedule .content_wrap .content .date_box a.prev{width:28px;height:30px;background:#313f4f url(/images/arrow_schedule_prev.png) no-repeat 50% 50%;border-right:1px solid #1e345d;background-size:5px;}
+.wrap.schedule .content_wrap .content .date_box a.next{width:28px;height:30px;background:#313f4f url(/images/arrow_schedule_next.png) no-repeat 50% 50%;background-size:5px;}
+.wrap.schedule .content_wrap .content .date_box a.today{color:#fff;line-height:30px;margin-left:5px;padding:0 8px;height:30px;}
+.wrap.schedule .content_wrap .content .fc-button-group{position:relative;right:105px;}
 
 /* privacy */
 .wrap.privacy{background:#fafafa;}
@@ -1964,10 +1964,10 @@ display:block;
 .wrap.management17 .content_wrap .btn_box .btn_modify{background:#bbb;margin-right:16px;}
 
 
-@media (max-width:1060px){
+/* @media (max-width:1060px){
 #header .login_box,#header .member_box{display:none;}
 
-}
+} */
 
 /* popup */
 .pop{background:#fff;box-shadow:1px 1px 10px rgba(0,0,0,0.2);position:fixed;top:50%;left:50%;transform:translate(-34%, -50%);-webkit-transform:translate(-34%, -50%);display:none;width:460px;padding:58px 28px 40px;box-sizing:border-box;z-index:1;}
@@ -1975,10 +1975,10 @@ display:block;
 .pop ul{width:394px;margin:0 auto;}
 .pop ul:after{display:block;content:"";clear:both;}
 .pop ul li{float:left;width:190px;}
-.pop ul li.yes button{background:#0f2753;color:#fff;}
+.pop ul li.yes button{background:#313f4f;color:#fff;}
 .pop ul li.no{margin-right:14px;}
 .pop ul li.no button{background:#bbb;color:#fff;}
-.pop ul li button{width:100%;border-radius:40px;font-size:18px;border:0;cursor:pointer;height:50px;line-height:50px;}
+.pop ul li button{width:100%;font-size:18px;border:0;cursor:pointer;height:50px;line-height:50px;}
 .pop textarea{width: 394px;border: 1px solid #e5e5e5;padding:24px 12px;box-sizing: border-box;height:100px;overflow-y:auto;font-size:14px;}
 .pop input{width: 394px;border: 1px solid #e5e5e5;padding:24px 12px;box-sizing: border-box;height:40px;overflow-y:auto;font-size:14px;}
 .pop .notice{font-weight: 600;}

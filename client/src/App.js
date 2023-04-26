@@ -105,7 +105,6 @@ const App = () => {
         <Route path="/mservice/"  element = {<MService/>} />
         <Route path="/mservice/*"  element = {<MServiceDetail/>} />
         <Route path="/mservice/guide" element = {<MserviceGuide/>}/>
-        <Route path="/mschedule" element = {<Schedule/>} />
         <Route path="/mmaterial" element = {<MMaterial/>} /> 
         <Route path="/management/*" element = {<Management1/>} />
      
@@ -164,6 +163,7 @@ const App = () => {
         <Route path='/archive/video/detail' element = {<ContactDetail/>}/>
         <Route path='/archive/text/detail' element = {<BasicDetail/>}/>
         <Route path='/archive/basic/detail' element = {<ContactDetail2/>}/>
+        <Route path="/mschedule" element = {<Schedule/>} />
         
         <Route path='/mentorcontrol/mentorapplication' element = {<MentorApplication/>}/>
         <Route path='/mentorcontrol/mentorapplication/detail' element = {<MentorApplicationDetail/>}/>

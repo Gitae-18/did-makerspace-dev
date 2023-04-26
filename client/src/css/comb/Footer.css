@@ -16,6 +16,7 @@ footer {
   background-color: #ffffff;
   font-size: 0.9em;
   border-top:#2d2d2d 1px solid;
+  min-width:2000px;
 }
 
 
@@ -27,6 +28,7 @@ footer .wrap2 {
   padding-top:1px;
   display: flex;
   position:relative;
+  right:60px;
   
 }
 footer .wrap2 .footer_position{
@@ -54,8 +56,8 @@ footer .footer_inner_wrap > h3 {
 footer .site_map_wrap {
   position:absolute;
   width:200px;
-  color:#2d2d2d; 
-  right:-1300%;
+  color:#2d2d2d;
+  right:-150px;
 }
 
 footer .site_map_wrap select {

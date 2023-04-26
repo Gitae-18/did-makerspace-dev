@@ -6,7 +6,7 @@
 @import '../comb/pages/sections.css';
 /* common */
 
-body {font-family:"Nanum Gothic", "NanumGothicBold", "Malgun Gothic", "sans-serif";font-weight:0;font-size:16px;letter-spacing:-1px;line-height:1.2;box-sizing:border-box;overflow-x:hidden;max-width:1594px;margin:0 auto;}
+body {font-family:"Nanum Gothic", "NanumGothicBold", "Malgun Gothic", "sans-serif";font-weight:0;font-size:16px;letter-spacing:-1px;line-height:1.2;box-sizing:border-box;overflow-x:hidden;max-width:1594px;margin:0 auto;  overflow: auto;}
 .wrap{position:relative;height: auto;}
 .num,.eng{font-family:'Roboto', sans-serif;letter-spacing:0;}
 input:focus,select:focus,textarea:focus,button:focus{outline:none;}

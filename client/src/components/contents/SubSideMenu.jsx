@@ -241,6 +241,9 @@ export default function SubSideMenu(props,onCategory) {
           <li className={url.includes("notice")?"on":"off"}>
             <p onClick={(e)=>{onClick(e,2);history("/notice")}}>공지사항</p>
           </li>
+          <li className={url.includes("schedule")?"on":"off"}>
+            <p onClick={(e)=>{onClick(e,3);history("/mschedule")}}>월간일정</p>
+          </li>
         </ol>
       );
     };
@@ -318,7 +321,7 @@ export default function SubSideMenu(props,onCategory) {
         url.includes("mentor") === true && authority_level > 1?<SubModal04/>
         :url.includes('mentor')===true && authority_level<10? <MentoringUser/>
         :url.includes("program")===true?<SubModal05/>
-        :url.includes("contact")||url.includes("notice")||url.includes("archive") === true?<SubModal07/>
+        :url.includes("contact")||url.includes("notice")||url.includes("archive")||url.includes("schedule") === true?<SubModal07/>
         :url.includes("mservice")===true && authority_level>10?<SubModal08/>
         :url.includes("uservice")===true && authority_level<10?<SubModal09/>:<SubModal06/>}
       </div>
