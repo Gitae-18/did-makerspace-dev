@@ -114,7 +114,7 @@ export default function JoinForm({ onJoinTry, onCheckEmail, onCompletePostcode, 
 									<input type="checkbox" id="chk3" checked={value.isAddCompanyInfo} name="isAddCompanyInfo" onChange={onChangeCheckbox} />
 									<span className="checkmark"></span>
 								</label>
-							</p></h3>
+							</p></h3><span>*기업정보 제공시 기업혜택적용</span>
 							<table>
 								<tbody>
 									<tr>

@@ -241,9 +241,11 @@ export default function SubSideMenu(props,onCategory) {
           <li className={url.includes("notice")?"on":"off"}>
             <p onClick={(e)=>{onClick(e,2);history("/notice")}}>공지사항</p>
           </li>
+          {authority_level>10&&
           <li className={url.includes("schedule")?"on":"off"}>
             <p onClick={(e)=>{onClick(e,3);history("/mschedule")}}>월간일정</p>
           </li>
+          }
         </ol>
       );
     };
@@ -267,7 +269,7 @@ export default function SubSideMenu(props,onCategory) {
     return(
       <ol>
           <li className={sideNaviMenu===0?"on":"off"}>
-            <p onClick={(e)=>Dep2Handler(e,0)}>시제품제작</p>
+            <p onClick={(e)=>Dep2Handler(e,0)}>시제품제작지원</p>
             <ol className="has_dep3">
               <li onClick={Dep3Handler}><button className="btn" onClick={(e)=>history('/uservice')}>상담신청</button></li>
               <li onClick={Dep3Handler}><button className="btn" onClick={(e)=>history(location.pathname + '?step=2&next=app')}>제작신청</button></li>
@@ -340,22 +342,23 @@ export default function SubSideMenu(props,onCategory) {
 
 };
   export const SubBread = (props) => {
+    console.log(props.title.length)
     return (
       <div className="sub_bread">
         <h1>{props.subtitle ? props.subtitle:props.title}</h1>
         <div className="location">
         <div className="title_area">
          {props.subtitle?
-         <MdHome className="homeicon" style={props.subtitle.length===8?{'left':'75px'}:props.subtitle.length===6?{'left':'85px'}:props.subtitle.length===5?{'left':'95px'}:props.subtitle.length===4?{'left':'105px'}:{'left':'105px'}}/>:
+         <MdHome className="homeicon" style={props.subtitle.length===8&&props.title.length===7?{'left':'50px'}:props.subtitle.length===8?{'left':'75px'}:/* props.subtitle.length===7?{'left':'80px'}: */props.subtitle.length===6?{'left':'85px'}:props.subtitle.length===5?{'left':'95px'}:props.subtitle.length===4?{'left':'105px'}:{'left':'105px'}}/>:
          <MdHome className="homeicon" style={props.title.length<4?{'left':'200px'}:props.title.length<5?{'left':'185px'}:props.title.length<6?{'left':'175px'}:
-         props.title.length<7?{'left':'160px'}:{'left':'155px'}}/>}
+         props.title.length<7?{'left':'160px'}:props.title.length<8?{'left':'165px'}:{'left':'155px'}}/>}
          
-          {props.subtitle?<h2 style={props.subtitle.length === 3?{'left':'130px'}:props.subtitle.length === 4?{'left':'129px'}:props.subtitle.length === 5? {'left':'120px'}:props.subtitle.length === 8?{'left':'95px'}:{'left':'108px'}}>{props.title}</h2>:<h2 style={props.title.includes("오시는")?{'left':'203px'}:props.title.length===3?{'left':'225px'}:props.title.length===4?{'left':'205px'}:props.title.length===5?{'left':'195px'}:
-          props.title.length===6?{'left':'180px'}: props.title.length===7?{'left':'174px'}:props.title.length===9?{'left':'160px'}:{'left':'173px'}}>{props.title}</h2>}
+          {props.subtitle?<h2 style={props.subtitle.length === 3?{'left':'130px'}:props.subtitle.length === 4?{'left':'129px'}:props.subtitle.length === 5? {'left':'120px'}:props.subtitle.length === 8&&props.title.length===7?{'left':'70px'}:props.subtitle.length === 8?{'left':'95px'}:{'left':'108px'}}>{props.title}</h2>:<h2 style={props.title.includes("오시는")?{'left':'203px'}:props.title.length===3?{'left':'225px'}:props.title.length===4?{'left':'205px'}:props.title.length===5?{'left':'195px'}:
+          props.title.length===6?{'left':'180px'}:props.title.length===7?{'left':'174px'}:props.title.length===9?{'left':'160px'}:{'left':'173px'}}>{props.title}</h2>}
           
           {props.subtitle?
           <MdChevronRight className="arrowicon" style={props.subtitle.length===3?{'left':'170px'}:props.subtitle.length===4?{'left':'165px'}:props.subtitle.length===5?{'left':'160px'}
-          :props.subtitle.length===6?{'left':'145px'}:props.subtitle.length===8?{'left':'140px'}:{'left':'140px'}}/>:null}
+          :props.subtitle.length===6?{'left':'145px'}:/* props.subtitle.length===7?{'left':'100px'}: */props.subtitle.length===8?{'left':'140px'}:{'left':'140px'}}/>:null}
         </div>
          {props.subtitle?<h3 style={props.subtitle.length===8?{'left':'132px'}:props.subtitle.length===6?{'left':'142px'}:props.subtitle.length===5?{'left':'157px'}:props.subtitle.length===4?{'left':'162px'}:props.subtitle.length===3?{'left':'170px'}:{'left':'180px'}}>{props.subtitle}</h3>:null}
         </div>
