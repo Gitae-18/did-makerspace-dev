@@ -1,6 +1,7 @@
 import React,{useState}from "react";
 import "./Footer.css";
 import {Link} from "react-router-dom"
+import styled from "styled-components";
 export default function Footer() {
   const [url,SetUrl] = useState('');
   const FooterInfo = () => {
@@ -65,10 +66,14 @@ export default function Footer() {
         <div className="wrap2">
           <div className="footer_position">
           <div className="footer_inner_wrap">
-          <FooterInfo></FooterInfo>
+          <FooterInfo>
+          </FooterInfo>
+          {/* <SnsMap>
+            <Imgtag src="/images/instagram_ico.png"/>
+            </SnsMap> */}
+          </div>        
           </div>
           <FooterSiteMap></FooterSiteMap>
-          </div>
         </div>
       </footer>
       </>
@@ -77,3 +82,13 @@ export default function Footer() {
 
   return <FooterWrap></FooterWrap>;
 }
+const SnsMap = styled.div`
+width:50px;
+height:20px;
+position:relative;
+display:flex;
+`
+const Imgtag = styled.img`
+  width: 25px;
+  height: 15px;
+`;
