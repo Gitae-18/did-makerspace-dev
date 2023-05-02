@@ -6,14 +6,15 @@
 
 
 /* top menu */
-.wrap .top_menu{height:48px;line-height: 48px;position:relative;border:1px solid #e5e5e5;box-sizing:border-box;}
+.wrap .top_menu{height:48px;line-height: 48px;position:relative;border:1px solid #e5e5e5;box-sizing:border-box;bottom:10px;}
 .wrap .top_menu ul:after{display:block;content:"";clear:both;}
 .wrap .top_menu li{float:left;width:20%;position:relative;}
 .wrap .top_menu li button{display:block;color:#666;font-weight:400;font-size:14px;border:1px solid transparent;box-sizing:border-box;width:100%;background:none;cursor:pointer;padding-top:10px;}
 .wrap .top_menu li button.on:before{display:block;content:"";width:98%;height:44px;position:absolute;left:1px;top:0px;border:1.5px solid #222;box-sizing:border-box;z-index:3;}
-.wrap .top_menu li button:after{z-index:1;display:block;content:"";width:1px;height:22px;background:#e5e5e5;position:absolute;bottom:-5px;}
+.wrap .top_menu li button:after{z-index:1;display:block;content:"";width:1px;height:22px;background:#e5e5e5;position:absolute;bottom:1px;}
 .wrap .top_menu li:last-of-type button:after{display:none;}
 .wrap .top_menu .num{font-size:16px;font-weight:bold;position:relative}
+
 
 .wrap .content_wrap .content{
   margin-left:50px;
