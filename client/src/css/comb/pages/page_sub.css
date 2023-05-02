@@ -2,7 +2,7 @@
   font-family:"Nanum Gothic", "NanumGothicBold", "Malgun Gothic", "sans-serif";
   src: url(/public/font/font_01.ttf);
 }
-
+  button{background-color: #ffffff;}
   .sub_side_menu{
   position: absolute;
   width:500px;
@@ -186,6 +186,7 @@
   height:calc(100vh - 20px);
   white-space: nowrap;
   overflow:auto;
+
  }
  .sub_side_menu .sub_bread h3 {
   position: relative;
@@ -210,6 +211,7 @@
   position:relative;
   left:2%;
   font-size:0.8rem;
+  
 } 
 .sub_inner .tale_wrap  > tbody > tr > td > a{
   color:#000000;

@@ -1785,14 +1785,12 @@ h3.title_type2 {
 .search_btn{
   margin: 0;
   cursor: pointer;
-  height: 36px;
   margin-top: auto;
   color:white;
   background-color: #313f4f;
   border: 2px solid #313f4f;
-  font-size:0.8em;
+  font-size:0.9em;
   height:30px;
-  line-height: 30px;
   width:120px;
 }
 #pageSub02a1 .table_type2 td img{
