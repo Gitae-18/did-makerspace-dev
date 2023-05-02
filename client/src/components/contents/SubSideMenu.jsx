@@ -342,7 +342,6 @@ export default function SubSideMenu(props,onCategory) {
 
 };
   export const SubBread = (props) => {
-    console.log(props.title.length)
     return (
       <div className="sub_bread">
         <h1>{props.subtitle ? props.subtitle:props.title}</h1>

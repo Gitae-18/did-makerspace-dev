@@ -137,10 +137,11 @@ const ModalInner2 = styled.div`
 const Title = styled.h1`
   font-weight: 500;
   font-size: 15px;
-  background-color: #ffffff;
-  position: absolute;
-  left: 100px;
-  top: 60px;
+  background-color: none;
+  position: relative;
+  left:100px; 
+  top:0;
+  width:auto;
 `;
 const ImgStyle = styled.div`
   background-color: #ffffff;
@@ -153,7 +154,7 @@ const Imgtag = styled.img`
   width: 50px;
   height: 40px;
   left: 20px;
-  top: 10px;
+  top: 25px;
   position: relative;
   display: block;
 `;
@@ -169,19 +170,22 @@ const CloseStyle = styled.div`
 
 const Close = styled.span`
   cursor: pointer;
+  margin:0 auto;
 `;
 
 const ModalWrapper = styled.div`
   box-sizing: border-box;
   display: ${(props) => (props.visible ? "block" : "none")};
   position: fixed;
-  top: 0;
+  width:40%;
+  top: 100px;
   right: 0;
   bottom: 0;
-  left: 0;
+  left: 1%;
   z-index: 200;
-  overflow: auto;
+  //overflow: auto;
   outline: 0;
+  
 `;
 
 const ModalOverlay = styled.div`
@@ -195,11 +199,10 @@ const ModalOverlay = styled.div`
 const ModalInner = styled.div`
   box-sizing: border-box;
   position: relative;
-  width: 360px;
+  width: auto;
   max-width: 480px;
-  height: 400px;
-  top: 200px;
-  right: 500px;
+  height: 100px;
+  top: 50px;
   transform: translateY(-50%);
   margin: 0 auto;
   padding: 40px 20px;
