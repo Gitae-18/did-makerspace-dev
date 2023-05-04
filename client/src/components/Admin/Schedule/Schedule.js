@@ -5,7 +5,7 @@ import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import FullCalendar/*, { formatDate }*/ from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
-
+import SubSideMenu from '../../contents/SubSideMenu';
 import $ from "jquery";
 
 import '../../../css/common-s.css';
@@ -213,22 +213,16 @@ export default function () {
 	return (
 		<div id="wrap" className="wrap schedule">
 			<div className="content_wrap">
-				<div className="side_menu">
-					<div className="inner_menu">
-						<h2>스케줄 관리</h2>
-						<ul>
-							<li className="on">스케줄 관리</li>
-						</ul>
-					</div>
-				</div>
+					<SubSideMenu title="월간일정"/>
 				<div className="content">
 					{/* <h2>스케줄 관리</h2> */}
 					<div className="calendar">
 						<FullCalendar
 							plugins={[dayGridPlugin, interactionPlugin]}
 							headerToolbar={{
-								left: 'title',
-								right: 'today prev,next',
+								left:'today',
+								center:'title',
+								right:'prev,next',
 							// center: 'title',
 							// right: 'dayGridMonth, timeGridWeek, timeGridDay'
 							}}
