@@ -83,7 +83,13 @@ if (!fs.existsSync('upload/newfaq')) {
         }
     });
 }
-
+if (!fs.existsSync('upload/newarchive')) {
+    mkdirp.sync('upload/newarchive', (error) => {
+        if (error) {
+            console.error(error);
+        }
+    });
+}
 /*
 fs.readdir('uploads/temp', (error) => {
   if (error) {

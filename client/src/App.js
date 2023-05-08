@@ -45,6 +45,7 @@ import { ClassEduControlContainer } from './containers/ClassEdu/ClassEduControlC
 import { ClassEduUpdate } from './components/pages/PageSub6';
 import { FaqUpdateContainer } from './containers/Faq/FaqUpdateContainer';
 import { NoticeUpdateContainer } from './containers/notice/NoticeUpdateContainer';
+import { VideoContainer } from './containers/reference/VideoContainer';
 import './css/common-s.css';
 import './css/style-s.css';
 import Materials, { Materials1, Materials2, Materials3 } from './components/Admin/Statistics/pages/Materials';
@@ -154,6 +155,7 @@ const App = () => {
 
         <Route path="/contact" element = {<Contact/>}/>
         <Route path="/archive/video" element = {<Contact2/>}/>
+        <Route path="/archive/video/addvideo" element = {<VideoContainer/>}/>
         <Route path="/archive/text" element = {<Contact5/>}/>
         <Route path="/archive/basic" element = {<Contact3/>}/>
         <Route path="/notice/*" element = {<NoticeContainer/>}/>

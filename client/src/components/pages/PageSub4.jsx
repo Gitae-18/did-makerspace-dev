@@ -16,6 +16,7 @@ import InfoType3c from '../contents/InfoType3c';
 import SectionInputTextType1e from "../sections/SectionInputTextType1e";
 import SectionInputTextType1h from "../sections/SectionInputTextType1h";
 import SectionInputTextType1h_update from "../sections/SectionInputTextType1h_update";
+import SectionInputTextType3a from "../sections/SectionInputTextType3a";
 import TableType1e_User from "../contents/TableType1e_User";
 import { useDispatch,useSelector } from "react-redux";
 export default function Contact({location,history}) {
@@ -206,6 +207,22 @@ export default function Contact({location,history}) {
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
               <InfoType3c/>
+            </div>
+          </div>
+        </div>
+        <div className="sub_page_outer">
+        </div>
+        </>
+      );
+  }
+  export const AddArchive = () => {
+    return (
+        <>
+        <div id="sub_page_wrap">
+          <SubSideMenu title={"자료실"} subtitle={"영상자료"}></SubSideMenu>
+          <div className="sub_page_inner_wrap">
+            <div className="sub_inner">
+              <SectionInputTextType3a/>
             </div>
           </div>
         </div>

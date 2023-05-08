@@ -24,6 +24,8 @@ function PopupSaveModal({ classname, visible, onclose, closable, url }) {
       history("/did/info/faq", { replace: true });
     } else if (url.includes("notice")) {
       history("/notice", { replace: true });
+    } else if (url.includes("archive")){
+      history("/archive/video")
     }
   };
 

@@ -22,6 +22,7 @@ db.Sequelize = Sequelize;
 db.AlarmLog                  = require('./alarm_log')(sequelize, Sequelize);
 db.AttachedFile              = require('./attached_file')(sequelize, Sequelize);
 db.Archive                   = require('./archive')(sequelize,Sequelize);
+db.ArchiveFile               = require('./archive_attached')(sequelize,Sequelize);
 db.Company                   = require('./company')(sequelize, Sequelize);
 db.ConsultingApplication     = require('./consulting_application')(sequelize, Sequelize);
 db.ConsultingResult          = require('./consulting_result')(sequelize, Sequelize);
