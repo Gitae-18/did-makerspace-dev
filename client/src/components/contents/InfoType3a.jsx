@@ -11,7 +11,7 @@ export default function InfoType3a() {
   const [date,setDate] = useState("");
   const history = useNavigate();
   const getOne = useCallback(async() => {
-    let requri = PreUri + '/archive/onlist?file_no=' + no;
+    let requri = PreUri + '/archive/onlist?archive_no=' + no;
     const response = await fetch(requri,{
       method:Method.get,
       headers:CommonHeader,
