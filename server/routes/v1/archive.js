@@ -115,7 +115,7 @@ router.put('/archive_cnt',async(req,res,next)=>{
         console.log(error);
     }
 })
-router.post('/:archive_no/files',upload.array('imageFiles'), async(req, res, next) =>{
+router.post('/:archive_no/files',verifyToken,upload.array('imageFiles'), async(req, res, next) =>{
     let user_no = req.decoded.user_no;
     console.log(user_no);
     let archive_no = req.params.archive_no;
