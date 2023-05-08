@@ -94,14 +94,14 @@ export default function SectionInputTextType3a() {
     context = context.replace(/&nbsp;/gi,"");
 
     CommonHeader.authorization = token;
-    const response = await fetch(PreUri+'/notice/notices',{
+    const response = await fetch(PreUri+'/archive/archives',{
       method:Method.post,
       headers:CommonHeader,
       body:JSON.stringify(
         {
            title:title,
            content:text,
-           url:url,
+           url:address,
         }
       )
       
@@ -118,7 +118,7 @@ export default function SectionInputTextType3a() {
       index++;
     }
  
-    const respon = await fetch( PreUri +'/notice/'+ (no+1) +'/files',{
+    const respon = await fetch( PreUri +'/archive/'+ (no+1) +'/files',{
       method:Method.post, 
 /*        headers:{authorization:token}, */
         body:formData,

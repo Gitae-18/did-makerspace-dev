@@ -60,6 +60,26 @@ router.get('/list',async(req,res,next)=>{
  }
   res.json(inputResult);
 })
+router.post('/archives',verifyToken,async(req,res,next)=>{
+    let body = req.body;
+    let user_no = req.decoded.user_no;
+    let result;
+    console.log(body.content)
+    try{
+        result = await Archive.create({
+            title:body.title,
+            content:body.content,
+            url: body.url,
+            created_user_no: user_no,
+            updated_user_no: user_no,
+        })
+    }
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(result);
+})
 router.get('/onlist',async(req,res,next)=>{
     let body = req.body;
     let file_no = req.query.file_no;
