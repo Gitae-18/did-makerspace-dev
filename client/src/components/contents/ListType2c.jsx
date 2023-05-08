@@ -75,7 +75,7 @@ export default function ListType2c() {
   const getFile = useCallback(async()=>{
     if(no!==undefined){
     CommonHeader.authorization = token;
-    const res = await fetch(PreUri + '/classedu/' + no + '/files', {
+    const res = await fetch(PreUri + '/archive/' + no + '/files', {
       method: Method.get,
       headers: {
         authorization: token,
@@ -90,7 +90,7 @@ export default function ListType2c() {
   },[no,token])
   const getFileNo = useCallback(async()=>{
     if(no!==undefined){
-    const response = await fetch(PreUri + '/classedu/'+ no + '/filesno',{
+    const response = await fetch(PreUri + '/archive/'+ no + '/filesno',{
       method:Method.get,
       headers:CommonHeader
     })
@@ -102,6 +102,8 @@ export default function ListType2c() {
 
   console.log(data);
   useEffect(()=>{
+    getFile();
+    getFileNo();
     getItem();
   },[getItem])
   return (

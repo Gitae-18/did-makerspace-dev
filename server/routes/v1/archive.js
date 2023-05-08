@@ -23,14 +23,14 @@ const storage = multer.diskStorage({
     storage:storage,
     limits:{fileSize: 20*1024*1024}
 })
-async function SelectFileInfo(faq_no) {
+async function SelectFileInfo(archive_no) {
     let files;
 
     try {
         files = await ArchiveFile.findAll({
             attributes: ['attached_file_no', 'original_name', 'name', 'type', 'path', 'filesize'],
             where: { 
-                faq_no,
+                archive_no,
             }
         });
     } catch (error) {
