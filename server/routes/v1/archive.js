@@ -83,7 +83,7 @@ router.post('/archives',verifyToken,async(req,res,next)=>{
 })
 router.get('/onlist',async(req,res,next)=>{
     let body = req.body;
-    let archive_no = req.query.archive_no;
+    let archive_no = req.query.list_no;
    
     let inputResult;
     try{
