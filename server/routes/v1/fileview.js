@@ -8,7 +8,7 @@ const multer = require('multer');
 //const mime = require('mime/lite');
 //const path = require('path');
 const fs = require('fs');
-const { Notice } = require('../../models/index');
+const { Notice, ArchiveFile } = require('../../models/index');
 const router = express.Router();
 
 
@@ -196,7 +196,7 @@ router.get('/:fileview_no/archivefile'/* ,verifyToken */, async (req, res, next)
         } */
     let files;
     try {
-        files = await ClassEduFile.findAll({
+        files = await ArchiveFile.findAll({
             attributes: ['attached_file_no', 'original_name', 'name', 'path', 'filesize'],
             where: {
                 archive_no

@@ -320,7 +320,7 @@ router.put('/:program_no/update_program',verifyToken,async(req,res,next)=>{
            created_user_no:user_no,
            updated_user_no:user_no,
         },
-         {where:{faq_no}})
+         {where:{program_no}})
     }
    
     catch(error){

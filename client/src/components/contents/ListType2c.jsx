@@ -100,7 +100,6 @@ export default function ListType2c() {
     }
   },[no])
 
-  console.log(data);
   useEffect(()=>{
     getFile();
     getFileNo();
@@ -112,7 +111,7 @@ export default function ListType2c() {
         {currentPost.map((item,index)=>(
           <li key={index}>
             
-          <div className="image_part"><ImageGetArchive attachFile={attachFile} no={/* itemList.length - index - (currentPage - 1) * postPerPage */data[index].archive_no} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)}/></div>
+          <div className="image_part"><ImageGetArchive attachFile={attachFile} no={data[index].archive_no} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)}/></div>
           <div className="text_part">
             <h5 onClick={(e)=>onItem(e,index)} >{item.title} </h5>
             <div className="dl_wrap">
