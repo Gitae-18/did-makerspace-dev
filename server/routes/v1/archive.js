@@ -83,13 +83,13 @@ router.post('/archives',verifyToken,async(req,res,next)=>{
 })
 router.get('/onlist',async(req,res,next)=>{
     let body = req.body;
-    let file_no = req.query.file_no;
+    let archive_no = req.query.archive_no;
    
     let inputResult;
     try{
        inputResult = await Archive.findOne({
            attributes:['archive_no','content','title','created_at','src','url','hit'],
-           where:{file_no},
+           where:{archive_no},
            order:[['created_at','DESC']],
            raw:true,
        })
