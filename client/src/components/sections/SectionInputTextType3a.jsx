@@ -89,6 +89,7 @@ export default function SectionInputTextType3a() {
   useEffect(()=>{
     getPreViewImage();
   },[]) */
+ 
    const sendData = useCallback(async()=>{
     let context = content.replace(/(<([^>]+)>)/gi, "");
     context = context.replace(/&nbsp;/gi,"");
@@ -121,7 +122,7 @@ export default function SectionInputTextType3a() {
  
     const respon = await fetch( PreUri +'/archive/'+ (no+1) +'/files',{
       method:Method.post, 
-/*        headers:{authorization:token}, */
+       headers:{authorization:token},
         body:formData,
     })
     if(!respon.ok){
