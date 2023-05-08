@@ -6,7 +6,7 @@ import TitleType2 from "./TitleType2";
 import ReactPlayer from 'react-player'
 export default function InfoType3a() {
   const location = useLocation();
-  const no = location.state.file_no;
+  const no = location.state.archive_no;
   const [data,setData] = useState([]);
   const [date,setDate] = useState("");
   const history = useNavigate();
