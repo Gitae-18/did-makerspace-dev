@@ -70,6 +70,7 @@ router.post('/archives',verifyToken,async(req,res,next)=>{
             title:body.title,
             content:body.content,
             url: body.url,
+            file_type:body.file_type,
             created_user_no: user_no,
             updated_user_no: user_no,
         })

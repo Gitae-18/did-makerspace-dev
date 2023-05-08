@@ -102,6 +102,7 @@ export default function SectionInputTextType3a() {
            title:title,
            content:text,
            url:address,
+           file_type:"video",
         }
       )
       
