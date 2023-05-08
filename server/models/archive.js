@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('archive', {
-        file_no: {
+        archive_no: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             allowNull: false,
@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         hit:{
             type: DataTypes.INTEGER,
             allowNull:false,
+            defaultValue:0,
         },
         attached_file:{
             type: DataTypes.STRING(255),
