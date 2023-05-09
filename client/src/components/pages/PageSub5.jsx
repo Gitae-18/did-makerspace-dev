@@ -23,34 +23,36 @@ export default function Mentoring({location,history}) {
     },[])
     return (
       <>
-      <div id="sub_page_wrap">
+      <NotCompeleted/>
+   {/*    <div id="sub_page_wrap">
         <SubSideMenu title={"멘토링관리"} ></SubSideMenu>
         <div className="sub_page_inner_wrap">
           <div className="sub_inner">
-            <NotCompeleted/>
-            {/* <PageSub04a1/> */}
+            
+            <PageSub04a1/>
           </div>
         </div>
       </div>
       <div className="sub_page_outer">
-      </div>
+      </div> */}
       </>
     );
   }
   export const UMentoring = () =>{
     return(
       <>
-      <div id="sub_page_wrap">
+       <NotCompeleted/>
+{/*       <div id="sub_page_wrap">
         <SubSideMenu title={"멘토링"} ></SubSideMenu>
         <div className="sub_page_inner_wrap">
           <div className="sub_inner">
-            <NotCompeleted/>
-            {/* <TableType5c/> */}
+           
+            <TableType5c/>
           </div>
         </div>
       </div>
       <div className="sub_page_outer">
-      </div>
+      </div> */}
       </>
     )
   }
