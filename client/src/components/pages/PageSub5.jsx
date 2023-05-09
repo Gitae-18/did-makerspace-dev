@@ -5,6 +5,7 @@ import TableType5c from "../contents/TableType5c";
 import MServiceGuide from "../contents/ServiceGuide";
 import SectionInputTextType1f from "../sections/SectionInputTextType1f";
 import SectionTextType2a from "../sections/SectionTextType2a";
+import NotCompeleted from "../NotCompeleted";
 import PageSub04a1 from "./PageSub04/PageSub04a1";
 import PageSub04a2 from "./PageSub04/PageSub04a2";
 import PageSub04a3 from "./PageSub04/PageSub04a3";
@@ -26,7 +27,8 @@ export default function Mentoring({location,history}) {
         <SubSideMenu title={"멘토링관리"} ></SubSideMenu>
         <div className="sub_page_inner_wrap">
           <div className="sub_inner">
-            <PageSub04a1/>
+            <NotCompeleted/>
+            {/* <PageSub04a1/> */}
           </div>
         </div>
       </div>
@@ -42,7 +44,8 @@ export default function Mentoring({location,history}) {
         <SubSideMenu title={"멘토링"} ></SubSideMenu>
         <div className="sub_page_inner_wrap">
           <div className="sub_inner">
-            <TableType5c/>
+            <NotCompeleted/>
+            {/* <TableType5c/> */}
           </div>
         </div>
       </div>

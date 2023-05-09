@@ -36,7 +36,7 @@ export default function SectionTextType1(props) {
         controller ={{control:controlledSwiper}}
         autoplay={{delay:2400,disableOnInteraction:false}}
       >
-        <SwiperSlide value={0} onChange={onChange}><NavLink to="didreservation"><img src="/images/reservation.jpg"/></NavLink></SwiperSlide>
+        <SwiperSlide value={0} onChange={onChange}><NavLink to="eqreservation/equip"><img src="/images/reservation.jpg"/></NavLink></SwiperSlide>
 {/*         <SwiperSlide value={1}><NavLink to="didreservation"><img src="/images/reservation2.jpg"/></NavLink></SwiperSlide> */}
         <SwiperSlide value={1}><NavLink to={authority_level<10?'uservice':'mservice'}><img src="/images/service.jpg"/></NavLink></SwiperSlide>
 {/*         <SwiperSlide value={3}><NavLink to={authority_level<10?'uservice':'mservice'}><img src="/images/service2.jpg"/></NavLink></SwiperSlide> */}
