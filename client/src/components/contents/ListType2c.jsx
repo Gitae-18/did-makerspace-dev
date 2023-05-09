@@ -1,12 +1,14 @@
 import React,{useState,useEffect,useCallback} from "react";
 import { useLocation,useNavigate } from "react-router-dom";
 import { PreUri,CommonHeader, Method, getRspMsg} from "../../CommonCode";
+import { AuthLevel } from "../../CommonCode";
 import {useDispatch,useSelector}  from "react-redux";
 import ImageGetArchive from "../sections/ImageGetArchive";
 import styled from "styled-components";
 import Paging2 from "./Paging2";
 export default function ListType2c() {
   const { token } = useSelector(state => state.user);
+  const { authority_level } = useSelector(state => state.user);
   const location = useLocation();
   const history = useNavigate();
   const [data,setData] = useState([]);
@@ -128,7 +130,9 @@ export default function ListType2c() {
         </li>
         ))}
       </ol>
-      <StyledBtn2 onClick={(e)=>onWrite(e)}>글쓰기</StyledBtn2>
+      {authority_level>10?
+      <StyledBtn2 onClick={(e)=>onWrite(e)}>글쓰기</StyledBtn2>:<></>
+      }
       <div className="page_control">
       <Paging2 page={currentPage} count = {count} setPage={sethandlePage}/>
       </div>
