@@ -1,17 +1,18 @@
 import React ,{useState,useCallback,useEffect} from "react";
 import { CHANGE_DEPTH, MENU_CHANGE } from "../../store/sidemenu";
-import {useNavigate,useLocation} from "react-router-dom"
+import {useNavigate,useLocation,useParams} from "react-router-dom"
 import SubSideMenu from "../contents/SubSideMenu";
 import {SubBread} from "../contents/SubSideMenu";
 import PageSub01a1 from "./PageSub01/PageSub01a1";
 import PageSub01a2 from "./PageSub01/PageSub01a2";
-import PageSub01a3 from "./PageSub01/PageSub01a3";
 import PageSub01b1 from "./PageSub01/PageSub01b1";
 import PageSub01b2 from "./PageSub01/PageSub01b2";
 import PageSub01b3 from "./PageSub01/PageSub01b3";
 import PageSub01b4 from "./PageSub01/PageSub01b4";
 import PageSub01c from "./PageSub01/PageSub01c";
 import PageSub01d from "./PageSub01/PageSub01d";
+import TableType1a from "../contents/TableType1a";
+import TableType1c from "../contents/TableType1c";
 import PageSub07c3 from "./PageSub07/PageSub07c3";
 import SectionInputTextType1f from "../sections/SectionInputTextType1f";
 import SectionInputTextType1f_update from "../sections/SectionInputTextType1f_update";
@@ -24,11 +25,13 @@ import Menu from "../Menu";
 import { EquipmentContainer } from "../../containers/EquipmentContainer";
 import TableType1d_User from "../contents/TableType1d_User";
 import { useDispatch,useSelector } from "react-redux";
+import styled from "styled-components";
 export default function DidInfo() {
   const [value,setValue] = useState("");
   const dispatch = useDispatch();
   const { sideNaviMenu } = useSelector(state => state.sidemenu);
-  
+  const location = useLocation();
+
   return (
     <>
     <div id="sub_page_wrap">
@@ -36,7 +39,8 @@ export default function DidInfo() {
       </SubSideMenu>
       <div className="sub_page_inner_wrap">
         <div className="sub_inner">
-          <PageSub01a1/>
+          
+          <TableType1a/>
         </div>
       </div>
     </div>
@@ -115,7 +119,7 @@ export const DidInfo3 = ({location,history}) => {
       </SubSideMenu>
       <div className="sub_page_inner_wrap">
         <div className="sub_inner">
-          <PageSub01a3/>
+          <TableType1c/>
         </div>
       </div>
     </div>

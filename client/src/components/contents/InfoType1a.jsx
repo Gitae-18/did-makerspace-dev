@@ -48,39 +48,16 @@ export default function InfoType1a() {
         <dt>상세 설명</dt>
         <dd>
           <dl>
-            <dt>Print Technology</dt>
-            <dd>FFF (Fused Filament Fabrication)</dd>
+            <dt>Model Name</dt>
+            <dd>{info.model_name}</dd>
           </dl>
           <dl>
-            <dt>Print head</dt>
-            <dd>Dual Nozzle (Independent)</dd>
+            <dt>Model Detail</dt>
+            <dd>{info.model_detail}</dd>
           </dl>
           <dl>
-            <dt>Nozzle Diameter</dt>
-            <dd>0.4mm</dd>
-          </dl>
-          <dl>
-            <dt>Max Build size (WxDxH)</dt>
-            <dd>370 x 390 x 450 mm</dd>
-          </dl>
-          <dl>
-            <dt>Material</dt>
-            <dd>
-              PLA (9 Color), ABS (7 Color), Flexible (6 Color), PVA, Open
-              Materials (PETG, TPE, ASA, Metal, Luminous, Smooth and etc)
-            </dd>
-          </dl>
-          <dl>
-            <dt>Connectivity</dt>
-            <dd>3.0 Device / 2.0 Host, Ethernet (1G), Wi-Fi</dd>
-          </dl>
-          <dl>
-            <dt>Layer Thickness</dt>
-            <dd>0.05 ~ 0.4 mm</dd>
-          </dl>
-          <dl>
-            <dt>Filament Diameter</dt>
-            <dd>1.75 mm</dd>
+            <dt>Model Specification</dt>
+            <dd>{info.model_specification}</dd>
           </dl>
         </dd>
       </dl>

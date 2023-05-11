@@ -4,7 +4,7 @@ export default function ListType1c() {
     <div className="list_type1 list_type1c">
       <ol>
         <li>
-          <div className="image_part"><img src="/images/labtour_pic.png" alt="no-image"/></div>
+          <div className="image_part"><img src="/images/labtour_pic.png" alt="no"/></div>
           <div className="text_part">
             <dl>
               <dt className="blind">랩 투어 설명</dt>
