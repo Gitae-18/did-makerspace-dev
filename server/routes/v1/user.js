@@ -1017,7 +1017,7 @@ router.post('/findpassword', async (req, res, next) => {
         catch(e){
             console.log(e);
         }
-    }main(email)
+    }main(body.email)
 
    /* let transporter = nodemailer.createTransport({
         service: 'gmail',
