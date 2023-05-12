@@ -947,26 +947,19 @@ router.post('/findpassword', async (req, res, next) => {
         return res.status(errorCode.badRequest).json();
     }
 
-    
     async function main(receiverEmail) {
-    
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            host: 'smtp.gmail.com',
-            port: 465,
-            secure: true,
-            auth:{
-                type: 'OAuth2',
-                user: process.env.OAUTH_USER,
-                clientId: process.env.OAUTH_CLIENT_ID,
-                clientSecret: process.env.OAUTH_CLIENT_SECRET,
-                accessToken: process.env.OAUTH_ACCESS_TOKEN,
-                refreshToken: process.env.OAUTH_REFRESH_TOKEN,
-                expires: 1484314697598,
-            },
-        });
-        
-    let find;
+
+    const transporter = nodemailer.createTransport({
+        service: 'Naver',
+        host: 'smtp.naver.com',
+        port: 587,
+        secure: false,
+        auth:{
+            user:'nicekitae@naver.com',
+            pass:'rlarlxo!123',
+        },
+    });
+     let find;
     try {
         find = await User.findOne({
             attributes: ['user_no'],
@@ -983,9 +976,9 @@ router.post('/findpassword', async (req, res, next) => {
 
     if (!find) {
         return res.status(errorCode.noContent).json();
-    }
+    } 
 
-    const user_no = find.dataValues.user_no;
+     const user_no = find.dataValues.user_no;
     let newPassword = generatePass(8);
 
     let newSalt = Math.round((Math.random() * 100000000));// + "";
@@ -1003,46 +996,39 @@ router.post('/findpassword', async (req, res, next) => {
     } catch (error) {
         console.error(error);
         return res.status(errorCode.internalServerError).json({});
-    }
-    const message = {
-            from : OAUTH_USER,
-            to: receiverEmail,
-            subject: '[DID 기술융합공작소] 임시 비밀번호가 발송되었습니다.',
-            text:'임시 비밀번호입니다 [ ' + newPassword + ' ] 확인 후 변경 바랍니다.',
-        };
-        try{
-            await transporter.sendMail(message);
-            console.log('메일을 성공적으로 발송했습니다.');
-        }
-        catch(e){
-            console.log(e);
-        }
-    }main(body.email)
+    } 
+    
+    
 
-   /* let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.SYSTEM_EMAIL, // gmail id
-            pass: process.env.SYSTEM_EMAILPW // gmail pw
-        }
-    });*/
-
-    /*let mailOptions = {
-        from: process.env.SYSTEM_EMAIL,    // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
-        to: body.email ,                     // 수신 메일 주소
-        subject: '[DID 기술융합공작소] 임시 비밀번호가 발송되었습니다.',   // 제목
-        text: '임시 비밀번호입니다 [ ' + newPassword + ' ] 확인 후 변경 바랍니다.'  // 내용
-    };
-
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-            console.log(error);
-        }
-        else {
-            console.log('Email sent: ' + info.response);
-        }
-    });*/
-
+        const mailOpt=(body)=>{
+            const mailOptions = {
+                    from : OAUTH_USER,
+                    to: receiverEmail,
+                    subject: '[DID 기술융합공작소] 임시 비밀번호가 발송되었습니다.',
+                    text:'임시 비밀번호입니다 ['+  newPassword+ '] 확인 후 변경 바랍니다.',
+                };
+                return mailOptions;
+            }
+           
+            const sendMail = (mailOption) =>{
+                transporter.sendMail(mailOption,(error,info) => {
+                    if(error){
+                        console.log("에러" + error);
+                    }
+                    else {
+                        console.log("전송 완료" + info.response);
+                    }
+                })
+                
+               
+            }
+         
+            const mailOption = mailOpt(body,newPassword);
+             sendMail(mailOption)
+     
+ 
+    }    main(body.email);
+    //res.send("result");
     res.status(errorCode.ok).json({});
 });
 
