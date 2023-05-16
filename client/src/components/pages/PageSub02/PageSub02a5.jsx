@@ -16,118 +16,116 @@ export default function PageSub02a5() {
   const uvsrc = "/images/uvprinter_TEST.png"
   const xcutsrc = "/images/xcut_TEST.png"
   const type = String(testtype);
+  const [questions,setQuestions] = useState([]);
   const [answer,setAnswer] = useState([]);
-  const printerAnswer = [2,1,3,5,5,4,1,1,4,1] 
-  const printerAnswer2 =  [2,1,3,5,5,4,4,1,4,4] 
-  const xcutAnswer = [3,4,4,2,1,3,5,1,4,1] 
-  const xcutAnswer2 =  [3,4,4,2,2,3,5,1,4,4]
-  const uvprinterAnswer = [3,1,2,1,4,3,4,4,5,1]
-  const a0ploterAnswer = [5,2,2,3,5,3,3,1,1,1] 
-  const a0ploterAnswer2 = [5,4,2,3,5,4,3,1,2,5]
-  const [count,setCount] = useState(0);
+  const [answers,setAnswers] = useState([]);
+  const [testAnswer,setTestAnswer] = useState([]);
+  let [count,setCount] = useState(0);
   const [modalOpen,setModalOpen] = useState(false);
+  const [testfile,setTestFile] = useState([]);
   const [passflag,setPassflag] = useState('');
+  const [totalScore,setTotalScore] = useState(0);
   const [inputs,setInputs] = useState({
     name:'',
     attached:'',
   })
-  const [input,setInput] = useState({
-    input1: '',
-    input2: '',
-    input3: '',
-    input4: '',
-    input5: '',
-    input6: '',
-    input7: '',
-    input8: '',
-    input9: '',
-    input10: '',
-  })
+  const [input,setInput] = useState([])
 
-  const {name,attached} = inputs;
-  const {input1,input2,input3,input4,input5,input6,input7,input8,input9,input10} = input;
-
-  const onChangeInput = (e) =>{
+/*   const {name,attached} = inputs;
+  const {input1,input2,input3,input4,input5,input6,input7,input8,input9,input10} = input; */
+  let array = Object.values(input);
+  let countup = 0;
+  let score = 0 ;
+  let incorrect;
+  let pass ;
+  const correctAnswer = testfile.map(ele=>ele.answer);
+  const answerlist = Object.values(input);
+  const onChangeInput = useCallback( async(e) =>{
     const {name,value} = e.target;
     setInput({
       ...input,
       [name]:value,
     })
-  }
+    setAnswers(Object.values(input))
+   
 
+  },[input]);
+
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+
+    
+    
+    //const isCorrect = answers.every((answer,index)=>answer === correctAnswer[index]);
+    
+    //return countup, score;
+ // }
+  }
+  const getExam = useCallback(async()=>{
+    let examtype; 
+    if(testtype.includes("FDM"))
+    {
+      examtype=2;
+    }
+    else if(testtype.includes("A0"))
+    {
+      examtype=1;
+    }
+    else if(testtype.includes('UV'))
+    {
+      examtype=3;
+    }
+    else if(testtype.includes('cut'))
+    {
+      examtype=4;
+    }
+    let requri ;
+    requri= PreUri + '/exam/examlist?examtype=' + examtype;
+    const response = await fetch(requri,{
+      method:Method.get,
+      headers:CommonHeader,
+    })
+    const json = await response.json();
+    setTestFile(json);
+
+
+    let ansuri;
+    ansuri = PreUri + '/exam/bogilist?examtype=' + examtype;
+    const res = await fetch(ansuri,{
+      method:Method.get,
+      headers:CommonHeader,
+    })
+    const data = await res.json();
+    console.log(data);
+    setTestAnswer(data);
+  },[testfile,testAnswer])
  
 /*   const getPassflag= useCallback(async()=>{
     let requri = PreUri + '/'
   },[])  */
-  let counter = 0 ;
- 
-  const CheckAnswer = useCallback(async() =>{
-    if(testtype==="FDM : 3DWOX 1X"){
-    for(let i = 1 ; i< printerAnswer.length ; i++){
-      if(printerAnswer[i] === parseInt(answer[i]) || printerAnswer2[i] === parseInt(answer[i]))
-      {
-        setCount(count=>count + 1)
-       counter++;
-       console.log("정답 +1")
-      }
+
+  const onCloseModal = useCallback(async() =>{
+    CommonHeader.authorization = token;
+    if(passflag==="Y")
+    {
+    let requri = PreUri + '/userequipmentestpass/testflag?passflag=' + passflag;
+    const response = await fetch(requri,{
+     method:Method.post,
+     headers:CommonHeader,
+     body:JSON.stringify({
+       type:testtype,
+       passflag:passflag,
+     })
+    })
+    if(!response.ok){
+     return(alert(getRspMsg(response.status)))
+   }
     }
-  }
-  if(testtype==="A0플로터 : HP 디자인젯 Z6"){
-    for(let i = 0 ; i< a0ploterAnswer.length ; i++){
-      if(a0ploterAnswer[i] === parseInt(answer[i]) || a0ploterAnswer2[i] === parseInt(answer[i]))
-      {
-      setCount(count=>count + 1)
-       counter++;
-       console.log("정답 +1")
-      }
-   /*    else if(typeof(a0ploterAnswer[i])==="object"){
-        const abc = Object.values(a0ploterAnswer[i])
-        if(abc.includes(answer[i])){
-          counter+=1;
-          console.log("정답 + 1")
-        }
-      } */
-    }
-    
-  }
-  if(testtype==="X-cut"){
-    for(let i = 0 ; i< xcutAnswer.length ; i++){
-      if(xcutAnswer[i] === parseInt(answer[i]) || xcutAnswer2[i] === parseInt(answer[i]))
-      {
-        setCount(count=>count + 1)
-       counter++;
-       console.log("정답 +1")
-      }
-    }
-  }
-  if(testtype==="UV 프린터 : 329UV"){
-    for(let i = 0 ; i< uvprinterAnswer.length ; i++){
-      if(uvprinterAnswer[i] === parseInt(answer[i]))
-      {
-        setCount(count=>count + 1)
-       counter++;
-       console.log("정답 +1")
-      }
-    }
-  }
-  if(counter>5||count>5){
-    setPassflag('Y');  
-  }
-  else{
-    setPassflag('N');
-  }
-  console.log(passflag)
-  },[answer])
-  
-  
-  const onCloseModal = () =>{
     setModalOpen(false);
-  }
+  },[token,passflag])
   const onCheckModal = useCallback(async()=>{
     setModalOpen(true);
-    setAnswer(Object.values(input));
-    CheckAnswer(counter);
-  },[input,count])
+  },[input])
   
   /* const onSubmit = useCallback(async(e) =>{
     CommonHeader.authorization = token;
@@ -135,37 +133,93 @@ export default function PageSub02a5() {
      
    
   },[token,passflag]) */
+  const checkAnswer = useCallback(async() =>{
+    for(let i = 0; i<answerlist.length;i++)
+    {
+  /*     const isCorrect = answerlist.every((answer,index)=>answer === correctAnswer[index]);
+      if(isCorrect)
+      {
+        countup+=1;
+        score+=10;
+        console.log("정답");
+        console.log(countup);
+      } */
+        if(answerlist[i]===correctAnswer[i])
+        {
+        countup+=1;
+        score+=10;
+        console.log("정답");
+      }else{
+        incorrect+=1;
+      }
+      
+    }
+    console.log(countup);
+    setTotalScore(score);
+    if(countup>=6)
+    {
+      setPassflag("Y");
+      
+    }
+    else {
+      setPassflag("N");
+    }
+  },[input]);
 
   const onSendResult = useCallback(async()=>{
     CommonHeader.authorization = token;
+    if(passflag==="Y")
+    {
     let requri = PreUri + '/userequipmentestpass/testflag?passflag=' + passflag;
     const response = await fetch(requri,{
      method:Method.post,
      headers:CommonHeader,
      body:JSON.stringify({
        type:testtype,
-       passflag:passflag
+       passflag:passflag,
      })
     })
     if(!response.ok){
      return(alert(getRspMsg(response.status)))
    }
+   }
    setModalOpen(false);
-   alert('제출되었습니다')
    history('/eqreservation/equip');
   },[token,passflag])
 
+
   useEffect(()=>{
-    CheckAnswer();
-  },[CheckAnswer])
+    getExam();
+    checkAnswer();
+  },[checkAnswer])
   return (
     <div id="pageSub02a5">
       <TextExtraType1b></TextExtraType1b>
       <div className="image_part">
         <div className="test_inner">온라인 시험</div>
-    
-        <img src={testtype.includes('A0플로터')? flotersrc:testtype.includes('FDM : 3DWOX')? printsrc:testtype.includes('UV 프린터 : 329UV')? uvsrc:testtype.includes('X-cut')? xcutsrc:null} alt="no image"/>
-        <div className="testpage">
+        <h1 style={{"fontSize":"18px","textAlign":"center","marginBottom":"30px"}}> {testtype}</h1>
+        {/* <img src={testtype.includes('A0플로터')? flotersrc:testtype.includes('FDM : 3DWOX')? printsrc:testtype.includes('UV 프린터 : 329UV')? uvsrc:testtype.includes('X-cut')? xcutsrc:null} alt="no image"/> */}
+        <ExamWrapper>
+        <form style={{"padding":"10px 20px"}} onSubmit={handleSubmit}>
+          {testfile.map((item,index)=>
+          <Quest key={index}>
+           Q{index+1}.{item.question_title}
+           {item.pic_src!==null?<QuestImg src={item.pic_src} alt="no"/>:<></>}
+
+            {testAnswer.map((answer,index2)=>
+              <>
+            {answer.question_no%10===item.question_no%10 ? <InnerQuest key={index2}><InnerInput key={answer.question_no} type="radio" name={"bogi"+index%10} value={answer.content} onChange={onChangeInput}></InnerInput>
+              <InnerTitle>{answer.content}</InnerTitle></InnerQuest>:<></>}
+            </>
+            )}
+         
+          </Quest>
+           )}
+              <StyledBtn type="submit" onClick={onCheckModal}>제출하기</StyledBtn>
+        {modalOpen&&<ModalSend onCloseModal={onCloseModal} onSendResult={onSendResult} score={totalScore} flag={passflag}/>}
+        </form>
+        </ExamWrapper>
+      {/*   <div className="testpage">
           <h2>{testtype}&nbsp;시험 답안지</h2>
           <table className="test_3d">
             <tbody>
@@ -205,10 +259,9 @@ export default function PageSub02a5() {
             </tbody>
           </table>
 
-        </div>
+        </div> */}
         
-        <StyledBtn onClick={onCheckModal}>제출하기</StyledBtn>
-        {modalOpen&&<ModalSend onCloseModal={onCloseModal} onSendResult={onSendResult}/>}
+     
         
       </div>
     </div>
@@ -228,4 +281,42 @@ left:150px;
     background-color:#transparent
     color:#313f4f
  }
+`
+const ExamWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width:100%;
+  height:100%;
+  border: 1px solid #000
+`;
+const InnerTitle = styled.label`
+ font-size:12px;
+ line-height:10px;
+ width:auto;
+ line-height:40px;
+ display:inline-block;
+`
+const Quest = styled.h2`
+ font-weight:500;
+ font-size:16px;
+`
+const InnerQuest = styled.div`
+ position:relative;
+ width:auto;
+ height:auto;
+ padding-top:15px;
+ margin-bottom:20px;
+`
+const InnerInput = styled.input`
+position:relative;
+top:2px;
+width:10px;
+height:10px;
+margin-left:5px;
+`
+const QuestImg = styled.img`
+width:100px;
+height:300px;
+position:relative;
+padding-top:30px;
 `

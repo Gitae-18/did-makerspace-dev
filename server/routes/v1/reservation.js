@@ -43,7 +43,7 @@ router.get('/equipment',verifyToken, async(req,res,next)=>{
     let result ;
     try{
         result = await EquipmentReservation.findOne({
-            attributes:['equipment_reservation_no','reservation_status','reservation_date'],
+            attributes:['equipment_reservation_no','reservation_status','reservation_date','reservation_time'],
             where:{equipment_category_no:category,reservation_date:{[Op.like]:`${date}%`}},
             raw:true
         })
@@ -115,6 +115,7 @@ router.post('/equipment_reserv', verifyToken, async(req,res,next)=>{
         inpurtResult  = await EquipmentReservation.create({
            reservation_status:body.reservation_status,
            reservation_date:body.reservation_date,
+           reservation_time:body.reservation_time,
            equipment_category_no:body.equipment_category_no,
            created_user_no: user_no,
            updated_user_no: user_no,

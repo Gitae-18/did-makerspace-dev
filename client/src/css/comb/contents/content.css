@@ -227,7 +227,7 @@ table tr td{
 .notice_popup_wrap .notice_inner p {
   position:relative;
   top:35%;
-  left:40%;
+  left:25%;
   font-size:1.2rem;
 }
 .notice_popup_wrap .notice_inner button{
@@ -1620,8 +1620,9 @@ h3.title_type2 {
   top:12px;
 }
 
-.select_time_type1 ol.table_time button {
+.select_time_type1 ol.table_time input {
   border: 2px solid #7f7f7f;
+  background-color: #ffffff;
   display:flex;
   width:120px;
   justify-content: center;
@@ -1630,12 +1631,12 @@ h3.title_type2 {
   cursor: pointer;
 }
 
-.select_time_type1 ol.table_time button.cant {
+.select_time_type1 ol.table_time input.cant {
   background-color: #c8c8c8;
   cursor: auto;
 }
 
-.select_time_type1 ol.table_time button.selected {
+.select_time_type1 ol.table_time input.selected {
   background-color: #313f4f;
   color: #fff;
 }

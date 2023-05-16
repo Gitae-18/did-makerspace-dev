@@ -78,7 +78,6 @@ export default function TableType2a() {
         pass="N";
       }
     } */
-
    const getItemList = useCallback(async(currentPage)=>{
       setLoading(true);
       let requri = PreUri + `${'/equipment/equipmentlist'}`;
@@ -170,7 +169,7 @@ export default function TableType2a() {
                 <td>{item.location}</td>
                 <td className="btns_wrap">
                 <StyledBtn onClick={(e)=>{goToVideo(e,i);openModal(e)}}>동영상보기</StyledBtn>
-                {pass[i] === "Y"&& typepass.includes(item.model_name)?<ButtonType2test btnName="시험불가"/>:
+                {pass[i] === "Y" ?<ButtonType2test btnName="시험불가"/>:
                 <ButtonType2test  btnName="시험보기"active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active:nonactive} name={item.model_name}/>
                 }
                  </td>
@@ -188,7 +187,7 @@ export default function TableType2a() {
       </table>
       
       <div className="page_control">
-      <Pagination
+{/*       <Pagination
        activePage={currentPage}
        itemsCountPerPage={5}
        totalItemsCount={reservationList.length}
@@ -196,7 +195,7 @@ export default function TableType2a() {
        prevPageText={"<"}
        nextPageText={">"}
        onChange={setPage}
-    />
+    /> */}
       </div>
     </div>
 

@@ -41,7 +41,7 @@ router.get('/testresult',verifyToken,async(req,res,next)=>{
      let result;
      try{
         result = await UserEquipmentTestPass.findAll({
-            attributes:['pass_flag','type'],
+            attributes:['pass_flag','type','user_no'],
             where:{user_no},
             raw:true,
         })

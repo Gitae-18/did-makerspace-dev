@@ -304,7 +304,7 @@ router.get('/recentnotice',async(req,res,next)=>{
             where:{popup:"Y"},
             order:[['created_at','DESC']],
             limit:1,
-            raw:true,
+            raw:false,
         })
     }
     catch(error){

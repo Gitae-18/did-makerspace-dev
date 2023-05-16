@@ -59,7 +59,8 @@ db.Service                   = require('./service')(sequelize, Sequelize);
 db.User                      = require('./user')(sequelize, Sequelize);
 db.OldService                = require('./old_service')(sequelize, Sequelize);
 db.OldServiceFile            = require('./old_service_file')(sequelize, Sequelize);
-
+db.ExamChoice                = require('./exam_choice')(sequelize,Sequelize);
+db.ExamQuestion              = require('./exam_question')(sequelize,Sequelize);
 
 //db.User.belongsTo(db.Company, { foreignKey: 'company_no', sourceKey: 'company_no' });
 //db.Company.hasMany(db.User, { foreignKey: 'company_no', sourceKey: 'company_no' });

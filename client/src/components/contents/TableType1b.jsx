@@ -139,7 +139,10 @@ else{
  
   setCurrentPage(1)
 }
+if(search.length===0)
+{
 setSearch('');
+}
 },[search])
 
 const onSelectItem = useCallback((e, i) => {
@@ -265,7 +268,7 @@ for (let i = 0; i < PageMax; i++) {
           총 <span>{itemList.length}</span>개의 글
         </p>
         <div className="table_search">
-       {/*    <select name="" id="">
+         {/*  <select name="" id="">
             <option value="1">모델명</option>
           </select> */}
           <input type="text"  value={search} name="search" onChange={onChange}   onKeyPress={(e) => { if (e.key === 'Enter') { onSearch(e) } }} placeholder="모델명을 입력하세요" />

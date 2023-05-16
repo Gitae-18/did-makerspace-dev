@@ -130,12 +130,15 @@ export default function TableType1a({query}) {
       setCurrentPosts(json);
   }
   else{
-    const filterData = spaceList.filter((item) => item.space_name.includes(search))
+    const filterData = spaceList.filter((item) => item.space_name.toLowerCase().includes(search.toLowerCase()))
     setSpaceList(filterData)
     setCurrentPosts(filterData)
     setCurrentPage(1)
   }
- setSearch('');
+  if(search.length===0)
+  {
+    setSearch('');
+  }
 },[search])
 
   return (

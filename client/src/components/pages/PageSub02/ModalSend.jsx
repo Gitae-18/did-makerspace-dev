@@ -1,13 +1,15 @@
 import React,{useState} from "react";
 import styled from "styled-components";
-const ModalSend = ({onSendResult,onCloseModal}) =>{
+const ModalSend = ({onSendResult,onCloseModal,score,flag}) =>{
     return(
     <div className="notice_popup_wrap open">
       <div className="notice_inner">
         <h1>안내사항</h1>
-        <p>
-         제출하시겠습니까?
-        </p>
+        {flag==='Y'? <p>
+        통과하셨습니다! 점수는 : {score} 점입니다.
+        </p>:<p>통과하지 못하셨습니다. 점수는 : {score} 점입니다.</p>
+        }
+        <p>*확인을 누르시면 목록으로 돌아가게 됩니다.</p>
         <div className="btns_pop_up">
           <div className="btn_close_day" onClick={onSendResult}>확인</div>
           <div className="btn_close" onClick={onCloseModal}>닫기</div>

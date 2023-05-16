@@ -21,6 +21,10 @@ module.exports = (sequelize,DataTypes) =>{
             type:DataTypes.STRING(50),
             allowNull:false,
         },
+        reservation_time:{
+            type:DataTypes.STRING(30),
+            allowNull:false,
+        },
         created_user_no:{
             type:DataTypes.INTEGER,
             allowNull:true,

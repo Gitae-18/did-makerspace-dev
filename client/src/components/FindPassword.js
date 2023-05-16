@@ -57,7 +57,7 @@ export default function ({ history }) {
 		}
 
 		alert('임시 비밀번호가 가입된 이메일로 발송되었습니다.');
-		history.replace('/');
+		
 	}, [token, userData, history]);
 
 	const onChange = useCallback(async (e) => {

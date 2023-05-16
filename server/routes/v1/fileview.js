@@ -2,13 +2,12 @@
 
 const express = require('express');
 const { verifyToken, errorCode } = require('../../middlewares/middlewares');
-const { Archive, Faq, FaqFile, NoticeFile, ClassEduFile } = require('../../models');
+const { Archive, Faq, FaqFile, NoticeFile, ClassEduFile ,ArchiveFile} = require('../../models');
 const { Op, or } = require("sequelize");
 const multer = require('multer');
 //const mime = require('mime/lite');
 //const path = require('path');
 const fs = require('fs');
-const { Notice, ArchiveFile } = require('../../models/index');
 const router = express.Router();
 
 
@@ -60,7 +59,7 @@ router.get('/:fileview_no/faqfile', verifyToken, async (req, res, next) => {
     //res.send(image);
 
 });
-router.get('/:fileview_no/noticefile',/* verifyToken, */async (req, res, next) => {
+router.get('/:fileview_no/noticefile',verifyToken,async (req, res, next) => {
     let notice_no = req.params.fileview_no;
 
     /*     const imgPath = path.resolve("./upload/newfaq/","banner05.png")
@@ -185,7 +184,7 @@ router.get('/:fileview_no/classedufile'/* ,verifyToken */, async (req, res, next
     //res.send(image);
 
 }); */
-router.get('/:fileview_no/archivefile'/* ,verifyToken */, async (req, res, next) => {
+router.get('/:fileview_no/archivefile',verifyToken, async (req, res, next) => {
     let archive_no = req.params.fileview_no;
 
     /*     const imgPath = path.resolve("./upload/newfaq/","banner05.png")

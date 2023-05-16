@@ -51,7 +51,6 @@ export function LoggedInForm({onLogout, username}) {
     const onLogoutClick = () =>{
         history('/');
     }
-    console.log(username.length)
     return (
         <form onSubmit={onLogout}>
             
