@@ -268,15 +268,15 @@ export default function SubSideMenu(props,onCategory) {
     const { token } = useSelector(state => state.user);
     return(
       <ol>
-          <li className={sideNaviMenu===0?"on":"off"}>
-            <p onClick={(e)=>Dep2Handler(e,0)}>시제품제작지원</p>
+        <li className={sideNaviMenu===0?"on":"off"}>
+            <p onClick={(e)=>{Dep2Handler(e,0);history("/uservice/guide")}}>시제품제작안내</p>
+          </li>
+          <li className={sideNaviMenu===1?"on":"off"}>
+            <p onClick={(e)=>Dep2Handler(e,1)}>시제품제작지원</p>
             <ol className="has_dep3">
               <li onClick={Dep3Handler}><button className="btn" onClick={(e)=>history('/uservice')}>상담신청</button></li>
               <li onClick={Dep3Handler}><button className="btn" onClick={(e)=>history(location.pathname + '?step=2&next=app')}>제작신청</button></li>
             </ol>
-          </li>
-          <li className={sideNaviMenu===1?"on":"off"}>
-            <p onClick={(e)=>{Dep2Handler(e,1);history("/uservice/guide")}}>시제품제작안내</p>
           </li>
         </ol>
     )

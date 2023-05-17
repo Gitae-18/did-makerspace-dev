@@ -61,8 +61,8 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
   const SubMenu3 = () =>{
     return(
           <ol className='menu_dep2'>
-            <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink  to={'/uservice'}>시제품 제작</NavLink></li>
-            <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink>시제품 제작안내</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,0)}><NavLink  to={'/uservice/guide'}>시제품 제작안내</NavLink></li>
+            <li className="page_target" onClick={(e)=>onClick2(e,1)}><NavLink  to={'/uservice'}>시제품 제작</NavLink></li>
           </ol>
     );
   }
@@ -117,7 +117,7 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
          <SubMenu2/>
     </li>
        
-    <li><Link to={"/uservice"}>시제품 제작</Link>
+    <li><Link to={"/uservice/guide"}>시제품 제작</Link>
           <SubMenu3/>
     </li>
         
