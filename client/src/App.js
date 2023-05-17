@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 import { AuthLevel } from './CommonCode';
 import {CookiesProvider} from 'react-cookie';
 import { JoinContainer as Join } from './containers/JoinContainer';
-import { LoginContainer as Login } from './containers/LoginContainer';
+import  LoginContainer  from './containers/LoginContainer';
 import { ManagementContainer as Management1 } from './containers/ManagementContainer';
 import { MaterialContainer as MMaterial } from './containers/MaterialContainer';
 import { MenuContainer as Menu } from './containers/MenuContainer';
@@ -90,7 +90,7 @@ const App = () => {
           <div className='gnb_cover'>
           <Link to="/"><span className='logo2'><img src="/images/logo.png" alt="로고"/></span></Link>
           <Menu/>
-          <Login />
+          <LoginContainer />
           </div>
         </div>
       </div>
