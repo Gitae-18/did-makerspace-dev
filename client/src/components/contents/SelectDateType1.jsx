@@ -28,22 +28,18 @@ export default function SelectDateType1({query}) {
   const [modalOpen, setModalOpen] = useState(false);
   const { token } = useSelector(state => state.user);
   const [start, setStart] = useState(new Date());
-  const [timepart,setTimepart] = useState('10:00')
+  const [timepart,setTimepart] = useState('')
+  const {isLoggedIn} = useSelector(state => state.user);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-  const [clickedTime,setClickedTime] = useState('10:00');
+  const [clickedTime,setClickedTime] = useState('');
 	const [NewDate,setNewDate] = useState(moment(new Date()).format("YYYY-MM-DD"));
   const [getdata,setGetdata] = useState([])
   const [targetTime ,setTargetTime] = useState("");
   const [btnActive,setBtnActive] = useState(false);
   const [currentStatus,setCurrentStatus] = useState(`can`);
   const [btnClick,setBtnClick] = useState(false);
-  const [equiptype,setEquipType] = useState();
-
-
-  const [daystatus,setDaystatus] = useState('');
-
-
+  const [selectStatus,setSelectStatus] = useState('');
   const history = useNavigate();
   const location = useLocation();
   const categorynum = location.state.category;
@@ -52,31 +48,64 @@ export default function SelectDateType1({query}) {
   const ref = useRef(false);
   const timeref= useRef();
   const timetable = ["10:00","14:00"];
-  let statusclick = btnClick === true ? 'selected' : 'can';
-  let statusclick2 =  btnActive === true  ? 'selected' : 'can';
+
  const status = `can't`;
  const status2 = `can't`;
     const dateClick = () =>{
          setNewDate(moment(start).format("YYYY-MM-DD",true).toString());
     }
     const openModal = () => {
+      if(clickedTime===null||clickedTime==='')
+      {
+        alert("시간을 선택해주세요");
+        return ;
+      }
+      else{
          setModalOpen(true);
+      }
     };
     const closeModal = () => {
          setModalOpen(false);
     };
 
-    const timeClick = (e,value) =>{
-         setBtnActive(!btnActive);
-         setClickedTime("10:00");
-     }
-
-    const timeClick2 =(e,value) =>{
+    const timeClick = useCallback(async(e) =>{
+        let second = 0;
         setBtnClick(!btnClick);
-        setClickedTime("14:00");
-   }
+        second++;
+        if(btnClick===true||second===1)
+        {
+          setBtnActive(false);
+          second=0;
+        }
+        if(clickedTime==="10:00")
+        {
+          setClickedTime('');
+        }
+        else if(clickedTime===""||clickedTime==="14:00"){
+        setClickedTime(e.target.value)
+        }
+     },[btnClick,btnActive])
 
-   console.log(clickedTime)
+
+    const timeClick2 =useCallback(async(e) =>{
+      let second = 0;
+      setBtnActive(!btnActive);
+      second++;
+      if(btnActive===true||second===1)
+      {
+        setBtnClick(false);
+        second=0;
+      }
+      if(clickedTime==="14:00")
+      {
+        setClickedTime('');
+      }
+      else if(clickedTime===''||clickedTime==="10:00"){
+        setClickedTime(e.target.value);
+      }
+
+    },[btnActive,btnClick]);
+    console.log(clickedTime)
   const getReservation = useCallback(async() => {
     CommonHeader.authorization = token;
     
@@ -96,12 +125,15 @@ export default function SelectDateType1({query}) {
       return;
     }
     const json = await response.json();
-
+    console.log(json);
     setGetdata(json);
+    if(json!==null)
+    {
+    setSelectStatus(json.reservation_status);
+    }
   if(json !== null && json.reservation_date !== undefined && json.reservation_date !== null){
-      setTimepart(json.reservation_date.substring(10,15));
+      setTimepart(json.reservation_time);
     } 
-    
 /*      setGetdata(getdata =>({
       ...getdata,
       reservationNo:json.result.equipment_reservation_no,
@@ -109,7 +141,8 @@ export default function SelectDateType1({query}) {
       date:json.result.reservation_date
     }));  */
   },[token,NewDate,clickedTime])
-
+  console.log(selectStatus)
+  console.log(timepart)
 
   useEffect(()=>{
     dateClick();
@@ -128,13 +161,14 @@ export default function SelectDateType1({query}) {
         reservation+=i
     } */
     CommonHeader.authorization = token;
-
+   
     const response = await fetch(PreUri + '/reservation/equipment_reserv',{
       method:Method.post,
       headers:CommonHeader,
       body:JSON.stringify({
         reservation_status:btnActive ? status : status2 ,
-        reservation_date:NewDate + clickedTime,
+        reservation_date:NewDate ,
+        reservation_time:clickedTime,
         equipment_category_no:categorynum
       })
     })
@@ -142,52 +176,15 @@ export default function SelectDateType1({query}) {
       return(alert(getRspMsg(response.status)))
     }
     setModalOpen(false);
-  },[getdata,token])
+  },[getdata,token,clickedTime])
     // get api
     // data
-     const restatus = getdata !== null ? getdata.reservation_status : btnClick === true ? 'selected' : 'can';
-     const restatus2 = getdata !== null ? getdata.reservation_status : btnActive === true ? 'selected' : 'can';
-    if(getdata!==undefined && getdata!==null && timepart !== null){
-      if(restatus === `can't`){
-          if(timepart==="10:00")
-         {
-            statusclick2= 'cant'
-         }
-      }
-    }
-    else if(getdata === null){
-      if(btnClick === true){
-        
-        statusclick2 ='selected'
-      } 
-      else{
-        statusclick2 ='can'
-      }
-    }
-    if(getdata!==undefined && getdata!==null && timepart !== null){
-      if(restatus2 === `can't`)
-      {
-         if(timepart==="14:00")
-         {
-            statusclick= 'cant'
-         }
-      } 
-    }
-    else if(getdata === null){
-      if(btnActive === true){
-        
-        statusclick ='selected'
-      }
-      else{
-        statusclick ='can'
-      }
       
-    }
      const ButtonTable = () =>{
       return(
          <ol className="table_time">
-         <button type="button"  value={0}   className={statusclick} onClick={timeClick}>10:00</button>
-         <button type="button"  value={1}   className={statusclick2} onClick={timeClick2}>14:00</button>
+         <input type="button" name="10" value="10:00"   className={selectStatus===`can't`&&timepart==="10:00"?'cant':btnClick===true?"selected": btnClick===false?"can":null} onClick={timeClick}></input>
+         <input type="button" name="14" value="14:00"   className={selectStatus===`can't`&&timepart==="14:00"?'cant':btnActive===true?"selected": btnActive===false?"can":null} onClick={timeClick2}></input>
          </ol>
       )
     }
@@ -218,7 +215,7 @@ export default function SelectDateType1({query}) {
           <TableInfoType1a></TableInfoType1a>
       <div className="table_btns table_btns_type1">
       <StyledBtn onClick={openModal} >예약</StyledBtn>
-      {modalOpen && <ReservModal sendData={sendData} open={modalOpen} close={closeModal}>
+      {modalOpen && <ReservModal sendData={sendData} clicked={clickedTime} visible={modalOpen} onClose={closeModal} isLoggedIn={isLoggedIn} closable={true}>
        해당 날짜에 정말 예약 하시겠습니까?
       </ReservModal>
       }

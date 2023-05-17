@@ -86,11 +86,12 @@ function Home() {
             }
             const json = await response.json();
             setData(json);
+            console.log(json)
            },[])
 
            useEffect(()=>{
             getRecentNotice();
-           },[])
+           },[getRecentNotice])
            const onSiteMove = (url) =>{
             window.open(url,"_blank");
           }

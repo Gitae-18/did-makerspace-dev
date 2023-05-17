@@ -1649,7 +1649,7 @@ h3.title_type2 {
       -ms-flex-pack: end;
           justify-content: flex-end;
   width: 400px;
-  margin: 16px auto;
+  margin: 16px 30px;
 }
 
 .table_info_type1 > div {
