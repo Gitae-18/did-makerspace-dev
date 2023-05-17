@@ -48,6 +48,7 @@ export default function SectionInputTextType3a() {
  const onAddressChange = (e) =>{
     setAddress(e.target.value);
  }
+ console.log(no);
  const handleChangeFile = (e) =>{
   setImageFile(e.target.files);
 
@@ -75,21 +76,9 @@ export default function SectionInputTextType3a() {
             return(alert(getRspMsg(response.status)))
           }
         },[image,no]); 
- /*  const getPreViewImage = useCallback(async()=>{
-    const res = await fetch(PreUri + '/fileview/'+ (no+1) +'/noticeview',  {
-      method: Method.get,
-      headers: {
-        authorization: token,
-    }, 
-    })
-    const fileName = await res.json();
-    const filesrc = btoa(fileName.file);
-    setFileUrl2(filesrc);
-  },[token,no])
-  useEffect(()=>{
-    getPreViewImage();
-  },[]) */
- 
+/*   useEffect(()=>{
+    uploadImage();
+  },[uploadImage]) */
    const sendData = useCallback(async()=>{
     let context = content.replace(/(<([^>]+)>)/gi, "");
     context = context.replace(/&nbsp;/gi,"");

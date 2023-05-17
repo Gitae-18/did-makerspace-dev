@@ -64,7 +64,6 @@ router.post('/archives',verifyToken,async(req,res,next)=>{
     let body = req.body;
     let user_no = req.decoded.user_no;
     let result;
-    console.log(body.content)
     try{
         result = await Archive.create({
             title:body.title,
@@ -117,9 +116,8 @@ router.put('/archive_cnt',async(req,res,next)=>{
 })
 router.post('/:archive_no/files',verifyToken,upload.array('imageFiles'), async(req, res, next) =>{
     let user_no = req.decoded.user_no;
-    console.log(user_no);
     let archive_no = req.params.archive_no;
-
+    console.log(archive_no);
     if(req.files.length>0)
     {
         makedir('upload/newarchive');
@@ -128,7 +126,7 @@ router.post('/:archive_no/files',verifyToken,upload.array('imageFiles'), async(r
         let inputResult;
         try {
             inputResult = await ArchiveFile.create({
-                archive_no,
+                archive_no:archive_no,
                 original_name: req.files[i].originalname,
                 name: req.files[i].filename,
                 type: req.files[i].mimetype,

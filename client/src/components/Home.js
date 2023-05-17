@@ -17,7 +17,7 @@ import { NoticeHomeContainer } from '../containers/notice/NoticeHomeContainer';
 import "../css/comb/pages/page.css";
 import "../css/comb/contents/content.css";
 import "../css/comb/sections/sections.css";
-
+import styled from 'styled-components';
 function Home() {
   const { token } = useSelector(state => state.user); 
   const {isLoggedIn} = useSelector(state => state.user);
@@ -113,13 +113,14 @@ function Home() {
                   One-Stop 서비스를 제공하는 전문 메이커 스페이스입니다.
                   </p>
                 </div>
-            <div className="sns_map">
-              <img src="/images/blog_ico.png" onClick={()=>onSiteMove("https://blog.naver.com/didmakerspace")} className='blog'  style={{"cursor":"pointer"}}/>
-              <img src="/images/instagram_ico.png" onClick={()=>onSiteMove("https://www.instagram.com/didmakerspace/?hl=ko")} className='blog'  style={{"cursor":"pointer"}}/>
-              <img src="/images/youtube_ico.png" onClick={()=>onSiteMove("https://www.youtube.com/channel/UCPjkOSeubw8elE8Qg6lhHfQ")} className='blog'  style={{"cursor":"pointer"}}/>
-              <img src="/images/kako_ico.png" onClick={()=>onSiteMove("https://pf.kakao.com/_HuxckT")} className='blog' style={{"cursor":"pointer"}}/>
-            </div>
               </div>
+              <div className="sns_map">
+              <IcoImg src="/images/facebook_ico.png" onClick={()=>onSiteMove("https://www.facebook.com/didmakerspace")} className='blog'  style={{"cursor":"pointer"}}/>
+              <IcoImg src="/images/blog_ico.png" onClick={()=>onSiteMove("https://blog.naver.com/didmakerspace")} className='blog'  style={{"cursor":"pointer"}}/>
+              <IcoImg src="/images/instagram_ico.png" onClick={()=>onSiteMove("https://www.instagram.com/didmakerspace")} className='blog'  style={{"cursor":"pointer"}}/>
+              <IcoImg src="/images/youtube_ico.png" onClick={()=>onSiteMove("https://www.youtube.com/channel/UCPjkOSeubw8elE8Qg6lhHfQ")} className='blog'  style={{"cursor":"pointer"}}/>
+              <IcoImg src="/images/kakao_ico.png" onClick={()=>onSiteMove("https://pf.kakao.com/_HuxckT")} className='blog' style={{"cursor":"pointer"}}/>
+            </div>
             </div>
           );
         };
@@ -137,3 +138,8 @@ function Home() {
           </div>
         );}
 export default React.memo(Home);
+
+const IcoImg = styled.img`
+width:30px;
+height:30px;
+`

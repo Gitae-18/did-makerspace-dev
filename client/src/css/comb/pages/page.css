@@ -30,7 +30,7 @@ section{
   width:auto;
   left:-4px;
 }
-.main_banner .sns_map{position:absolute;display:flex;bottom:20px;justify-content:space-between;}
+.main_banner .sns_map{position:absolute;display:flex;justify-content:space-between;right:0;top:5px;}
 .main_banner .text_part {
   max-width: 500px;
   position:relative;
