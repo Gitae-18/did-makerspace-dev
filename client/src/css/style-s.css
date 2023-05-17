@@ -104,6 +104,7 @@ width:6px;height:6px;border-radius:50%;background:#0f2753;position:absolute;top:
 /* utilize-2 */
 .wrap.utilize2{background:#ffffff;}
 .wrap.utilize2 .content_wrap .inner_wrap{width:820px;margin:0 auto;padding:68px 0 40px;}
+.wrap.utilize2 .content_wrap .content{position:relative;top:100px;}
 .wrap.utilize2 .content_wrap .inner_wrap h2{font-size:22px;color:#222;padding-bottom:20px;}
 .wrap.utilize2 .content_wrap .inner_wrap p.info{font-size:14px;height:36px;line-height:24px;background:#e5e5e5;box-sizing:border-box;padding-top:6px;padding-left:24px;color:#666;border-radius:8px;}
 .wrap.utilize2 .content_wrap .inner_wrap .reservation{margin-top:40px;font-size:18px;font-weight:400;}

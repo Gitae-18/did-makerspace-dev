@@ -76,7 +76,7 @@ export  const GoBackBtn =(props)=>{
     classNames += " btn_white";
   }
   return (
-    <div className={classNames} onClick={()=>history(-1)}>
+    <div className={classNames} onClick={()=>history('/uservice')}>
       <span className="resinfo">{props.btnName}</span>
     </div>
   );

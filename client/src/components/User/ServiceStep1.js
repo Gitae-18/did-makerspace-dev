@@ -5,7 +5,7 @@ import { PreUri, Method, MaxFileCount, MB, LIMIT} from '../../CommonCode';
 import { useSelector } from "react-redux";
 
 import $ from 'jquery';
-
+import SubSideMenu from '../contents/SubSideMenu';
 import '../../css/common-s.css';
 import '../../css/style-s.css';
 
@@ -116,6 +116,8 @@ export default function () {
     return (
         <div id="wrap" className='wrap utilize2'>
             <div className="content_wrap">
+            <SubSideMenu title={"시제품제작지원"} subtitle={"시제품 상담신청"}/>
+            <div className="content">
                 <div className="inner_wrap">
                     <div className="top_menu">
                         <UServiceNavi step={1} />
@@ -158,6 +160,7 @@ export default function () {
                      </div>
                     }
                     </div>
+                </div>
                 </div>
             </div>
             <div className="loading" />
