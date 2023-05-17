@@ -852,7 +852,7 @@ h3.title_type2 {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  border-bottom: 2px solid #313f4f;
+  border-bottom: 1px solid #313f4f;
 }
 
 .table_type3 ol li .part_title {
@@ -883,8 +883,11 @@ h3.title_type2 {
   line-height: 50px;
 }
 
-.table_type3 ol li .part_desc dt, .table_type3 ol li .part_desc dd ,.table_type3 ol li{
-  border-bottom: 1px solid #bbb;
+.table_type3 ol li .part_desc th, .part_desc td{
+  border-bottom:1px solid #bbb;
+}
+.table_type3 ol li .part_desc tr, .part_desc th, .table_type3 ol li .part_desc td ,.table_type3 ol li{
+  border-right: 1px solid #bbb;
 }
 
 .table_type3 ol li .part_desc dt:last-of-type, .table_type3 ol li .part_desc dd:last-of-type {
@@ -958,9 +961,9 @@ h3.title_type2 {
 .table_type3.table_type3b ol li .part_desc dd:first-of-type {
   width: 80%;
 }
-.table_type3.table_type3b ol li:last-of-type{
+/* .table_type3.table_type3b ol li:last-of-type{
   border-bottom:1px solid #000;
-}
+} */
 
 .table_type3.table_type3b ol li .part_desc dd:nth-of-type(2), .table_type3.table_type3b ol li .part_desc dd:nth-of-type(4) {
   border-right: 1px solid #bbb;
@@ -1490,7 +1493,7 @@ h3.title_type2 {
 }
 
 .info_type3 .info_desc_wrap .dl_wrap dt {
-  border-bottom: 1px solid #313f4f;
+
   font-size: 18px;
   color: #313f4f;
   font-weight: 400;

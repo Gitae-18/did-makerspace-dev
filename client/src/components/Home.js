@@ -96,12 +96,17 @@ function Home() {
             window.open(url,"_blank");
           }
         return (
+          <>
+          <div className="bg">
+          <video className="video__content" muted autoPlay loop>
+          <source src="images/videos/main_video.mp4" type="video/mp4"/>
+          </video>
             <div className="main_banner">
               <div className="wrap2">
               {modalVisible && (<Modal visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal} isLoggedIn={isLoggedIn}></Modal>)}
               {modalSet &&(<PopupModalAbout visible={modalSet} closable={true} maskClosable={true} onClose={closeModal3} isLoggedIn={isLoggedIn}/>)}
               {modalControl1 && data && (<PopupModalHome visible={modalControl1} closable={true} maskClosable={true} onClose={closeModal2} isLoggedIn={isLoggedIn} token={token} no={data.notice_no}/>)}
-              
+         
                 <div className="text_part">
                   <h2>
                     <span>DID</span> Digital Factory in Daejeon 
@@ -112,6 +117,7 @@ function Home() {
                   메이킹 장비를 활용하여 창업과 사업화를 이룰 수 있도록<br/>
                   One-Stop 서비스를 제공하는 전문 메이커 스페이스입니다.
                   </p>
+             
                 </div>
               </div>
               <div className="sns_map">
@@ -122,6 +128,8 @@ function Home() {
               <IcoImg src="/images/kakao_ico.png" onClick={()=>onSiteMove("https://pf.kakao.com/_HuxckT")} className='blog' style={{"cursor":"pointer"}}/>
             </div>
             </div>
+            </div>
+            </>
           );
         };
       
@@ -136,6 +144,7 @@ function Home() {
        
             <SectionBannerType1 title="DID 협력기관"></SectionBannerType1>
           </div>
+         
         );}
 export default React.memo(Home);
 

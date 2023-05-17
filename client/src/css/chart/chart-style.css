@@ -120,7 +120,7 @@ button{letter-spacing:-1px;}
  #header .mainmenu .member_box span.name.on:before{display:block;content:"";height:8px;background:#cd0000;border-radius:50%;position:relative;top:-2px;left:18px;z-index:2;color:#000;}
  #header .mainmenu .member_box span.name:after{display:block;content:"";width:25px;height:25px;background:url(/images/ico_member.png) no-repeat 0 0;position:relative;left:0;top:50%;margin-top:-12.5px;z-index:1;}
  #header .mainmenu .member_box span.my_info:after{display:block;content:"";width:1px;height:26px;background:#666;position:absolute;left:0;top:50%;margin-top:-13px;}
- #header .mainmenu .logout{position:relative;padding:0;float:right;height:auto;line-height:80px;width:100px;background:#313f4f;color:#fff;font-size:0.9rem;border:0;cursor:pointer;}
+ #header .mainmenu .logout{position:relative;padding:0;float:right;height:auto;line-height:80px;width:100px;background:#313f4f;color:#fff;font-size:0.9rem;border:0;cursor:pointer;left:4px;}
           
 #header:after{display:block;content:"";clear:both;}
 #header .mainmenu .logo2{float:left;height:80px;width:250px;line-height: 80px;position:relative;  }
@@ -148,7 +148,7 @@ form{float:left;}
 #header .mainmenu form .login_box .login{position:absolute;top:250px; width:230px;height:50px}
 #header .mainmenu form .login_button .openModal section .login_box .closesh > span{color:#fff}
 #header .mainmenu form .login_button .openModal section .login_box{position:relative;left:80px;top:150px;height:100px;}
-#header .mainmenu form .login_button{float:left;position:absolute;width:150px;height:80px;top:60px;}
+#header .mainmenu form .login_button{float:left;position:absolute;width:150px;height:80px;top:60px;padding-left:6px;}
 #header .mainmenu form .login_button .log_on{width:100px;height:90px;cursor: pointer;position:relative;left:442px;bottom:70px;height:90px;line-height: 100px;} 
 #header .mainmenu .login_box p.chkBox input[type=checkbox] {
   position: absolute;

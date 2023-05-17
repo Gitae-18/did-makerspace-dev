@@ -38,7 +38,7 @@ import '../css/style-s.css';
         </form>
     );
 }
-export default (LoginForm)
+export default React.memo(LoginForm)
 export function LoggedInForm({onLogout, username}) {
     const { token, authority_level } = useSelector(state => state.user);
     //let alarmOn = (false) ? "name on" : "name off";
