@@ -107,12 +107,8 @@ export const DidInfo2 = ({location,history}) =>{
   );
 }
 export const DidInfo3 = ({location,history}) => {
-  const dispatch = useDispatch();
-  const { sideNaviPos } = useSelector(state => state.sidemenu);
-
   return(
     <>
-    
     <div id="sub_page_wrap">
       <SubSideMenu title={"시설소개"} subtitle={"운영인력소개"}>
       <SubBread></SubBread>

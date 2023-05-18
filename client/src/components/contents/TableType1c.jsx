@@ -2,12 +2,15 @@ import React,{useState,useCallback} from "react";
 import ButtonType2 from "./ButtonType2";
 import styled from "styled-components";
 import Paging2 from "./Paging2";
-import { Data } from './Data'
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
-export default function TableType1c() {
+import { CommonHeader, Method, PreUri } from "../../CommonCode";
+
+const TableType1c = () => {
   const [data,setData] = useState([]);
   const [currentPage,setCurrentPage] = useState(1);
   const [count,setCount] = useState(0);
+  const { token } = useSelector(state => state.user);
   const [search,setSearch] = useState('');
   const [itemList,setItemList] = useState([]);
   const [currentPosts,setCurrentPosts] = useState([]);
@@ -15,11 +18,29 @@ export default function TableType1c() {
   const indexOfLastPost = currentPage * postPerPage
   const indexOfFirstPost = indexOfLastPost - postPerPage;
   const currentPost = itemList.slice(indexOfFirstPost, indexOfLastPost)
-  useEffect(()=>{
-    setCount(Data.length);
-    setData(Data);
+
+  const getWorkers = useCallback(async(e)=>{
+    let requri = PreUri + '/worker/workers';
+    const response = await fetch(requri,{
+      method:Method.get,
+      headers:CommonHeader,
+    });
+    if (!response.ok) {
+      console.log('잘못된 접근입니다.');
+      return;
+  }
+    const json = await response.json(); 
+    console.log(json);
+    setData(json);
+    setCount(json.length);
   },[])
-  
+
+
+  useEffect(()=>{
+    getWorkers();
+  },[getWorkers])
+
+
   const sethandlePage = (e) =>{
     setCurrentPage(e);
   }
@@ -31,11 +52,11 @@ export default function TableType1c() {
     e.preventDefault();
 
     if(search=== null || search === ''){
-      setData(Data);
-      setCurrentPosts(Data);
+
+      setCurrentPosts(data);
   }
   else{
-    const filterData = Data.filter((item) => item.name.includes(search))
+    const filterData = data.filter((item) => item.name.includes(search))
     setData(filterData)
     setCurrentPosts(filterData)
     setCurrentPage(1)
@@ -55,9 +76,6 @@ const activeEnter = (e) => {
           총 <span>{data.length}</span>개의 글
         </p>
         <div className="table_search">
-        {/*   <select name="" id="">
-            <option value="1">이름</option>
-          </select> */}
           <input type="text" name="" id="" placeholder="이름을 입력하세요" onChange={onChange} onKeyDown={(e) => activeEnter(e)}/>
           <StyledBtn onClick={onSearch}>검색</StyledBtn>
         </div>
@@ -88,8 +106,13 @@ const activeEnter = (e) => {
         <Paging2 page={currentPage} count = {count} setPage={sethandlePage}/>
       </div>
     </div>
-  );
-}
+  )}
+  export default TableType1c;
+
+
+
+
+
 const StyledBtn= styled.button`
 color:#fff;
 background-color:#313f4f;

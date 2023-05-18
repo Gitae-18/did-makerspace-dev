@@ -35,6 +35,7 @@ const userequipmentpassRouter = require('./routes/v1/userequipmentestpass');
 const faqRouter = require('./routes/v1/faq');
 const fileviewRouter = require('./routes/v1/fileview');
 const examRouter = require('./routes/v1/exam');
+const workerRouter = require('./routes/v1/worker');
 //const surveyRouter = require('./routes/v1/survey');
 
 /*  for redis
@@ -183,6 +184,7 @@ app.use('/api/v1/faq', faqRouter);
 app.use('/api/v1/archive',archiveRouter);
 app.use('/api/v1/fileview',fileviewRouter);
 app.use('/api/v1/exam',examRouter);
+app.use('/api/v1/worker',workerRouter);
 //app.use('/api/v1/mentoring',mentoringRouter);
 //app.use('/api/v1/survey', surveyRouter);
 

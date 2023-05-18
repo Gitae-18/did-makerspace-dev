@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const { verifyToken, errorCode, authLevel } = require('../../middlewares/middlewares');
-const { User, Company }= require('../../models');
+const { User, Company , Worker}= require('../../models');
 const { Op } = require("sequelize");
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
@@ -890,7 +890,7 @@ router.get('/partner/:no', verifyToken, async (req, res, next) => {
             where: { company_no }
         });
     } catch (error) {
-        console.error(error);
+        console.error(error);       
         return res.status(errorCode.internalServerError).json({});
     }
 
@@ -898,6 +898,8 @@ router.get('/partner/:no', verifyToken, async (req, res, next) => {
         findResult
     );
 });
+
+
 
 router.get('/represent/:no', verifyToken, async (req, res, next) => {
     let body = req.body;
@@ -1031,7 +1033,6 @@ router.post('/findpassword', async (req, res, next) => {
     //res.send("result");
     res.status(errorCode.ok).json({});
 });
-
 
 
 router.get('/test',  (req, res) => {
