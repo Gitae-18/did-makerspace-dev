@@ -54,6 +54,7 @@ export default function ({  no }) {
     return (
         <div id="wrap" className='wrap utilize6'>
             <div className="content_wrap">
+              <div className="content">
                 <div className="inner_wrap">
                     <div className="text_box">
                         <img src="/images/ico_alert.png" alt="img" />
@@ -63,6 +64,7 @@ export default function ({  no }) {
                     <button type="button" className="btn_ok" onClick={()=>{history(-1)}}>확인</button>
                 </div>
             </div>
+          </div>
         </div>
     );
 }

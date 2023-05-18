@@ -126,6 +126,7 @@ export default function ({ no }) {
     return (
         <div id="wrap" className='wrap utilize5'>
             <div className="content_wrap">
+               <div className="content">
                 <div className="inner_wrap">
                     <div className="top_menu">
                         <UServiceNavi step={2} />
@@ -156,6 +157,7 @@ export default function ({ no }) {
 					</ul>
 				</div> */}
             </div>
+          </div>
         </div>
     );
 }

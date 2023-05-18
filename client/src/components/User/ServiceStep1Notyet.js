@@ -29,6 +29,7 @@ export default function ({  no }) {
     return (
         <div id="wrap" className='wrap utilize4'>
             <div className="content_wrap">
+                <div className="content">
                 <div className="inner_wrap">
                     <div className="text_box">
                         <img src="/images/ico_alert.png" alt="img" />
@@ -49,6 +50,7 @@ export default function ({  no }) {
 					</ul>
 				</div>
             </div>
+          </div>
         </div>
     );
 }
