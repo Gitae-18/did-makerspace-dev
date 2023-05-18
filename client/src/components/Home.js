@@ -30,9 +30,8 @@ function Home() {
             $('.content_wrap').css('min-height', $(window).height() - 120);
         });
     });
-   
-          
         });
+
         /*const Modal = () =>{
           const getCookie = (name) =>{
             const value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
@@ -57,6 +56,9 @@ function Home() {
             </div>
           )
         }*/
+      /*   const v = document.getElementById("my_video")
+        v.playbackRate=0.5 */
+   
         const MainBanner = () => {
           const [modalVisible,setModalVisible] = useState(true);
           const [modalControl1,setModalControl1] = useState(true);
@@ -91,6 +93,8 @@ function Home() {
 
            useEffect(()=>{
             getRecentNotice();
+            const player = document.querySelector('video')
+            player.playbackRate = 0.9;
            },[getRecentNotice])
            const onSiteMove = (url) =>{
             window.open(url,"_blank");
@@ -98,7 +102,7 @@ function Home() {
         return (
           <>
           <div className="bg">
-          <video className="video__content" muted autoPlay loop>
+          <video  id="my_video" className="video__content" muted autoPlay loop >
           <source src="images/videos/main_video.mp4" type="video/mp4"/>
           </video>
             <div className="main_banner">

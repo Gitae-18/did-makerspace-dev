@@ -15,6 +15,7 @@ function PopupModalHome({
   token,
   no,
 }) {
+  console.log(no)
   const [data, setData] = useState([]);
   const [attachFile, setAttachFile] = useState({});
   const onMaskClick = (e) => {
