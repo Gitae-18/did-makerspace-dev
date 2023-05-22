@@ -49,6 +49,7 @@ let redisClient = redis.createClient({
 });
 */
 
+
 if (!fs.existsSync('upload/temp')) {
     mkdirp.sync('upload/temp', (error) => {
         if (error) {
@@ -188,6 +189,11 @@ app.use('/api/v1/worker',workerRouter);
 //app.use('/api/v1/mentoring',mentoringRouter);
 //app.use('/api/v1/survey', surveyRouter);
 
+
+app.use(express.static(__dirname + '/public'))
+app.get('*', function (request, response){
+  response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+})
 app.use((req, res, next) => {
     const err = new Error('Not Foud');
     err.status = 404;
@@ -215,8 +221,5 @@ const token = jwt.sign({ foo: 'bar' }, 'secret-key', (err, token) => {
     }
    
 });
-app.use(express.static(__dirname));
-app.get("*", function (req, res) {
-	res.sendFile(path.resolve(__dirname, "index.html"));
-}); 
+
 console.log(token);
