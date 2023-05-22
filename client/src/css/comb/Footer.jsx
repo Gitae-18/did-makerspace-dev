@@ -1,13 +1,24 @@
 import React,{useState}from "react";
 import "./Footer.css";
 import {Link} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 export default function Footer() {
   const [url,SetUrl] = useState('');
+  const history = useNavigate();
   const FooterInfo = () => {
     return (
       <>
       <div className="bar_footer">
+        <div className="policy">
+        <ul className="footlist">
+          <li onClick={(e)=>history('/didterms')}>이용약관</li>
+          <li onClick={(e)=>history('/personal')}>개인정보처리방침</li>
+          <li onClick={(e)=>history('/cright')}>저작권정책</li>
+          <li onClick={(e)=>history('/email')}>이메일무단수집거부</li>
+          <li><a href="/images/safetyManual.pdf" target="_blank" rel="noopener noreferrer">안전관리매뉴얼</a></li>
+        </ul>
+        </div>
       <div className="dl_wrap footer_info">
         <h3>Contact</h3>
         <div className="contant">
@@ -18,16 +29,8 @@ export default function Footer() {
           </dd>
         </dl>
         <dl>
-          <dt>대표전화</dt>
           <dd>
-            (042)385-4200
-          </dd>
-        </dl>
-        <dl>
-          <dt>E-Mail</dt>
-          <dd>
-              info@didmakerspace.co.kr
-            
+             (042)385-4200 / info@didmakerspace.kr
           </dd>
         </dl>
         <dl>

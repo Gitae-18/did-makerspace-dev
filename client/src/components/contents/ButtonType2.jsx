@@ -154,7 +154,7 @@ export function ButtonType3small(props) {
   const [active,setActive] = useState(false);
   const history = useNavigate();
   const location = useLocation();
-  let classNames = "btn_type2 tp_btn btn_type2_small";
+  let classNames = "btn_type3 tp_btn btn_type2_small";
   if (props.bgc === "gray") {
     classNames += " btn_gray";
   } else if (props.bgc === "white") {

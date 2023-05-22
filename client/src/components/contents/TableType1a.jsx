@@ -240,7 +240,7 @@ border:1px solide #313f4f;
  `
  const StyledImg2 = styled.img`
   width: 100%;
-  height: 500px;
+  height: 800px;
   cursor: pointer;
   position: relative;
   margin-bottom:50px;

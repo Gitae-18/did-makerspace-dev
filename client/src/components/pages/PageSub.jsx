@@ -23,6 +23,10 @@ import InfoType1a from "../contents/InfoType1a";
 import InfoTypeSpace from "../contents/infotypespace";
 import Menu from "../Menu";
 import { EquipmentContainer } from "../../containers/EquipmentContainer";
+import Terms from "../contents/ReportType1a";
+import PersonalInfo from "../contents/ReportType1b";
+import CopyRight from "../contents/ReportType2a";
+import Email from "../contents/ReportType2b";
 import TableType1d_User from "../contents/TableType1d_User";
 import { useDispatch,useSelector } from "react-redux";
 import styled from "styled-components";
@@ -307,3 +311,68 @@ export const DidFaqUpdate = () =>{
 }
 
 
+export const DidTerms = () =>{
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
+
+  return(
+    <>
+    
+  <div id="sub_page_wrap">
+  <div className="sub_page_inner_wrap">
+      <Terms/>
+  </div>
+  <div className="sub_page_outer"/>
+</div>
+</>
+);
+
+}
+export const DidPI = () =>{
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
+
+  return(
+    <>
+    
+  <div id="sub_page_wrap">
+  <div className="sub_page_inner_wrap">
+      <PersonalInfo/>
+  </div>
+</div>
+</>
+);
+
+}
+export const DidCopyRight = () =>{
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
+
+  return(
+    <>
+    
+  <div id="sub_page_wrap">
+  <div className="sub_page_inner_wrap">
+      <CopyRight/>
+  </div>
+</div>
+</>
+);
+
+}
+export const DidEmail = () =>{
+  const dispatch = useDispatch();
+  const { sideNaviPos } = useSelector(state => state.sidemenu);
+
+  return(
+    <>
+    
+  <div id="sub_page_wrap">
+  <div className="sub_page_inner_wrap">
+      <Email/>
+  </div>
+</div>
+</>
+);
+
+}

@@ -348,9 +348,9 @@ export default function SubSideMenu(props,onCategory) {
         <div className="location">
         <div className="title_area">
          {props.subtitle?
-         <MdHome className="homeicon" style={props.subtitle.length===8&&props.title.length===7?{'left':'50px'}:props.subtitle.length===8?{'left':'75px'}:/* props.subtitle.length===7?{'left':'80px'}: */props.subtitle.length===6?{'left':'85px'}:props.subtitle.length===5?{'left':'95px'}:props.subtitle.length===4?{'left':'105px'}:{'left':'105px'}}/>:
-         <MdHome className="homeicon" style={props.title.length<4?{'left':'200px'}:props.title.length<5?{'left':'185px'}:props.title.length<6?{'left':'175px'}:
-         props.title.length<7?{'left':'160px'}:props.title.length<8?{'left':'165px'}:{'left':'155px'}}/>}
+         <MdHome className="homeicon" style={props.subtitle.length===8&&props.title.length===7?{'left':'50px'}:props.subtitle.length===8?{'left':'75px'}:/* props.subtitle.length===7?{'left':'80px'}: */props.subtitle.length===7?{'left':'805px'}:props.subtitle.length===6?{'left':'85px'}:props.subtitle.length===5?{'left':'95px'}:props.subtitle.length===4?{'left':'105px'}:{'left':'105px'}}/>:
+         <MdHome className="homeicon" style={props.title.length===7?{'left':'155px'}:props.title.length<4?{'left':'200px'}:props.title.length<5?{'left':'185px'}:props.title.length<6?{'left':'185px'}:
+         props.title.length<7?{'left':'160px'}:props.title.length<8?{'left':'165px'}:<></> } />}
          
           {props.subtitle?<h2 style={props.subtitle.length === 3?{'left':'130px'}:props.subtitle.length === 4?{'left':'129px'}:props.subtitle.length === 5? {'left':'120px'}:props.subtitle.length === 8&&props.title.length===7?{'left':'70px'}:props.subtitle.length === 8?{'left':'95px'}:{'left':'108px'}}>{props.title}</h2>:<h2 style={props.title.includes("오시는")?{'left':'203px'}:props.title.length===3?{'left':'225px'}:props.title.length===4?{'left':'205px'}:props.title.length===5?{'left':'195px'}:
           props.title.length===6?{'left':'180px'}:props.title.length===7?{'left':'174px'}:props.title.length===9?{'left':'160px'}:{'left':'173px'}}>{props.title}</h2>}

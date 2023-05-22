@@ -43,7 +43,36 @@ footer .footer_inner_wrap {
   position:absolute;
   left:0;
 }
-
+footer .policy{
+  position:relative;
+  margin:0 0;
+  padding: 0 0;
+  padding-bottom:15px;
+  left:-31%;
+  top:0;
+  border:none;
+  
+}
+footer .footlist{
+  position:relative;
+  width:100%;
+}
+footer .footlist li{
+  display:inline-block;
+  cursor:pointer;
+  padding-left:10px;
+  font-size:12px;
+  list-style-type: disc;
+  list-style-position: inside;
+}
+footer .footlist li a:hover{
+  display: block;
+  color:black;
+}
+footer .footlist li a{
+  text-decoration: none;
+  color:black;
+}
 footer .footer_inner_wrap > h3 {
   width: 80%;
   position:relative;

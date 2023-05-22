@@ -45,15 +45,26 @@ table tr td{
   position:relative;
   bottom:5px;
 } 
-.btn_type2 {
+.btn_type3{
   width: 120px;
   height: 40px; 
-  margin: auto;
   background-color: #313f4f;
   border: 1px solid transparent;
   text-align: center;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  color:#fff;
+  border-radius: 0px;
+}
+.btn_type2 {
+  width: 120px;
+  height: 40px; 
+  background-color: #313f4f;
+  border: 1px solid transparent;
+  text-align: center;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  padding:0 0;
 }
 .resinfo{
   padding: auto;
@@ -99,7 +110,7 @@ table tr td{
   width: 100px;
   height: 30px;
   border: 1px solid #2d2d2d;
-  border-radius: 4px;
+
   line-height: 30px;
   text-align: center;
 }
@@ -1710,6 +1721,10 @@ h3.title_type2 {
 
 .report_type1 {
   max-width: 800px;
+  margin: 0 auto;
+  border:none;
+  height:100%;
+  padding-bottom:150px;
 }
 
 .report_type1 > h2 {

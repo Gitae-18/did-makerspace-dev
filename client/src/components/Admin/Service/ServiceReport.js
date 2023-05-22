@@ -92,7 +92,6 @@ export default () => {
     const [surveyDate, setSurveyDate] = useState('');
 
     const [supportPartner, setSupportPartner] = useState('');
-
     const getData = useCallback(async (no) => {
         CommonHeader.authorization = token;
         let response;

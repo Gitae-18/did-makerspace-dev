@@ -52,7 +52,7 @@ import Materials, { Materials1, Materials2, Materials3 } from './components/Admi
 import Service, { Service1, Service2, Service3, Service4 ,StaticsAnalyze} from './components/Admin/Statistics/pages/Service';
 import Users, { Users1, Users2 } from './components/Admin/Statistics/pages/Users';
 import Footer from './css/comb/Footer';
-import DidInfo,{DidInfo2,DidInfo3,DidInfo4,DidInfo5,DidInfo6,DidInfo7,DidInfo8,DidInfo9,DidInfo1Detail,DidInfo1Detail2,DidInfo1Detail1,DidFaqWrite} from './components/pages/PageSub';
+import DidInfo,{DidInfo2,DidInfo3,DidInfo4,DidInfo5,DidInfo6,DidInfo7,DidInfo8,DidInfo9,DidInfo1Detail,DidInfo1Detail2,DidInfo1Detail1,DidFaqWrite,DidTerms,DidPI,DidCopyRight,DidEmail} from './components/pages/PageSub';
 import ListType1a from './components/contents/ListType1a';
 import DidReservation,{DidReservation2,DidReservation3,DidReservation4,SelectReservation,TestReservation} from './components/pages/PageSub2';
 import ClassEdu_Program,{ClassEdu_Program2,ClassEdu_program3,ClassEdu_program4} from './components/pages/PageSub3';
@@ -192,8 +192,11 @@ const App = () => {
         <Route path="/users/stastics"   element = {<Users/>}/>
         <Route path="/users/service"  element = {<Users1/>}/>
         <Route path="/users/purpose"  element = {<Users2/>}/>
-      
 
+        <Route path="/didterms" element = {<DidTerms/>}/>
+        <Route path="/personal" element = {<DidPI/>}/>
+        <Route path="/cright" element = {<DidCopyRight/>}/>
+        <Route path="/email" element = {<DidEmail/>}/>
 
         {/* <Route path="/test" component={Test} /> */}
         <Route path="/*" element = {<NotFound/>} />

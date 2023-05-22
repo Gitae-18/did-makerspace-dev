@@ -184,10 +184,8 @@
 }
 
  .sub_page_wrap{
-  height:calc(100vh - 20px);
+  height:calc(150vh - 20px);
   white-space: nowrap;
-  overflow:auto;
-
  }
  .sub_side_menu .sub_bread h3 {
   position: relative;

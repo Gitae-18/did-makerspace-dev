@@ -88,7 +88,6 @@ function Home() {
             }
             const json = await response.json();
             setData(json);
-            console.log(json)
            },[])
 
            useEffect(()=>{

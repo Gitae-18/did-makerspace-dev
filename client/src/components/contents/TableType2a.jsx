@@ -165,7 +165,7 @@ export default function TableType2a() {
             <tr key={i}>
                 <td><img alt="no image" src={item.model_name.includes("A0플로터")?flotersrc:item.model_name.includes("X-cut")?xcutsrc:item.model_name.includes("UV 프린터 : 329UV")?uvsrc:item.model_name.includes("FDM : 3DWOX") ?fdmsrc:null}/></td>
                 <td>{item.model_name}</td>
-                <td>{item.model_specification}</td>
+                <td style={{"width":"410px","lineHeight":"40px","wordBreak":"break-all"}}>{item.model_specification}</td>
                 <td>{item.location}</td>
                 <td className="btns_wrap">
                 <StyledBtn onClick={(e)=>{goToVideo(e,i);openModal(e)}}>동영상보기</StyledBtn>
