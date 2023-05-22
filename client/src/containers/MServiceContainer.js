@@ -16,17 +16,18 @@ export const MServiceContainer = (props) => {
     });
     const history = useNavigate();
 
-
+    console.log(viewState.serviceNo);
     useEffect(() => {
         if (isLoading) { return; }
         if (!isLoggedIn) { return history('/notmember',{replace:true}); }
-        if (authority_level < AuthLevel.partner) { return history('/notauthhorized',{replace:true}); }
+        if (authority_level < AuthLevel.partner) { return history('/notauthhorized',{replace:false}); }
     }, [isLoading, isLoggedIn, authority_level, history])
 
     const View = query.report_no ? ServiceReport : ServiceList;
-    
+    console.log(viewState.serviceNo);
+    console.log(query);
     return (
         (isLoading || !isLoggedIn || authority_level < AuthLevel.partner) ? <></>
-            : View ? <View query={query} no={viewState.serviceNo} /> : <></>
+            : View ? <View query={query} /> : <></>
     )
 }
