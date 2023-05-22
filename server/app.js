@@ -214,5 +214,9 @@ const token = jwt.sign({ foo: 'bar' }, 'secret-key', (err, token) => {
         return;
     }
    
+});
+app.use(express.static(__dirname));
+app.get("*", function (req, res) {
+	res.sendFile(path.resolve(__dirname, "index.html"));
 }); 
 console.log(token);
