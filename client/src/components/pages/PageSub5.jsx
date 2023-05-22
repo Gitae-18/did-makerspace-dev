@@ -73,13 +73,14 @@ export default function Mentoring({location,history}) {
     )
   }
   export const MserviceGuide = () =>{
+    const { authority_level } = useSelector(state => state.user);
     return(
       <>
       <div id="sub_page_wrap">
         <SubSideMenu title={"시제품제작안내"}></SubSideMenu>
         <div className="sub_page_inner_wrap">
           <div className="sub_inner">
-            <MServiceGuide/>
+            <MServiceGuide authority={authority_level}/>
           </div>
         </div>
       </div>

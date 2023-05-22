@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback,useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate,useLocation } from 'react-router-dom';
-import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg } from '../../../CommonCode';
+import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg ,AuthLevel} from '../../../CommonCode';
 import { /* M_SERVICE_DELETE, */ M_SERVICE_SET } from "../../../store/manager_service";
 import SubSideMenu from '../../contents/SubSideMenu';
 import PopupDeleteModal from '../../PopupDeleteModal';
@@ -36,7 +36,7 @@ function makeQuery(step, dateType, year, month, company,serviceNo) {
 
 export default function ({ query , no }) {
     const { token } = useSelector(state => state.user);
-    //const { authority_level } = useSelector(state => state.user);
+    const { authority_level } = useSelector(state => state.user);
 
     const dispatch = useDispatch();
     const location = useLocation();
@@ -96,6 +96,7 @@ export default function ({ query , no }) {
     const closeModal = () =>{
         setModalVisible(false);
     }
+    console.log(AuthLevel);
     const getServiceList = useCallback(async (query) => {
        
 
@@ -341,7 +342,7 @@ export default function ({ query , no }) {
          
      </>);
     }, [serviceno]);
-    
+    console.log(serviceItems);
     
  
     if (serviceItems.totalCount > 0) {

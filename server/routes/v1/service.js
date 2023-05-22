@@ -236,6 +236,7 @@ router.get('/', verifyToken, async (req, res, next) => {
     let user_no = req.decoded.user_no;
     let service_no = req.decoded.service_no;
     let authority_level = req.decoded.authority_level;
+    let decode = req.decoded;
     /*
     const offset = (req.query.offset === undefined) ? 0 : Number(req.query.offset);
      */
@@ -293,8 +294,7 @@ router.get('/', verifyToken, async (req, res, next) => {
     let query = {
         attributes: [[Service.sequelize.fn('count', '*'), 'count']],
     }
-    console.log(req.query);
-    console.log(servicen);
+
 
     if (startDate && endDate) {
         endDate.setDate(endDate.getDate() + 1);
@@ -320,7 +320,8 @@ router.get('/', verifyToken, async (req, res, next) => {
             progress,
         };
     }
-
+    console.log(decode);
+    console.log("auth:"+authority_level)
     if (authority_level < authLevel.partner) {
         query.where = {
             ...query.where,

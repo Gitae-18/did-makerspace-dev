@@ -30,7 +30,6 @@ export default (state = initialState, action) => {
                 isLoginStart: true,
             }
         case LOGIN_SUCCESS:
-            console.log(action);
            // if (state.isAutoLogin) {
                 localStorage.setItem(
                     "loggedinUser",
@@ -43,7 +42,7 @@ export default (state = initialState, action) => {
                     })
                 );
             //}
-
+            console.log(localStorage.loggedinUser);
             return {
                 ...state,
                 isLoginStart: false,

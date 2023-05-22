@@ -149,18 +149,13 @@ exports.SendMail = async(email, subject, content) => {
     });*/
     async function main(receiverEmail) {
     const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
+        service: 'Naver',
+        host: 'smtp.naver.com',
+        port: 587,
+        secure: false,
         auth:{
-            type: 'OAuth2',
-            user: process.env.OAUTH_USER,
-            clientId: process.env.OAUTH_CLIENT_ID,
-            clientSecret: process.env.OAUTH_CLIENT_SECRET,
-            accessToken: process.env.OAUTH_ACCESS_TOKEN,
-            refreshToken: process.env.OAUTH_REFRESH_TOKEN,
-            expires: 1484314697598,
+            user:'nicekitae@naver.com',
+            pass:'rlarlxo!123',
         },
     });
     const message = {
