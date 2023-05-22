@@ -175,12 +175,12 @@ export default function ({ query , no }) {
             console.log('잘못된 접근입니다.');
             return;
         }
-        console.log(requri);
+
         const json = await response.json();
         const totalPage = Number(json.total_page);
         const currentPage = Number(json.current_page);
         const pageOffset = Math.ceil(currentPage / PageMax);
-        console.log(token);
+
         setServiceItems(serviceItems => ({
             ...serviceItems,
             totalCount: Number(json.total_count),
@@ -276,13 +276,13 @@ export default function ({ query , no }) {
         dispatch({ type: M_SERVICE_SET, target: item });
         history('/mservice/detail',{replace:false});
     }, [history, serviceItems, dispatch]);
-   
-    
+
     const onPrint = useCallback((e, index) => {
         e.preventDefault();
         const item = serviceItems.items[index];
+        console.log(item.service_no);
         // window.open(window.location.href + '?report_no=' + item.service_no, 'report', 'width=820,height=900,location=no,status=no,scrollbars=yes');
-        window.open('mservice?report_no=' + item.service_no, 'report', 'width=820,height=900,location=no,status=no,scrollbars=yes');
+        window.open(location.pathname+'?report_no='+ item.service_no, 'report', 'width=820,height=900,location=no,status=no,scrollbars=yes');
     }, [serviceItems]);
 
     const onSearchByDate = useCallback((e, dateType) => {

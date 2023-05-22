@@ -57,7 +57,7 @@ const LoginModal = (props) =>{
             }),
             headers: CommonHeader
         });
-
+        console.log(response)
         if (!response.ok) {
             dispatch({ type: LOGIN_FAIL });
             switch (response.status) {
@@ -92,7 +92,7 @@ const LoginModal = (props) =>{
     <p className="chkBox"><label htmlFor="chk"><input type="checkbox" id="chk" defaultChecked={isAutoLogin} name="isAutoLogin" onChange={change}/><span className="checkmark"></span>자동로그인</label></p>
   
     <div className="but_box">
-    <button className="loginsh" type="submit" onKeyPress={(e) => { if (e.key === 'Enter') { loginCheck(e) }}} onClick={(e)=>loginCheck(e)}><FiLogIn/>로그인</button>
+    <button className="loginsh" type="submit"/*  onKeyPress={(e) => { if (e.key === 'Enter') { loginCheck(e) }}} */ onClick={(e)=>loginCheck(e)}><FiLogIn/>로그인</button>
     <div/>
     <button className="closesh" type="submit"   onClick={close}><AiFillCloseCircle/>닫기</button>
     </div>

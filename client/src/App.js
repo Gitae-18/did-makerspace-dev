@@ -1,7 +1,7 @@
 // import Test from './Test';
 import qs from 'qs';
 import React,{useEffect} from 'react';
-import {Link, Route, Routes,BrowserRouter,useLocation, Outlet} from 'react-router-dom';
+import {Link, Route, Routes,BrowserRouter,useLocation, Outlet ,useParams} from 'react-router-dom';
 import './App.css';
 import FindPassword from './components/FindPassword';
 import Home from './components/Home';
@@ -74,6 +74,8 @@ export const ScrollToTop = () =>{
 }
 const App = () => {
   const { authority_level } = useSelector(state => state.user);
+  const {params} = useParams();
+
   let user_style = {
     position:"relative",
     left:"120px",

@@ -680,6 +680,8 @@ router.post('/login', async (req, res, next) => {
     //let user_no = req.decoded.user_no;
     //let authority_level = req.decoded.authority_level;
     //let target_user_no = req.params.id;
+    console.log(user_id);
+    console.log(password);
 
     if (!user_id || !password) {
         return res.status(errorCode.badRequest).json({

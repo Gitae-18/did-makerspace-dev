@@ -190,10 +190,6 @@ app.use('/api/v1/worker',workerRouter);
 //app.use('/api/v1/survey', surveyRouter);
 
 
-/* app.use(express.static(__dirname + '/public'))
-app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
-}) */
 app.use((req, res, next) => {
     const err = new Error('Not Foud');
     err.status = 404;
@@ -222,4 +218,3 @@ const token = jwt.sign({ foo: 'bar' }, 'secret-key', (err, token) => {
    
 });
 
-console.log(token);

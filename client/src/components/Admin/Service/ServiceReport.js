@@ -7,10 +7,9 @@ import 'react-quill/dist/quill.snow.css'
 
 import '../../../css/common-s.css';
 import '../../../css/style-s.css';
-export default () => {
+export default ({query}) => {
     const mountedRef = useRef(true);
     const { token } = useSelector(state => state.user);
-    const query = useParams();
     const [userInfo, setUserInfo] = useState({
         name: '',
         email: '',
@@ -171,7 +170,6 @@ export default () => {
             setIsDrop(true);
             return;
         }
-
         response = await fetch(PreUri + '/service/' + no + '/service_confirm', {
             method: Method.get,
             headers: CommonHeader
@@ -404,6 +402,7 @@ export default () => {
         setIsSurveyDone(true);
 
     }, [surveyList, token]);
+    
 
     useEffect(() => {
         if (!query.report_no) {
@@ -777,7 +776,6 @@ export default () => {
     }, []);
 
     const Application = useCallback(({ item, application, date, partner }) => {
-        console.log(item)
         return (
             <div id="wrap" className="wrap print">
                 <div className="form">
