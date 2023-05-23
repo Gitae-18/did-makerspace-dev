@@ -275,7 +275,7 @@ export default function Menu({ authority_level }) {
 
   return (
     <div className="btn_box">
-      <CurrentMenu history={history} />
+      <CurrentMenu history={history}/>
     </div >
   );
 }

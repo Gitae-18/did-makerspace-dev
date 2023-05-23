@@ -10,6 +10,7 @@ import '../../../css/style-s.css';
 export default ({query}) => {
     const mountedRef = useRef(true);
     const { token } = useSelector(state => state.user);
+    const location = useLocation();
     const [userInfo, setUserInfo] = useState({
         name: '',
         email: '',
@@ -409,7 +410,10 @@ export default ({query}) => {
             alert('Error : Service Number');
             return;
         }
-
+        if(location.pathname.includes("report_no"))
+        {
+            document.getElementById("headers").style.display="none";
+        }
         getData(query.report_no);
         return () => {
             mountedRef.current = false
@@ -549,7 +553,7 @@ export default ({query}) => {
             </tr>
         </>);
     }, []);
-
+ 
     const AttemptItem = useCallback(({ eleIdx, index, lastIndex, item, categoryData }) => {
 
         let MaterialUsageList = [];

@@ -1,6 +1,6 @@
 // import Test from './Test';
 import qs from 'qs';
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import {Link, Route, Routes,BrowserRouter,useLocation, Outlet ,useParams} from 'react-router-dom';
 import './App.css';
 import FindPassword from './components/FindPassword';
@@ -67,7 +67,14 @@ import NotCompeleted from './components/NotCompeleted';
 
 export const ScrollToTop = () =>{
   const { pathname } = useLocation();
+  const location = useLocation();
+
   useEffect(() => {
+    const element = document.getElementById("header");
+    if(location.search.includes("report_no"))
+    {
+       element.style.display='none';
+    }
     window.scrollTo(0, 0);
   }, [pathname]);
   setTimeout(() => {  window.scrollTo(0, 0);  }, 300);
@@ -75,7 +82,6 @@ export const ScrollToTop = () =>{
 const App = () => {
   const { authority_level } = useSelector(state => state.user);
   const {params} = useParams();
-
   let user_style = {
     position:"relative",
     left:"120px",
@@ -83,6 +89,7 @@ const App = () => {
   let admin_style = {
     position:"absolute"
   }
+
   return (
     
     <BrowserRouter>
@@ -204,7 +211,7 @@ const App = () => {
         <Route path="/*" element = {<NotFound/>} />
       </Routes>
     
-      <Footer/>
+      {<Footer/>}
       </CookiesProvider>
       </BrowserRouter>
     
