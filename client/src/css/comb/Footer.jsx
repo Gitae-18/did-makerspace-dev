@@ -1,11 +1,12 @@
 import React,{useState}from "react";
 import "./Footer.css";
 import {Link} from "react-router-dom"
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation} from "react-router-dom";
 import styled from "styled-components";
 export default function Footer() {
   const [url,SetUrl] = useState('');
   const history = useNavigate();
+  const location = useLocation();
   const FooterInfo = () => {
     return (
       <>
@@ -65,8 +66,9 @@ export default function Footer() {
   const FooterWrap = () => {
     return (
       <>
-      <footer>
-        <div className="wrap2">
+      {location.pathname.includes("report_no")?
+      <footer id="footer">
+        <div className="wrap2" id="wrap2">
           <div className="footer_position">
           <div className="footer_inner_wrap">
           <FooterInfo>
@@ -79,6 +81,7 @@ export default function Footer() {
           <FooterSiteMap></FooterSiteMap>
         </div>
       </footer>
+      :null}
       </>
     );
   };
