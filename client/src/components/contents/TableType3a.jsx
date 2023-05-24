@@ -67,11 +67,11 @@ export default function TableType3a() {
                 <td >사업운영,전문가 매칭</td>
               </tr>
               <tr>
-                <td>윤종화 이사</td>
-                <td>010-6665-2120</td>
+                <td>장예닮 연구원</td>
+                <td>010-7929-1047</td>
                 <td>042-385-4205</td>
-                <td>didmaker.y@gmail.com</td>
-                <td >연구행정</td>
+                <td>didmanager.j@gmail.com</td>
+                <td>연구행정</td>
               </tr>
             </table>
           </dl>
