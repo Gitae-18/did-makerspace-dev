@@ -315,8 +315,8 @@ height:10px;
 margin-left:5px;
 `
 const QuestImg = styled.img`
-width:100px;
-height:300px;
+width:200px;
+height:700px;
 position:relative;
 padding-top:30px;
 `
