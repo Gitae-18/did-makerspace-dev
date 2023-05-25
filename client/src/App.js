@@ -97,7 +97,7 @@ const App = () => {
       <div id="header">
         <div className="mainmenu">
           <div className='gnb_cover'>
-          <Link to="/"><span className='logo2'><img src="/images/logo.png" alt="로고"/></span></Link>
+          <Link to="/"><span className='logo2'><img src="/images/DID_ROW.png" alt="로고"/></span></Link>
           <Menu/>
           <LoginContainer />
           </div>

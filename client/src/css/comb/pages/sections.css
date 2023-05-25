@@ -145,31 +145,7 @@
   left:22px;
 }
 
-.section_tab_type1{
-  position:relative;
-  margin-bottom:20px;
-  justify-content: center;
-  left:10px;
-  height:390px;
-  margin-top:-180px;
-  background-color: #2d2d2d;
-/*   background-image: linear-gradient(
-    rgba(0, 0, 0, 0.35),
-    rgba(0, 0, 0, 0.35)
-  ), url(/images/wallpaper.jpg); */
-}
-.section_tab_type1::before{
-  position:absolute;
-  top:0px;
-  left:0px;
-  right:0px;
-  bottom:0px;
-  background-image: linear-gradient(
-    rgba(0, 0, 0, 0.35),
-    rgba(0, 0, 0, 0.35)
-  ), url(/images/wallpaper.jpg);
-  content: "";
-}
+
 .section_tab_type1 .section_inner_wrap{
   position:relative;
   bottom:10px;
@@ -266,17 +242,54 @@
  /*  border-right: 1px solid #313f4f;
   border-right-width:50%; */
 }
+
+.section_tab_type1{
+  position:relative;
+  margin-bottom:20px;
+  justify-content: center;
+  left:10px;
+  height:390px;
+  margin-top:-180px;
+ /*  background:rgba(36,104, 162, 0.5); */
+/*   background-image: linear-gradient(
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0.35)
+  ), url(/images/wallpaper.jpg); */
+}
+.section_tab_type1::before{
+  position:absolute;
+  top:0px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0.35)
+  ), url(/images/wallpaper.jpg);
+  content: "";
+}
 .section_tab_type1  .tabs_wrap .tab_inner ol li{
-  background-color:#fff;
+/*   background-color:#ffffff; */
   height:250px;
-  border-radius:10px 10px;
-  width: 370px;
+  width: 300px;
   position:relative;
   margin-top:30px;
   box-shadow: 5px 5px 5px #2d2d2d;
   justify-content: center;
+  background-color: #ffffff;
+/*   background:url(/images/note.png) */
+
+}
+.section_tab_type1  .tabs_wrap .tab_inner ol li::before{
+  position:absolute;
   top:0px;
-  display:inline-block;
+  left:0px;
+  right:0px;
+  bottom:0px;
+    background-image: linear-gradient(
+    rgba(255,255,255, 0.35),
+    rgba(0, 0, 0, 0.35)
+  ) url(/images/note.png);
 }
 .section_tab_type1  .tabs_wrap .tab_inner ol li span{
   cursor:pointer;

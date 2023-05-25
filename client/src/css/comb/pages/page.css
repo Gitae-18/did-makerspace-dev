@@ -1,6 +1,6 @@
 @import './sections.css';
 @font-face {
-  font-family: "Nanum Gothic", "NanumGothicBold", "Malgun Gothic", "sans-serif", Helvetica;;
+  font-family: "Nanum Gothic", "NanumGothicBold", "Malgun Gothic", "sans-serif", Helvetica,"NanumSquare";;
   src: url(/public/font/font_01.ttf);
 }
 
@@ -32,7 +32,7 @@ section{
   top:80px;
   background:rgba(44,44,44,0.7);
   width:35%;
-  height:480px;
+  height:500px;
   left:-4px;
   z-index:10;
 }
@@ -48,7 +48,7 @@ section{
   }
 }
 
-.main_banner .sns_map{position:absolute;display:flex;justify-content:space-between;right:0;bottom:70px;}
+.main_banner .sns_map{position:absolute;display:flex;justify-content:space-between;right:25px;bottom:110px;}
 .main_banner .text_part {
   max-width: 500px;
   position:relative;
@@ -75,6 +75,10 @@ section{
   position:relative;
   padding-top:30px;
   font-size:0.8rem;
+  font-family: "NanumSquare";
+  font-size: 15px;
+  line-height:20px;
+  letter-spacing: 4px;
 }
 .tab_inner ol li{
  border: 1px solid #2c2c2c;
