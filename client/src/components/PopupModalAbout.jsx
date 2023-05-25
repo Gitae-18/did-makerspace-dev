@@ -83,7 +83,7 @@ function PopupModalAbout({
               />
               <Title>DID기술융합공작소 공지사항</Title>
               <div className="modal-contents">
-               <InnerImg src="/images/active_time.png"/>
+               <InnerImg src="/images/active_time.jpg"/>
               </div>
             </ImgStyle>
             {closable && (
@@ -142,6 +142,7 @@ const InnerImg = styled.img`
   top: 10px;
   position: relative;
   right:200px;
+  width:400px;
   margin:0 auto;
 `;
 const CloseStyle = styled.div`
