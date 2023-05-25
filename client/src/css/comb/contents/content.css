@@ -853,136 +853,35 @@ h3.title_type2 {
   width: auto;
 }
 
+
+
+
+
 .table_type3 {
   text-align: center;
 }
 
-.table_type3 ol li {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+.table_type3 table{
+  width:100%;
+  border:1px solid #bbb;
+}
+.table_type3 table th,td{
+  border:1px solid #bbb;
+  line-height: 35px;
+}
+.table_type3 {
   border-bottom: 1px solid #313f4f;
 }
 
-.table_type3 ol li .part_title {
-  width: 30%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  border-right: 1px solid #bbb;
+.table_type3 table th{
+  background-color:#313f3f;
+  color:white;
 }
 
-.table_type3 ol li .part_desc {
-  width: 70%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-}
 
-.table_type3 ol li .part_desc * {
-  height: 50px;
-  line-height: 50px;
-}
 
-.table_type3 ol li .part_desc th, .part_desc td{
-  border-bottom:1px solid #bbb;
-}
-.table_type3 ol li .part_desc tr, .part_desc th, .table_type3 ol li .part_desc td ,.table_type3 ol li{
-  border-right: 1px solid #bbb;
-}
 
-.table_type3 ol li .part_desc dt:last-of-type, .table_type3 ol li .part_desc dd:last-of-type {
-  border-bottom: 0;
-}
 
-.table_type3 ol li .part_desc dt {
-  width: 40%;
-}
-
-.table_type3 ol li .part_desc dd {
-  width: 60%;
-  border-left: 1px solid #bbb;
-}
-
-.table_type3 ol li:first-of-type {
-  border-top: 1.5px solid #bbb;
-}
-.table_type3 ol li:last-of-type{
- border-bottom:1.5px solid #bbb !important
-}
-
-.table_type3 ol li .part_title {
-  background-color: #313f4f;
-  border-bottom: #fff solid 1px;
-  color: #fff;
-}
-
-.table_type3.table_type3b ol {
-  margin-bottom: 48px;
-}
-
-.table_type3.table_type3b ol li:last-of-type .part_title::after {
-  background-color: #313f4f;
-}
-
-.table_type3.table_type3b ol li .part_title {
-  position: relative;
-  width: 240px;
-  background-color: #313f4f;
-  color: #fff;
-}
-
-.table_type3.table_type3b ol li .part_title::after {
-  content: '';
-  display: block;
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 100%;
-  height: 2px;
-  background-color: #fff;
-}
-
-.table_type3.table_type3b ol li .part_desc {
-  width: calc( 100% - 240px);
-}
-
-.table_type3.table_type3b ol li .part_desc dt {
-  width: 20%;
-}
-
-.table_type3.table_type3b ol li .part_desc dt:nth-of-type(4), .table_type3.table_type3b ol li .part_desc dt:nth-of-type(5) {
-  border-bottom: 0;
-}
-
-.table_type3.table_type3b ol li .part_desc dd {
-  width: 30%;
-}
-
-.table_type3.table_type3b ol li .part_desc dd:first-of-type {
-  width: 80%;
-}
-/* .table_type3.table_type3b ol li:last-of-type{
-  border-bottom:1px solid #000;
-} */
-
-.table_type3.table_type3b ol li .part_desc dd:nth-of-type(2), .table_type3.table_type3b ol li .part_desc dd:nth-of-type(4) {
-  border-right: 1px solid #bbb;
-}
-
-.table_type3.table_type3b ol li .part_desc dd:nth-of-type(4), .table_type3.table_type3b ol li .part_desc dd:nth-of-type(5) {
-  border-bottom: 0;
-}
 
 .table_type5 table td select {
   width: 80px;
