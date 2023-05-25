@@ -48,7 +48,7 @@ section{
   }
 }
 
-.main_banner .sns_map{position:absolute;display:flex;justify-content:space-between;right:25px;bottom:110px;}
+.main_banner .sns_map{position:absolute;display:flex;justify-content:space-between;right:25px;bottom:130px;}
 .main_banner .text_part {
   max-width: 500px;
   position:relative;
