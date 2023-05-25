@@ -13,11 +13,11 @@ export default function Footer() {
       <div className="bar_footer">
         <div className="policy">
         <ul className="footlist">
-          <li onClick={(e)=>history('/didterms')}>이용약관</li>
-          <li onClick={(e)=>history('/personal')}>개인정보처리방침</li>
-          <li onClick={(e)=>history('/cright')}>저작권정책</li>
-          <li onClick={(e)=>history('/email')}>이메일무단수집거부</li>
-          <li><a href="/images/safetyManual.pdf" target="_blank" rel="noopener noreferrer">안전관리매뉴얼</a></li>
+          <li onClick={(e)=>history('/didterms')}>ㆍ이용약관</li>
+          <li onClick={(e)=>history('/personal')}>ㆍ개인정보처리방침</li>
+          <li onClick={(e)=>history('/cright')}>ㆍ저작권정책</li>
+          <li onClick={(e)=>history('/email')}>ㆍ이메일무단수집거부</li>
+          <li><a href="/images/safetyManual.pdf" target="_blank" rel="noopener noreferrer">ㆍ안전관리매뉴얼</a></li>
         </ul>
         </div>
       <div className="dl_wrap footer_info">
@@ -62,26 +62,26 @@ export default function Footer() {
       </div>
     );
   };
-
+  console.log(location.search);
   const FooterWrap = () => {
     return (
       <>
-      {location.pathname.includes("report_no")?
-      <footer id="footer">
-        <div className="wrap2" id="wrap2">
-          <div className="footer_position">
-          <div className="footer_inner_wrap">
-          <FooterInfo>
-          </FooterInfo>
-          {/* <SnsMap>
-            <Imgtag src="/images/instagram_ico.png"/>
-            </SnsMap> */}
-          </div>        
-          </div>
-          <FooterSiteMap></FooterSiteMap>
+      {location.search.includes("report_no")?
+      null
+      :<footer id="footer">
+      <div className="wrap2" id="wrap2">
+        <div className="footer_position">
+        <div className="footer_inner_wrap">
+        <FooterInfo>
+        </FooterInfo>
+        {/* <SnsMap>
+          <Imgtag src="/images/instagram_ico.png"/>
+          </SnsMap> */}
+        </div>        
         </div>
-      </footer>
-      :null}
+        <FooterSiteMap></FooterSiteMap>
+      </div>
+    </footer>}
       </>
     );
   };

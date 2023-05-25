@@ -93,7 +93,7 @@ function Home() {
            useEffect(()=>{
             getRecentNotice();
             const player = document.querySelector('video')
-            player.playbackRate = 0.9;
+            player.playbackRate = 0.8;
            },[getRecentNotice])
            const onSiteMove = (url) =>{
             window.open(url,"_blank");
