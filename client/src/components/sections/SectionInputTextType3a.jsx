@@ -39,6 +39,7 @@ export default function SectionInputTextType3a() {
     })
 
   } */
+  console.log(no);
  const onMemoChange = (e) =>{ 
     setText(e.target.value);
  };
@@ -48,7 +49,7 @@ export default function SectionInputTextType3a() {
  const onAddressChange = (e) =>{
     setAddress(e.target.value);
  }
- console.log(no);
+
  const handleChangeFile = (e) =>{
   setImageFile(e.target.files);
 
@@ -76,9 +77,9 @@ export default function SectionInputTextType3a() {
             return(alert(getRspMsg(response.status)))
           }
         },[image,no]); 
-/*   useEffect(()=>{
+  useEffect(()=>{
     uploadImage();
-  },[uploadImage]) */
+  },[uploadImage])
    const sendData = useCallback(async()=>{
     let context = content.replace(/(<([^>]+)>)/gi, "");
     context = context.replace(/&nbsp;/gi,"");
@@ -89,6 +90,7 @@ export default function SectionInputTextType3a() {
       headers:CommonHeader,
       body:JSON.stringify(
         {
+          
            title:title,
            content:text,
            url:address,

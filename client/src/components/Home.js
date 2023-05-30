@@ -11,6 +11,7 @@ import { CommonHeader,PreUri, Method } from '../CommonCode';
 import '../css/common-s.css';
 import '../css/style-s.css';
 import SectionBannerType1 from "../components/sections/SectionBannerType1";
+import SectionTabType3 from './sections/SectionTabType3';
 import SectionTabType1 from "../components/sections/SectionTabType1";
 import SectionTextType1 from "../components/sections/SectionTextType1";
 import { NoticeHomeContainer } from '../containers/notice/NoticeHomeContainer';
@@ -155,7 +156,7 @@ function Home() {
             ></SectionTextType1>
           
             <NoticeHomeContainer></NoticeHomeContainer>
-       
+            <SectionTabType3 title="DID 동영상"/>
             <SectionBannerType1 title="DID 협력기관"></SectionBannerType1>
           </div>
          

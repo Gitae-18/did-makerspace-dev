@@ -60,6 +60,26 @@ router.get('/list',async(req,res,next)=>{
  }
   res.json(inputResult);
 })
+router.get('/videolist',async(req,res,next)=>{
+    let body = req.body;
+    let file_type = req.query.file_type;
+   
+    let inputResult;
+    try{
+       inputResult = await Archive.findAll({
+           attributes:['archive_no','content','title','created_at','src','url','hit'],
+           where:{file_type:'video'},
+           order:[['created_at','DESC']],
+           limit:4,
+           raw:true,
+       })
+    }
+    catch(error){
+       console.log(error);
+       return res.status(errorCode.internalServerError).json({});
+    }
+     res.json(inputResult);
+   })
 router.post('/archives',verifyToken,async(req,res,next)=>{
     let body = req.body;
     let user_no = req.decoded.user_no;
@@ -99,7 +119,40 @@ router.get('/onlist',async(req,res,next)=>{
     }
      res.json(inputResult);
    })
-router.put('/archive_cnt',async(req,res,next)=>{
+   router.get('/videolist',async(req,res,next)=>{
+    let body = req.body;
+   
+    let inputResult;
+    try{
+       inputResult = await Archive.findAll({
+        attributes:['archive_no'],
+        where:{file_type:"video"},
+       })
+    }
+    catch(error){
+       console.log(error);
+       return res.status(errorCode.internalServerError).json({});
+    }
+     res.json(inputResult);
+   })
+
+   router.get('/totalist',async(req,res,next)=>{
+    let body = req.body;
+   
+    let inputResult;
+    try{
+       inputResult = await Archive.findAll({
+        attributes:['archive_no'],
+       })
+    }
+    catch(error){
+       console.log(error);
+       return res.status(errorCode.internalServerError).json({});
+    }
+     res.json(inputResult);
+   })
+
+    router.put('/archive_cnt',async(req,res,next)=>{
     const {hit,archive_no} = req.body;
     let hit_update
     try {

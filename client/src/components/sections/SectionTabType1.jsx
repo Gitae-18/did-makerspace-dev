@@ -57,25 +57,27 @@ export default function SectionTabType1(props) {
   // 내부 탭 내용 주입
   const Tabs = (props) => {
     return (
-      <ol className="tabs_wrap">
-        <li className="tab_inner on">
+      <div className="tabs_wrap">
+        <div className="tab_inner on">
           <h3 style={{"color":"white"}}>New 공지사항</h3>
-          <ol>
+          <div className="inner_tab">
           {data !== undefined && data.length > 0 && data.map((item,index) =>(
+            <ol>
             <li key={index}>
             <span className="title">공지사항 new</span><HiOutlinePlus className="plus" onClick={goToNotice}/>
             <div className="text_part">
-            <span onClick={(e)=>setTimeout(onItem(e,index),2000)} className="sub_title" style={{"whiteSpace":"pre-line","wordBreak":"break-word"}}> {item.title}</span>
+            <span onClick={(e)=>onItem(e,index)} className="sub_title" style={{"whiteSpace":"pre-line","wordBreak":"break-word"}}> {item.title}</span>
             <div className="date_part">
             <span className="date">{item.created_at.slice(0,10)}</span>
             </div>
             </div>
             </li>
+            </ol>
           )
         )}
-        </ol>
-        </li>
-      </ol>
+        </div>
+        </div>
+      </div>
     );
   };
   // 탭 버튼 세팅

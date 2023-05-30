@@ -11,6 +11,7 @@ export default function ListType2c() {
   const { authority_level } = useSelector(state => state.user);
   const location = useLocation();
   const history = useNavigate();
+  const [total,setTotal] = useState([]);
   const [data,setData] = useState([]);
   const [fileNo,setFileNo] = useState({});
   //const [page,setPage] = useState(1);
@@ -47,36 +48,64 @@ export default function ListType2c() {
   const sethandlePage = (e) =>{
     setCurrentPage(e);
   }
+  console.log(data);
   const onWrite = (e) =>{
-    let archive_no;
-    if(data[0]!==undefined){
-     archive_no = data[0].archive_no;
+    let archiveNo;
+    if(total[0]!==undefined){
+     archiveNo = total.at(-1).archive_no;
     }
     else{
-     archive_no = 0
+     archiveNo = 0
     }
-    history('/archive/video/addvideo',{state:{archive_no:archive_no}});
+    console.log(archiveNo);
+    history('/archive/video/addvideo',{state:{archive_no:archiveNo}});
   }
   const getItem = useCallback(async() =>{
+    const list = await fetch(PreUri +'/archive/totalist',{
+      method:Method.get,
+      headers:CommonHeader,
+    })
+    const listjson = await list.json();
+
+    if(!list.ok){
+      return(alert(getRspMsg(list.status)))
+    }
+    setTotal(listjson);
+
+ 
+    const res = await fetch(PreUri +'/archive/videolist',{
+      method:Method.get,
+      headers:CommonHeader,
+    })
+    const resjson = await res.json();
+
+
+    if(resjson!==null)
+    {
     let requri = PreUri + '/archive/list?file_type='+ file_type;
     const response = await fetch(requri,{
       method:Method.get,
       headers:CommonHeader,
     });
+  
     if(!response.ok){
       return(alert(getRspMsg(response.status)))
     }
     const json = await response.json();  
     setData(json);
     setCount(json.length);
+    }
   },[])
+
   let no;
-  for(let i = 0; i<data.length;i++){
-    no = data[i].archive_no;
+  for(let i = 0; i<total.length;i++){
+    no = total[i].archive_no;
   }
+
   const getFile = useCallback(async()=>{
     if(no!==undefined){
     CommonHeader.authorization = token;
+   
     const res = await fetch(PreUri + '/archive/' + no + '/files', {
       method: Method.get,
       headers: {
@@ -90,7 +119,10 @@ export default function ListType2c() {
     }
     }
   },[no,token])
-  const getFileNo = useCallback(async()=>{
+/*   const getFileNo = useCallback(async()=>{
+    for(let i = 0; i<total.length;i++){
+      no = total[i].archive_no;
+    }
     if(no!==undefined){
     const response = await fetch(PreUri + '/archive/'+ no + '/filesno',{
       method:Method.get,
@@ -100,13 +132,13 @@ export default function ListType2c() {
     const json = await response.json(); 
     setFileNo(json);
     }
-  },[no])
+  },[no]) */
 
   useEffect(()=>{
     getFile();
-    getFileNo();
+    /* getFileNo(); */
     getItem();
-  },[getItem])
+  },[getItem,getFile])
   return (
     <div className="table_wrap list_type2 list_type2c" style={count<7?{"padding":"0px 40px"}:null}>
       <ol>
