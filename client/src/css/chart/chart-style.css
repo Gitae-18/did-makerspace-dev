@@ -123,8 +123,8 @@ button{letter-spacing:-1px;}
  #header .mainmenu .logout{position:relative;padding:0;float:right;height:auto;line-height:80px;width:100px;background:#313f4f;color:#fff;font-size:0.9rem;border:0;cursor:pointer;left:4px;}
           
 #header:after{display:block;content:"";clear:both;}
-#header .mainmenu .logo2{float:left;height:80px;width:250px;line-height: 80px;position:relative;padding-left:40px;}
-#header .mainmenu .logo2 img{margin-top:13px; width:150px;height:55px;}
+#header .mainmenu .logo2{float:left;height:80px;width:250px;line-height: 80px;position:relative;padding-left:50px;}
+#header .mainmenu .logo2 img{margin-top:13px; width:160px;height:50px;}
 #header .mainmenu .btn_box {position:relative;}
 #header .mainmenu .btn_box li{float:left;letter-spacing:0;word-spacing:0;overflow:hidden;}
 #header .mainmenu .btn_box li a{display:inline-block;height:80px;line-height:80px;color:#000;transition:all 0.2s linear;-webkit-transition:all 0.2s linear;font-size:0.9rem;font-weight:400;margin: 0 7.2px;width:120px;}
