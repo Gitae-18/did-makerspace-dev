@@ -2,8 +2,8 @@ import React from "react";
 
 export default function TableType3a() {
   return (
-    <div className="table_type3">
-              <table>
+    <div className="table_type3 contact">
+              <table className="didcontact">
 
               <th>소속</th>
               <th>담당자</th>

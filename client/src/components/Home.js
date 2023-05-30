@@ -1,4 +1,4 @@
-import React,{useState,useEffect, useCallback}from 'react'
+import React,{useState,useEffect, useCallback ,useRef}from 'react'
 import $ from 'jquery';
 import {withCookies,Cookies,ReactCookieProps} from 'react-cookie';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -21,6 +21,7 @@ import styled from 'styled-components';
 function Home() {
   const { token } = useSelector(state => state.user); 
   const {isLoggedIn} = useSelector(state => state.user);
+ 
     $(document).ready(function () {
         $('.content_wrap').css('min-height', $(window).height() - 120);
         setTimeout(function(){ $('#modal').show();},300)
@@ -64,6 +65,10 @@ function Home() {
           const [modalControl1,setModalControl1] = useState(true);
           const [modalSet,setModalSet] = useState(true);
           const [data,setData] = useState("");
+          const [video, setVideo] = useState(null);
+          const [isPlaying, setIsPlaying] = useState(false);
+          const videoRef = useRef(null);
+        
           const closeModal = useCallback (async(e) =>{
             setModalVisible(false);
           },[])
@@ -89,19 +94,25 @@ function Home() {
             const json = await response.json();
             setData(json);
            },[])
-
-           useEffect(()=>{
+         
+           useEffect(() => {
             getRecentNotice();
-            const player = document.querySelector('video')
-            player.playbackRate = 0.8;
-           },[getRecentNotice])
+            const video = videoRef.current;
+
+            video.playbackRate = 0.7; // 재생 속도를 0.5배로 설정
+
+            return () => {
+              video.playbackRate = 1.0; // cleanup 시에 재생 속도를 원래 값인 1.0으로 복원
+            };
+          }, [getRecentNotice]);
+
            const onSiteMove = (url) =>{
             window.open(url,"_blank");
           }
         return (
           <>
           <div className="bg">
-          <video  id="my_video" className="video__content" muted autoPlay loop >
+          <video  id="my_video" className="video__content lazy" muted autoPlay loop ref={videoRef}>
           <source src="images/videos/main_video.mp4" type="video/mp4"/>
           </video>
             <div className="main_banner">

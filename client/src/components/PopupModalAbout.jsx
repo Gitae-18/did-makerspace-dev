@@ -124,7 +124,7 @@ const ImgStyle = styled.div`
   margin:0 auto;
   background-color: #ffffff;
   width: 550px;
-  height: 400px;
+  height: 450px;
   box-sizing: border-box;
   border: solid #000000 2px;
 `;
@@ -138,7 +138,7 @@ const Imgtag = styled.img`
 `;
 const InnerImg = styled.img`
   width: auto;
-  height: 150px;
+  height: 200px;
   top: 10px;
   position: relative;
   right:200px;
@@ -150,6 +150,7 @@ const CloseStyle = styled.div`
   justify-content: space-between;
   background-color: #282828;
   width: 120px;
+
   padding: 10px;
   border-radius: 0 0 15px 15px;
   color: #ffffff;

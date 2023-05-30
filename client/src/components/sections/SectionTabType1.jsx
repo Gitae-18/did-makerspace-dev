@@ -59,7 +59,7 @@ export default function SectionTabType1(props) {
     return (
       <ol className="tabs_wrap">
         <li className="tab_inner on">
-          <h3>New 공지사항</h3>
+          <h3 style={{"color":"white"}}>New 공지사항</h3>
           <ol>
           {data !== undefined && data.length > 0 && data.map((item,index) =>(
             <li key={index}>

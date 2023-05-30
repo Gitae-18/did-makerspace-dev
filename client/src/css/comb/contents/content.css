@@ -865,7 +865,11 @@ h3.title_type2 {
   width:100%;
   border:1px solid #bbb;
 }
-.table_type3 table th,td{
+.table_type3 > .didcontact > tr > td{
+  border:1px solid #bbb;
+  line-height: 35px;
+}
+.table_type3 > .didcontact > th{
   border:1px solid #bbb;
   line-height: 35px;
 }
