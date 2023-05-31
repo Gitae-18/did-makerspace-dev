@@ -59,7 +59,7 @@ export default function SectionTabType1(props) {
     return (
       <div className="tabs_wrap">
         <div className="tab_inner on">
-          <h3 style={{"color":"white"}}>New 공지사항</h3>
+          <h3 style={{"color":"black"}}>New 공지사항</h3>
           <div className="inner_tab">
           {data !== undefined && data.length > 0 && data.map((item,index) =>(
             <ol key={index}>

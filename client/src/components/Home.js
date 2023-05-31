@@ -70,18 +70,25 @@ function Home() {
           const [isPlaying, setIsPlaying] = useState(false);
           const videoRef = useRef(null);
         
-          const closeModal = useCallback (async(e) =>{
+          const closeModal = () =>{
             setModalVisible(false);
-          },[])
-          const closeModal2 = useCallback (async(e) =>{
+          }
+          const closeModal2 = () =>{
             setModalControl1(false);
-          },[])
-          const closeModal3 = useCallback(async(e)=>{
+          }
+          const closeModal3 = ()=>{
             setModalSet(false);
-          },[])
+          }
          /*  if() */
-
-         
+ /*         const openModal = () =>{
+          setModalVisible(true);
+        }
+        const openModal2 = () =>{
+          setModalControl1(true);
+        }
+        const openModal3 = () =>{
+          setModalSet(true);
+        } */
             const getRecentNotice = useCallback(async() =>{
               let requri = PreUri + '/notice/recentnotice';
               const response = await fetch(requri,{
@@ -113,7 +120,7 @@ function Home() {
         return (
           <>
           <div className="bg">
-          <video  id="my_video" className="video__content lazy" muted autoPlay loop ref={videoRef}>
+          <video  id="my_video" className="video__content" muted autoPlay loop ref={videoRef} >
           <source src="images/videos/main_video.mp4" type="video/mp4"/>
           </video>
             <div className="main_banner">
@@ -127,8 +134,9 @@ function Home() {
                     <span>DID</span> Digital Factory in Daejeon 
                   </h2>
 
-                  <p className='subtext'>
-                  DID 기술융합공작소는 기업·창업자·메이커들에게 멘토링과 컨설팅을 지원하고,
+                  <p className="subtext">
+                  DID 기술융합공작소는 기업·창업자·메이커들에게 
+                  멘토링과 컨설팅을 지원하고,
                   메이킹 장비를 활용하여 창업과 사업화를 이룰 수 있도록
                   One-Stop 서비스를 제공하는 전문 메이커 스페이스입니다.
                   </p>
@@ -147,7 +155,7 @@ function Home() {
             </>
           );
         };
-      
+    
         return (
           <div id="pageIndex">
             <MainBanner></MainBanner>

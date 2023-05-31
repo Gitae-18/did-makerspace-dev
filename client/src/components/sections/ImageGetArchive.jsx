@@ -30,6 +30,6 @@ export default function ImageGetArchive({no,token,attachFile,onItem}){
         getFileName();
       },[])
     return(
-        <div className="image_part"><img src={"data:image/*;base64,"+ fileurl2}  alt="no-image" style={{"width":"230px","height":"160px"}} onClick={onItem}/></div>
+        <div className="archive_image_part"><img src={"data:image/*;base64,"+ fileurl2}  alt="no-image" onClick={onItem}/></div>
     )
 }

@@ -165,12 +165,12 @@
   position:relative;
   left:-120px;
   top:30px;
-  color:rgb(255,255,255,0.7);
+  color:black;
   font-size:1.4rem;
   font-weight: 400;
 }
 .section_tab_type1 .section_inner_wrap h3:after{
-  border-bottom:3px solid #ffffff; 
+  border-bottom:3px solid #000000; 
   content:"";
   display: block;
   width:130px;
@@ -249,16 +249,17 @@
   left:0px;
   right:0px;
   bottom:0px;
-  background-image: linear-gradient(
+/*   background-image: linear-gradient(
     rgba(0, 0, 0, 0.35),
     rgba(0, 0, 0, 0.35)
-  ), url(/images/wallpaper.jpg);
+  ), url(/images/wallpaper.jpg); */
   content: "";
 }
 .section_tab_type1  .tabs_wrap .tab_inner ol{
   float:left;
   margin-left:30px;
   width:300px;
+  top:40px;
 }
 .section_tab_type1  .tabs_wrap .tab_inner ol li{
 /*   background-color:#ffffff; */
@@ -269,6 +270,7 @@
   margin-top:30px;
   box-shadow: 5px 5px 5px #2d2d2d;
   background-color: #ffffff;
+  border:2px solid #807f7f;
 /*   background:url(/images/note.png) */
 
 }
@@ -375,10 +377,10 @@
   left:0px;
   right:0px;
   bottom:0px;
-  background-image: linear-gradient(
+/*   background-image: linear-gradient(
     rgba(0, 0, 0, 0.35),
     rgba(0, 0, 0, 0.35)
-  ), url(/images/wallpaper.jpg);
+  ), url(/images/wallpaper.jpg); */
   content: "";
 }
 
@@ -413,12 +415,12 @@
   position:relative;
   left:-120px;
   top:30px;
-  color:rgb(255,255,255,0.7);
+  color:black;
   font-size:1.4rem;
   font-weight: 400;
 }
 .section_tab_type3 .section_inner_wrap h3:after{
-  border-bottom:3px solid #ffffff; 
+  border-bottom:3px solid #000000; 
   content:"";
   display: block;
   width:110px;
@@ -446,6 +448,9 @@
   left:-130px;
   position:absolute;
  }
+ .section_tab_type3 .section_inner_wrap .inner_tab img{
+  border:1px solid #2d2d2d;
+ }
  .section_tab_type3 .section_inner_wrap .tabs_wrap .tab_inner .inner_text div span{
   float:right;
   position:relative;
@@ -470,6 +475,20 @@
   margin-top: 20px;
 
 }
+.archive_image_part img {
+  width:220px;
+  height:150px
+}
+@media(max-width:958px){
+  .section_tab_type3  .section_inner_wrap .tabs_wrap .tab_inner ol li{
+    height:100px;
+    width: 200px;
+  }
+  .section_tab_type3  .section_inner_wrap .tabs_wrap .tab_inner ol li .text_part .sub_title .image_part img{
+    width:150px;
+    height:100px;
+  }
+}
 .section_tab_type3 .tab_inner ol li .text_part{
   position:absolute;
   margin-top:80px;
@@ -481,6 +500,7 @@
  position:absolute;
  margin-left:30px;
  width:300px;
+ top:40px;
 }
 
 
@@ -504,7 +524,7 @@
   margin-top:30px;
   box-shadow: 5px 5px 5px #2d2d2d;
   background-color: #ffffff;
-
+  border:2px solid #807f7f;
 }
 .section_tab_type3  .tabs_wrap .tab_inner ol li::before{
   position:absolute;
