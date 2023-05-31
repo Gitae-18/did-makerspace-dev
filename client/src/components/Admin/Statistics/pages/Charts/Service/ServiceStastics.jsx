@@ -109,7 +109,7 @@ function ServiceStatics() {
         v.created_at < moment(new Date(), "YYYY-MM-dd hh:mm:ss").format()
     );
   }
-  console.log(dataFat);
+ 
   const fileDownload = () => {
     const ws = xlsx.utils.json_to_sheet(dataFat);
     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };

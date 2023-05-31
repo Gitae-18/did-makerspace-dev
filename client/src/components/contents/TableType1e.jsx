@@ -37,7 +37,7 @@ export default function TableType1e() {
       return;
     }
     const json = await response.json();
-    console.log(json);
+
     setData(json);
     setCount(json.length)
   },[])
@@ -107,8 +107,6 @@ export default function TableType1e() {
   const sethandlePage = (e) =>{
     setCurrentPage(e);
   }
-  console.log(data)
-
 
   const onWrite = useCallback(async(e) => {
     let notice_no;

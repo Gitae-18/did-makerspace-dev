@@ -105,7 +105,7 @@ export default function SelectDateType1({query}) {
       }
 
     },[btnActive,btnClick]);
-    console.log(clickedTime)
+   
   const getReservation = useCallback(async() => {
     CommonHeader.authorization = token;
     
@@ -125,7 +125,7 @@ export default function SelectDateType1({query}) {
       return;
     }
     const json = await response.json();
-    console.log(json);
+
     setGetdata(json);
     if(json!==null)
     {
@@ -141,8 +141,6 @@ export default function SelectDateType1({query}) {
       date:json.result.reservation_date
     }));  */
   },[token,NewDate,clickedTime])
-  console.log(selectStatus)
-  console.log(timepart)
 
   useEffect(()=>{
     dateClick();

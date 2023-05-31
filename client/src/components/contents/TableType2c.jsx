@@ -23,9 +23,8 @@ export default function TableType2c() {
         baseURL :'/space/reservation',
       }
 
-     
       let requri = PreUri + '/space/reservation';
-      console.log(requri)
+
       const res = await fetch(requri,{
         method:Method.get,
         headers:CommonHeader

@@ -62,7 +62,7 @@ export default function ListType2b() {
     history(location.pathname + '/detail',{state:{no:program_no}});
   },[currentPost,itemList])
   const item = Object.values(itemList).map(item=>item);
-  console.log(item);
+
   const tit = item;
 
   const sethandlePage = (e) =>{

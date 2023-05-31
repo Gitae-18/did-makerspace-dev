@@ -25,7 +25,6 @@ export default function Contact({location,history}) {
     const { sideNaviMenu } = useSelector(state => state.sidemenu);
     useEffect(()=>{
       return ()=>{
-        console.log("123");
         dispatch({ type: MENU_CHANGE, target: 0 });
       }
     },[])

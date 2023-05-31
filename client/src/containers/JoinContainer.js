@@ -140,7 +140,7 @@ export const JoinContainer = (props) => {
         }
 
         const json = await response.json();
-        console.log(json);
+
         dispatch({ type: CLEAR });
         return history('/join?type=join_success',{replace:true});
     }, [value, dispatch, history]);

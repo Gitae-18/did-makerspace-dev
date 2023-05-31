@@ -35,7 +35,6 @@ export default (state = initialState, action) => {
                 status: '',
             }
         case M_SERVICE_VIEW_CHANGE: 
-        console.log("a");
             if (progressValue[state.progress]
                 && progressValue[action.target]
                 && progressValue[state.progress] >= progressValue[action.target]) {

@@ -57,7 +57,7 @@ const LoginModal = (props) =>{
             }),
             headers: CommonHeader
         });
-        console.log(response)
+
         if (!response.ok) {
             dispatch({ type: LOGIN_FAIL });
             switch (response.status) {
@@ -73,8 +73,7 @@ const LoginModal = (props) =>{
         dispatch({ type: LOGIN_SUCCESS, payload: json });
         history(1);
     }, [dispatch,id,pass]);
-    console.log(id);
-    console.log(pass);
+
 /*     useEffect(()=>{
     },[]) */
     return(

@@ -8,7 +8,7 @@ import { setCookie, getCookie } from "./cookie";
 
 function PopupSaveModal({ classname, visible, onclose, closable, url }) {
   const history = useNavigate();
-  console.log(url);
+
   /*  const open = (e) =>{
        onClose(true)
     }

@@ -24,6 +24,7 @@ export default function TableType1a({query}) {
 
   const history = useNavigate();
   const [spaceList,setSpaceList] = useState([]);
+  const [searchItem,setSearchItem] = useState([]);
   const [spacename,setSpacename] = useState([]);
   const [spaceFloor,setSpaceFloor] = useState([]);
   const [floor,setFloor] = useState("1F");
@@ -80,12 +81,13 @@ export default function TableType1a({query}) {
     setSpaceList(json)
     setSpacename(json.map((e,i,arr)=>(e.space_name)));
     setCurrentPosts(json.slice(indexOfFirstPost,indexOfLastPost))
+    setSearchItem(json);
     setCount(json.length)
   },[token,floor])
 
   useEffect(()=>{
     getSpaceList(query);
-  },[getSpaceList,query]);
+  },[getSpaceList]);
 
   const activeEnter = (e) => {
     if(e.key === "Enter") {
@@ -120,19 +122,17 @@ export default function TableType1a({query}) {
     e.preventDefault();
 
     if(search=== null || search === ''){
-        let requri = PreUri + '/space/list';
+        let requri = PreUri + '/space/list?floor='+ floor;
       const response = await fetch(requri, {
         method:Method.get,
         headers:CommonHeader
       });
       const json = await response.json(); 
-      setSpaceList(json);
-      setCurrentPosts(json);
+      setSearchItem(json);
   }
   else{
     const filterData = spaceList.filter((item) => item.space_name.toLowerCase().includes(search.toLowerCase()))
-    setSpaceList(filterData)
-    setCurrentPosts(filterData)
+    setSearchItem(filterData);
     setCurrentPage(1)
   }
   if(search.length===0)
@@ -172,9 +172,9 @@ export default function TableType1a({query}) {
         </thead>
         <tbody>
           {/* <Posts posts={currentPosts} onMove={onMove} /> */}
-            {currentPost && spaceList.length >  0 ? currentPost.map((item,i)=>(
+            {searchItem.length >  0 ? searchItem.map((item,i)=>(
               <tr key={i}>
-              <td>{spaceList.length - i - (currentPage - 1) * postPerPage}</td>
+              <td>{searchItem.length - i - (currentPage - 1) * postPerPage}</td>
               <td><StyledSpan onClick={(e)=>onMove(item,i)}>{item.space_name}</StyledSpan></td>
               <td><StyledSpan onClick={(e)=>onMove(item,i)}>{item.space_info}</StyledSpan></td>
               <td><StyledImg alt="no imgae" src={`/images/${item.src}`}/></td>

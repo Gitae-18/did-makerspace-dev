@@ -42,7 +42,6 @@ export default (state = initialState, action) => {
                     })
                 );
             //}
-            console.log(localStorage.loggedinUser);
             return {
                 ...state,
                 isLoginStart: false,

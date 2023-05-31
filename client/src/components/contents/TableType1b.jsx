@@ -14,6 +14,7 @@ import Paging2 from "./Paging2";
 export default function TableType1b({query}) {
  
   const [itemList,setItemList] = useState([]);
+  const [searchItem,setSearchItem] = useState([]);
   const history = useNavigate();
   const mountedRef = useRef(true);
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export default function TableType1b({query}) {
   const [postPage, setPostPage] = useState(10);
   //const [totalPage,setTotalPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const [search,setSearch] = useState("");
+  const [search,setSearch] = useState('');
   const [items, setItems] = useState({
     totalCount: 0,
     totalPage: 0,
@@ -41,34 +42,11 @@ const postPerPage = 10;
 //const offset = (page-1)*postPerPage;
 const indexOfLastPost = currentPage * postPerPage
 const indexOfFirstPost = indexOfLastPost - postPerPage;
-const currentPost = itemList.slice(indexOfFirstPost, indexOfLastPost)
-const headpath = '/images/equipment'
-  //const [ContextData,setContextData] = useState([]);
- /*    const limit = 10;
-  const offset = (page-1)*limit;
- */
-  //const inputRef = useRef(null);
-/* 
-  const onChange = (e) =>{
-    setSearch(e.target.value);
-  } */
- /*  const postsData = (posts) =>{
-    if(posts){
-      let result = posts.slice(offset,offset + limit);
-      return result;
-    }
-  } */
-  //const filterContext = itemList.slice(offset,offset+limit)
-  
-  //const numlength = itemList.length
-  //const number = Array(numlength).fill().map((_,i)=>i)
-/*   const onSearch = useCallback(async()=>{
-    setBtnClick(!btnClick);
-    setContextData(itemList.filter((i)=>{
-    return i.model_name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-  }).slice(offset,offset+limit))
-  },[filterContext]) */
+let currentPost;
 
+
+const headpath = '/images/equipment'
+ 
   const getItemList = useCallback(async(pageNumber, searchWord)=>{
   
     setLoading(true);
@@ -86,8 +64,9 @@ const headpath = '/images/equipment'
       return;
     }
     const json = await response.json();
-    console.log(json);
+ 
     setItemList(json);
+    setSearchItem(json);
 
     const totalPage = Number(json.total_page);
     const currentPage = Number(json.current_page);
@@ -110,11 +89,10 @@ const headpath = '/images/equipment'
  useEffect(()=>{
   getItemList(query.page?query.page:1,query.search);
   setSearch(query.search ? query.search : '');
- },[getItemList,query])
+ },[getItemList])
  const onChange = useCallback((e) => {
-    e.preventDefault();
     setSearch(e.target.value);
-  }, [setSearch]);
+  }, []);
 
  /*  const onSearch = useCallback((e) => {
     const addQuery = (search.length > 0) ? ("?search=" + search) : "";
@@ -130,16 +108,21 @@ const onSearch = useCallback(async(e) =>{
       headers:CommonHeader
     });
     const json = await response.json(); 
-    setItemList(json);
-    
+    setSearchItem(json);
 }
-else{
+else {
   const filterData = itemList.filter((item) => item.model_name.toLowerCase().includes(search.toLowerCase()))
-  setItemList(filterData)
- 
+  setSearchItem(filterData)
   setCurrentPage(1)
+ /*  let requri = PreUri + '/equipment/categorylist';
+  const response = await fetch(requri, {
+    method:Method.get,
+    headers:CommonHeader
+  });
+  const json = await response.json();
+  setItemList(json); */
 }
-if(search.length===0)
+if(search=== null || search === '')
 {
 setSearch('');
 }
@@ -187,24 +170,6 @@ let ItemRows = [];
 
 
 
-  const SetTable= ({data}) =>{
-     return(
-        <tbody>
-            {data!== undefined ? data.map((item,i)=>(
-              <tr key={i}>
-                <td>{i+currentPage*postPage-9}</td>
-                <td>{item.location}</td>
-                <td><StyledLink to="/InfoType1a"><StyledSpan>{item.model_name}</StyledSpan></StyledLink></td>
-                <td>{item.model_sepecification}</td>
-                <td>{currentPage}</td>
-                <td>월~금(09:00-18:00)</td>
-              </tr>
-            )):<div>게시물이 없습니다.</div>}
-           
-        </tbody>
-     );
-  }
-  //const currText = itemList.slice(offset,offset+limit)
 
 
 
@@ -221,7 +186,6 @@ const onPagePrev = (e) => {
             const querySearch = (search.length > 0) ? ("&search=" + search) : "";
             history(location.pathname + '?page=' + currentPage + querySearch);
       
-      console.log(currentPage);
   }
     };
     const setPage = (e) =>{
@@ -240,7 +204,6 @@ const onPageNext = (e,newPageNumber) => {
         const curPageGrp = Math.ceil(newPageOffset / PageMax);
         const totPageGrp = Math.ceil(items.totalPage / PageMax );
  */
-   console.log(currentPage);
   }
     }
  
@@ -287,14 +250,15 @@ for (let i = 0; i < PageMax; i++) {
           </tr>
         </thead>
         <tbody>
-        {currentPost.length > 0 ? currentPost.map((item,index)=>(
+        {
+        searchItem.map((item,index)=>(
           <tr key={index}>
-            <td onClick={(e)=>onSelectItem(item,index)} className="num"><span className="more">{itemList.length - index - (currentPage - 1) * postPerPage}</span></td>
+            <td onClick={(e)=>onSelectItem(item,index)} className="num"><span className="more">{searchItem.length - index - (currentPage - 1) * postPerPage}</span></td>
             <td onClick={(e)=>onSelectItem(item,index)}><span className="more">{item.model_name? item.model_name : '-'}</span></td>
             <td className="num"><img src={headpath+item.src} alt="no-image" style={{'width':'50px','height':'50px'}}/></td>
             <td onClick={(e)=>onSelectItem(item,index)} style={{'width':'160px'}}>{item.location}</td>
             <td>월~금(09:00-18:00)</td>
-          </tr>)):<div>게시물이 없습니다.</div>
+          </tr>))
           }
         {/* {ItemRows} */}
         </tbody>

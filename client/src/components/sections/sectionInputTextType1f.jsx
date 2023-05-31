@@ -36,8 +36,7 @@ export default function SectionInputTextType1f() {
   reader.readAsDataURL(file)
 
 }
-console.log(imageUrl);
-console.log(fileUrl);
+
 const formData = new FormData();
 
  const sendData = useCallback(async()=>{
@@ -88,7 +87,6 @@ const formData = new FormData();
 } */
 setOpenModal(true);
 },[token,title,text,imageFile])
-console.log(typeof(fileUrl));
 const onClose = () =>{
   setOpenModal(false);
 }

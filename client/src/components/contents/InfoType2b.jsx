@@ -54,7 +54,7 @@ export default function InfoType2b() {
     setCost(json.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     setTitle(json.title);
   },[token])
-  console.log(cost);
+
 /* 
   const ongetImage = useCallback(async(e,index)=>{
     let requri = PreUri + '/classedu/'+ no + '/getimage';
@@ -98,7 +98,7 @@ export default function InfoType2b() {
     setOpenModal(true);
    // dispatch({ type: COUNT_INCREASE, target: count });
     CommonHeader.authorization = token;
-   console.log(title);
+
     const response = await fetch(PreUri + '/classedu/class_application',{
       method:Method.post,
       headers:CommonHeader,

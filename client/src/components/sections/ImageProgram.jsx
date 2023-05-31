@@ -3,7 +3,7 @@ import { CommonHeader, PreUri, Method } from "../../CommonCode";
 
 export default function ImageProgram({no,token,attachFile}){
     const [fileurl2,setFileUrl2] = useState("");
-    console.log(no);
+
     const getFileName = useCallback(async()=>{
         CommonHeader.authorization = token;
         const res = await fetch(PreUri + '/fileview/'+ no +'/classedufile',  {

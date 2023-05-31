@@ -26,7 +26,7 @@ export default function InfoType3a() {
   useEffect(()=>{
     getOne();
   },[getOne])
- console.log(data);
+
   const DescVedio = () => {
     return (
       <div className="vedio_wrap">

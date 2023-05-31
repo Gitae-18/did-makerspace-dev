@@ -127,7 +127,6 @@ export default function  SectionInputTextType1d_a(){
     }
    /*  if(index > 0)
     { */
-      console.log(no)
       const res = await fetch( PreUri +'/classedu/'+ (no+1) +'/files',{
         method:Method.post,
         headers: { authorization: token},

@@ -29,7 +29,7 @@ export default function InfoType2a() {
   const [cost,setCost] = useState();
   const { token } = useSelector(state => state.user);
   let type = "class";
-  console.log(no);
+
   const getEduList = useCallback(async()=>{
     CommonHeader.authorization = token;
     let requri = PreUri + '/classedu/'+ no +'/class_receive';
@@ -75,7 +75,7 @@ export default function InfoType2a() {
     setOpenModal(true);
 
     CommonHeader.authorization = token;
-    console.log(type);
+  
     const response = await fetch(PreUri + '/classedu/class_application',{
       method:Method.post,
       headers:CommonHeader,

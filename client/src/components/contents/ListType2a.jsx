@@ -134,7 +134,7 @@ export default function ListType2a() {
     setFileNo(json);
     }
   },[no])
-  console.log(itemList);
+
   useEffect(()=>{
     getFile();
     getFileNo();

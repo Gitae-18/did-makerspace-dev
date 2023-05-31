@@ -45,7 +45,7 @@ export default function ListType2e() {
     setData(json);
     setCount(json.length);
   },[])
-  console.log(data);
+ 
   useEffect(()=>{
     getItem();
   },[getItem])

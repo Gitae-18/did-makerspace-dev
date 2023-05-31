@@ -44,7 +44,7 @@ function Equipment() {
   }, [input]);
   let dataList = data.filter((v) => v.equipment_category_no);
   if (!data) return null;
-  console.log(input);
+
   if (dataList.filter((item) => item.model_name.includes(input))) {
     dataList = dataList.filter((item) =>
       item.model_name.toLowerCase().includes(input)

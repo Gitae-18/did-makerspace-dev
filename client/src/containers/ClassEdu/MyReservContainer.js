@@ -13,8 +13,6 @@ export const MyClassContainer = (props) =>{
         ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
     });
 
-    console.log(query)
-    
     useEffect(() => {
         if (isLoading) { return; }
         if (!isLoggedIn) { return history('/notmember',{replace:true}); }

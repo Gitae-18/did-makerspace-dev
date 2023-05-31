@@ -8,6 +8,7 @@ import { CommonHeader, Method, PreUri } from "../../CommonCode";
 
 const TableType1c = () => {
   const [data,setData] = useState([]);
+  const [searchItem,setSearchItem] = useState([]);
   const [currentPage,setCurrentPage] = useState(1);
   const [count,setCount] = useState(0);
   const { token } = useSelector(state => state.user);
@@ -30,8 +31,9 @@ const TableType1c = () => {
       return;
   }
     const json = await response.json(); 
-    console.log(json);
+
     setData(json);
+    setSearchItem(json);
     setCount(json.length);
   },[])
 
@@ -53,12 +55,11 @@ const TableType1c = () => {
 
     if(search=== null || search === ''){
 
-      setCurrentPosts(data);
+      setSearchItem(data);
   }
   else{
-    const filterData = data.filter((item) => item.name.includes(search))
-    setData(filterData)
-    setCurrentPosts(filterData)
+    const filterData = data.filter((item) => item.name.includes(search));
+    setSearchItem(filterData);
     setCurrentPage(1)
   }
  setSearch('');
@@ -91,7 +92,7 @@ const activeEnter = (e) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item,index)=>(
+          {searchItem.map((item,index)=>(
           <tr key={index}>
             <td>{item.indp}</td>
             <td>{item.name}</td>

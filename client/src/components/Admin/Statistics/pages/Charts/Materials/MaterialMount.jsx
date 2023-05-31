@@ -55,7 +55,7 @@ function MaterialMount() {
   } else if (Selected === "필라멘트") {
     dataFat = dataList.filter((v) => v.equipment_category_no === 9);
   }
-  console.log(dataFat);
+
   const quantity = dataList
     .filter((arr) => arr.material_item_no < 7)
     .map((arr) => arr.quantity);

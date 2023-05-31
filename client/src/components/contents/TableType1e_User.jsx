@@ -36,7 +36,7 @@ export default function TableType1e_User() {
       return;
     }
     const json = await response.json();
-    console.log(json);
+  
     setData(json);
     setCount(json.length)
   },[])

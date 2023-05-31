@@ -27,7 +27,7 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
 	const onClick = useCallback((e, index) => {
 		e.preventDefault();
 		dispatch({ type: CHANGE_MENU, target: index });
-		console.log(viewDepth);
+
 		if (viewDepth && viewDepth === 2) {
 			
 			history(-1);
@@ -151,7 +151,7 @@ const AdminMenu = ({viewDepth}) => {
 	const onClick = useCallback((e, index) => {
 		e.preventDefault();
 		dispatch({ type: CHANGE_MENU, target: index });
-		console.log(viewDepth);
+
 		if (viewDepth && viewDepth === 2) {
 			
 			history(-1);

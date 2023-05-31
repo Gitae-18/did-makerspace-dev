@@ -84,7 +84,6 @@ export default function SectionInputTextType1g() {
         console.log('response error');
         return;
     }
-    console.log(fileInfo.original_name);
     if(fileInfo!==undefined){
     fileDownload(await(await new Response(response.body)).blob(),fileInfo.original_name)
     }

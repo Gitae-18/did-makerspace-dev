@@ -82,7 +82,7 @@ export default function MyClassReserv() {
   const setPage = (e) =>{
     setCurrentPage(e);
   }
-  console.log(reservList)
+  
   useEffect(()=>{
     getReservList();
   },[getReservList,token])

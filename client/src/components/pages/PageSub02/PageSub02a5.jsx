@@ -96,7 +96,6 @@ export default function PageSub02a5() {
       headers:CommonHeader,
     })
     const data = await res.json();
-    console.log(data);
     setTestAnswer(data);
   },[testfile,testAnswer])
  
@@ -154,7 +153,6 @@ export default function PageSub02a5() {
       }
       
     }
-    console.log(countup);
     setTotalScore(score);
     if(countup>=6)
     {

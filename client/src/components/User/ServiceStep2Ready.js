@@ -201,7 +201,7 @@ export default function ({ no }) {
         e.preventDefault();
 
         if (!e.target.files.length === 0) {
-            console.log(e.target.files);
+
             return;
         }
 

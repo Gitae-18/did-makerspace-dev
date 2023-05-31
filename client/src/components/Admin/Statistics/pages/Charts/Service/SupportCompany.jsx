@@ -42,7 +42,7 @@ function SupportCompany() {
   };
 
   const serviceList = data.filter((word) => word.company_no < 20);
-  console.log(serviceList);
+
   const series = [
     {
       name: "현재 서비스 지원",

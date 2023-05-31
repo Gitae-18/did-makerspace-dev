@@ -61,7 +61,7 @@ export default function TableType2a() {
       setPassFlag(json);
     
    },[token])
-   console.log(passflag);
+
    //
    let typepass = passflag.map((item)=>item.type);
    //

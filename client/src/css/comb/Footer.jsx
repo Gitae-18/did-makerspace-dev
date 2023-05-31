@@ -46,7 +46,6 @@ export default function Footer() {
   const FooterSiteMap = () => {
     const onSiteMove = (e) =>{
       const urlname = e.target.value;
-      console.log(urlname);
       window.open(urlname);
     }
     return (

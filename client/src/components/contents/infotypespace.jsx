@@ -33,7 +33,7 @@ export default function InfoTypeSpace() {
   const onBackpage = () =>{
     history(-1);
   }
-    console.log(info)
+
   const Desc1 = () => {
     return <p className="subtitle">{info.space_info}</p>;
   };

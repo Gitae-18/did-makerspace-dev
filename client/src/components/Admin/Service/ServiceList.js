@@ -96,7 +96,7 @@ export default function ({ query , no }) {
     const closeModal = () =>{
         setModalVisible(false);
     }
-    console.log(AuthLevel);
+   
     const getServiceList = useCallback(async (query) => {
        
 
@@ -281,7 +281,7 @@ export default function ({ query , no }) {
     const onPrint = useCallback((e, index) => {
         e.preventDefault();
         const item = serviceItems.items[index];
-        console.log(item.service_no);
+        
         // window.open(window.location.href + '?report_no=' + item.service_no, 'report', 'width=820,height=900,location=no,status=no,scrollbars=yes');
         window.open(location.pathname+'?report_no='+ item.service_no, 'report', 'width=820,height=900,location=no,status=no,scrollbars=yes');
     }, [serviceItems]);
@@ -342,7 +342,7 @@ export default function ({ query , no }) {
          
      </>);
     }, [serviceno]);
-    console.log(serviceItems);
+   
     
  
     if (serviceItems.totalCount > 0) {

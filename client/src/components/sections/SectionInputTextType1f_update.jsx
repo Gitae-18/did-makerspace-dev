@@ -23,7 +23,7 @@ export default function SectionInputTextType1f_update() {
   const no = location.state.no;
   const faqno = location.state.faq_no
   const url = location.pathname;
-  console.log(url)
+
   const onMemoChange = (e) =>{ 
     setText(e.target.value);
  };

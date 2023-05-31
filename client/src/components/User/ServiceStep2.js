@@ -112,7 +112,7 @@ export default function ({ no }) {
         if (value.productName.length < 1) { return alert('시제품명이 비어있습니다') }
         if (value.content.length < 1) { return alert('제품 개념 및 신청 내용이 비어있습니다') }
         if (value.businessPlan.length < 1) { return alert('사업화(상용화) 계획이 비어있습니다') }
-        console.log(categories);
+
         CommonHeader.authorization = token;
         const response = await fetch(PreUri + '/service/' + no + '/service_application', {
             method: Method.post,
@@ -152,7 +152,7 @@ export default function ({ no }) {
 
         history('/uservice',{replace:true});
     }, [categoryItems, checkValue, value, fileInfo, token, no, history]);
-    console.log(categoryItems);
+
     const onFileUpload = useCallback((e) => {
         e.preventDefault();
 

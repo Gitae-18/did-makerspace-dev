@@ -48,7 +48,7 @@ export default function ListType2c() {
   const sethandlePage = (e) =>{
     setCurrentPage(e);
   }
-  console.log(data);
+
   const onWrite = (e) =>{
     let archiveNo;
     if(total[0]!==undefined){
@@ -57,7 +57,7 @@ export default function ListType2c() {
     else{
      archiveNo = 0
     }
-    console.log(archiveNo);
+  
     history('/archive/video/addvideo',{state:{archive_no:archiveNo}});
   }
   const getItem = useCallback(async() =>{

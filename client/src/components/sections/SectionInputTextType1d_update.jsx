@@ -152,7 +152,7 @@ export default function SectionInputTextType1d_update(){
     }
    /*  if(index > 0)
     { */
-      console.log(no)
+
       const res = await fetch( PreUri +'/classedu/'+ programno +'/files',{
         method:Method.put,
         headers: { authorization: token},

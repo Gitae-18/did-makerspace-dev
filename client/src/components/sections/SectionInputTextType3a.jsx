@@ -39,7 +39,6 @@ export default function SectionInputTextType3a() {
     })
 
   } */
-  console.log(no);
  const onMemoChange = (e) =>{ 
     setText(e.target.value);
  };

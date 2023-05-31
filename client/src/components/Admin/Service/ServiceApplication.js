@@ -49,7 +49,7 @@ export default ({ no , query }) => {
 
 
 
-    console.log(no)
+
     const getCategory = useCallback(async () => {
         CommonHeader.authorization = token;
         let response = await fetch(PreUri + '/service/category/all', {
@@ -82,7 +82,7 @@ export default ({ no , query }) => {
 		}
         
         const serviceApp = await response.json();
-        console.log(serviceApp);
+        
         setInfo(info=> ({
             ...info,
             serviceNo: serviceApp.service_no,
@@ -125,7 +125,7 @@ export default ({ no , query }) => {
             count,
             items: json.items,
 		}));
-        console.log(serviceAppItem);
+        
 		setServiceAppItem(serviceAppItem =>({
 			...serviceAppItem,
 			serviceNo: serviceApp.service_no,
@@ -360,7 +360,7 @@ export default ({ no , query }) => {
                 headers: CommonHeader
             });
             const response = await memolize.json();
-            console.log(response);
+   
             setInsert(response.memo)
         } catch (e) {
             console.log(e);
@@ -436,7 +436,6 @@ export default ({ no , query }) => {
 
 		if (!response.ok) {
 			alert(getRspMsg(response.status));
-            console.log(response.status);
             return;
 		}
 

@@ -22,7 +22,7 @@ export default function SectionInputTextType1d(){
   const fileInputRef = useRef<HTMLInputElement>(null);
   let type = location.pathname === "/educontrol" ? "edu" : "class";
   const no = location.state.no;
-  console.log(no);
+
   const [input,setInput] = useState({
     className: '',
     place: '',

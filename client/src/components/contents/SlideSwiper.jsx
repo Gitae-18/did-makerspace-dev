@@ -15,7 +15,6 @@ export default function SlideSwiper1() {
   const onChange = (e) =>{
     setText(e.target.value);
   }
-  console.log(text);
   return (
     <div className="swiper_wrap swiper_type1">
       <Swiper

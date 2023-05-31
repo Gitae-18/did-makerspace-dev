@@ -96,7 +96,7 @@ export default function SectionInputTextType1h_update() {
       return;
     }
     const json = await response.json();
-    console.log(json);
+ 
     setData(json);
   },[no,token])
   const getFile = useCallback(async()=>{

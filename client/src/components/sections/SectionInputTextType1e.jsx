@@ -65,7 +65,6 @@ export default function SectionInputTextType1e() {
     for(let i = 0; i < attachFile.length&&i<MaxFileCount; i++){
       if(attachFile.legnth>1){
         attached_file_no = attachFile.attached_file_no[i]
-        console.log(attached_file_no[i]);
       }
       else{
         attached_file_no = attachFile.attached_file_no
@@ -83,7 +82,7 @@ export default function SectionInputTextType1e() {
         console.log('response error');
         return;
     }
-    console.log(response.data);
+
     if(fileInfo!==undefined){
     fileDownload(await(await new Response(response.data)).blob(),fileInfo.original_name)
     }
