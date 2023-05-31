@@ -7,7 +7,6 @@ import qs from 'qs';
 
 export const ScheduleContainer = () => {
      const { isLoading, isLoggedIn } = useSelector(state => state.user);
-     const { location } = useLocation;
      const history = useNavigate();
      const { search } = useLocation();
      const query = qs.parse(search, {

@@ -127,9 +127,9 @@
     opacity: 1;
   }
 }
-@media screen and (max-width:1024px){
+@media screen and (max-width:2224px){
   .modalsh > section{
-    height:50%;
+    height:500px;
     width:100%;
     left:0px;
   }

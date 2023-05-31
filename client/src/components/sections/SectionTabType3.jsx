@@ -105,7 +105,7 @@ export default function SectionTabType3(props) {
           <h3 style={{"color":"white"}}>New 비디오</h3>
           <div className="inner_tab"> 
           {data !== undefined && data.length > 0 && data.map((item,index) =>(
-            <ol>
+            <ol key={index}>
             <li key={index}>
             <div className="title">{item.title}</div>
             <div className="text_part">

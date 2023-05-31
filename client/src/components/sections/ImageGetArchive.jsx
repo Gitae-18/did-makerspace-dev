@@ -5,7 +5,6 @@ export default function ImageGetArchive({no,token,attachFile,onItem}){
     const [fileurl2,setFileUrl2] = useState("");
     console.log(no);
     const getFileName = useCallback(async()=>{
-        CommonHeader.authorization = token;
         const res = await fetch(PreUri + '/fileview/'+ no +'/archivefile',  {
           method: Method.get,
           headers: {

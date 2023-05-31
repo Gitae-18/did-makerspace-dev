@@ -7,7 +7,6 @@ import { useLocation,useNavigate } from 'react-router';
 export default function ({ no }) {
     const mountedRef = useRef(true);
     const { token } = useSelector(state => state.user);
-    const location = useLocation();
     const history = useNavigate();
     const [rejectText, setRejectText] = useState('');
     const getPreInfo = useCallback(async () => {

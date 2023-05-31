@@ -62,7 +62,7 @@ export default function SectionTabType1(props) {
           <h3 style={{"color":"white"}}>New 공지사항</h3>
           <div className="inner_tab">
           {data !== undefined && data.length > 0 && data.map((item,index) =>(
-            <ol>
+            <ol key={index}>
             <li key={index}>
             <span className="title">공지사항 new</span><HiOutlinePlus className="plus" onClick={goToNotice}/>
             <div className="text_part">

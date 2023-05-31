@@ -184,7 +184,7 @@ router.get('/:fileview_no/classedufile'/* ,verifyToken */, async (req, res, next
     //res.send(image);
 
 }); */
-router.get('/:fileview_no/archivefile',verifyToken, async (req, res, next) => {
+router.get('/:fileview_no/archivefile', async (req, res, next) => {
     let archive_no = req.params.fileview_no;
     console.log(archive_no)
     /*     const imgPath = path.resolve("./upload/newfaq/","banner05.png")
