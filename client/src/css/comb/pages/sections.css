@@ -3,11 +3,13 @@
   src: url(/public/font/font_01.ttf);
 }
 
+
+
 .section_text_type1 {
   padding-bottom: 120px;
   height:auto;
   min-height: 100%;
-  margin-top:110px;
+  margin-top:90px;
  
 }
 
@@ -295,12 +297,22 @@
   left:20px;
   cursor: pointer;
 }
+
 .section_tab_type1  .tabs_wrap .tab_inner ol li .date_part{
   position:absolute;
   width:100px;
-  top:120px;
+  top:115px;
   left:20px;
 }
+.section_tab_type1  .tabs_wrap .tab_inner ol li .name{
+  position:absolute;
+  font-weight: 400;
+  font-size:12px;
+  top:115px;
+  left:230px;
+  width:100px;
+}
+
 .section_tab_type1  .tabs_wrap .tab_inner ol li .plus{
   position:absolute;
   width:100%;
@@ -480,14 +492,52 @@
   height:150px
 }
 @media(max-width:958px){
-  .section_tab_type3  .section_inner_wrap .tabs_wrap .tab_inner ol li{
-    height:100px;
-    width: 200px;
-  }
-  .section_tab_type3  .section_inner_wrap .tabs_wrap .tab_inner ol li .text_part .sub_title .image_part img{
-    width:150px;
-    height:100px;
-  }
+.section_tab_type1{
+  height:700px;
+  left:100px;
+}
+.section_tab_type3{
+  height:500px;
+  left:100px;
+}
+.section_text_type1 {
+  height:1150px;
+}
+.section_banner_type1 {
+  height:400px;
+}
+.section_banner_type1 .section_inner_wrap{
+  left:200px;
+}
+.section_text_type1 .flex_wrap .text_part{
+  position:absolute;
+  top:600px;
+  left:100px;
+}
+.section_text_type1 .flex_wrap .swiper_part{
+  width:500px;
+  left:100px;
+}
+.section_text_type1 .flex_wrap .swiper_part::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 56px;
+  height: 200px;
+  background-color: #313f4f;
+}
+.section_text_type1 .swiper_part::after {
+  z-index: -1;
+  content: '';
+  display: block;
+  position: absolute;
+  left: -30px;
+  top: 80px;
+  width: 700px;
+  height: calc(100% + 15px);
+  background-color: #313f4f;
+}
 }
 .section_tab_type3 .tab_inner ol li .text_part{
   position:absolute;
@@ -562,11 +612,17 @@
 .section_tab_type3  .tabs_wrap .tab_inner ol li .date_part{
   position:absolute;
   width:100px;
-  top:120px;
+  top:115px;
   left:20px;
 }
 
-
+.section_tab_type3  .tabs_wrap .tab_inner ol li .name{
+  position:absolute;
+  font-weight: 400;
+  font-size:12px;
+  top:115px;
+  right:-50px;
+}
 .section_tab_type3  .tabs_wrap .tab_inner ol li .inner_text{
   position:absolute;
   display:flex;

@@ -70,6 +70,9 @@ export default function SectionTabType1(props) {
             <div className="date_part">
             <span className="date">{item.created_at.slice(0,10)}</span>
             </div>
+            <div className="name">
+            <span className="writer">최고관리자</span>
+            </div>
             </div>
             </li>
             </ol>

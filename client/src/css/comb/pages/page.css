@@ -51,7 +51,7 @@ section{
   max-width: 500px;
   position:relative;
   bottom:50px;
-  white-space:pre-wrap;
+  white-space:pre-line;
 }
 
 .main_banner .text_part * {
@@ -117,7 +117,11 @@ section{
   }
 
   .bg .main_banner{
-    height:295px;
+    height:265px;
+  }
+  .bg .main_banner .sns_map{
+    bottom:0px;
+    right:0px;
   }
 }
 
