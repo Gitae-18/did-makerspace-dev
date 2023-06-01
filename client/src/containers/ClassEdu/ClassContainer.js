@@ -16,12 +16,12 @@ export const ClassContainer = (props) =>{
     
     
     useEffect(() => {
-        if (isLoading) { return; }
-        if (!isLoggedIn) { return history('/notmember',{replace:true}); }
-	}, [isLoading, isLoggedIn, authority_level, history])
+        /* if (isLoading) { return; } */
+       /*  if (!isLoggedIn) { return history('/notmember',{replace:true}); } */
+	}, [/* isLoading, *//*  isLoggedIn, authority_level, */ history])
     const View = query.type === "edu"? ClassEdu_program: ClassEdu_program;
     return(
-        (isLoading || !isLoggedIn /* || authority_level < AuthLevel.partner */) ? <></>:
+        /* (isLoading || !isLoggedIn || authority_level < AuthLevel.partner) ? <></>: */
         View? <View query={query}/> : <></>
     )
 }

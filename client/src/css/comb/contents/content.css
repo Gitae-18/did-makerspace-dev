@@ -32,7 +32,8 @@ table tr td{
 }
 
 .btn_type1 span {
-  line-height: 50px;
+  font-size:14px;
+  line-height: 45px;
   color: #fff;
   -webkit-transition: 0.4s;
   transition: 0.4s;
@@ -852,11 +853,10 @@ h3.title_type2 {
 .table_type2.table_wrap table tbody dl dt, .table_type2.table_wrap table tbody dl dd {
   width: auto;
 }
-
-
-
-
-
+.table_type2.table_wrap table tbody tr:nth-child(5) td.btns_wrap button{
+  position:relative;
+  top:10px;
+}
 .table_type3 {
   text-align: center;
 }

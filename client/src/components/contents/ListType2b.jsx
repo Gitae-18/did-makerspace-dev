@@ -24,7 +24,7 @@ export default function ListType2b() {
   const title="원목 트레이 만들기"
   const type = "edu";
   const getItemList = useCallback(async()=>{
-    CommonHeader.authorization = token;
+
     let requri = PreUri + '/classedu/edulist?type=' + type;
    
     const response = await fetch(requri,{
@@ -108,7 +108,7 @@ export default function ListType2b() {
 
   const getFile = useCallback(async()=>{
     if(no!==undefined){
-    CommonHeader.authorization = token;
+   
     const res = await fetch(PreUri + '/classedu/' + no + '/files', {
       method: Method.get,
       headers: {

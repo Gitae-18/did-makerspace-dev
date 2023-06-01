@@ -148,7 +148,7 @@ router.put('/:program_no/files',verifyToken,upload.array('imageFiles'), async(re
     }
     res.status(errorCode.ok).json({});
 })
-router.get('/edulist',verifyToken,async(req,res,next)=>{
+router.get('/edulist',async(req,res,next)=>{
     let body = req.body;
     const type = req.query.type;
    
@@ -169,7 +169,7 @@ router.get('/edulist',verifyToken,async(req,res,next)=>{
     res.status(errorCode.ok).json(result);
 })
 
-router.get('/classedulist',verifyToken,async(req,res,next)=>{
+router.get('/classedulist',async(req,res,next)=>{
     let body = req.body;
    
     let result ;
@@ -360,7 +360,7 @@ router.put('/classedu_cnt',async(req,res,next)=>{
         console.log(error);
     }
 })
-router.get('/:program_no/class_receive',verifyToken,async(req,res,next)=>{
+router.get('/:program_no/class_receive',async(req,res,next)=>{
     let user_no = req.decoded.user_no;
     const no = req.params.program_no;
     let result ;
@@ -379,7 +379,7 @@ router.get('/:program_no/class_receive',verifyToken,async(req,res,next)=>{
     res.status(errorCode.ok).json(result);
 })
 
-router.get('/class_application',verifyToken,async(req,res,next)=>{
+router.get('/class_application',async(req,res,next)=>{
     const title = req.query.title;
     let result;
     try{
@@ -415,7 +415,7 @@ router.get('/myclass_application',verifyToken,async(req,res,next)=>{
     }    
     res.status(errorCode.ok).json(result);
 })
-router.get('/:program_no/getimage',verifyToken,async(req,res,next)=>{
+router.get('/:program_no/getimage',async(req,res,next)=>{
     let program_no = req.params.program_no;
     
     let file_info;
@@ -432,7 +432,7 @@ router.get('/:program_no/getimage',verifyToken,async(req,res,next)=>{
  
     res.send(file_info)
 })
-router.get('/:program_no/files',verifyToken,async (req, res, next) => {
+router.get('/:program_no/files',async (req, res, next) => {
     let program_no = req.params.program_no;
     let user_no = req.decoded.user_no;
    

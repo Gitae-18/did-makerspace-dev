@@ -78,7 +78,7 @@ export default function InfoType2b() {
   let counter;
 
   const getApplicationList = useCallback(async()=>{
-    CommonHeader.authorization = token;
+   
     let uri = PreUri + '/classedu/class_application?title=' + encodeURI(title)
 
     const response = await fetch(uri,{
@@ -97,7 +97,7 @@ export default function InfoType2b() {
   const onApplicate = useCallback(async() =>{
     setOpenModal(true);
    // dispatch({ type: COUNT_INCREASE, target: count });
-    CommonHeader.authorization = token;
+   CommonHeader.authorization = token;
 
     const response = await fetch(PreUri + '/classedu/class_application',{
       method:Method.post,
@@ -118,7 +118,7 @@ export default function InfoType2b() {
     return onApplicate();
   }) */
   const getFile = useCallback(async()=>{
-    CommonHeader.authorization = token;
+
     const res = await fetch(PreUri + '/classedu/' + no + '/files', {
       method: Method.get,
       headers: {

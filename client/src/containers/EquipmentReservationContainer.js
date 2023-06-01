@@ -4,6 +4,7 @@ import { useLocation,useNavigate } from "react-router-dom";
 import SelectDateType1 from "../components/contents/SelectDateType1";
 import { SelectReservation } from "../components/pages/PageSub2";
 import TableType2a from "../components/contents/TableType2a";
+import TableType2a_a from "../components/contents/TableType2a_a";
 import { AuthLevel } from '../CommonCode';
 import qs from 'qs';
 export const EquipmentReservationContainer = (props) =>{
@@ -21,7 +22,7 @@ export const EquipmentReservationContainer = (props) =>{
         
 	}, [isLoading, isLoggedIn, authority_level, history])
     
-    const View = query.date ? TableType2a : TableType2a;
+    const View = authority_level<10 ? TableType2a : TableType2a_a;
 
     return(
         (isLoading || !isLoggedIn /* || authority_level < AuthLevel.partner */) ? <></>:
