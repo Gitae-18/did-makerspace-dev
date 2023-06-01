@@ -49,6 +49,11 @@ const LoginModal = (props) =>{
         }
 
         dispatch({ type: LOGIN_START }); */
+        const onKeyPress = (e) =>{
+            if(e.key==="Enter"){
+                loginCheck();
+            }
+        }
         const response = await fetch(PreUri + '/user/login', {
             method: Method.post,
             body: JSON.stringify({
@@ -86,12 +91,12 @@ const LoginModal = (props) =>{
     <div className="title_part"><span>DID 로그인</span></div>
     <div className="id_pw">
     <p className="id"><span/><input type="text" value= { id } name="userId" placeholder="아이디" onChange={onChangeId}/></p><div></div>
-    <p className="pw"><span/><input type="password" value={ pass } name="password" placeholder="비밀번호" onChange={onChangePwd}/></p>
+    <p className="pw"><span/><input type="password" value={ pass } name="password" placeholder="비밀번호" onChange={onChangePwd} onKeyPress={(e) => { if (e.key === 'Enter') { loginCheck(e) }}}/></p>
     </div>
     <p className="chkBox"><label htmlFor="chk"><input type="checkbox" id="chk" defaultChecked={isAutoLogin} name="isAutoLogin" onChange={change}/><span className="checkmark"></span>자동로그인</label></p>
   
     <div className="but_box">
-    <button className="loginsh" type="submit"/*  onKeyPress={(e) => { if (e.key === 'Enter') { loginCheck(e) }}} */ onClick={(e)=>loginCheck(e)}><FiLogIn/>로그인</button>
+    <button className="loginsh" type="submit"  onClick={(e)=>loginCheck(e)}><FiLogIn/>로그인</button>
     <div/>
     <button className="closesh" type="submit"   onClick={close}><AiFillCloseCircle/>닫기</button>
     </div>
