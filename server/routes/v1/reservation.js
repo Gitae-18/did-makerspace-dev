@@ -128,5 +128,47 @@ router.post('/equipment_reserv', verifyToken, async(req,res,next)=>{
 
     res.status(errorCode.ok).json({});
 })
+router.get('/reserv_list',verifyToken,async(req,res,next)=>{
+    let user_no = req.decoded.user_no;
 
+    
+   EquipmentReservation.hasOne(User, { foreignKey: 'user_no', sourceKey: 'user_no' });
+   EquipmentReservation.hasOne(EquipmentCategory,{foreignKey:'equipment_category_no', sourceKey:'equipment_category_no'});
+    let reservlist;
+
+    try{
+        reservlist = await EquipmentReservation.findAll({
+            attributes:['equipment_reservation_no','user_no','equipment_category_no','created_at'],
+            include:[{
+                model: User, 
+                attributes: ['name'],
+                required:false   // left outer join
+            },
+            {
+                model: EquipmentCategory, 
+                attributes: ['model_name'],
+                required:false   // left outer join
+            },
+            ],
+            order: [
+                ['created_at', 'DESC'],
+            ],
+            raw:true,
+        })
+    }
+    
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    for (let i = 0; i < reservlist.length; i++) {
+        reservlist[i]['username'] = reservlist[i]['user.name'];
+        delete reservlist[i]['user.name'];
+    }
+    for(let i = 0; i<reservlist.lenmgth; i++){
+        reservlist[i]['modelname'] = reservlist[i]['equipment_category.model_name'];
+        delete reservlist[i]['equipment_category.model_name'];
+    }
+    return res.status(errorCode.ok).json(reservlist);
+})
 module.exports = router;

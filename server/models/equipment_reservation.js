@@ -12,6 +12,10 @@ module.exports = (sequelize,DataTypes) =>{
             type:DataTypes.INTEGER,
             allowNull:false,
         },
+        user_no:{
+            type:DataTypes.INTEGER,
+            allowNull:false,
+        },
         reservation_status:{
             type:DataTypes.CHAR(5),
             allowNull:false,

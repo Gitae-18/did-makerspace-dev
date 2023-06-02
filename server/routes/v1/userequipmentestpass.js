@@ -54,38 +54,5 @@ router.get('/testresult',verifyToken,async(req,res,next)=>{
      res.status(errorCode.ok).json(result);
 })
 
-router.get('/reserv_list',verifyToken,async(req,res,next)=>{
-    let user_no = req.decoded.user_no;
 
-    
-   UserEquipmentTestPass.hasOne(User, { foreignKey: 'user_no', sourceKey: 'user_no' });
-
-
-    let reservlist;
-
-    try{
-        reservlist = await UserEquipmentTestPass.findAll({
-            attributes:['test_pass_no','user_no','type','created_at'],
-            include:{
-                model: User, 
-                attributes: ['name'],
-                required:false   // left outer join
-            },
-            order: [
-                ['created_at', 'DESC'],
-            ],
-            raw:true,
-        })
-    }
-    
-    catch(error){
-        console.log(error);
-        return res.status(errorCode.internalServerError).json({});
-    }
-    for (let i = 0; i < reservlist.length; i++) {
-        reservlist[i]['username'] = reservlist[i]['user.name'];
-        delete reservlist[i]['user.name'];
-    }
-    return res.status(errorCode.ok).json(reservlist);
-})
 module.exports = router;

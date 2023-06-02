@@ -68,7 +68,7 @@ export default function TableType2a_a() {
     } */
    const getItemList = useCallback(async(currentPage)=>{
       setLoading(true);
-      let requri = PreUri + `${'/userequipmentestpass/reserv_list'}`;
+      let requri = PreUri + `${'/reservation/reserv_list'}`;
       const response = await fetch(requri, {
         method:Method.get,
         headers:CommonHeader
@@ -103,17 +103,15 @@ export default function TableType2a_a() {
       <table>
         <caption className="blind">장비 예약</caption>
         <thead>
-          <tr>
             <th>이름</th>
             <th>모델명</th>
             <th>날짜</th>
-          </tr>
         </thead>
         <tbody>
           {currentPosts && reservationList.length > 0 ? (reservationList.map((item,i)=>(
             <tr key={i}>
              <td>{item.username}</td>
-             <td>{item.type}</td>
+             <td>{item.modelname}</td>
              <td>{item.created_at.slice(0,10)}</td>
             </tr>
           ))
