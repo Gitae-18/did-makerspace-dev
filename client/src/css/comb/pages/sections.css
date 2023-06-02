@@ -462,7 +462,7 @@
   position:absolute;
 
  }
- .section_tab_type3 .section_inner_wrap .inner_tab img{
+ .section_tab_type3 .section_inner_wrap .inner_tab img:nth-child(1){
   border:1px solid #2d2d2d;
   transition:all 0.2s linear;
   overflow: hidden;
@@ -470,7 +470,7 @@
  .section_tab_type3 .section_inner_wrap .inner_tab img:hover{
   border:2px solid #000000;
  }
- .section_tab_type3 .section_inner_wrap .inner_tab:hover img{
+ .section_tab_type3 .section_inner_wrap .inner_tab img:nth-child(1):hover{
   transform:scale(1.1);
  }
  .section_tab_type3 .section_inner_wrap .tabs_wrap .tab_inner .inner_text div span{
