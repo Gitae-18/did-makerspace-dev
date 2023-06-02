@@ -234,11 +234,11 @@
 
 .section_tab_type1{
   position:relative;
-  margin-bottom:20px;
   justify-content: center;
+  height:500px;
   left:10px;
-  height:390px;
   margin-top:-120px;
+  background-color: #e7e7e7;
  /*  background:rgba(36,104, 162, 0.5); */
 /*   background-image: linear-gradient(
     rgba(0, 0, 0, 0.35),
@@ -246,11 +246,12 @@
   ), url(/images/wallpaper.jpg); */
 }
 .section_tab_type1::before{
-  position:absolute;
+  position:relative;
   top:0px;
   left:0px;
   right:0px;
   bottom:0px;
+  background-color:#d2d2d2;
 /*   background-image: linear-gradient(
     rgba(0, 0, 0, 0.35),
     rgba(0, 0, 0, 0.35)
@@ -374,9 +375,10 @@
   position:relative;
   margin-bottom:20px;
   justify-content: center;
+  height:500px;
   left:10px;
-  height:390px;
   margin-top:120px;
+  background-color: #e7e7e7;
  /*  background:rgba(36,104, 162, 0.5); */
 /*   background-image: linear-gradient(
     rgba(0, 0, 0, 0.35),
@@ -499,6 +501,7 @@
 .section_tab_type3{
   height:500px;
   left:100px;
+  margin-top:600px;
 }
 .section_text_type1 {
   height:1150px;
