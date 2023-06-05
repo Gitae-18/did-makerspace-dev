@@ -44,7 +44,7 @@ export default function SubSideMenu(props,onCategory) {
       //setIsItem1(false);
       //setIsItem2(false);
     }
-  })
+  },[history])
   const SubModal = () => {
 
     const showSidebar = (e) => {
@@ -275,7 +275,7 @@ export default function SubSideMenu(props,onCategory) {
             <p onClick={(e)=>Dep2Handler(e,1)}>시제품제작지원</p>
             <ol className="has_dep3">
               <li onClick={Dep3Handler}><button className="btn" onClick={(e)=>history('/uservice')}>상담신청</button></li>
-              <li onClick={Dep3Handler}><button className="btn" onClick={(e)=>history(location.pathname + '?step=2&next=app')}>제작신청</button></li>
+              <li onClick={Dep3Handler}><button className="btn" onClick={(e)=>history('/uservice?step=2&next=app',{replace:false})}>제작신청</button></li>
             </ol>
           </li>
         </ol>
