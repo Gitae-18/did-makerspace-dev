@@ -79,7 +79,7 @@ function Modal({
                 className="modal-image"
               />
               <Title>DID기술융합공작소 안내사항</Title>
-              <div className="modal-text" style={{'whiteSpace':'pre-wrap'}}>
+              <div className="modal-text" style={{'whiteSpace':'pre-line'}}>
                 <div>
                   저희 DID기술융합공작소를 찾아주셔서 감사합니다. 
                   저희 DID기술융합공작소의 기존 웹사이트와 서비스제작지원 사이트가
