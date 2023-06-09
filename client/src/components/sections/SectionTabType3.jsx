@@ -15,6 +15,7 @@ export default function SectionTabType3(props) {
  const [fileNo,setFileNo] = useState({});
  const [count,setCount] = useState(0);
  const [attachFile,setAttachFile] = useState({});
+ const [link,setLink] = useState("");
  const location = useLocation();
  const file_type = "video";
 
@@ -57,11 +58,14 @@ export default function SectionTabType3(props) {
     const json = await response.json();  
     setData(json);
     setCount(json.length);
+ 
   },[])
+  const  goToVideo = useCallback((item,i) =>{
+    if(data[0]!==undefined){
+    setLink(data[i].url)
+    } 
+  },[data])
   let no;
-  for(let i = 0; i<data.length;i++){
-    no = data[i].archive_no;
-  }
   const getFile = useCallback(async()=>{
     if(no!==undefined){
     CommonHeader.authorization = token;
@@ -94,9 +98,9 @@ export default function SectionTabType3(props) {
     getFile();
     getFileNo();
     getItem();
+    goToVideo();
   },[getItem]);
   // 내부 탭 내용 주입
-
     return (
     <section className="section_tab_type3">
     <div className="section_inner_wrap">
@@ -109,8 +113,8 @@ export default function SectionTabType3(props) {
             <li key={index}>
             <div className="title">{item.title}</div>
             <div className="text_part">
-            <span className="sub_title" onClick={openModal}><ImageGetArchive no={data[index].archive_no} token={token} CommonHeader={CommonHeader}></ImageGetArchive></span>
-            {visible&&<VideoModal visible={visible} closable={true} maskClosable={true} onClose={closeModal} src={item.url}/>}  
+            <span className="sub_title" onClick={(e)=>{goToVideo(e,index);openModal(e)}}><ImageGetArchive no={data[index].archive_no} token={token} CommonHeader={CommonHeader}></ImageGetArchive></span>
+            {visible&&<VideoModal visible={visible} closable={true} maskClosable={true} onClose={closeModal} src={link}/>}  
             <div className="date_part">
             <span className="date">{item.created_at.slice(0,10)}</span>
             </div>

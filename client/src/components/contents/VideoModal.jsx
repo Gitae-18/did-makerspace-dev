@@ -9,16 +9,12 @@ import '../../css/ModalStyle.css'
 
 function VideoModal({onClose,className,maskClosable,visible,closable,modelName,src}){
   const [videoLoading,setVideoLoading] = useState(true);
-  const printerlink = "https://www.youtube.com/embed/QtZxg1LiilM";
-  const floterlink = "https://www.youtube.com/embed/qBw5-KbJ9Vs";
-  const fdmlink = "https://www.youtube.com/embed/c-pkmy2TEiw";
-  const xcutlink = "https://www.youtube.com/embed/zpf5MHCSkI8";
-  const elselink = "https://www.youtube.com/embed/1fqwqZlxJ-c";
-  const onMaskClick=(e)=>{
+  console.log(src)
+/*   const onMaskClick=(e)=>{ 
     if(e.target === e.currentTarget){
       onClose(e)
     }
-  }
+  } */
   const close = (e) =>{
     if(onClose){
       onClose(e)
@@ -35,7 +31,6 @@ function VideoModal({onClose,className,maskClosable,visible,closable,modelName,s
     window.scrollTo(0, parseInt(scrollY || '0') * -1)
   }
 }, []) */
-
   return(
     <Portal elementId="modal-root">
     <ModalOverlay visible={visible}/>
