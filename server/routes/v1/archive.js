@@ -60,7 +60,7 @@ router.get('/list',async(req,res,next)=>{
  }
   res.json(inputResult);
 })
-router.get('/videolist',async(req,res,next)=>{
+router.get('/homevideolist',async(req,res,next)=>{
     let body = req.body;
     let file_type = req.query.file_type;
    

@@ -46,7 +46,7 @@ export default function SectionTabType3(props) {
     history(location.pathname + '/detail',{state:{archive_no:archive_no}});
   },[data])
   const getItem = useCallback(async() =>{
-    let requri = PreUri + '/archive/videolist';
+    let requri = PreUri + '/archive/homevideolist';
     const response = await fetch(requri,{
       method:Method.get,
       headers:CommonHeader,
