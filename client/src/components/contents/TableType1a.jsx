@@ -2,15 +2,9 @@ import React,{useState,useCallback,useRef,useEffect}from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate,useLocation,Link,Outlet} from 'react-router-dom';
 import { CommonHeader,PreUri,Method } from "../../CommonCode";
-import Pagination from "react-js-pagination";
 import '../../css/Paginate.css'
-import InfoType1a from "./InfoType1a";
-import SubSideMenu from "./SubSideMenu";
-import { Paging } from "./Paging";
-import Paging2 from "./Paging2";
 import styled from "styled-components";
-import Posts from "./Posts";
-import qs from 'qs';
+
 /* function makeQuery(floor){
   let query= "";
   if(floor&& floor !== (0&&undefined)){

@@ -50,6 +50,7 @@ export default function InfoType2b() {
     }
 
     const json = await response.json();
+    console.log(json);
     setData(json);
     setCost(json.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     setTitle(json.title);
@@ -144,7 +145,7 @@ export default function InfoType2b() {
     getFile();
     getEduList();
     getFileNo();
-    getApplicationList(data);
+    getApplicationList();
   },[getEduList,getApplicationList,token,title,getFile,getFileNo])
   const onClose = () =>{
     setOpenModal(false);

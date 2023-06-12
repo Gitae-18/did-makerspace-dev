@@ -4,8 +4,6 @@ import TitleType1 from "../contents/TitleType1";
 import styled from "styled-components";
 import ButtonType2 from "../contents/ButtonType2";
 import { useSelector , useDispatch} from "react-redux";
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import ReactHtmlParser from 'react-html-parser';
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
 import PopupSaveModal from "../PopupSaveModal";
 
@@ -18,6 +16,7 @@ export default function SectionInputTextType3a() {
   const [text,setText] = useState("");
   const [title,setTitle] = useState('');
   const [content,setContent] = useState("");
+  const [isClickEnabled,setIsClickEnabled] = useState(true);
   const [isChecked,setIsChecked] = useState(false);
   const [address,setAddress] = useState("");
   const [desc,setDesc] = useState();
@@ -80,47 +79,55 @@ export default function SectionInputTextType3a() {
   useEffect(()=>{
     uploadImage();
   },[uploadImage])
+
+  //글쓰기 저장
    const sendData = useCallback(async()=>{
+
     let context = content.replace(/(<([^>]+)>)/gi, "");
     context = context.replace(/&nbsp;/gi,"");
-
-    CommonHeader.authorization = token;
-    const response = await fetch(PreUri+'/archive/archives',{
-      method:Method.post,
-      headers:CommonHeader,
-      body:JSON.stringify(
-        {
-          
-           title:title,
-           content:text,
-           url:address,
-           file_type:"video",
-        }
-      )
-      
-    })
-    if(!response.ok){
-      return(alert(getRspMsg(response.status)))
-    }
-    let myform = document.getElementById('file1');
-    const formData = new FormData();
-    let index = 0;
+    if(isClickEnabled){
+      setIsClickEnabled(false);
+      CommonHeader.authorization = token;
+      const response = await fetch(PreUri+'/archive/archives',{
+        method:Method.post,
+        headers:CommonHeader,
+        body:JSON.stringify(
+          {
+            
+             title:title,
+             content:text,
+             url:address,
+             file_type:"video",
+          }
+        )
+        
+      })
+      if(!response.ok){
+        return(alert(getRspMsg(response.status)))
+      }
+      let myform = document.getElementById('file1');
+      const formData = new FormData();
+      let index = 0;
+     
+      for (let i = 0; i <imageFile.length; i++) {
+        formData.append("imageFiles", imageFile[i]);
+        index++;
+      }
    
-    for (let i = 0; i <imageFile.length; i++) {
-      formData.append("imageFiles", imageFile[i]);
-      index++;
-    }
- 
-    const respon = await fetch( PreUri +'/archive/'+ (no+1) +'/files',{
-      method:Method.post, 
-       headers:{authorization:token},
-        body:formData,
-    })
-    if(!respon.ok){
-     return(alert(getRspMsg(respon.status)))
+      const respon = await fetch( PreUri +'/archive/'+ (no+1) +'/files',{
+        method:Method.post, 
+         headers:{authorization:token},
+          body:formData,
+      })
+      if(!respon.ok){
+       return(alert(getRspMsg(respon.status)))
+      }
+      setTimeout(()=>{
+        setIsClickEnabled(true);
+      },1000);
     }
   setOpenModal(true);
-  },[token,title,text,imageFile,isChecked,content])
+  },[token,title,text,imageFile,isChecked,content,isClickEnabled])
   const onClose = () =>{
     setOpenModal(false);
   }

@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { CommonHeader,PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
 import SideNavi from "../Admin/Management/SideNavi";
 import { useRef } from "react";
-import PopupSecondSaveModal from "../PopupSecondSaveModal";
+import PopupSaveModal from "../PopupSaveModal";
 export default function SectionInputTextType1d(){
   
   const { token } = useSelector(state => state.user);
@@ -244,7 +244,7 @@ export default function SectionInputTextType1d(){
       </ul>
     
         <StyledBtn className="apply" onClick={sendData}>등록</StyledBtn>
-        {openModal && <PopupSecondSaveModal visible={openModal} closable={true} onclose={onClose}/>}
+        {openModal && <PopupSaveModal visible={openModal} closable={true} onclose={onClose}/>}
         <StyledGrayBtn className='cancel' onClick={(e)=>history(-1)}>취소</StyledGrayBtn>
      
     </section>

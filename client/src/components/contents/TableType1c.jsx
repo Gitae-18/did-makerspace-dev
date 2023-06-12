@@ -1,5 +1,4 @@
 import React,{useState,useCallback} from "react";
-import ButtonType2 from "./ButtonType2";
 import styled from "styled-components";
 import Paging2 from "./Paging2";
 import { useSelector } from "react-redux";

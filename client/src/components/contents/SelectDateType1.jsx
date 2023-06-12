@@ -132,13 +132,7 @@ export default function SelectDateType1({query}) {
   if(json !== null && json.reservation_date !== undefined && json.reservation_date !== null){
       setTimepart(json.reservation_time);
     } 
-    if(isClickEnabled){
-      setIsClickEnabled(false);
-
-      setTimeout(()=>{
-        setIsClickEnabled(true);
-      },1000);
-    }
+   
 /*      setGetdata(getdata =>({
       ...getdata,
       reservationNo:json.result.equipment_reservation_no,

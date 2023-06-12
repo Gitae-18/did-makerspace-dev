@@ -5,7 +5,7 @@ export default function ImageProgram({no,token,attachFile}){
     const [fileurl2,setFileUrl2] = useState("");
 
     const getFileName = useCallback(async()=>{
-        CommonHeader.authorization = token;
+       
         const res = await fetch(PreUri + '/fileview/'+ no +'/classedufile',  {
           method: Method.get,
           headers: {
@@ -26,10 +26,10 @@ export default function ImageProgram({no,token,attachFile}){
           setFilename(reader.result);
         }
         URL.revokeObjectURL(src) */
-      },[token,no,attachFile])
+      },[no,attachFile])
       useEffect(()=>{
         getFileName();
-      },[])
+      },[getFileName])
     return(
         <div className="image_part"><img src={"data:image/*;base64,"+ fileurl2}  alt="no-image" style={{"width":"200px","height":"280px"}}/></div>
     )

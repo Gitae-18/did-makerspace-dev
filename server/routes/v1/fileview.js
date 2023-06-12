@@ -11,9 +11,8 @@ const fs = require('fs');
 const router = express.Router();
 
 
-router.get('/:fileview_no/faqfile', verifyToken, async (req, res, next) => {
+router.get('/:fileview_no/faqfile', async (req, res, next) => {
     let faq_no = req.params.fileview_no;
-    let user_no = req.decoded.user_no;
 
     /*     const imgPath = path.resolve("./upload/newfaq/","banner05.png")
         const imgMime = mime.getType(imgPath)
@@ -59,7 +58,7 @@ router.get('/:fileview_no/faqfile', verifyToken, async (req, res, next) => {
     //res.send(image);
 
 });
-router.get('/:fileview_no/noticefile',verifyToken,async (req, res, next) => {
+router.get('/:fileview_no/noticefile',async (req, res, next) => {
     let notice_no = req.params.fileview_no;
 
     /*     const imgPath = path.resolve("./upload/newfaq/","banner05.png")

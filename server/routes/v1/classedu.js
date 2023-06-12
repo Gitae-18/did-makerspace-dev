@@ -360,7 +360,7 @@ router.put('/classedu_cnt',async(req,res,next)=>{
         console.log(error);
     }
 })
-router.get('/:program_no/class_receive',async(req,res,next)=>{
+router.get('/:program_no/class_receive',verifyToken,async(req,res,next)=>{
     let user_no = req.decoded.user_no;
     const no = req.params.program_no;
     let result ;
@@ -432,7 +432,7 @@ router.get('/:program_no/getimage',async(req,res,next)=>{
  
     res.send(file_info)
 })
-router.get('/:program_no/files',async (req, res, next) => {
+router.get('/:program_no/files',verifyToken,async (req, res, next) => {
     let program_no = req.params.program_no;
     let user_no = req.decoded.user_no;
    

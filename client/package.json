@@ -4,10 +4,6 @@
   "private": true,
   "dependencies": {
     "-": "^0.0.1",
-    "@ckeditor/ckeditor5-basic-styles": "^36.0.1",
-    "@ckeditor/ckeditor5-build-classic": "^36.0.1",
-    "@ckeditor/ckeditor5-enter": "https://github.com/elliottpost/ckeditor5-reverse-enter.git",
-    "@ckeditor/ckeditor5-react": "^5.0.6",
     "@fullcalendar/core": "^5.3.0",
     "@fullcalendar/daygrid": "^5.3.0",
     "@fullcalendar/interaction": "^5.3.0",
@@ -65,8 +61,6 @@
     "styled-components": "^5.3.3",
     "swiper": "^8.4.4",
     "typescript": "^3.9.5",
-    "winston": "^3.8.2",
-    "winston-daily-rotate-file": "^4.7.1",
     "xlsx": "^0.17.4",
     "yarn": "^1.22.17",
     "zustand": "^3.7.1"
