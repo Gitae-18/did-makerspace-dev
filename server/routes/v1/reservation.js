@@ -113,6 +113,7 @@ router.post('/equipment_reserv', verifyToken, async(req,res,next)=>{
     let inpurtResult
     try{
         inpurtResult  = await EquipmentReservation.create({
+           user_no:user_no,
            reservation_status:body.reservation_status,
            reservation_date:body.reservation_date,
            reservation_time:body.reservation_time,

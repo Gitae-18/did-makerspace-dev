@@ -31,13 +31,11 @@ export default function SelectDateType1({query}) {
   const [timepart,setTimepart] = useState('')
   const {isLoggedIn} = useSelector(state => state.user);
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
+  const [isClickEnabled,setIsClickEnabled] = useState(true);
   const [clickedTime,setClickedTime] = useState('');
 	const [NewDate,setNewDate] = useState(moment(new Date()).format("YYYY-MM-DD"));
   const [getdata,setGetdata] = useState([])
-  const [targetTime ,setTargetTime] = useState("");
   const [btnActive,setBtnActive] = useState(false);
-  const [currentStatus,setCurrentStatus] = useState(`can`);
   const [btnClick,setBtnClick] = useState(false);
   const [selectStatus,setSelectStatus] = useState('');
   const history = useNavigate();
@@ -134,6 +132,13 @@ export default function SelectDateType1({query}) {
   if(json !== null && json.reservation_date !== undefined && json.reservation_date !== null){
       setTimepart(json.reservation_time);
     } 
+    if(isClickEnabled){
+      setIsClickEnabled(false);
+
+      setTimeout(()=>{
+        setIsClickEnabled(true);
+      },1000);
+    }
 /*      setGetdata(getdata =>({
       ...getdata,
       reservationNo:json.result.equipment_reservation_no,
