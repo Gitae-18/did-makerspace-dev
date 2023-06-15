@@ -605,7 +605,7 @@
 }
 .section_tab_type3  .tabs_wrap .tab_inner ol li .text_part .sub_title{
   position:relative;
-  left:25px;
+  left:10px;
   bottom:50px;
   cursor: pointer;
 }
@@ -632,7 +632,7 @@
   font-weight: 400;
   font-size:12px;
   top:115px;
-  right:-50px;
+  right:-20px;
 }
 .section_tab_type3  .tabs_wrap .tab_inner ol li .inner_text{
   position:absolute;

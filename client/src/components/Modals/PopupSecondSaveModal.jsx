@@ -3,12 +3,19 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Portal } from "react-portal";
-import "../css/ModalStyle.css";
-import { setCookie, getCookie } from "./cookie";
+import "../../css/ModalStyle.css";
 
-function PopupSaveModal({ classname, visible, onclose, closable, url }) {
+
+function PopupSecondSaveModal({
+  classname,
+  visible,
+  onclose,
+  closable,
+  url,
+  update,
+}) {
   const history = useNavigate();
-
+  console.log(url);
   /*  const open = (e) =>{
        onClose(true)
     }
@@ -20,13 +27,7 @@ function PopupSaveModal({ classname, visible, onclose, closable, url }) {
     onclose(e);
   };
   const backToList = (e) => {
-    if (url.includes("info")) {
-      history("/did/info/faq", { replace: true });
-    } else if (url.includes("notice")) {
-      history("/notice", { replace: true });
-    } else if (url.includes("archive")){
-      history("/archive/video")
-    }
+    history(-1, { replace: true });
   };
 
   return (
@@ -43,11 +44,19 @@ function PopupSaveModal({ classname, visible, onclose, closable, url }) {
               />
               <Title>DID기술융합공작소 안내사항</Title>
               <div className="modal-contents">
-                <div>
-                  저장되었습니다.
-                  <br />
-                  목록으로 돌아가주시기 바랍니다.
-                </div>
+                {update ? (
+                  <div>
+                    저장되었습니다.
+                    <br />
+                    목록으로 돌아가주시기 바랍니다.
+                  </div>
+                ) : (
+                  <div>
+                    수정 되었습니다.
+                    <br />
+                    목록으로 돌아가주시기 바랍니다.
+                  </div>
+                )}
               </div>
             </ImgStyle>
             {closable && (
@@ -67,7 +76,7 @@ function PopupSaveModal({ classname, visible, onclose, closable, url }) {
   );
 }
 
-PopupSaveModal.propTypes = {
+PopupSecondSaveModal.propTypes = {
   visible: PropTypes.bool,
 };
 
@@ -158,4 +167,4 @@ const ModalInner = styled.div`
   padding: 40px 20px;
 `;
 
-export default React.memo(PopupSaveModal);
+export default React.memo(PopupSecondSaveModal);

@@ -36,8 +36,7 @@ module.exports = (sequelize, DataTypes) => {
         url:{
             type: DataTypes.STRING(255),
             allowNull:true,
-        }
-        ,
+        },
         created_user_no: {
             type: DataTypes.INTEGER,
             allowNull:true,

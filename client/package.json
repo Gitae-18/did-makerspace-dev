@@ -51,6 +51,7 @@
     "react-scripts": "3.4.1",
     "react-slick": "^0.28.1",
     "react-tooltip": "^4.2.10",
+    "react-youtube": "^10.1.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "reselect": "^4.0.0",

@@ -1,5 +1,5 @@
 import React,{useState}from 'react';
-import PopupModal from './PopupModal';
+import PopupModal from './Modals/PopupModal';
 import '../css/common-s.css';
 import '../css/style-s.css';
 

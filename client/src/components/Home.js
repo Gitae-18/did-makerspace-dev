@@ -5,8 +5,8 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import Modal from './Modal'
-import PopupModalHome from './PopupModalHome';
-import PopupModalAbout from './PopupModalAbout';
+import PopupModalHome from './Modals/PopupModalHome';
+import PopupModalAbout from './Modals/PopupModalAbout';
 import { CommonHeader,PreUri, Method } from '../CommonCode';
 import '../css/common-s.css';
 import '../css/style-s.css';

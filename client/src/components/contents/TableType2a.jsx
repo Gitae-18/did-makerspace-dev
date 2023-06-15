@@ -2,7 +2,7 @@ import React,{useState,useEffect,useCallback} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate,useLocation } from 'react-router-dom';
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg } from '../../CommonCode';
-import PopupModal3 from "../PopupModal3";
+import PopupModal3 from "../Modals/PopupModal3";
 import ButtonType2, { ButtonType2small,ButtonType3small, ButtonType2test } from "./ButtonType2";
 import SubSideMenu from "./SubSideMenu";
 import TextExtraType1a from "./TextExtraType1b";

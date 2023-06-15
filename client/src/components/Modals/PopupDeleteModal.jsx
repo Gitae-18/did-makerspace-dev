@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Portal } from "react-portal";
-import "../css/ModalStyle.css";
-import { setCookie, getCookie } from "./cookie";
+import { CommonHeader, PreUri, Method } from "../../CommonCode";
+import "../../css/ModalStyle.css";
 
-function PopupSecondSaveModal({
+
+function PopupDeleteModal({
   classname,
   visible,
   onclose,
   closable,
-  url,
-  update,
+  serviceItems,
+  no,
+  token,
 }) {
   const history = useNavigate();
-  console.log(url);
   /*  const open = (e) =>{
        onClose(true)
     }
@@ -26,10 +27,33 @@ function PopupSecondSaveModal({
   const close = (e) => {
     onclose(e);
   };
-  const backToList = (e) => {
-    history(-1, { replace: true });
-  };
-
+  const DropItem = useCallback(
+    async (e, i) => {
+      /* for(let i = 0 ; i<ServiceItemRow.length;i++){
+        serviceNum = ServiceItemRow[i][2].service_no; 
+        }
+        console.log(serviceNum); */
+      CommonHeader.authorization = token;
+      const response = await fetch(PreUri + "/classedu/" + no + "/dropitem", {
+        method: Method.delete,
+        headers: CommonHeader,
+      });
+      if (!response.ok) {
+        return;
+      }
+      alert("삭제되었습니다");
+      history(0);
+      /*   let item;
+                for(let i = 1 ; i<serviceItems.items.length && i < serviceItems.limit;i++)
+                { item = serviceItems.items[i].service_no;}
+                if(item[i]===undefined )
+                {
+                    console.log("서비스넘버가 없습니다")
+                }
+                return item[i] */
+    },
+    [token, serviceItems]
+  );
   return (
     <Portal elementId="modal-root">
       <ModalOverlay visible={visible} />
@@ -44,25 +68,13 @@ function PopupSecondSaveModal({
               />
               <Title>DID기술융합공작소 안내사항</Title>
               <div className="modal-contents">
-                {update ? (
-                  <div>
-                    저장되었습니다.
-                    <br />
-                    목록으로 돌아가주시기 바랍니다.
-                  </div>
-                ) : (
-                  <div>
-                    수정 되었습니다.
-                    <br />
-                    목록으로 돌아가주시기 바랍니다.
-                  </div>
-                )}
+                <div className="delete_service">삭제하시겠습니까?</div>
               </div>
             </ImgStyle>
             {closable && (
               <CloseStyle>
-                <Close className="modal-close" onClick={backToList}>
-                  목록
+                <Close className="modal-close" onClick={DropItem}>
+                  삭제
                 </Close>
                 <Close className="modal-close" onClick={close}>
                   닫기
@@ -76,7 +88,7 @@ function PopupSecondSaveModal({
   );
 }
 
-PopupSecondSaveModal.propTypes = {
+PopupDeleteModal.propTypes = {
   visible: PropTypes.bool,
 };
 
@@ -118,9 +130,9 @@ const CloseStyle = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: #282828;
-  width: 210px;
-  padding: 15px;
-  border-radius: 0 0 15px 15px;
+  width: 200px;
+  padding: 10px 25px;
+  border-radius: 0 0 10px 10px;
   color: #ffffff;
 `;
 
@@ -149,7 +161,7 @@ const ModalOverlay = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  //background-color: rgba(0, 0, 0, 0.6);
   z-index: 999;
 `;
 
@@ -167,4 +179,4 @@ const ModalInner = styled.div`
   padding: 40px 20px;
 `;
 
-export default React.memo(PopupSecondSaveModal);
+export default React.memo(PopupDeleteModal);

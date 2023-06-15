@@ -6,7 +6,7 @@ import {GoBackBtn} from "./ButtonType2";
 import SectionTabType1a from "../sections/SectionTabType1a";
 import ImageProgram from "../sections/ImageProgram";
 import styled from "styled-components";
-import PopupModal2 from "../PopupModal2";
+import PopupModal2 from "../Modals/PopupModal2";
 import { CommonHeader, PreUri, Method, getRspMsg  } from "../../CommonCode";
 import { IoLocation,IoCalendarSharp,IoPerson } from "react-icons/io5";
 import { RiReservedFill ,RiCheckFill} from "react-icons/ri";
@@ -118,7 +118,7 @@ export default function InfoType2a() {
     getFile();
     getFileNo();
     getEduList();
-    getApplicationList(data);
+    getApplicationList();
   },[getEduList,getApplicationList,token,title,getFile,getFileNo])
   const onClose = () =>{
     setOpenModal(false);
@@ -150,7 +150,7 @@ export default function InfoType2a() {
             </dl>
             <dl >
               <dt><IoPerson/>정원</dt>
-              <dd>{data.limit_number}</dd>
+              <dd>{getFlag.length}/{data.limit_number}명</dd>
             </dl>
             <dl>
               <dt><FaMoneyCheck/>비용</dt>

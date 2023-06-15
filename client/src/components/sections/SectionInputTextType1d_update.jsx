@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { CommonHeader,PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
 import SideNavi from "../Admin/Management/SideNavi";
 import { useRef } from "react";
-import PopupSecondSaveModal from "../PopupSecondSaveModal";
+import PopupSecondSaveModal from "../Modals/PopupSecondSaveModal";
 export default function SectionInputTextType1d_update(){
   
   const { token } = useSelector(state => state.user);

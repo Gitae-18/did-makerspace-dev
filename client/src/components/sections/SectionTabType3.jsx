@@ -6,6 +6,7 @@ import {useDispatch,useSelector}  from "react-redux";
 //import styled from "styled-components";
 import ImageGetArchive from "./ImageGetArchive";
 import VideoModal from "../contents/VideoModal";
+import YouTube from "react-youtube";
 export default function SectionTabType3(props) {
 
  const history = useNavigate();
@@ -58,13 +59,14 @@ export default function SectionTabType3(props) {
     const json = await response.json();  
     setData(json);
     setCount(json.length);
- 
   },[])
+
   const  goToVideo = useCallback((item,i) =>{
     if(data[0]!==undefined){
-    setLink(data[i].url)
+     setLink(data[i].url)
     } 
   },[data])
+console.log(link)
   let no;
   const getFile = useCallback(async()=>{
     if(no!==undefined){
@@ -113,7 +115,13 @@ export default function SectionTabType3(props) {
             <li key={index}>
             <div className="title">{item.title}</div>
             <div className="text_part">
-            <span className="sub_title" onClick={(e)=>{goToVideo(e,index);openModal(e)}}><ImageGetArchive no={data[index].archive_no} token={token} CommonHeader={CommonHeader}></ImageGetArchive></span>
+            <span className="sub_title" ><img src={"https://img.youtube.com/vi/"+item.url.replace("https://www.youtube.com/embed/","")+"/maxresdefault.jpg"} onClick={(e)=>{goToVideo(e,index);openModal(e)}} style={{"width":"260px","height":"150px"}}/>{/* <YouTube videoId={item.url.replace("https://www.youtube.com/embed/","")}
+            opts={{
+              width:"260",
+              height:"150",
+            }}
+            onClick={(e)=>{goToVideo(e,index);openModal(e)}}
+              /> */}</span>
             {visible&&<VideoModal visible={visible} closable={true} maskClosable={true} onClose={closeModal} src={link}/>}  
             <div className="date_part">
             <span className="date">{item.created_at.slice(0,10)}</span>

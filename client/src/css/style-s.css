@@ -97,7 +97,7 @@ width:6px;height:6px;border-radius:50%;background:#0f2753;position:absolute;top:
 .wrap.utilize1 .content_wrap .inner_wrap .page_num a.next{width:8px;height:40px;background:url(/images/arrow_next.png) no-repeat 50% 50%;margin-left:18px;position:relative;bottom:7px;}
 .wrap.utilize1 .content_wrap .inner_wrap .page_num a.last{width:11px;height:40px;background:url(/images/arrow_last.png) no-repeat 50% 50%;position:relative;bottom:7px;}
 /*.wrap.utilize1 .content_wrap .inner_wrap .btn_apply{display:block;width:190px;height:50px;line-height:50px;color:#fff;font-size:16px;font-weight:500;border-radius:40px;margin:46px auto 0;background:#0f2753;text-align:center;border:0;cursor:pointer;}*/
-.wrap.utilize1 .content_wrap .inner_wrap .btn_box{position:relative;left:49%;top:20vh;transform:translateX(-50%);-webkit-transform:translateX(-50%);display:inline-block;font-size:0;letter-spacing:0;}
+.wrap.utilize1 .content_wrap .inner_wrap .btn_box{position:relative;left:49%;top:400px;transform:translateX(-50%);-webkit-transform:translateX(-50%);display:inline-block;font-size:0;letter-spacing:0;}
 .wrap.utilize1 .content_wrap .inner_wrap .btn_box button{display:inline-block;width:190px;height:40px;line-height:40px;color:#fff;font-size:16px;font-weight:400;margin:0px auto 0;background:#313f4f;text-align:center;letter-spacing:0px;border:0;cursor:pointer;}
 .wrap.utilize1 .content_wrap .inner_wrap .btn_box .btn_left{background:#313f4f;margin-left:18px;}
 

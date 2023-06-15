@@ -6,7 +6,7 @@ import ButtonType2,{GoBackBtn}from "./ButtonType2";
 import ButtonType4 from "./ButtonType4";
 import SectionTabType1a from "../sections/SectionTabType1a";
 import styled from "styled-components";
-import PopupModal2 from "../PopupModal2";
+import PopupModal2 from "../Modals/PopupModal2";
 import SubSideMenu from "./SubSideMenu";
 import ImageProgram from "../sections/ImageProgram";
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
@@ -179,7 +179,7 @@ export default function InfoType2b() {
             </dl>
             <dl>
               <dt><IoPerson/>정원</dt>
-              <dd>{data.limit_number}명</dd>
+              <dd>{getFlag.length}/{data.limit_number}명</dd>
             </dl>
             
             <dl>

@@ -450,6 +450,23 @@ router.get('/:program_no/files',verifyToken,async (req, res, next) => {
     res.json(files);
 
 });
+router.delete('/:program_no/dropitem', verifyToken, async (req, res, next) => {
+    const program_no  = req.params.program_no;
+    
+    let deleteservice;
+    try{
+          deleteservice = await ClasseduProgram.destroy({
+           where:{program_no:program_no},
+           raw:true
+       })
+    }
+    catch (error) {
+        console.error(error);
+    } 
+   res.status(errorCode.ok).json({});
+})
+
+module.exports = router;
 router.get('/:program_no/filesno',async (req, res, next) => {
     let program_no = req.params.program_no;
    

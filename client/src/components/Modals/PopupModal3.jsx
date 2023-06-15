@@ -1,22 +1,19 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Portal } from "react-portal";
-import { CommonHeader, PreUri, Method } from "../CommonCode";
-import "../css/ModalStyle.css";
-import { setCookie, getCookie } from "./cookie";
+import "../../css/ModalStyle.css";
 
-function PopupDeleteModal({
-  classname,
-  visible,
-  onclose,
-  closable,
-  serviceItems,
-  no,
-  token,
-}) {
-  const history = useNavigate();
+
+function PopupModal3({ className, onClose, maskClosable, closable, visible }) {
+  const onMaskClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose(e);
+    }
+  };
+  const VISITED_BEFORE_DATE = localStorage.getItem("TodayCookie");
+  // 현재 날짜
+  const VISITED_NOW_DATE = Math.floor(new Date().getDate());
   /*  const open = (e) =>{
        onClose(true)
     }
@@ -24,40 +21,47 @@ function PopupDeleteModal({
     const close = (e) => {
         onClose(true)
     } */
-  const close = (e) => {
-    onclose(e);
+  // 팝업 오늘 하루닫기 체크
+  if (VISITED_BEFORE_DATE !== null) {
+    //날짜가 같을 경우
+    if (VISITED_BEFORE_DATE === VISITED_NOW_DATE) {
+      localStorage.removeItem("TodayCookie");
+      onClose(false);
+    }
+    if (VISITED_BEFORE_DATE !== VISITED_NOW_DATE) {
+      onClose(true);
+    }
+  }
+  /*  const close = (e) => {
+        console.log("on")
+            onclose(e)
+    } */
+  const Dayclose = (e) => {
+    if (onClose) {
+      onClose(e);
+
+      const expiry = new Date();
+      // +1일 계산
+      const expiryDate = expiry.getDate() + 1;
+      // 로컬스토리지 저장
+      localStorage.setItem("TodayCookie", expiryDate);
+    }
   };
-  const DropItem = useCallback(
-    async (e, i) => {
-      /* for(let i = 0 ; i<ServiceItemRow.length;i++){
-        serviceNum = ServiceItemRow[i][2].service_no; 
-        }
-        console.log(serviceNum); */
-      CommonHeader.authorization = token;
-      const response = await fetch(PreUri + "/service/" + no + "/dropitem", {
-        method: Method.delete,
-        headers: CommonHeader,
-      });
-      if (!response.ok) {
-        return;
-      }
-      alert("삭제되었습니다");
-      history(0);
-      /*   let item;
-                for(let i = 1 ; i<serviceItems.items.length && i < serviceItems.limit;i++)
-                { item = serviceItems.items[i].service_no;}
-                if(item[i]===undefined )
-                {
-                    console.log("서비스넘버가 없습니다")
-                }
-                return item[i] */
-    },
-    [token, serviceItems]
-  );
+  const close = (e) => {
+    if (onClose) {
+      onClose(e);
+    }
+  };
+
   return (
     <Portal elementId="modal-root">
       <ModalOverlay visible={visible} />
-      <ModalWrapper className={classname} tabIndex="-1" visible={visible}>
+      <ModalWrapper
+        className={className}
+        onClick={maskClosable ? onMaskClick : null}
+        tabIndex="-1"
+        visible={visible}
+      >
         <ModalInner tabIndex="0" className="modal-inner">
           <ModalInner2>
             <ImgStyle>
@@ -68,13 +72,17 @@ function PopupDeleteModal({
               />
               <Title>DID기술융합공작소 안내사항</Title>
               <div className="modal-contents">
-                <div className="delete_service">삭제하시겠습니까?</div>
+                <div>
+                  각 장비에 대한 시험을 본 후에
+                  <br />
+                  장비 예약이 가능하게됩니다.
+                </div>
               </div>
             </ImgStyle>
             {closable && (
               <CloseStyle>
-                <Close className="modal-close" onClick={DropItem}>
-                  삭제
+                <Close className="modal-close" onClick={Dayclose}>
+                  오늘 하루 닫기
                 </Close>
                 <Close className="modal-close" onClick={close}>
                   닫기
@@ -88,7 +96,7 @@ function PopupDeleteModal({
   );
 }
 
-PopupDeleteModal.propTypes = {
+PopupModal3.propTypes = {
   visible: PropTypes.bool,
 };
 
@@ -130,8 +138,8 @@ const CloseStyle = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: #282828;
-  width: 200px;
-  padding: 10px 25px;
+  width: 210px;
+  padding: 15px;
   border-radius: 0 0 15px 15px;
   color: #ffffff;
 `;
@@ -161,7 +169,7 @@ const ModalOverlay = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  //background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 999;
 `;
 
@@ -179,4 +187,4 @@ const ModalInner = styled.div`
   padding: 40px 20px;
 `;
 
-export default React.memo(PopupDeleteModal);
+export default React.memo(PopupModal3);

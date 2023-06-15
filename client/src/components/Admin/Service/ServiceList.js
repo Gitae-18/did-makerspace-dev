@@ -4,7 +4,7 @@ import { useNavigate,useLocation } from 'react-router-dom';
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg ,AuthLevel} from '../../../CommonCode';
 import { /* M_SERVICE_DELETE, */ M_SERVICE_SET } from "../../../store/manager_service";
 import SubSideMenu from '../../contents/SubSideMenu';
-import PopupDeleteModal from '../../PopupDeleteModal';
+import PopupDeleteModal from '../../Modals/PopupDeleteModal';
 import '../../../css/Paging.css';
 import '../../../css/common-s.css';
 import '../../../css/style-s.css';

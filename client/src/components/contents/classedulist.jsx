@@ -4,6 +4,7 @@ import { useLocation,useNavigate } from "react-router-dom";
 import { useSelector,useDispatch} from "react-redux";
 import { CommonHeader, PreUri, Method } from "../../CommonCode";
 import { M_CLASS_SET } from "../../store/classedu_manage";
+import PopupDeleteModal2 from "../Modals/PopupDeleteModal2";
 import Paging2 from "./Paging2";
 import styled from "styled-components";
 export default function Classedulist({no}) {
@@ -12,6 +13,8 @@ export default function Classedulist({no}) {
   const location = useLocation();
   const history = useNavigate();
   const dispatch = useDispatch();
+  const [modalvisible,setModalVisible] = useState(false);
+  const [dropno,setDropNo] = useState();
   const [data,setData] = useState([]);
   const [title,setTitle] = useState("")
   const [search,setSearch] = useState('');
@@ -56,6 +59,10 @@ export default function Classedulist({no}) {
     const item = reservList[index].program_no;  
     history('/classedu/update',{state:{programno:item}})
   }
+
+  const closeModal = () =>{
+    setModalVisible(false);
+}
   const onChange = (e) =>{
     e.preventDefault();
     setSearch(e.target.value);
@@ -81,7 +88,7 @@ export default function Classedulist({no}) {
   }
  setSearch('');
 },[search])
- console.log(reservList)
+
   const onSelectItem = useCallback((e,index) => {
     let item,type;
     if(reservList!== undefined){
@@ -118,9 +125,15 @@ export default function Classedulist({no}) {
   history('/classcontrol',{state:{no:item}});
  }
 }
+const DropItem = useCallback(async(e,i)=>{
+  setModalVisible(true);
+  setDropNo(e.program_no);
+  },[reservList])
+  console.log(dropno);
   useEffect(()=>{
     getReservList();
   },[getReservList,token])
+
   return (
     <div className="table_wrap table_type2">
       <div className="table_extra">
@@ -143,6 +156,7 @@ export default function Classedulist({no}) {
             <th>신청기간</th>
             <th>조회수</th>
             <th>수정</th>
+            <th>삭제</th>
           </tr>
         </thead>
         <tbody>
@@ -158,7 +172,9 @@ export default function Classedulist({no}) {
               <span className="time">{item.class_period_start.slice(10,)}</span> */}
             </td>
             <td>{item.hit}</td>
-            <td><StyledBtn3 onClick={(e)=> onUpdate(e,index)}>수정</StyledBtn3></td> 
+            <td><StyledBtn3 onClick={(e)=> onUpdate(e,index)}>수정</StyledBtn3></td>
+            <td><StyledBtn3 onClick={(e)=> DropItem(item,index)}>삭제</StyledBtn3></td> 
+            {modalvisible&& <PopupDeleteModal2  no={dropno} visible={modalvisible} closable={true} maskClosable={true} onclose={closeModal} token={token} serviceItems={reservList} />} 
           </tr>)):<>내용이 비었습니다</>}
         </tbody>
       </table>

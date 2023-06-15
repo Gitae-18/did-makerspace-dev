@@ -6,7 +6,7 @@ import ButtonType2 from "../contents/ButtonType2";
 import { useSelector , useDispatch} from "react-redux";
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg ,MaxFileCount} from "../../CommonCode";
 import fileDownload from 'js-file-download';
-import PopupSaveModal from "../PopupSaveModal";
+import PopupSaveModal from "../Modals/PopupSaveModal";
 export default function SectionInputTextType1f_update() {
   const { token } = useSelector(state => state.user);
   const [openModal,setOpenModal] = useState(false);

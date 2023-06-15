@@ -2,8 +2,8 @@ import React, { useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Portal } from "react-portal";
-import PopupImageGet from "./sections/PopupImageGet";
-import { CommonHeader, PreUri, Method } from "../CommonCode";
+
+
 
 function PopupModalAbout({
   className,

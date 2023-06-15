@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Portal } from "react-portal";
-import "../css/ModalStyle.css";
+import "../../css/ModalStyle.css";
 import { useNavigate } from "react-router-dom";
-import { setCookie, getCookie } from "./cookie";
 
 function PopupModal2({ classname, visible, onclose, closable, location }) {
   const history = useNavigate();

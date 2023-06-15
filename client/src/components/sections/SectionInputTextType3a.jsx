@@ -5,7 +5,7 @@ import styled from "styled-components";
 import ButtonType2 from "../contents/ButtonType2";
 import { useSelector , useDispatch} from "react-redux";
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
-import PopupSaveModal from "../PopupSaveModal";
+import PopupSaveModal from "../Modals/PopupSaveModal";
 
 export default function SectionInputTextType3a() {
   const { token } = useSelector(state => state.user);
