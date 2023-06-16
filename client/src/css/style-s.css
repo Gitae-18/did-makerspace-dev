@@ -1019,7 +1019,7 @@ display:block;
 
 /* monthly schedule*/
 .wrap.mnthschd{background:#fff;}
-.wrap.mnthschd .content_wrap .inner_wrap{text-align:center;width:100%;margin:0 auto;padding:40px 0 40px;}
+.wrap.mnthschd .content_wrap .inner_wrap{text-align:center;width:100%;margin:0 auto;padding:40px 0 40px;position:absolute;margin-top:150px;}
 
 
 .term-bg-box .term-text {

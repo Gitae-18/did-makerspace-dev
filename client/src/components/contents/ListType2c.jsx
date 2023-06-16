@@ -145,7 +145,8 @@ export default function ListType2c() {
         {currentPost.map((item,index)=>(
           <li key={index}>
             
-          <div className="image_part"><ImageGetArchive attachFile={attachFile} no={data[index].archive_no} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)}/></div>
+          <div className="image_part"><img src={"https://img.youtube.com/vi/"+item.url.replace("https://www.youtube.com/embed/","")+"/maxresdefault.jpg"} style={{"width":"240px","height":"150px"}}/>
+            {/* <ImageGetArchive attachFile={attachFile} no={data[index].archive_no} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)}/> */}</div>
           <div className="text_part">
             <h5 onClick={(e)=>onItem(e,index)} >{item.title} </h5>
             <div className="dl_wrap">

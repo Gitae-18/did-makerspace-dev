@@ -1,5 +1,6 @@
 import React,{useCallback,useEffect,useState} from "react";
 import { CommonHeader, PreUri, Method } from "../../CommonCode";
+import YouTube from 'react-youtube';
 
 export default function ImageGetArchive({no,token,attachFile,onItem}){
     const [fileurl2,setFileUrl2] = useState("");
@@ -30,6 +31,6 @@ export default function ImageGetArchive({no,token,attachFile,onItem}){
         getFileName();
       },[])
     return(
-        <div className="archive_image_part"><img src={"data:image/*;base64,"+ fileurl2}  alt="no-image" onClick={onItem}/></div>
+        <div className="archive_image_part"></div>
     )
 }
