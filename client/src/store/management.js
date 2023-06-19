@@ -29,6 +29,7 @@ const initialState = {
     materialCategoryItem: null,
     materialItem: null,
     serviceCategoryItem: null,
+    classeduCategoryItem:null,
     
 
     materialPageNo: 1,

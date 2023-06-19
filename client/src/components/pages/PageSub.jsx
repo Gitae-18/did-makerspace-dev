@@ -1,10 +1,7 @@
 import React ,{useState,useCallback,useEffect} from "react";
-import { CHANGE_DEPTH, MENU_CHANGE } from "../../store/sidemenu";
 import {useNavigate,useLocation,useParams} from "react-router-dom"
 import SubSideMenu from "../contents/SubSideMenu";
 import {SubBread} from "../contents/SubSideMenu";
-import PageSub01a1 from "./PageSub01/PageSub01a1";
-import PageSub01a2 from "./PageSub01/PageSub01a2";
 import PageSub01b1 from "./PageSub01/PageSub01b1";
 import PageSub01b2 from "./PageSub01/PageSub01b2";
 import PageSub01b3 from "./PageSub01/PageSub01b3";
@@ -13,15 +10,11 @@ import PageSub01c from "./PageSub01/PageSub01c";
 import PageSub01d from "./PageSub01/PageSub01d";
 import TableType1a from "../contents/TableType1a";
 import TableType1c from "../contents/TableType1c";
-import PageSub07c3 from "./PageSub07/PageSub07c3";
 import SectionInputTextType1f from "../sections/SectionInputTextType1f";
 import SectionInputTextType1f_update from "../sections/SectionInputTextType1f_update";
 import SectionInputTextType1g from "../sections/SectionInputTextType1g";
-import ListType1a from "../contents/ListType1a";
-import Footer from "../../css/comb/Footer";
 import InfoType1a from "../contents/InfoType1a";
 import InfoTypeSpace from "../contents/infotypespace";
-import Menu from "../Menu";
 import { EquipmentContainer } from "../../containers/EquipmentContainer";
 import Terms from "../contents/ReportType1a";
 import PersonalInfo from "../contents/ReportType1b";
@@ -29,7 +22,7 @@ import CopyRight from "../contents/ReportType2a";
 import Email from "../contents/ReportType2b";
 import TableType1d_User from "../contents/TableType1d_User";
 import { useDispatch,useSelector } from "react-redux";
-import styled from "styled-components";
+
 export default function DidInfo() {
   const [value,setValue] = useState("");
   const dispatch = useDispatch();

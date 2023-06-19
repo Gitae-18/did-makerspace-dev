@@ -90,8 +90,8 @@ export default function SubSideMenu(props,onCategory) {
   const SubModal01 = (props) => {
       return (
         <ol>
-          <li className={url.includes("didadmin")?"on":"off"}>
-            <p onClick={Dep2Handler}>기관소개</p>
+          <li onClick={Dep2Handler} className={url.includes("didadmin")?"on":"off"}>
+            <p  onClick={(e)=>history("/didadmin/info/greetings")}>기관소개</p>
             <ol className="has_dep3">
               <li onClick={(e)=>onClick(e,1)}><button onClick={(e)=>history("/didadmin/info/greetings")}>인사말</button></li>
               <li onClick={(e)=>onClick(e,1)}><button onClick={(e)=>history("/didadmin/info/vision")}>미션/비전</button></li>
@@ -99,8 +99,8 @@ export default function SubSideMenu(props,onCategory) {
               <li onClick={(e)=>onClick(e,1)}><button onClick={(e)=>history("/didadmin/info/partner")}>협력기관안내</button></li>
             </ol>
           </li>
-          <li sidebar={sidebar} className={url.includes("didinfo")?"on":"off"}/*  onClick={checkUrl} */>
-            <p onClick={Dep2Handler}>시설소개</p>
+          <li onClick={Dep2Handler} sidebar={sidebar} className={url.includes("didinfo")?"on":"off"}/*  onClick={checkUrl} */>
+            <p onClick={(e)=>history("/didinfo")}>시설소개</p>
             {/* <SubSideSubmenu  handleSubNav={()=>openList(isItem1,'didinfo')}isOpened={isItem1 && !isItem2 && !isItem3} item={SidebarData[0]}/> */}
             <ol className="has_dep3">
               <li onClick={(e)=>onClick(e,0)} value="space"><button className="btn" onClick={(e)=>history("/didinfo")}> 공간소개 </button></li>
@@ -239,7 +239,7 @@ export default function SubSideMenu(props,onCategory) {
           </li>
           {authority_level>10&&
           <li className={url.includes("schedule")?"on":"off"}>
-            <p onClick={(e)=>{onClick(e,3);history("/mschedule")}}>월간일정</p>
+            <p onClick={(e)=>{onClick(e,3);history("/mnthschd")}}>월간일정</p>
           </li>
           }
         </ol>
@@ -268,7 +268,7 @@ export default function SubSideMenu(props,onCategory) {
             <p onClick={(e)=>{Dep2Handler(e,0);history("/uservice/guide")}}>시제품제작안내</p>
           </li>
           <li className={!url.includes("guide")?"on":"off"}>
-            <p onClick={(e)=>Dep2Handler(e,1)}>시제품제작지원</p>
+            <p onClick={(e)=>{Dep2Handler(e,1);history("/uservice")}}>시제품제작지원</p>
             <ol className="has_dep3">
               <li onClick={Dep3Handler}><button className="btn" onClick={(e)=>history('/uservice')}>상담신청</button></li>
               <li onClick={Dep3Handler}><button className="btn" onClick={(e)=>history('/uservice?step=2&next=app',{replace:false})}>제작신청</button></li>
@@ -319,7 +319,7 @@ export default function SubSideMenu(props,onCategory) {
         url.includes("mentor") === true && authority_level > 1?<SubModal04/>
         :url.includes('mentor')===true && authority_level<10? <MentoringUser/>
         :url.includes("program")===true?<SubModal05/>
-        :url.includes("contact")||url.includes("notice")||url.includes("archive")||url.includes("schedule") === true?<SubModal07/>
+        :url.includes("contact")||url.includes("notice")||url.includes("archive")||url.includes("schedule")|| url.includes("mnthschd") === true?<SubModal07/>
         :url.includes("mservice")===true && authority_level>10?<SubModal08/>
         :url.includes("uservice")===true && authority_level<10?<SubModal09/>:<SubModal06/>}
       </div>

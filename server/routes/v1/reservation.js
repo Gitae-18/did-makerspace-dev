@@ -166,7 +166,7 @@ router.get('/reserv_list',verifyToken,async(req,res,next)=>{
         reservlist[i]['username'] = reservlist[i]['user.name'];
         delete reservlist[i]['user.name'];
     }
-    for(let i = 0; i<reservlist.lenmgth; i++){
+    for(let i = 0; i<reservlist.length; i++){
         reservlist[i]['modelname'] = reservlist[i]['equipment_category.model_name'];
         delete reservlist[i]['equipment_category.model_name'];
     }

@@ -39,6 +39,9 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
 		e.preventDefault();
 		dispatch({ type: MENU_CHANGE, target: index });
 	}, [dispatch, history]);
+  const onItem = (e) =>{
+		history('/classeducontrol')
+	  };
   const SubMenu1 = () =>{
     return(
           <ol className='menu_dep2'>
@@ -77,9 +80,8 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
   const SubMenu5 = () => {
     return(
           <ol className='menu_dep2'>
-            <li onClick={(e)=>onClick2(e,0)}><NavLink to={'/notcomplete'}>멘토링</NavLink></li>
+            <li onClick={(e)=>onClick2(e,0)}><NavLink to={'/mentoring'}>멘토링</NavLink></li>
             <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/notcomplete'}>멘토 검색</NavLink></li> 
-            <li onClick={(e)=>onClick2(e,2)}><NavLink to={'/notcomplete'}>멘토 칭찬</NavLink></li>   
           </ol>
     )
   }
@@ -103,7 +105,7 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
         <li onClick={(e)=>onClick(e,3)}><NavLink>서비스항목관리</NavLink></li> 
         <li onClick={(e)=>onClick(e,3)}><NavLink>기/자재관리</NavLink></li> 
         <li onClick={(e)=>onClick(e,5)}><NavLink>전문멘토관리</NavLink></li>   
-        <li onClick={(e)=>onClick(e,6)}><NavLink>교육/행사관리</NavLink></li>   
+        <li onClick={(e)=>{onClick2(e,5);onItem(e)}}><NavLink>교육/행사관리</NavLink></li>   
       </ol>
     );
   }
@@ -125,7 +127,7 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
           <SubMenu4/>
     </li>
         
-    <li><Link to="/notcomplete">멘토링</Link>
+    <li><Link to="/umentoring">멘토링</Link>
           <SubMenu5/>
     </li>
           
@@ -162,6 +164,9 @@ const AdminMenu = ({viewDepth}) => {
   const onClick2 = useCallback((e, index) => {
 		dispatch({ type: MENU_CHANGE, target: index });	
 	}, [dispatch, history, viewDepth]);
+  const onItem = (e) =>{
+		history('/classeducontrol')
+	  };
   const SubMenu1 = () =>{
     return(
           <ol className='menu_dep2'>
@@ -200,9 +205,8 @@ const AdminMenu = ({viewDepth}) => {
   const SubMenu5 = () => {
     return(
           <ol className='menu_dep2'>
-            <li onClick={(e)=>onClick2(e,0)}><NavLink to={'/notcomplete'}>멘토링 관리</NavLink></li>
+            <li onClick={(e)=>onClick2(e,0)}><NavLink to={'/mentoring'}>멘토링 관리</NavLink></li>
             <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/notcomplete'}>멘토 검색</NavLink></li>
-            <li onClick={(e)=>onClick2(e,2)}><NavLink to={'/notcomplete'}>멘토 칭찬</NavLink></li>   
           </ol>
     )
   }
@@ -213,7 +217,7 @@ const AdminMenu = ({viewDepth}) => {
         <li onClick={(e)=>onClick2(e,0)}><NavLink to={'/contact'}>연락처 안내</NavLink></li>
         <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/archive/video'}>자료실</NavLink></li>
         <li onClick={(e)=>onClick2(e,2)}><NavLink to={'/notice'}>공지사항</NavLink></li>   
-        <li onClick={(e)=>onClick2(e,3)}><NavLink to={'/mschedule'}>월간일정</NavLink></li>
+        <li onClick={(e)=>onClick2(e,3)}><NavLink to={'/mnthschd'}>월간일정</NavLink></li>
       </ol>
     );
   }
@@ -227,7 +231,7 @@ const AdminMenu = ({viewDepth}) => {
         <li onClick={(e)=>onClick(e,4)}><NavLink>서비스항목관리</NavLink></li> 
         <li onClick={(e)=>onClick(e,5)}><NavLink>기/자재관리</NavLink></li> 
         <li><NavLink to={'/notcomplete'}>전문멘토관리</NavLink></li>   
-        <li onClick={(e)=>onClick(e,6)}><NavLink>교육/행사관리</NavLink></li>   
+        <li onClick={(e)=>{onClick(e,10);onItem(e)}}><NavLink>교육/행사관리</NavLink></li>   
       </ol>
     );
   }
@@ -249,7 +253,7 @@ const AdminMenu = ({viewDepth}) => {
     </li>
     <li className='dep2'> <Link onClick={() => { dispatch({ type: CHANGE_CATEGORY, target: 0 }); }} to="/mmaterial">자재 관리</Link>
     </li>
-    <li className='dep2'> <Link to="/notcomplete">멘토링</Link>
+    <li className='dep2'> <Link to="/mentoring">멘토링</Link>
           <SubMenu5/>
     </li>
  

@@ -1,18 +1,11 @@
 import React ,{useState,useEffect} from "react";
 import { MENU_CHANGE } from "../../store/sidemenu";
-import {useLocation,useHistory} from 'react-router-dom'
-import SubSideMenu,{SubSideMenu2} from "../contents/SubSideMenu";
-import Menu from "../Menu";
+import SubSideMenu from "../contents/SubSideMenu";
 import SelectDateType1 from "../contents/SelectDateType1";
 import PageSub02a1 from "./PageSub02/PageSub02a1";
-import PageSub02a2 from "./PageSub02/PageSub02a2";
-import PageSub02a3 from "./PageSub02/PageSub02a3";
-import PageSub02a4 from "./PageSub02/PageSub02a4";
 import PageSub02a5 from "./PageSub02/PageSub02a5";
-import PageSub02a6 from "./PageSub02/PageSub02a6";
 import PageSub02a7 from "./PageSub02/PageSub02a7";
 import PageSub02b1 from "./PageSub02/PageSub02b1";
-import PageSub02b2 from "./PageSub02/PageSub02b2";
 import PageSub02c1 from "./PageSub02/PageSub02c1";
 import { useDispatch,useSelector } from "react-redux";
 

@@ -54,7 +54,7 @@ export default function TableType3a() {
               <tr>
                 <td>장예닮 연구원</td>
                 <td>042-385-4205</td>
-                <td>didmanager.j@gmail.com</td>
+                <td>didmaker.j@gmail.com</td>
                 <td>연구행정</td>
               </tr>
 

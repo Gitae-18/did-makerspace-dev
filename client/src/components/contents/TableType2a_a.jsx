@@ -78,6 +78,7 @@ export default function TableType2a_a() {
         return;
       }
       const json = await response.json();
+      console.log(json);
       setReservationList(json);
       setLoading(false);
       setCurrentPosts(json.slice(indexOfFirstPost,indexOfLastPost))
@@ -108,7 +109,7 @@ export default function TableType2a_a() {
             <th>날짜</th>
         </thead>
         <tbody>
-          {currentPosts && reservationList.length > 0 ? (reservationList.map((item,i)=>(
+          {reservationList && reservationList.length > 0 ? (reservationList.map((item,i)=>(
             <tr key={i}>
              <td>{item.username}</td>
              <td>{item.modelname}</td>
