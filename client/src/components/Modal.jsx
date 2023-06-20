@@ -13,6 +13,7 @@ function Modal({
   closable,
   visible,
   isLoggedIn,
+  setModalVisible,
 }) {
   const onMaskClick = (e) => {
     if (e.target === e.currentTarget) {
@@ -20,13 +21,13 @@ function Modal({
     }
   };
   // 이전 방문 날짜
-  const VISITED_BEFORE_DATE = localStorage.getItem("VisitCookie");
+  const VISITED_BEFORE_DATE =localStorage.getItem("VisitCookie");
   // 현재 날짜
   const VISITED_NOW_DATE = Math.floor(new Date().getDate());
 
   // 팝업 오늘 하루닫기 체크
   if (VISITED_BEFORE_DATE !== null) {
-    //날짜가 같을 경우
+    
     if (VISITED_BEFORE_DATE === VISITED_NOW_DATE) {
       localStorage.removeItem("VisitCookie");
       onClose(false);
@@ -36,13 +37,17 @@ function Modal({
     }
   }
 
+/*   useEffect(()=>{
+      Dayclose();
+  },[VISITED_BEFORE_DATE]) */
+
   const Dayclose = (e) => {
     if (onClose) {
       onClose(e);
 
       const expiry = new Date();
       // +1일 계산
-      const expiryDate = expiry.getDate() + 1;
+      const expiryDate = expiry.setHours(23,59,59,0);
       // 로컬스토리지 저장
       localStorage.setItem("VisitCookie", expiryDate);
     }
@@ -52,10 +57,10 @@ function Modal({
     async (e) => {
       if(onClose){
       onClose(e);
-      const expiry = new Date();
+     /*  const expiry = new Date();
       // +1일 계산
       const expiryDate = expiry.getHours() + 1;
-      localStorage.setItem("VisitCookie", expiryDate);
+      localStorage.setItem("VisitCookie", expiryDate); */
       }
       /* if (onClose) {
         onClose(false);

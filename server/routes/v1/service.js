@@ -203,7 +203,20 @@ router.post('/:service_no/running', verifyToken, async (req, res, next) => {
     
     res.status(errorCode.ok).json({ service_element_no });
 });
+router.delete('/:service_no/dropitem', verifyToken, async (req, res, next) => {
+    const service_no  = req.params.service_no;
 
+    let deleteservice;
+    try{
+          deleteservice = await Service.destroy({
+           where:{service_no:service_no},
+       })
+    }
+    catch (error) {
+        console.error(error);
+    } 
+   res.status(errorCode.ok).json({deleteservice});
+})
 router.post('/:service_no/element/:element_no/files', verifyToken, upload.array('files'), async (req, res, next) => {
     let user_no = req.decoded.user_no;
     let service_no = req.params.service_no;
@@ -320,8 +333,7 @@ router.get('/', verifyToken, async (req, res, next) => {
             progress,
         };
     }
-    console.log(decode);
-    console.log("auth:"+authority_level)
+
     if (authority_level < authLevel.partner) {
         query.where = {
             ...query.where,
@@ -3317,19 +3329,5 @@ router.get('/:service_no/survey', verifyToken, async (req, res, next) => {
 });
 
 
-router.delete('/:service_no/dropitem', verifyToken, async (req, res, next) => {
-    
-    const service_no  = req.params.service_no;
-    let deleteservice;
-    try{
-          deleteservice = await Service.destroy({
-           where:{service_no:service_no},
-           raw:true
-       })
-    }
-    catch (error) {
-        console.error(error);
-    } 
-   res.status(errorCode.ok).json({});
-})
+
 module.exports = router;

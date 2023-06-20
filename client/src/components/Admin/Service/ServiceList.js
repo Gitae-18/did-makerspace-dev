@@ -370,14 +370,13 @@ export default function ({ query , no }) {
                    )
             };
     }
-    
+
     const DropItem = useCallback(async(e,i)=>{
         setDeleted(true);
         setModalVisible(true);
         setDropNo(e);
-        },[token,serviceItems])
-      
-
+        },[token,serviceItems,dropno])
+     
     var dt = new Date();
     var com_year = dt.getFullYear();
     let YearOption = [(<option value={0} key={0}>연도</option>)];

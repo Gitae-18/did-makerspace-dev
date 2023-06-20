@@ -58,9 +58,9 @@ export default function ListType2d() {
       <ol>
         {currentPost.map((item,index)=>(
           <li key={index}>
-          <div className="image_part"><img onClick={(e)=>onItem(e,index)} src={item.src} alt="no"/></div>
+          <div className="image_part"><img onClick={(e)=>onItem(e,index)} src={item.src} alt="no" style={{"cursor":"pointer"}}/></div>
           <div className="text_part">
-            <h5 onClick={(e)=>onItem(e,index)} >{item.title} </h5>
+            <h5 onClick={(e)=>onItem(e,index)}  style={{"cursor":"pointer"}}>{item.title} </h5>
             <div className="dl_wrap">
               <dl>
                 <dt className="blind">날짜</dt>
