@@ -107,9 +107,9 @@ const getData = useCallback(async()=>{
         console.log('response error');
         return;
     }
-    
+    const blob = await response.blob();
     if(fileInfo!==undefined){
-    fileDownload(await(await new Response(response.body)).blob(),fileInfo.original_name)
+      fileDownload(blob, fileInfo.original_name);
     }
     /* var fileDownload = require('js-file-download');
     fileDownload(await (await new Response(response.body)).blob(), fileInfo.original_name); */

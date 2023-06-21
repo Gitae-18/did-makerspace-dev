@@ -17,22 +17,61 @@ module.exports = (sequelize,DataTypes) => {
             allowNull:true,
         },
         purpose: {
-            type: DataTypes.STRING(55),
+            type: DataTypes.STRING(255),
             allowNull:false,
         },
         application_title: {
-            type: DataTypes.STRING(55),
+            type: DataTypes.STRING(255),
             allowNull:false,
         },
         specific_content: {
             type: DataTypes.STRING(500),
             allowNull:true,
         },
-        match_type: {
+        part:{
             type: DataTypes.STRING(55),
-            allowNull: false,
-            defaultValue:'online'
+            allowNull:true,
         },
+        represent:{
+            type: DataTypes.STRING(255),
+            allowNull:true,
+        },
+        response:{
+            type: DataTypes.STRING(255),
+            allowNull:true,
+        },
+        company_name:{
+            type: DataTypes.STRING(255),
+            allowNull:false,
+        },
+        email:{
+            type: DataTypes.STRING(255),
+            allowNull:false,
+        },
+        name:{
+            type: DataTypes.STRING(55),
+            allowNull:false,
+        },
+        tel_num:{
+            type: DataTypes.STRING(55),
+            allowNull:false,
+        },
+        p_num:{
+            type: DataTypes.STRING(55),
+            allowNull:true,
+        },
+        usermail:{
+            type: DataTypes.STRING(255),
+            allowNull:false,
+        },
+        address:{
+            type: DataTypes.STRING(255),
+            allowNull:false,
+        },
+        address_detail:{
+            type: DataTypes.STRING(255),
+            allowNull:true,
+        },  
         privacy_agree_flag: {
             type: DataTypes.CHAR(5),
             allowNull: false,

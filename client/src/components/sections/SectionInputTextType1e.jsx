@@ -59,9 +59,11 @@ export default function SectionInputTextType1e() {
     getFile();
     getFileNo();
   },[getData,getFile,getFileNo])
+   console.log(fileNo)
+   console.log(attachFile)
   const onFileDownload = useCallback(async (e, fileInfo) => {
-  
-    let attached_file_no 
+    console.log(fileInfo);
+    let attached_file_no ;
     for(let i = 0; i < attachFile.length&&i<MaxFileCount; i++){
       if(attachFile.legnth>1){
         attached_file_no = attachFile.attached_file_no[i]
@@ -72,7 +74,6 @@ export default function SectionInputTextType1e() {
     }
  
     const response = await fetch(PreUri + '/notice/' + no + '/file/' + fileInfo.attached_file_no, {
-        responseType: 'blob',
         method: Method.get,
         headers: {
           authorization: token}
@@ -82,9 +83,9 @@ export default function SectionInputTextType1e() {
         console.log('response error');
         return;
     }
-
+    const blob = await response.blob();
     if(fileInfo!==undefined){
-    fileDownload(await(await new Response(response.data)).blob(),fileInfo.original_name)
+      fileDownload(blob, fileInfo.original_name);
     }
     /* var fileDownload = require('js-file-download');
     fileDownload(await (await new Response(response.body)).blob(), fileInfo.original_name); */

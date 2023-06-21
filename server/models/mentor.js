@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
            },
            career: {
                 type: DataTypes.TEXT,
-                allowNull:false,
+                allowNull:true,
            },
            field: {
                 type: DataTypes.STRING(55),

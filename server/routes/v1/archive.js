@@ -189,7 +189,7 @@ router.get('/archive_list_all',verifyToken,async(req,res,next)=>{
 })
 
 //자료삭제
-router.delete('/:archive_no/drop',verifyToken,async(req, res , next)=>{
+router.delete('/:archive_no/dropitem',verifyToken,async(req, res , next)=>{
     const archive_no = req.params.archive_no;
 
     let deleteservice;

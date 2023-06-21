@@ -12,7 +12,7 @@ export default function TableType3a() {
               <th>주요업무</th>
 
               <tr>
-              <td rowSpan={4}>ETRI</td>
+              <td rowSpan={4}>사업관리</td>
                 <td >소운섭 총괄</td>
                 <td >             </td>
                 <td>wsso@etri.re.kr</td>
@@ -39,7 +39,7 @@ export default function TableType3a() {
 
 
               <tr>
-                <td rowSpan={3} >펀펀쓰리디<br/>[사업운영]</td>
+                <td rowSpan={3} >사업운영</td>
                 <td >문용재 대표</td>
                 <td >             </td>
                 <td >myj1380@nate.com</td>
@@ -60,7 +60,7 @@ export default function TableType3a() {
 
 
               <tr>
-                <td rowSpan={3} >펀펀쓰리디<br/>[시제품 제작]</td>
+                <td rowSpan={3} >시제품제작</td>
                 <td >오석호 책임</td>
                 <td >042-385-4208</td>
                 <td >did.designersho@gmail.com</td>
@@ -80,7 +80,7 @@ export default function TableType3a() {
               </tr>
             
               <tr>
-                <td rowSpan={3} >펀펀쓰리디<br/>[콘텐츠 제작]</td>
+                <td rowSpan={3} >콘텐츠제작</td>
                 <td >손성창 책임</td>
                 <td >042-385-4202</td>
                 <td >DIDmakerson@gmail.com</td>
@@ -102,7 +102,7 @@ export default function TableType3a() {
 
 
               <tr>
-                <td rowSpan={1} >펀펀쓰리디<br/>[안내]</td>
+                <td rowSpan={1} >인포데스크</td>
                 <td >송유림 연구원</td>
                 <td >042-385-4200</td>
                 <td >DID.maker.yu@gmail.com</td>
@@ -110,7 +110,7 @@ export default function TableType3a() {
               </tr>
               
               <tr>
-                <td rowSpan={3} >창조경제혁신센터</td>
+                <td rowSpan={3} >창업지원,공간지원</td>
                 <td >김성근 본부장</td>
                 <td >             </td>
                 <td >apro64@ccei.kr</td>
