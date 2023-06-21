@@ -115,9 +115,7 @@ export default function TableType2b() {
             <td>{item.specification}</td>
             <td>{item.location}</td>
             <td>
-              <span className="date">{item.reservation_date.slice(0,9).replaceAll('-','/')}</span>
-              &nbsp;
-              <span className="time">{item.reservation_date.slice(10,)}</span>
+              <span className="date">{item.reservation_date.slice(0,).replaceAll('-','/')+'/'+item.reservation_time}</span>
             </td>
           </tr>)):<>내용이 비었습니다</>}
         </tbody>

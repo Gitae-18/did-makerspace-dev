@@ -54,7 +54,7 @@ function PopupModalHome({
 
       const expiry = new Date();
       // +1일 계산
-      const expiryDate = expiry.getDate() + 1;
+      const expiryDate = expiry.setHours(23,59,59,0);
       // 로컬스토리지 저장
       localStorage.setItem("NoticeCookie", expiryDate);
     }
@@ -109,6 +109,9 @@ function PopupModalHome({
               <CloseStyle>
                 <Close className="modal-close" onClick={Dayclose}>
                   오늘 하루 닫기
+                </Close>
+                <Close className="modal-close" onClick={close}>
+                  닫기
                 </Close>
               </CloseStyle>
             )}

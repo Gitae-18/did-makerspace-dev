@@ -27,17 +27,20 @@ export default function SelectDateType1({query}) {
 
   const [modalOpen, setModalOpen] = useState(false);
   const { token } = useSelector(state => state.user);
-  const [start, setStart] = useState(new Date());
+  const [value,onChange] = useState(new Date());
   const [timepart,setTimepart] = useState('')
   const {isLoggedIn} = useSelector(state => state.user);
 	const navigate = useNavigate();
-  const [isClickEnabled,setIsClickEnabled] = useState(true);
   const [clickedTime,setClickedTime] = useState('');
 	const [NewDate,setNewDate] = useState(moment(new Date()).format("YYYY-MM-DD"));
   const [getdata,setGetdata] = useState([])
   const [btnActive,setBtnActive] = useState(false);
   const [btnClick,setBtnClick] = useState(false);
   const [selectStatus,setSelectStatus] = useState('');
+  const [currentDate,setCurrentDate] = useState(null);
+  const [previousDate, setPreviousDate] = useState(null);
+  const [dateChanged,setDateChanged] = useState(false);
+
   const history = useNavigate();
   const location = useLocation();
   const categorynum = location.state.category;
@@ -49,9 +52,57 @@ export default function SelectDateType1({query}) {
 
  const status = `can't`;
  const status2 = `can't`;
-    const dateClick = () =>{
-         setNewDate(moment(start).format("YYYY-MM-DD",true).toString());
-    }
+
+
+
+
+
+ 
+ const dateClick =useCallback((e)=>{
+  setNewDate(moment(e).format("YYYY-MM-DD",true).toString());
+  //setCurrentDate(moment(e).format("YYYY-MM-DD",true).toString());
+},[NewDate])
+  console.log(NewDate)
+    const ButtonTable = useCallback(() =>{
+      return(
+        <>
+        <ol className="table_time">
+          <input
+            type="button"
+            name="10"
+            value="10:00"
+            className={
+              selectStatus === "can't" && timepart === "10:00"
+                ? "cant"
+                : btnClick === true
+                ? "selected"
+                : btnClick === false
+                ? "can"
+                : null
+            }
+            onClick={timeClick}
+          ></input>
+          <input
+            type="button"
+            name="14"
+            value="14:00"
+            className={
+              selectStatus === "can't" && timepart === "14:00"
+                ? "cant"
+                : btnActive === true
+                ? "selected"
+                : btnActive === false
+                ? "can"
+                : null
+            }
+            onClick={timeClick2}
+          ></input>
+        </ol>
+        </>
+      )
+    },[clickedTime, selectStatus, btnClick, btnActive ])
+
+    
     const openModal = () => {
       if(clickedTime===null||clickedTime==='')
       {
@@ -123,13 +174,18 @@ export default function SelectDateType1({query}) {
       return;
     }
     const json = await response.json();
-
+    console.log(json);
     setGetdata(json);
-    if(json!==null)
+    if(json === null)
     {
-    setSelectStatus(json.reservation_status);
+      setSelectStatus("can")
     }
-  if(json !== null && json.reservation_date !== undefined && json.reservation_date !== null){
+    else {
+      setSelectStatus(`can't`)
+    }
+    
+   
+    if(json !== null && json.reservation_date !== undefined && json.reservation_date !== null){
       setTimepart(json.reservation_time);
     } 
    
@@ -139,18 +195,16 @@ export default function SelectDateType1({query}) {
       status:json.result.reservation_status,
       date:json.result.reservation_date
     }));  */
-  },[token,NewDate,clickedTime])
-
+  },[token,NewDate])
+  console.log(selectStatus)
   useEffect(()=>{
-    dateClick();
-    ButtonTable();
     getReservation();
+    ButtonTable();
+    //setNewDate(moment(value).format("YYYY-MM-DD",true).toString());
     return () => {
       ref.current = true;
   }
-  },[getReservation,token,NewDate,start])
-
-
+  },[getReservation,setNewDate,setSelectStatus])
 
   const sendData = useCallback(async() =>{
    /*  let reservation;
@@ -173,18 +227,27 @@ export default function SelectDateType1({query}) {
       return(alert(getRspMsg(response.status)))
     }
     setModalOpen(false);
+    history(0);
   },[getdata,token,clickedTime])
     // get api
     // data
-      
-     const ButtonTable = () =>{
-      return(
-         <ol className="table_time">
-         <input type="button" name="10" value="10:00"   className={selectStatus===`can't`&&timepart==="10:00"?'cant':btnClick===true?"selected": btnClick===false?"can":null} onClick={timeClick}></input>
-         <input type="button" name="14" value="14:00"   className={selectStatus===`can't`&&timepart==="14:00"?'cant':btnActive===true?"selected": btnActive===false?"can":null} onClick={timeClick2}></input>
-         </ol>
-      )
+    
+    const handleDateClick = (date) => {
+      if (!date) {
+        // 선택된 날짜가 null 또는 undefined인 경우
+        console.error('유효하지 않은 날짜입니다.');
+        return;
+      }
+      if(previousDate && date.getTime() > previousDate.getTime()){
+        console.log('다음 날짜를 선택했습니다');
+      }
+      else {
+        console.log('이전 날짜를 선택했습니다.')
+      }
+      setCurrentDate(date);
+      setPreviousDate(date);
     }
+
   return (
     <>
      <div id="pageSub02a3">
@@ -197,17 +260,18 @@ export default function SelectDateType1({query}) {
         </div>
         <div className="calendar_day">
         <Calendar 
-		  	onChange={setStart} 
-			  value={start}
+		  	onChange={onChange} 
+			  value={value}
 			  locale="ko"
 			  next2Label={null}
 			  prev2Label={null}
-        minDate={new Date()}
+//        minDate={new Date()}
 			  formatDay={(locale, date) =>
 				date.toLocaleString('en', { day: 'numeric' })
 			  }
 			showNeighboringMonth={false}
-      onClickDay={dateClick}
+      onClickDay={(e)=>dateClick(e)}
+      
 			/>
           <TableInfoType1a></TableInfoType1a>
       <div className="table_btns table_btns_type1">
@@ -231,35 +295,6 @@ export default function SelectDateType1({query}) {
       </>
   );
 }
-/* export const TableBtnsType1a = () => {
-  
-
-  const navigate = useNavigate();
-  const OpenModal = () =>{
-    setModal(true);
-    return(
-      <>
-      {modal === true?
-      <reservBtn>
-        <span>예약하시겠습니까</span>
-        <button type="button" onClick={OpenModal}>확인</button>
-        <button>취소</button>
-      </reservBtn>
-      :null
-      }
-      </>
-    )
-  }
-
-  return (
-   
-    <div className="table_btns table_btns_type1">
-    
-       <ButtonType4 btnName="목록" ></ButtonType4>
-      </div>
-  );
-} */
-
 
  const StyledBtn= styled.button`
   color:#fff;
@@ -274,16 +309,4 @@ export default function SelectDateType1({query}) {
       color:#313f4f
    }
  `
- const reservBtn = styled.div`
- background-color:#ffffff;
- border : 1px solid #000;
- width: 200px;
- height:150px;
- `
- const clickBtn  =  styled.div`
-  width:200px;
-  height:10vh;
-  background-color:#ffffff;
-  border : 1px solid #000;
-  `  
   

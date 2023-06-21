@@ -38,8 +38,8 @@ const router = express.Router();
 router.get('/equipment',verifyToken, async(req,res,next)=>{   
     
     const date = (req.query.date === undefined) ? moment(new Date()).format("YYYY-MM-DD") : (req.query.date);
+    console.log(req.query.date)
     const category = (req.query.category === undefined) ? 0 : (req.query.category);
-    console.log(category)
     let result ;
     try{
         result = await EquipmentReservation.findOne({
@@ -55,8 +55,7 @@ router.get('/equipment',verifyToken, async(req,res,next)=>{
         console.error(error);
         return res.status(errorCode.internalServerError).json({});
     }
-    
-  
+
     
    // res.status(errorCode.ok).json({});
 })
@@ -69,7 +68,7 @@ router.get('/myreserv',verifyToken,async(req,res,next)=>{
     let result ;
     try{
         result = await EquipmentReservation.findAll({
-            attributes:['created_at','created_user_no','reservation_date'],
+            attributes:['created_at','created_user_no','reservation_date','reservation_time'],
             include:[{model:EquipmentCategory,attributes:['model_name','model_specification','location']}],
             where:{created_user_no:user_no},
             order:[['created_at','DESC']],
@@ -93,6 +92,7 @@ router.get('/myreserv',verifyToken,async(req,res,next)=>{
         result[i]['location'] = result[i]['equipment_category.location'];
         delete result[i]['equipment_category.location'];
     }
+  
     res.json(result);
 })
 
@@ -139,7 +139,7 @@ router.get('/reserv_list',verifyToken,async(req,res,next)=>{
 
     try{
         reservlist = await EquipmentReservation.findAll({
-            attributes:['equipment_reservation_no','user_no','equipment_category_no','created_at'],
+            attributes:['equipment_reservation_no','user_no','equipment_category_no','reservation_time','created_at'],
             include:[{
                 model: User, 
                 attributes: ['name'],

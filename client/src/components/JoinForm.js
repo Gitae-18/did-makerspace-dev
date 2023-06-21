@@ -26,11 +26,31 @@ export default function JoinForm({ onJoinTry, onCheckEmail, onCompletePostcode, 
 	function CompanyPostcode() {
 		return (hiddenCompanyPostcode) ? (<></>) : (<DaumPostcode onComplete={companyComplete} width="100%" height="444px" />);
 	}
-
+	const setStyle = () =>{
+		const innerstyle = document.getElementById("innerStyle");
+		innerstyle.style.height = '1600px';
+	}
+	const setStyle2 = () =>{
+		const innerstyle = document.getElementById("innerStyle");
+		innerstyle.style.height = '2100px';
+	}
+	const handleCompanyPostcodeSearch = () => {
+		setHiddenCompanyPostcode(false);
+		const innerstyle = document.getElementById("innerStyle");
+		innerstyle.style.height = '200px';
+	  };
+	const setCloseStyle = () =>{
+		const innerstyle = document.getElementById("innerStyle");
+		innerstyle.style.height = '1200px';
+	}
+	const setCloseStyle2 = () =>{
+		const innerstyle = document.getElementById("innerStyle");
+		innerstyle.style.height = '1600px';
+	}
 	return (
 		<div id="wrap" className="wrap join2">
 			<div className="content_wrap">
-				<div className="inner_wrap">
+				<div id="innerStyle" className="inner_wrap">
 					<h2>회원가입</h2>
 					<span>*필수입력</span>
 					<form onSubmit={onJoinTry}>
@@ -82,13 +102,13 @@ export default function JoinForm({ onJoinTry, onCheckEmail, onCompletePostcode, 
 										<th>*우편번호</th>
 										<td>
 											<input type="text" className="short" maxLength={6} value={value.user.zip} name="user.zip" disabled />
-											<button type="button" onClick={() => setHiddenUserPostcode(false)}>우편번호 검색</button>
+											<button type="button" onClick={() =>{setHiddenUserPostcode(false);setStyle()}}>우편번호 검색</button>
 										</td>
 									</tr>
 									<tr hidden={hiddenUserPostcode}>
 										<th></th>
 										<td className="close">
-											<button type="button" className="close_btn" onClick={() => setHiddenUserPostcode(true)}> </button>
+											<button type="button" className="close_btn" onClick={() => {setHiddenUserPostcode(true);setCloseStyle()}}> </button>
 										</td>
 									</tr>
 									<tr hidden={hiddenUserPostcode}>
@@ -143,13 +163,13 @@ export default function JoinForm({ onJoinTry, onCheckEmail, onCompletePostcode, 
 										<th>우편번호</th>
 										<td>
 											<input type="text" className="short" maxLength={6} value={value.company.zip} name="company.zip" disabled />
-											<button type="button" onClick={() => setHiddenCompanyPostcode(false)}>우편번호 검색</button>
+											<button type="button" onClick={() =>{setHiddenCompanyPostcode(false);setStyle2()}}>우편번호 검색</button>
 										</td>
 									</tr>
 									<tr hidden={hiddenCompanyPostcode}>
 										<th></th>
 										<td className="close">
-											<button type="button" className="close_btn" onClick={() => setHiddenCompanyPostcode(true)}> </button>
+											<button type="button" className="close_btn" onClick={() => {setHiddenCompanyPostcode(true);setCloseStyle2()}}> </button>
 										</td>
 									</tr>
 									<tr hidden={hiddenCompanyPostcode}>

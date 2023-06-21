@@ -39,7 +39,9 @@ router.get("/list", async(req,res,next)=>{
     {
        query = {
             attributes:['space_no','space_name','space_info','location','src'],
-            where:{location:floor},
+            where:{
+                location:floor,
+            },
             order:[
                     ['created_at','DESC']
                 ],
@@ -98,6 +100,9 @@ router.get('/reservation',async(req,res,next)=>{
     // 공간정보 불러오기
     let spacelist  = {
         attributes:['space_name','space_info','location','src'],
+        where:{
+            available:"Y",
+        },
      order:[
         ['created_at','DESC']
      ],

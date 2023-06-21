@@ -894,7 +894,11 @@
 .section_input_text_type1.section_input_text_type1b .text_wrap li label {
   text-align: center;
 }
-
+.section_input_text_type1 .text_wrap li textarea.text_area{
+  height:200px;
+  margin-top:20px;
+  padding:20px;
+}
 .section_input_text_type1.section_input_text_type1d {
   padding-left: 10px;
   margin-bottom:200px;
@@ -1181,7 +1185,7 @@
           align-items: center;
 }
 
-.section_input_text_type1.section_input_text_type1p .text_wrap li.textarea_wrap label {
+.section_input_text_type1p .text_wrap li.textarea_wrap label {
   height: 200px;
 }
 

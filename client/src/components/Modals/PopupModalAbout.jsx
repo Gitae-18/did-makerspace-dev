@@ -52,7 +52,7 @@ function PopupModalAbout({
 
       const expiry = new Date();
       // +1일 계산
-      const expiryDate = expiry.getDate() + 1;
+      const expiryDate = expiry.setHours(23,59,59,0);
       // 로컬스토리지 저장
       localStorage.setItem("AboutCookie", expiryDate);
     }
@@ -90,6 +90,9 @@ function PopupModalAbout({
               <CloseStyle>
                 <Close className="modal-close" onClick={Dayclose}>
                   오늘 하루 닫기
+                </Close>
+                <Close className="modal-close" onClick={close}>
+                   닫기
                 </Close>
               </CloseStyle>
             )}
@@ -149,9 +152,8 @@ const CloseStyle = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: #282828;
-  width: 120px;
-
-  padding: 10px;
+  width: 210px;
+  padding: 15px;
   border-radius: 0 0 15px 15px;
   color: #ffffff;
   z-index:200;

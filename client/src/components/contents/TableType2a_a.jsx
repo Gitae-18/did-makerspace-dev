@@ -107,13 +107,15 @@ export default function TableType2a_a() {
             <th>이름</th>
             <th>모델명</th>
             <th>날짜</th>
+            <th>시간</th>
         </thead>
         <tbody>
-          {reservationList && reservationList.length > 0 ? (reservationList.map((item,i)=>(
+          {currentPosts&& reservationList.length > 0 ? (reservationList.map((item,i)=>(
             <tr key={i}>
              <td>{item.username}</td>
              <td>{item.modelname}</td>
              <td>{item.created_at.slice(0,10)}</td>
+             <td>{item.reservation_time}</td>
             </tr>
           ))
           ):<tr><td>게시물이 없습니다.</td></tr>}

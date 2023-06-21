@@ -27,14 +27,10 @@ function PopupDeleteModal({
   const close = (e) => {
     onclose(e);
   };
-  const DropItem = useCallback(
-    async (e, i) => {
-      /* for(let i = 0 ; i<ServiceItemRow.length;i++){
-        serviceNum = ServiceItemRow[i][2].service_no; 
-        }
-        console.log(serviceNum); */
+  console.log(no);
+  const DropItem = useCallback(async (e) => {
       CommonHeader.authorization = token;
-      const response = await fetch(PreUri + "/classedu/" + no + "/dropitem", {
+      const response = await fetch(PreUri + "/service/" + no + "/dropitem", {
         method: Method.delete,
         headers: CommonHeader,
       });
@@ -43,14 +39,6 @@ function PopupDeleteModal({
       }
       alert("삭제되었습니다");
       history(0);
-      /*   let item;
-                for(let i = 1 ; i<serviceItems.items.length && i < serviceItems.limit;i++)
-                { item = serviceItems.items[i].service_no;}
-                if(item[i]===undefined )
-                {
-                    console.log("서비스넘버가 없습니다")
-                }
-                return item[i] */
     },
     [token, serviceItems]
   );

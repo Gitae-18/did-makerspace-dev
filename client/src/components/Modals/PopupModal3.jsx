@@ -42,7 +42,7 @@ function PopupModal3({ className, onClose, maskClosable, closable, visible }) {
 
       const expiry = new Date();
       // +1일 계산
-      const expiryDate = expiry.getDate() + 1;
+      const expiryDate = expiry.setHours(23,59,59,0);
       // 로컬스토리지 저장
       localStorage.setItem("TodayCookie", expiryDate);
     }

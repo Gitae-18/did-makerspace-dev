@@ -166,6 +166,43 @@ router.get('/onlist',async(req,res,next)=>{
     } catch (error) {
         console.log(error);
     }
+}) 
+
+//자료실 리스트
+router.get('/archive_list_all',verifyToken,async(req,res,next)=>{
+    let body = req.body;
+    
+    let result ;
+
+    try{
+        result = await Archive.findAll({
+            attributes:['archive_no','file_type','hit','title','created_at'],
+            raw:true,
+            order:[['created_at','DESC']],
+        })
+    }
+    catch(error){
+        console.log(error)
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.json(result);
+})
+
+//자료삭제
+router.delete('/:archive_no/drop',verifyToken,async(req, res , next)=>{
+    const archive_no = req.params.archive_no;
+
+    let deleteservice;
+    try{
+          deleteservice = await Archive.destroy({
+           where:{archive_no:archive_no},
+           raw:true
+       })
+    }
+    catch (error) {
+        console.error(error);
+    } 
+   res.status(errorCode.ok).json({});
 })
 router.post('/:archive_no/files',verifyToken,upload.array('imageFiles'), async(req, res, next) =>{
     let user_no = req.decoded.user_no;

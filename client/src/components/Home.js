@@ -125,7 +125,7 @@ function Home() {
           </video>
             <div className="main_banner">
               <div className="wrap2">
-              {modalVisible && (<Modal visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal} isLoggedIn={isLoggedIn}></Modal>)}
+              {modalVisible && (<Modal visible={modalVisible} closable={true} maskClosable={true} setModalVisible={setModalVisible}onClose={closeModal} isLoggedIn={isLoggedIn}></Modal>)}
               {modalSet &&(<PopupModalAbout visible={modalSet} closable={true} maskClosable={true} onClose={closeModal3} isLoggedIn={isLoggedIn}/>)}
               {modalControl1 && data && (<PopupModalHome visible={modalControl1} closable={true} maskClosable={true} onClose={closeModal2} isLoggedIn={isLoggedIn} token={token} no={data.notice_no}/>)}
          

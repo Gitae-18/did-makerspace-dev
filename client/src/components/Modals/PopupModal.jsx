@@ -11,7 +11,7 @@ function PopupModal({ className, onClose, maskClosable, closable, visible }) {
     }
   };
   // 이전 방문 날짜
-  const VISITED_BEFORE_DATE = localStorage.getItem("Visit");
+  const VISITED_BEFORE_DATE = localStorage.getItem("PopupState");
   // 현재 날짜
   const VISITED_NOW_DATE = Math.floor(new Date().getDate());
 
@@ -19,7 +19,7 @@ function PopupModal({ className, onClose, maskClosable, closable, visible }) {
   if (VISITED_BEFORE_DATE !== null) {
     //날짜가 같을 경우
     if (VISITED_BEFORE_DATE === VISITED_NOW_DATE) {
-      localStorage.removeItem("Visit");
+      localStorage.removeItem("PopupState");
       onClose(false);
     }
     if (VISITED_BEFORE_DATE !== VISITED_NOW_DATE) {
@@ -33,9 +33,9 @@ function PopupModal({ className, onClose, maskClosable, closable, visible }) {
 
       const expiry = new Date();
       // +1일 계산
-      const expiryDate = expiry.getDate() + 1;
+      const expiryDate = expiry.setHours(23,59,59,0);
       // 로컬스토리지 저장
-      localStorage.setItem("Visit", expiryDate);
+      localStorage.setItem("PopupState", expiryDate);
     }
   };
 
