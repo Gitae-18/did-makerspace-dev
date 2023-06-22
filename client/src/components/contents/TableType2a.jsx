@@ -56,7 +56,7 @@ export default function TableType2a() {
         return;
       }
       const json = await response.json();
-
+      console.log(json);
       setPassFlag(json);
     
    },[token])
@@ -128,6 +128,8 @@ export default function TableType2a() {
     }
   } 
   },[reservationList])
+  console.log(pass)
+  console.log(passflag)
   useEffect(()=>{
     getUserTest();
     getItemList();

@@ -120,6 +120,7 @@ export default function SectionInputTextType1d_update(){
         cost:cost,
         map:map,
         popup_flag:isChecked===true?"Y":"N",
+        attahced_file:imageFile?imageFile:"N",
       })
     })
     if(!response.ok){

@@ -15,11 +15,13 @@ export default function  SectionInputTextType1d_a(){
   const [pay,setPay] = useState("");
   const [imageFile,setImageFile] = useState([]);
   const [imageUrl,setImageUrl] = useState([]);
-  const [isChecked,setIsChecked] = useState(false);
+  const [isChecked,setIsChecked] = useState('');
+  const [isFile,setIsFile] = useState('');
   const location = useLocation();
   const history = useNavigate();
   let type = location.pathname === "/educontrol" ? "edu" : "class";
   const no = location.state.no;
+  const url = location.pathname;
   const [input,setInput] = useState({
     className: '',
     place: '',
@@ -74,6 +76,8 @@ export default function  SectionInputTextType1d_a(){
   }
 
   //formdata.append("image","image.png");
+  console.log("ischecked:"+isChecked)
+  console.log("isFIle:"+isFile)
   const formData = new FormData();
   const sendData = useCallback(async(e)=>{
     CommonHeader.authorization = token;
@@ -94,7 +98,8 @@ export default function  SectionInputTextType1d_a(){
         limit_number:fnum,
         cost:cost,
         map:map,
-        popup_flag:isChecked===true?"Y":"N",
+        popup_flag:isChecked,
+        attached_file:isFile,
       })
     })
     if(!response.ok){
@@ -137,11 +142,17 @@ export default function  SectionInputTextType1d_a(){
     }
     //}
     setOpenModal(true);
-  },[token,input,imageFile])
+  },[token,input,imageFile,isFile])
 
  useEffect(()=>{
-
- },[isChecked])
+  if(imageFile.length>0)
+  {
+    setIsFile("Y");
+  }
+  else{
+    setIsFile("N");
+  }
+ },[isChecked,isFile])
 /*   useEffect(()=>{
 //    onMemoChange();
     getData();
@@ -247,7 +258,7 @@ export default function  SectionInputTextType1d_a(){
       </ul>
     
         <StyledBtn className="apply" onClick={sendData}>등록</StyledBtn>
-        {openModal && <PopupSaveModal visible={openModal} closable={true} onclose={onClose}/>}
+        {openModal && <PopupSaveModal visible={openModal} closable={true} onclose={onClose} url={url}/>}
         <StyledGrayBtn className='cancel' onClick={(e)=>history(-1)}>취소</StyledGrayBtn>
      
     </section>

@@ -127,7 +127,7 @@ export default function InfoType2a() {
   return (
     <div className="info_type2">
       <div className="title_part">
-      <ImageProgram attachFile={attachFile} no={no} token={token} CommonHeader={CommonHeader} />
+      {data.attached_file==="Y"?<ImageProgram attachFile={attachFile} no={no} token={token} CommonHeader={CommonHeader} />:<img src="/images/Noimg.png" alt="no"/>}
         <div className="info_part">
           <TitleType1 title={title}></TitleType1>
           <div className="dl_wrap">

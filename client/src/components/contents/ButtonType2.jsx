@@ -48,7 +48,7 @@ export default function ButtonType2(props) {
       }
       return (
         <div className={classNames}>
-          <span className="resinfo"><Link to="/didreservation">{props.btnName}</Link></span>
+          <span className="resinfo"><Link to="/eqreservation/equip">{props.btnName}</Link></span>
         </div>
       );
 }

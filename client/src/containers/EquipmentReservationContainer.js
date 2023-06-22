@@ -11,14 +11,16 @@ export const EquipmentReservationContainer = (props) =>{
     const { isLoading, isLoggedIn, authority_level } = useSelector(state => state.user);
     const viewState = useSelector(state => state.reservation);
     const { search } = useLocation();
+    const  location  = useLocation();
     const history = useNavigate();
+    const currentUrl = location.pathname;
     const query = qs.parse(search, {
         ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
     });
     useEffect(() => {
         
         if (isLoading) { return; }
-        if (!isLoggedIn) { return history('/notmember',{replace:true}); }
+        if (!isLoggedIn) { return history('/notmember',{state:{url:currentUrl}}); }
         
 	}, [isLoading, isLoggedIn, authority_level, history])
     

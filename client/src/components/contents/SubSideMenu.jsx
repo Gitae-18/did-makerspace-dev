@@ -140,32 +140,20 @@ export default function SubSideMenu(props,onCategory) {
           <li>
             <p onClick={(e)=>{Dep2Handler(e);history("/mentoring")}}>멘토링 관리</p>
           </li>
-          <li>
-            <p onClick={(e)=>{Dep2Handler(e);history("/notcompelete")}}>멘토 검색</p>
-          </li>
-          <li>
-            <p onClick={(e)=>{Dep2Handler(e);history("/notcompelete")}}>멘토 칭찬</p>
-          </li>
         </ol>
       );
     };
     const MentoringUser = () =>{
       return(
         <ol>
-          <li>
-            <p onClick={Dep2Handler}> <button className="btn" onClick={(e)=>history("/umentoring")}>멘토링</button></p>
+          <li className={url.includes("umentor")?"on":"off"}>
+            <p onClick={Dep2Handler} >멘토링</p>
               <ol className="has_dep3">
               <li onClick={Dep3Handler} value="mentoring_application"><button className="btn" onClick={(e)=>history("/umentoring")}> 멘토링 신청</button></li>
               </ol>
           </li>
-          <li>
-            <p onClick={(e)=>{Dep2Handler(e);history("/notcompelete")}}> 멘토 검색</p>
-          </li>
-          <li>
-            <p onClick={(e)=>{Dep2Handler(e);history("/notcompelete")}}> 멘토 칭찬</p>
-          </li>
-          <li>
-            <p onClick={(e)=>{Dep2Handler(e);history("/notcompelete")}}> 멘토링 보고서</p>
+          <li className={url.includes("mentorapplication")?"on":"off"}>
+            <p onClick={(e)=>{onClick(e,2);history("/mentorcontrol/mentorapplication/detail")}}>전문멘토신청</p>
           </li>
         </ol>
       );
@@ -228,20 +216,27 @@ export default function SubSideMenu(props,onCategory) {
           </li>
           <li className={url.includes("archive")?"on":"off"}>
             <p onClick={Dep2Handler}>자료실</p>
-            <ol className="has_dep3">
+            {authority_level<10?
+              <ol className="has_dep3">
               <li onClick={(e)=>onClick(e,1)}><button  className="btn" onClick={(e)=>history('/archive/video')}>영상 자료</button></li>
               <li onClick={(e)=>onClick(e,1)}><button  className="btn" onClick={(e)=>history('/archive/text')}>문서 자료</button></li>
-              <li onClick={(e)=>onClick(e,1)}><button  className="btn" onClick={(e)=>history('/archive/basic')}>기초 학습 자료</button></li>
-            </ol>
+              <li onClick={(e)=>onClick(e,1)}><button  className="btn" onClick={(e)=>history('/archive/basic')}>기초학습자료</button></li>
+              </ol>
+              :
+              <ol className="has_dep3">
+              <li onClick={(e)=>onClick(e,1)}><button  className="btn" onClick={(e)=>history('/archive/video')}>영상 자료</button></li>
+              <li onClick={(e)=>onClick(e,1)}><button  className="btn" onClick={(e)=>history('/archive/text')}>문서 자료</button></li>
+              <li onClick={(e)=>onClick(e,1)}><button  className="btn" onClick={(e)=>history('/archive/basic')}>기초학습자료</button></li>
+              <li onClick={(e)=>onClick(e,1)}><button  className="btn" onClick={(e)=>history('/archive/control')}>자료실관리</button></li>
+              </ol>
+              }
           </li>
           <li className={url.includes("notice")?"on":"off"}>
             <p onClick={(e)=>{onClick(e,2);history("/notice")}}>공지사항</p>
           </li>
-          {authority_level>10&&
           <li className={url.includes("schedule")?"on":"off"}>
             <p onClick={(e)=>{onClick(e,3);history("/mnthschd")}}>월간일정</p>
           </li>
-          }
         </ol>
       );
     };
@@ -344,18 +339,19 @@ export default function SubSideMenu(props,onCategory) {
         <div className="location">
         <div className="title_area">
          {props.subtitle?
-         <MdHome className="homeicon" style={props.subtitle.length===8&&props.title.length===7?{'left':'50px'}:props.subtitle.length===8?{'left':'75px'}:/* props.subtitle.length===7?{'left':'80px'}: */props.subtitle.length===7?{'left':'805px'}:props.subtitle.length===6?{'left':'85px'}:props.subtitle.length===5?{'left':'95px'}:props.subtitle.length===4?{'left':'105px'}:{'left':'105px'}}/>:
-         <MdHome className="homeicon" style={props.title.length===7?{'left':'155px'}:props.title.length===5?{'left':'175px'}:props.title.length<4?{'left':'200px'}:props.title.length<5?{'left':'185px'}:props.title.length<6?{'left':'185px'}:
+         <MdHome className="homeicon" style={props.subtitle.length===8&&props.title.length===7?{'left':'50px'}:props.subtitle.length===8?{'left':'75px'}:props.subtitle.length===7?{'left':'80px'}:props.subtitle.length===7?{'left':'805px'}:props.subtitle.length===6?{'left':'85px'}:props.subtitle.length===5?{'left':'95px'}:props.subtitle.length===4?{'left':'105px'}:props.subtitle.length===3?{'left':'110px'}:{'left':'110px'}}/>:
+         <MdHome className="homeicon" style={props.title.length===7?{'left':'155px'}:props.title.length===5?{'left':'175px'}:props.title.length===3?{'left':'190px'}:props.title.length<4?{'left':'200px'}:props.title.length<5?{'left':'185px'}:props.title.length<6?{'left':'185px'}:
          props.title.length<7?{'left':'160px'}:props.title.length<8?{'left':'165px'}:<></> } />}
          
-          {props.subtitle?<h2 style={props.subtitle.length === 3?{'left':'130px'}:props.subtitle.length === 4?{'left':'129px'}:props.subtitle.length === 5? {'left':'120px'}:props.subtitle.length === 8&&props.title.length===7?{'left':'70px'}:props.subtitle.length === 8?{'left':'95px'}:{'left':'108px'}}>{props.title}</h2>:<h2 style={props.title.includes("오시는")?{'left':'203px'}:props.title.length===3?{'left':'225px'}:props.title.length===4?{'left':'205px'}:props.title.length===5?{'left':'195px'}:
+          {props.subtitle?<h2 style={props.subtitle.length === 3?{'left':'130px'}:props.subtitle.length === 4?{'left':'129px'}:props.subtitle.length === 5? {'left':'120px'}:props.subtitle.length === 8&&props.title.length===7?{'left':'70px'}:props.subtitle.length === 8?{'left':'95px'}:{'left':'108px'}}>{props.title}</h2>
+          :<h2 style={props.title.includes("오시는")?{'left':'203px'}:props.title.length===3?{'left':'217px'}:props.title.length===4?{'left':'205px'}:props.title.length===5?{'left':'195px'}:
           props.title.length===6?{'left':'180px'}:props.title.length===7?{'left':'174px'}:props.title.length===9?{'left':'160px'}:{'left':'173px'}}>{props.title}</h2>}
           
           {props.subtitle?
           <MdChevronRight className="arrowicon" style={props.subtitle.length===3?{'left':'170px'}:props.subtitle.length===4?{'left':'165px'}:props.subtitle.length===5?{'left':'160px'}
           :props.subtitle.length===6?{'left':'145px'}:/* props.subtitle.length===7?{'left':'100px'}: */props.subtitle.length===8?{'left':'140px'}:{'left':'140px'}}/>:null}
         </div>
-         {props.subtitle?<h3 style={props.subtitle.length===8?{'left':'132px'}:props.subtitle.length===6?{'left':'142px'}:props.subtitle.length===5?{'left':'157px'}:props.subtitle.length===4?{'left':'162px'}:props.subtitle.length===3?{'left':'170px'}:{'left':'180px'}}>{props.subtitle}</h3>:null}
+         {props.subtitle?<h3 style={props.subtitle.length===8?{'left':'132px'}:props.subtitle.length===7?{'left':'134px'}:props.subtitle.length===6?{'left':'142px'}:props.subtitle.length===5?{'left':'157px'}:props.subtitle.length===4?{'left':'162px'}:props.subtitle.length===3?{'left':'170px'}:{'left':'180px'}}>{props.subtitle}</h3>:null}
         </div>
       </div>
     );

@@ -1,12 +1,12 @@
 import React,{useState,useEffect,useCallback} from "react";
 import { useLocation,useNavigate } from "react-router-dom";
 import { PreUri,CommonHeader, Method, getRspMsg} from "../../CommonCode";
-import { AuthLevel } from "../../CommonCode";
 import {useDispatch,useSelector}  from "react-redux";
-import ImageGetArchive from "../sections/ImageGetArchive";
 import styled from "styled-components";
+import PopupDeleteModal3 from "../Modals/PopupDeleteModal3";
 import Paging2 from "./Paging2";
-export default function ListType2c() {
+import ButtonType3 from "./ButtonType3";
+export default function ListTypeControl() {
   const { token } = useSelector(state => state.user);
   const { authority_level } = useSelector(state => state.user);
   const location = useLocation();
@@ -14,16 +14,19 @@ export default function ListType2c() {
   const [total,setTotal] = useState([]);
   const [data,setData] = useState([]);
   const [fileNo,setFileNo] = useState({});
+  const [dropno,setDropNo] = useState();
+  const [modalvisible,setModalVisible] = useState(false);
   //const [page,setPage] = useState(1);
   const [attachFile,setAttachFile] = useState({});
   const [count,setCount] = useState(0);
   const [currentPage,setCurrentPage] = useState(1);
-
   const postPerPage = 10;
   const indexOfLastPost = currentPage * postPerPage
   const indexOfFirstPost = indexOfLastPost - postPerPage;
-  const currentPost = data.slice(indexOfFirstPost, indexOfLastPost)
-  const file_type = "video";
+  const currentPost = data.slice(indexOfFirstPost, indexOfLastPost);
+
+
+
  
   const onItem = useCallback(async(e,index)=>{
     const hit_cnt = data[index].hit;
@@ -48,53 +51,31 @@ export default function ListType2c() {
   const sethandlePage = (e) =>{
     setCurrentPage(e);
   }
+  const DropItem = useCallback(async (e, i) => {
+        setModalVisible(true);  
+        setDropNo(e.archive_no);
+    },
+    [token]
+  );
+  const closeModal = () =>{
+    setModalVisible(false);
+}
 
-  const onWrite = (e) =>{
-    let archiveNo;
-    if(total[0]!==undefined){
-     archiveNo = total.at(-1).archive_no;
-    }
-    else{
-     archiveNo = 0
-    }
-  
-    history('/archive/video/addvideo',{state:{archive_no:archiveNo}});
-  }
   const getItem = useCallback(async() =>{
-    const list = await fetch(PreUri +'/archive/totalist',{
+    CommonHeader.authorization=token;
+    const response = await fetch(PreUri +'/archive/archive_list_all',{
       method:Method.get,
       headers:CommonHeader,
     })
-    const listjson = await list.json();
 
-    if(!list.ok){
-      return(alert(getRspMsg(list.status)))
-    }
-    setTotal(listjson);
+    const total = await response.json();
 
- 
-    const res = await fetch(PreUri +'/archive/videolist',{
-      method:Method.get,
-      headers:CommonHeader,
-    })
-    const resjson = await res.json();
-
-
-    if(resjson!==null)
-    {
-    let requri = PreUri + '/archive/list?file_type='+ file_type;
-    const response = await fetch(requri,{
-      method:Method.get,
-      headers:CommonHeader,
-    });
-  
     if(!response.ok){
       return(alert(getRspMsg(response.status)))
-    }
-    const json = await response.json();  
-    setData(json);
-    setCount(json.length);
-    }
+        }
+
+    setData(total);
+    setCount(total.length);
   },[])
 
   let no;
@@ -140,32 +121,28 @@ export default function ListType2c() {
     getItem();
   },[getItem,getFile])
   return (
-    <div className="table_wrap list_type2 list_type2c" style={count<7?{"padding":"0px 40px"}:null}>
-      <ol>
+    <div className="table_wrap">
+      <table>
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>제목</th>
+            <th>업로드일</th>
+            <th>조회수</th>
+            <th>삭제</th>
+          </tr>
+        </thead>
         {currentPost.map((item,index)=>(
-          <li key={index}>
-            
-          <div className="image_part"><img src={"https://img.youtube.com/vi"+item.url.replace("https://www.youtube.com/embed","")+"/maxresdefault.jpg"} style={{"width":"240px","height":"150px","cursor":"pointer"}} onClick={(e)=>onItem(e,index)} />
-            {/* <ImageGetArchive attachFile={attachFile} no={data[index].archive_no} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)}/> */}</div>
-          <div className="text_part">
-            <h5 onClick={(e)=>onItem(e,index)} style={{cursor:"pointer"}} >{item.title} </h5>
-            <div className="dl_wrap">
-              <dl>
-                <dt className="blind">날짜</dt>
-                <dd>{item.created_at.slice(0,10)}</dd>
-              </dl>
-              <dl>
-                <dt>조회수</dt>
-                <dd>{item.hit}</dd>
-              </dl>
-            </div>
-          </div>
-        </li>
+            <tr key={index}>
+                <td>{data.length - index - (currentPage - 1) * postPerPage}</td>
+                <td>{item.title}</td>
+                <td>{item.created_at}</td>
+                <td>{item.hit}</td>
+                <td><StyledBtn3 onClick={(e)=>DropItem(item,index)}>삭제</StyledBtn3></td>
+                {modalvisible&& <PopupDeleteModal3  no={dropno} visible={modalvisible} closable={true} maskClosable={true} onclose={closeModal} token={token} serviceItems={data} />} 
+            </tr>
         ))}
-      </ol>
-      {authority_level>10?
-      <StyledBtn2 onClick={(e)=>onWrite(e)}>글쓰기</StyledBtn2>:<></>
-      }
+      </table>
       <div className="page_control">
       <Paging2 page={currentPage} count = {count} setPage={sethandlePage}/>
       </div>
@@ -177,6 +154,21 @@ const StyledBtn2= styled.button`
 position:relative;
 left:45%;
 top:20px;
+color:#fff;
+background-color:#313f4f;
+width:120px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
+border:1px solide #313f4f;
+&:hover{
+   background-color:#transparent
+   color:#313f4f
+}
+`
+
+const StyledBtn3= styled.button`
+position:relative;
 color:#fff;
 background-color:#313f4f;
 width:120px;

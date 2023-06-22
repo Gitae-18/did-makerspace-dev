@@ -151,18 +151,18 @@ let DownloadMyFileItems = [];
         <label htmlFor="text01">제목</label>
         <span>{data.title}</span>
       </li>
-      <li className="textarea_wrap"  style={fileNo.length>0?{'height':'800px'}:{'height':'300px'}}>
+      <li className="textarea_wrap"  style={fileNo.length>0?{'minHeight':'800px',maxHeight:'2000px',height:'1200px'}:{'height':'300px'}}>
         <label htmlFor="text02">내용</label>
-         <div className="textarea">
+         <div className="textarea" style={{maxHeight:'2000px'}}>
+         <ImageGettingNotice attachFile={attachFile} no={no} token={token} CommonHeader={CommonHeader}/>
           <textarea
             name="text02"
             id="text02"
-            cols="30"
-            rows="6"
+            cols="50"
+            rows="25"
             readOnly={true}
             value={data.content}
            ></textarea>
-          <ImageGettingNotice attachFile={attachFile} no={no} token={token} CommonHeader={CommonHeader}/>
         </div>
       </li>
       <li className="file_wrap">

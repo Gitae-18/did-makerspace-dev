@@ -11,6 +11,7 @@ import Pagination from "react-js-pagination";
 import '../../css/Paging.css'
 import styled from "styled-components";
 import VideoModal from "./VideoModal";
+import PopupDeleteModal4 from "../Modals/PopupDeleteModal4";
 export default function TableType2a_a() {
    const { token } = useSelector(state => state.user);
    const [reservationList, setReservationList] = useState([]);
@@ -27,6 +28,8 @@ export default function TableType2a_a() {
    //const location = useLocation();
    //const history = useNavigate();
    const [modalVisible,setModalVisible] = useState(true);
+   const [dropModal,setDropModal] = useState(false);
+   const [dropno,setDropNo] = useState();
    const [visible,setVisible] = useState(false);
   const [link,setLink] = useState("");
     //let rowNumber = Array.from(1,reservationList.length);
@@ -83,8 +86,13 @@ export default function TableType2a_a() {
       setLoading(false);
       setCurrentPosts(json.slice(indexOfFirstPost,indexOfLastPost))
    },[])
-
-   console.log(reservationList)
+   const closeModal = () =>{
+    setDropModal(false);
+  }
+   const DropItem = useCallback(async(e,i)=>{
+    setDropModal(true);
+    setDropNo(e.equipment_reservation_no);
+    },[reservationList])
   useEffect(()=>{
     getUserTest();
     getItemList();
@@ -108,6 +116,7 @@ export default function TableType2a_a() {
             <th>모델명</th>
             <th>날짜</th>
             <th>시간</th>
+            <th>삭제</th>
         </thead>
         <tbody>
           {currentPosts&& reservationList.length > 0 ? (reservationList.map((item,i)=>(
@@ -116,6 +125,8 @@ export default function TableType2a_a() {
              <td>{item.modelname}</td>
              <td>{item.created_at.slice(0,10)}</td>
              <td>{item.reservation_time}</td>
+             <td><StyledBtn3 onClick={(e)=> DropItem(item,i)}>삭제</StyledBtn3></td>
+             {dropModal&& <PopupDeleteModal4  no={dropno} visible={dropModal} closable={true} maskClosable={true} onclose={closeModal} token={token} serviceItems={reservationList} />} 
             </tr>
           ))
           ):<tr><td>게시물이 없습니다.</td></tr>}
@@ -130,7 +141,7 @@ export default function TableType2a_a() {
        pageRangeDisplayed={10}
        prevPageText={"<"}
        nextPageText={">"}
-       onChange={setPage}
+       onChange={setPage} 
     /> */}
       </div>
     </div>
@@ -157,4 +168,16 @@ position:relative;
     background-color:#transparent
     color:#313f4f
  }
- `
+ ` 
+ const StyledBtn3= styled.button`
+ color:#fff;
+ background-color:#313f4f;
+ width:50px;
+ height:30px;
+ font-size:0.7rem;
+ cursor:pointer;
+  &:hover{
+     background-color:#transparent
+     color:#313f4f
+  }
+  `

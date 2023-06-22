@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Portal } from "react-portal";
-import "../../css/ModalStyle.css";
-import { setCookie, getCookie } from "../cookie";
+import { CommonHeader, PreUri, Method } from "../../CommonCode";
 
-function ReservModal({ className, onClose, maskClosable, closable, visible,sendData ,clicked}) {
-  const onMaskClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose(e);
-    }
-  };
- 
-  const VISITED_BEFORE_DATE = localStorage.getItem("ReservCookie");
-  // 현재 날짜
-  const VISITED_NOW_DATE = Math.floor(new Date().getDate());
+
+
+function PopupDeleteModal3({
+  classname,
+  visible,
+  onclose,
+  closable,
+  serviceItems,
+  no,
+  token,
+}) {
+  const history = useNavigate();
   /*  const open = (e) =>{
        onClose(true)
     }
@@ -22,47 +24,40 @@ function ReservModal({ className, onClose, maskClosable, closable, visible,sendD
     const close = (e) => {
         onClose(true)
     } */
-  // 팝업 오늘 하루닫기 체크
-  if (VISITED_BEFORE_DATE !== null) {
-    //날짜가 같을 경우
-    if (VISITED_BEFORE_DATE === VISITED_NOW_DATE) {
-      localStorage.removeItem("ReservCookie");
-      onClose(false);
-    }
-    if (VISITED_BEFORE_DATE !== VISITED_NOW_DATE) {
-      onClose(true);
-    }
-  }
-  /*  const close = (e) => {
-        console.log("on")
-            onclose(e)
-    } */
-  const Dayclose = (e) => {
-    if (onClose) {
-      onClose(e);
-
-      const expiry = new Date();
-      // +1일 계산
-      const expiryDate = expiry.getDate() + 1;
-      // 로컬스토리지 저장
-      localStorage.setItem("ReservCookie", expiryDate);
-    }
-  };
   const close = (e) => {
-    if (onClose) {
-      onClose(e);
-    }
+    onclose(e);
   };
-
+  const DropItem = useCallback(
+    async (e, i) => {
+      /* for(let i = 0 ; i<ServiceItemRow.length;i++){
+        serviceNum = ServiceItemRow[i][2].service_no; 
+        }
+        console.log(serviceNum); */
+      CommonHeader.authorization = token;
+      const response = await fetch(PreUri + "/archive/" + no + "/dropitem", {
+        method: Method.delete,
+        headers: CommonHeader,
+      });
+      if (!response.ok) {
+        return;
+      }
+      alert("삭제되었습니다");
+      history(0);
+      /*   let item;
+                for(let i = 1 ; i<serviceItems.items.length && i < serviceItems.limit;i++)
+                { item = serviceItems.items[i].service_no;}
+                if(item[i]===undefined )
+                {
+                    console.log("서비스넘버가 없습니다")
+                }
+                return item[i] */
+    },
+    [token, serviceItems]
+  );
   return (
     <Portal elementId="modal-root">
       <ModalOverlay visible={visible} />
-      <ModalWrapper
-        className={className}
-       /*  onClick={maskClosable ? onMaskClick : null} */
-        tabIndex="-1"
-        visible={visible}
-      >
+      <ModalWrapper className={classname} tabIndex="-1" visible={visible}>
         <ModalInner tabIndex="0" className="modal-inner">
           <ModalInner2>
             <ImgStyle>
@@ -73,17 +68,15 @@ function ReservModal({ className, onClose, maskClosable, closable, visible,sendD
               />
               <Title>DID기술융합공작소 안내사항</Title>
               <div className="modal-contents">
-                <div style={{marginLeft:'20px'}}>
-                  해당 날짜에 예약하시겠습니까?
-                </div>
+                <div className="delete_service">삭제하시겠습니까?</div>
               </div>
             </ImgStyle>
             {closable && (
               <CloseStyle>
-                <Close  onClick={sendData}>
-                  확인
+                <Close className="modal-close" onClick={DropItem}>
+                  삭제
                 </Close>
-                <Close  onClick={close}>
+                <Close className="modal-close" onClick={close}>
                   닫기
                 </Close>
               </CloseStyle>
@@ -95,7 +88,7 @@ function ReservModal({ className, onClose, maskClosable, closable, visible,sendD
   );
 }
 
-ReservModal.propTypes = {
+PopupDeleteModal3.propTypes = {
   visible: PropTypes.bool,
 };
 
@@ -137,17 +130,14 @@ const CloseStyle = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: #282828;
-  width: 210px;
-  padding: 10px;
-  border-radius: 0 0 15px 15px;
+  width: 200px;
+  padding: 10px 25px;
+  border-radius: 0 0 10px 10px;
   color: #ffffff;
-  text-align:center;
 `;
 
 const Close = styled.span`
-  padding:10px;
   cursor: pointer;
-  line-height:10px;
 `;
 
 const ModalWrapper = styled.div`
@@ -171,7 +161,7 @@ const ModalOverlay = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  //background-color: rgba(0, 0, 0, 0.6);
   z-index: 999;
 `;
 
@@ -189,4 +179,4 @@ const ModalInner = styled.div`
   padding: 40px 20px;
 `;
 
-export default React.memo(ReservModal);
+export default React.memo(PopupDeleteModal3);

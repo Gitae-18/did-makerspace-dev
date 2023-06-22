@@ -36,10 +36,11 @@ export default function ListType2b() {
       return(alert(getRspMsg(response.status)))
     }
     const json = await response.json();
+    console.log(json)
     setItemList(json);
     setCount(json.length);
   },[token])
-  console.log(itemList);
+
   const onItem = useCallback(async(e,index)=>{
     const hit_cnt = e.hit;
     const program_no = e.program_no;
@@ -154,7 +155,9 @@ export default function ListType2b() {
         {currentPost.map((item,index)=>(
         
             <li key={index}>
-            <ImageGetProgramList attachFile={attachFile} no={/* itemList.length - index - (currentPage - 1) * postPerPage */itemList[index].program_no} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)}/>
+         {item.attached_file==="Y"?
+        <ImageGetProgramList attachFile={attachFile} no={itemList[index].program_no} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)}/>
+         :<img src="/images/Noimg.png" alt="no"/>}
             <div className="text_part">
               <h5 onClick={(e)=>onItem(item,index)}>{item.title}</h5>
               <div className="tag">

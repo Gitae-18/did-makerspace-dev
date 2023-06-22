@@ -16,13 +16,15 @@ export default function SectionInputTextType1d(){
   const [pay,setPay] = useState("");
   const [imageFile,setImageFile] = useState([]);
   const [imageUrl,setImageUrl] = useState([]);
-  const [isChecked,setIsChecked] = useState(false);
+  const [isChecked,setIsChecked] = useState('');
+  const [pop,setPop] = useState('');
+  const [isFile,setIsFile] = useState('');
   const location = useLocation();
   const history = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
   let type = location.pathname === "/educontrol" ? "edu" : "class";
   const no = location.state.no;
-
+  const url = location.pathname;
   const [input,setInput] = useState({
     className: '',
     place: '',
@@ -69,17 +71,17 @@ export default function SectionInputTextType1d(){
     reader.readAsDataURL(file)
   }
   const handleCheckBox = (e) =>{
-    if(e.target.checked){
-      setIsChecked(true);
+    if(e.target.checked===true){
+      setIsChecked("Y");
     }
     else{
-      setIsChecked(false);
+      setIsChecked("N");
     }
   }
-
   //formdata.append("image","image.png");
   const formData = new FormData();
   const sendData = useCallback(async(e)=>{
+    console.log(isFile)
     CommonHeader.authorization = token;
     let requri =  PreUri + '/classedu/addprogram'
     const response = await fetch(requri,{
@@ -98,7 +100,8 @@ export default function SectionInputTextType1d(){
         limit_number:fnum,
         cost:cost,
         map:map,
-        popup_flag:isChecked===true?"Y":"N",
+        popup_flag:isChecked,
+        attached_file:isFile,
       })
     })
     if(!response.ok){
@@ -131,11 +134,19 @@ export default function SectionInputTextType1d(){
         return(alert(getRspMsg(res.status)))
     }
     setOpenModal(true);
-  },[token,input,imageFile])
-
+  },[token,input,imageFile,isFile,isChecked])
+  console.log("ischecked:"+isChecked)
+  console.log("isFIle:"+isFile)
+  console.log(imageFile)
  useEffect(()=>{
-
- },[isChecked])
+  if(imageFile.length>0)
+  {
+    setIsFile("Y");
+  }
+  else{
+    setIsFile("N");
+  }
+ },[isChecked,imageFile,isFile])
 /*   useEffect(()=>{
 //    onMemoChange();
     getData();
@@ -244,7 +255,7 @@ export default function SectionInputTextType1d(){
       </ul>
     
         <StyledBtn className="apply" onClick={sendData}>등록</StyledBtn>
-        {openModal && <PopupSaveModal visible={openModal} closable={true} onclose={onClose}/>}
+        {openModal && <PopupSaveModal visible={openModal} closable={true} onclose={onClose} url={url}/>}
         <StyledGrayBtn className='cancel' onClick={(e)=>history(-1)}>취소</StyledGrayBtn>
      
     </section>

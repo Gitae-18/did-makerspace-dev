@@ -143,7 +143,7 @@ export default function ListType2a() {
   const sethandlePage = (e) =>{
     setCurrentPage(e);
   }
- 
+
   return (
     <div className="table_box">
     <div className="table_wrap list_type2">
@@ -158,7 +158,10 @@ export default function ListType2a() {
       {currentPost!==undefined?currentPost.map((item,index)=>(
         
         <li key={index}>
-       <ImageGetProgramList attachFile={attachFile} no={itemList[index].program_no} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)}/>
+
+        {item.attached_file==="Y"?
+        <ImageGetProgramList attachFile={attachFile} no={itemList[index].program_no} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)}/>
+         :<img src="/images/Noimg.png" alt="no"/>}
         <div className="text_part" onClick={(e)=>onItem(item,index)}>
           <h5 >{item.title}</h5>
           <div className="tag">

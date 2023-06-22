@@ -155,7 +155,7 @@ router.get('/edulist',async(req,res,next)=>{
     let result ;
     try{
         result = await ClasseduProgram.findAll({
-            attributes:['program_no','type','hit','content','title','cost','pay_flag','place','class_period_start','class_period_end','application_period_start','application_period_end','limit_number','popup_flag'],
+            attributes:['program_no','type','hit','content','title','cost','pay_flag','place','class_period_start','class_period_end','application_period_start','application_period_end','limit_number','popup_flag','attached_file'],
             where:{type:type},
             order:[['created_at','DESC']],
             raw:true,
@@ -284,7 +284,7 @@ router.post('/addprogram',verifyToken,async(req,res,next)=>{
            limit_number:body.limit_number,
            cost : body.cost,
            map_url : body.map,
-           attached_file:body.attached_file,
+           attached_file : body.attached_file,
            popup_flag : body.popup_flag,
            created_user_no:user_no,
            updated_user_no:user_no,
@@ -366,7 +366,7 @@ router.get('/:program_no/class_receive',verifyToken,async(req,res,next)=>{
     let result ;
     try{
         result = await ClasseduProgram.findOne({
-            attributes:['content','title','cost','pay_flag','place','class_period_start','class_period_end','application_period_start','application_period_end','limit_number'],
+            attributes:['content','title','cost','pay_flag','place','class_period_start','class_period_end','application_period_start','application_period_end','limit_number','attached_file'],
             where:{program_no:no},
             order:[['created_at','DESC']],
             raw:true,

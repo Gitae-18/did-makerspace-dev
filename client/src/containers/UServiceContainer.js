@@ -20,8 +20,9 @@ import qs from 'qs';
 
 export const UServiceContainer = () => {
      const { isLoading, isLoggedIn } = useSelector(state => state.user);
-     const  location  = useLocation;
      const history = useNavigate();
+     const location = useLocation();
+     const currentUrl = location.pathname;
      const { search } = useLocation();
      const query = qs.parse(search, {
         ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
@@ -29,7 +30,7 @@ export const UServiceContainer = () => {
     useEffect(() => {
         
         if (isLoading) { return; }
-        if (!isLoggedIn) { return history('/notmember',{replace:true}); }
+        if (!isLoggedIn) { return history('/notmember',{state:{url:currentUrl}}); }
         
 	}, [isLoading, isLoggedIn,history])
     const CurrentPage = useCallback(() => {

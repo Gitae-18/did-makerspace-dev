@@ -20,11 +20,11 @@ export default function JoinForm({ onJoinTry, onCheckEmail, onCompletePostcode, 
 	}, [onCompletePostcode]);
 
 	function UserPostcode() {
-		return (hiddenUserPostcode) ? (<></>) : (<DaumPostcode onComplete={userComplete} width="100%" height="444px" />);
+		return (hiddenUserPostcode) ? (<></>) : (<div><DaumPostcode onComplete={userComplete} width="100%" height="444px" /></div>);
 	}
 
 	function CompanyPostcode() {
-		return (hiddenCompanyPostcode) ? (<></>) : (<DaumPostcode onComplete={companyComplete} width="100%" height="444px" />);
+		return (hiddenCompanyPostcode) ? (<></>) : (<div><DaumPostcode onComplete={companyComplete} width="100%" height="444px" /></div>);
 	}
 	const setStyle = () =>{
 		const innerstyle = document.getElementById("innerStyle");

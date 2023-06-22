@@ -10,6 +10,8 @@ export const NoticeDetailContainer = (props) =>{
 
     const { search } = useLocation();
     const history = useNavigate();
+    const location  = useLocation();
+    const currentUrl = location.pathname;
     const query = qs.parse(search, {
         ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
     });

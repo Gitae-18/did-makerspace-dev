@@ -5,11 +5,11 @@ import ButtonType1 from "./ButtonType1";
 import TitleType2 from "./TitleType2";
 export default function InfoType3a() {
   const location = useLocation();
-  const no = location.state.file_no;
+  const no = location.state.archive_no;
   const [data,setData] = useState([]);
   const [date,setDate] = useState("");
   const getOne = useCallback(async() => {
-    let requri = PreUri + '/archive/onlist?file_no=' + no;
+    let requri = PreUri + '/archive/onlist?archive_no=' + no;
     const response = await fetch(requri,{
       method:Method.get,
       headers:CommonHeader,

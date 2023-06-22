@@ -11,6 +11,7 @@ export const MServiceContainer = (props) => {
     const viewState = useSelector(state => state.managerService);
     const { search } = useLocation();
     const location = useLocation();
+    const currentUrl = location.pathname;
     const qu = useParams();
     const query = qs.parse(search, {
         ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
@@ -19,8 +20,8 @@ export const MServiceContainer = (props) => {
 
     useEffect(() => {
         if (isLoading) { return; }
-        if (!isLoggedIn) { return history('/notmember',{replace:true}); }
-        if (authority_level < AuthLevel.partner) { return history('/notauthhorized',{replace:false}); }
+        if (!isLoggedIn) { return history('/notmember',{state:{url:currentUrl}}); }
+        if (authority_level < AuthLevel.partner) { return history('/notauthhorized',{return:true}); }
     }, [isLoading, isLoggedIn, authority_level, history])
 
     const View = query.report_no ? ServiceReport : ServiceList;

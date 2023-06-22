@@ -4,10 +4,12 @@ import { useSelector } from "react-redux";
 import { CommonHeader, PreUri, Method } from "../../CommonCode";
 import Paging2 from "./Paging2";
 import styled from "styled-components";
+import PopupDeleteModal4 from "../Modals/PopupDeleteModal4";
 export default function TableType2b() {
   const { token } = useSelector(state => state.user);
   const [reservList,setReservList] = useState([]);
-
+  const [modalvisible,setModalVisible] = useState(false);
+  const [dropno,setDropNo] = useState();
   const [search,setSearch] = useState('');
   const [loading,setLoading] = useState(false);
   const [currentPage,setCurrentPage] = useState(1);
@@ -39,6 +41,7 @@ export default function TableType2b() {
     setCount(json.length);
 
   },[token])
+  console.log(dropno)
   const activeEnter = (e) => {
     if(e.key === "Enter") {
       onSearch(e);
@@ -73,13 +76,13 @@ export default function TableType2b() {
   }
  setSearch('');
 },[search])
-
-
-
-
-
-
-
+const closeModal = () =>{
+  setModalVisible(false);
+}
+const DropItem = useCallback(async(e,i)=>{
+  setModalVisible(true);
+  setDropNo(e.equipment_reservation_no);
+  },[reservList])
   const setPage = (e) =>{
     setCurrentPage(e);
   }
@@ -104,6 +107,7 @@ export default function TableType2b() {
             <th>스펙</th>
             <th>설치장소</th>
             <th>예약시간</th>
+            <th>예약취소</th>
           </tr>
         </thead>
         <tbody>
@@ -117,6 +121,8 @@ export default function TableType2b() {
             <td>
               <span className="date">{item.reservation_date.slice(0,).replaceAll('-','/')+'/'+item.reservation_time}</span>
             </td>
+            <td><StyledBtn3 onClick={(e)=> DropItem(item,index)}>취소</StyledBtn3></td>
+            {modalvisible&& <PopupDeleteModal4  no={dropno} visible={modalvisible} closable={true} maskClosable={true} onclose={closeModal} token={token} serviceItems={reservList} />} 
           </tr>)):<>내용이 비었습니다</>}
         </tbody>
       </table>
@@ -139,3 +145,15 @@ border:1px solide #313f4f;
     color:#313f4f
  }
  `
+ const StyledBtn3= styled.button`
+  color:#fff;
+  background-color:#313f4f;
+  width:50px;
+  height:30px;
+  font-size:0.7rem;
+  cursor:pointer;
+   &:hover{
+      background-color:#transparent
+      color:#313f4f
+   }
+   `

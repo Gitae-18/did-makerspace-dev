@@ -12,7 +12,7 @@ export const MaterialContainer = () => {
     const location = useLocation();
     const history = useNavigate();
     const { isLoading, isLoggedIn, authority_level } = useSelector(state => state.user);
-
+    const currentUrl = location.pathname;
     const { search } = useLocation();
   
     const query = qs.parse(search, {
@@ -21,7 +21,7 @@ export const MaterialContainer = () => {
   
     useEffect(() => {
         if (isLoading) { return; }
-        if (!isLoggedIn) { return history('/notmember',{replace:true}); }
+        if (!isLoggedIn) { return history('/notmember',{state:{url:currentUrl}}); }
         if (authority_level < AuthLevel.partner) { return history.replace('/notauthhorized',{replace:true}); }
 	}, [isLoading, isLoggedIn, authority_level, history])
   

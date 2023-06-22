@@ -115,7 +115,7 @@ console.log(link)
             <li key={index}>
             <div className="title">{item.title}</div>
             <div className="text_part">
-            <span className="sub_title" ><img src={"https://img.youtube.com/vi/"+item.url.replace("https://www.youtube.com/embed","")+"/maxresdefault.jpg"} onClick={(e)=>{goToVideo(e,index);openModal(e)}} style={{"width":"260px","height":"150px"}}/>{/* <YouTube videoId={item.url.replace("https://www.youtube.com/embed/","")}
+            <span className="sub_title" ><img src={"https://img.youtube.com/vi"+item.url.replace("https://www.youtube.com/embed","")+"/maxresdefault.jpg"} onClick={(e)=>{goToVideo(e,index);openModal(e)}} style={{"width":"260px","height":"150px"}}/>{/* <YouTube videoId={item.url.replace("https://www.youtube.com/embed/","")}
             opts={{
               width:"260",
               height:"150",

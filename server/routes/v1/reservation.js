@@ -68,7 +68,7 @@ router.get('/myreserv',verifyToken,async(req,res,next)=>{
     let result ;
     try{
         result = await EquipmentReservation.findAll({
-            attributes:['created_at','created_user_no','reservation_date','reservation_time'],
+            attributes:['equipment_reservation_no','created_at','created_user_no','reservation_date','reservation_time'],
             include:[{model:EquipmentCategory,attributes:['model_name','model_specification','location']}],
             where:{created_user_no:user_no},
             order:[['created_at','DESC']],
@@ -171,5 +171,21 @@ router.get('/reserv_list',verifyToken,async(req,res,next)=>{
         delete reservlist[i]['equipment_category.model_name'];
     }
     return res.status(errorCode.ok).json(reservlist);
+})
+
+router.delete('/:reservation_no/dropitem',verifyToken,async(req, res , next)=>{
+    const reservation_no = req.params.reservation_no;
+
+    let deleteservice;
+    try{
+          deleteservice = await EquipmentReservation.destroy({
+           where:{equipment_reservation_no:reservation_no},
+           raw:true
+       })
+    }
+    catch (error) {
+        console.error(error);
+    } 
+   res.status(errorCode.ok).json({deleteservice});
 })
 module.exports = router;

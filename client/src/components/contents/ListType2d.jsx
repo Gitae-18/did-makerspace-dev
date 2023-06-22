@@ -2,10 +2,15 @@ import React,{useState,useEffect,useCallback} from "react";
 import { useLocation,useNavigate } from "react-router-dom";
 import { PreUri,CommonHeader, Method, getRspMsg} from "../../CommonCode";
 import Paging2 from "./Paging2";
+import styled from "styled-components";
+import {useDispatch,useSelector}  from "react-redux";
 export default function ListType2d() {
+  const { token } = useSelector(state => state.user);
+  const { authority_level } = useSelector(state => state.user);
   const location = useLocation();
   const history = useNavigate();
   const [data,setData] = useState([]);
+  const [total,setTotal] = useState([]);
   //const [page,setPage] = useState(1);
   const [count,setCount] = useState(0);
   const [currentPage,setCurrentPage] = useState(1);
@@ -16,14 +21,14 @@ export default function ListType2d() {
   const file_type = "text";
   const onItem = useCallback(async(e,index)=>{
     const hit_cnt = data[index].hit;
-    const file_no = data[index].file_no;
+    const archive_no = data[index].archive_no;
     const response = await fetch(PreUri + '/archive/archive_cnt',{
       method:Method.put,
       headers:CommonHeader,
       body:JSON.stringify(
         {
           hit : hit_cnt,
-          file_no: file_no,
+          archive_no: archive_no,
         }
       )
     })
@@ -31,12 +36,35 @@ export default function ListType2d() {
       console.log('잘못된 접근입니다.');
       return;
      }
-    history(location.pathname + '/detail',{state:{file_no:file_no}});
+    history(location.pathname + '/detail',{state:{archive_no:archive_no}});
   },[data])
   const sethandlePage = (e) =>{
     setCurrentPage(e);
   }
+  const onWrite = (e) =>{
+    let archiveNo;
+    if(total[0]!==undefined){
+     archiveNo = total.at(-1).archive_no;
+    }
+    else{
+     archiveNo = 0
+    }
+    console.log(archiveNo);
+    history('/archive/text/addtext',{state:{archive_no:archiveNo}});
+  }
+  console.log(total);
   const getItem = useCallback(async() =>{
+    const list = await fetch(PreUri +'/archive/totalist',{
+      method:Method.get,
+      headers:CommonHeader,
+    })
+    const listjson = await list.json();
+
+    if(!list.ok){
+      return(alert(getRspMsg(list.status)))
+    }
+    setTotal(listjson);
+
     let requri = PreUri + '/archive/list?file_type='+ file_type;
     const response = await fetch(requri,{
       method:Method.get,
@@ -75,9 +103,28 @@ export default function ListType2d() {
         </li>
         ))}
       </ol>
+      {authority_level>10?
+      <StyledBtn2 onClick={(e)=>onWrite(e)}>글쓰기</StyledBtn2>:<></>
+      }
       <div className="page_control">
       <Paging2 page={currentPage} count = {count} setPage={sethandlePage}/>
       </div>
     </div>
   );
 }
+const StyledBtn2= styled.button`
+position:relative;
+left:45%;
+top:20px;
+color:#fff;
+background-color:#313f4f;
+width:120px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
+border:1px solide #313f4f;
+&:hover{
+   background-color:#transparent
+   color:#313f4f
+}
+`
