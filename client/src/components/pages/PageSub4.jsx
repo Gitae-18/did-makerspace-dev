@@ -10,10 +10,13 @@ import PageSub07b5 from "./PageSub07/PageSub07b5";
 import PageSub07c from "./PageSub07/PageSub07c";
 import InfoType3a from "../contents/InfoType3a";
 import InfoType3c from '../contents/InfoType3c';
+import ListTypeControl from "../contents/ListTypeControl";
 import SectionInputTextType1e from "../sections/SectionInputTextType1e";
 import SectionInputTextType1h from "../sections/SectionInputTextType1h";
 import SectionInputTextType1h_update from "../sections/SectionInputTextType1h_update";
 import SectionInputTextType3a from "../sections/SectionInputTextType3a";
+import SectionInputTextType4a from "../sections/SectionInputTextType4a";
+import SectionInputTextType5a from "../sections/SectionInputTextType5a";
 import TableType1e_User from "../contents/TableType1e_User";
 import { useDispatch,useSelector } from "react-redux";
 export default function Contact({location,history}) {
@@ -226,6 +229,54 @@ export default function Contact({location,history}) {
         </div>
         </>
       );
+  }
+  export const AddText = () => {
+    return (
+        <>
+        <div id="sub_page_wrap">
+          <SubSideMenu title={"자료실"} subtitle={"문서자료"}></SubSideMenu>
+          <div className="sub_page_inner_wrap">
+            <div className="sub_inner">
+              <SectionInputTextType4a/>
+            </div>
+          </div>
+        </div>
+        <div className="sub_page_outer">
+        </div>
+        </>
+      );
+  }
+  export const AddStudy = () => {
+    return (
+        <>
+        <div id="sub_page_wrap">
+          <SubSideMenu title={"자료실"} subtitle={"기초학습자료"}></SubSideMenu>
+          <div className="sub_page_inner_wrap">
+            <div className="sub_inner">
+              <SectionInputTextType5a/>
+            </div>
+          </div>
+        </div>
+        <div className="sub_page_outer">
+        </div>
+        </>
+      );
+  }
+  export const ArchiveControl = () =>{
+    return(
+      <>
+      <div id="sub_page_wrap">
+          <SubSideMenu title={"자료실"} subtitle={"자료관리"}></SubSideMenu>
+          <div className="sub_page_inner_wrap">
+            <div className="sub_inner">
+              <ListTypeControl/>
+            </div>
+          </div>
+        </div>
+        <div className="sub_page_outer">
+        </div>
+      </>
+    )
   }
   export const BasicDetail = () => {
     return (

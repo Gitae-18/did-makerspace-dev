@@ -21,6 +21,7 @@ import SectionInputTextType1d from "../sections/SectionInputTextType1d";
 import SectionInputTextType1d_a from "../sections/SectionInputTextType1d_a";
 import { useDispatch,useSelector } from "react-redux";
 
+
 export default function ManagementCompany() {
   const dispatch = useDispatch();
   const { sideNaviMenu } = useSelector(state => state.sidemenu);
@@ -239,7 +240,7 @@ export const MentorApplicationDetail = () =>{
       <>
        
       <div id="sub_page_wrap">
-        <SideNavi/>
+        <SubSideMenu title={"멘토링"} subtitle={"전문멘토신청서"}/>
         <div className="sub_page_inner_wrap">
           <div className="sub_inner">
             <PageSub06d2/>
