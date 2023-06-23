@@ -67,6 +67,7 @@ export default function ({ no }) {
 		}
 
         const json = await response.json();
+        console.log(json);
         if (!mountedRef.current) { return }
         setTitle(json.title);
     }, [token]);
@@ -327,7 +328,7 @@ export default function ({ no }) {
                 key={row} />
         )
     }
- 
+    console.log(title);
     return (
         <div id="wrap" className='wrap utilize7'>
             <div className="content_wrap">

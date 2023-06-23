@@ -91,7 +91,8 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
       <ol className='menu_dep2'>
         <li onClick={(e)=>onClick2(e,0)}><NavLink to={'/contact'}>연락처 안내</NavLink></li>
         <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/archive/video'}>자료실</NavLink></li>
-        <li onClick={(e)=>onClick2(e,2)}><NavLink to={'/notice'}>공지사항</NavLink></li>   
+        <li onClick={(e)=>onClick2(e,2)}><NavLink to={'/notice'}>공지사항</NavLink></li> 
+        <li onClick={(e)=>onClick2(e,3)}><NavLink to={'/mnthschd'}>월간일정</NavLink></li>  
       </ol>
     );
   }

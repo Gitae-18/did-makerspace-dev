@@ -83,16 +83,32 @@ router.get('/homevideolist',async(req,res,next)=>{
 router.post('/archives',verifyToken,async(req,res,next)=>{
     let body = req.body;
     let user_no = req.decoded.user_no;
+    const url = req.body.url;
     let result;
     try{
+        if(url)
+        {
         result = await Archive.create({
             title:body.title,
             content:body.content,
+            attached_file:body.attached_file,
             url: body.url,
             file_type:body.file_type,
             created_user_no: user_no,
             updated_user_no: user_no,
         })
+        }
+        else{
+            result = await Archive.create({
+                title:body.title,
+                content:body.content,
+                attached_file:body.attached_file,
+                url:"www.youtube.com",
+                file_type:body.file_type,
+                created_user_no: user_no,
+                updated_user_no: user_no,
+            })
+        }
     }
     catch(error){
         console.log(error);
@@ -103,7 +119,7 @@ router.post('/archives',verifyToken,async(req,res,next)=>{
 router.get('/onlist',async(req,res,next)=>{
     let body = req.body;
     let archive_no = req.query.archive_no;
-   
+    
     let inputResult;
     try{
        inputResult = await Archive.findOne({
@@ -119,6 +135,33 @@ router.get('/onlist',async(req,res,next)=>{
     }
      res.json(inputResult);
    })
+   router.get('/:archive_no/file/:file_no',async (req, res, next) => {
+    let archive_no = req.params.archive_no;
+    let attached_file_no = req.params.file_no;
+
+    let file_info;
+    try {
+        file_info = await ArchiveFile.findOne({
+            attributes: ['attached_file_no', 'original_name', 'name', 'path', 'filesize'],
+            where: { 
+                archive_no
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+
+    const path = "upload/newarchive/";
+    const file = path + file_info.dataValues.name;
+    res.download(file, file_info.dataValues.original_name, function(err) {
+        if (err) {
+            res.json({err:err.path});
+        } else {
+            res.end();
+        }
+    });
+});
    router.get('/videolist',async(req,res,next)=>{
     let body = req.body;
    
@@ -142,7 +185,7 @@ router.get('/onlist',async(req,res,next)=>{
     let inputResult;
     try{
        inputResult = await Archive.findAll({
-        attributes:['archive_no'],
+        attributes:['archive_no','hit','content','file_type'],
        })
     }
     catch(error){
@@ -154,6 +197,7 @@ router.get('/onlist',async(req,res,next)=>{
 
     router.put('/archive_cnt',async(req,res,next)=>{
     const {hit,archive_no} = req.body;
+
     let hit_update
     try {
         hit_update = await Archive.update({
@@ -207,7 +251,37 @@ router.delete('/:archive_no/dropitem',verifyToken,async(req, res , next)=>{
 router.post('/:archive_no/files',verifyToken,upload.array('imageFiles'), async(req, res, next) =>{
     let user_no = req.decoded.user_no;
     let archive_no = req.params.archive_no;
-    console.log(archive_no);
+
+    if(req.files.length>0)
+    {
+        makedir('upload/newarchive');
+    }
+    for(let i = 0; i<req.files.length;i++){
+        let inputResult;
+        try {
+            inputResult = await ArchiveFile.create({
+                archive_no:archive_no,
+                original_name: req.files[i].originalname,
+                name: req.files[i].filename,
+                type: req.files[i].mimetype,
+                path: req.files[i].path,
+                filesize:req.files[i].size,
+                created_user_no: user_no,
+                updated_user_no: user_no,
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(errorCode.internalServerError).json({});
+        }
+    }
+
+
+    res.status(errorCode.ok).json({});
+})
+router.post('/:archive_no/nofiles',verifyToken,upload.array('Files'), async(req, res, next) =>{
+    let user_no = req.decoded.user_no;
+    let archive_no = req.params.archive_no;
+
     if(req.files.length>0)
     {
         makedir('upload/newarchive');
@@ -254,9 +328,8 @@ router.get('/list', async(req,res,next)=>{
     res.status(errorCode.ok).json(result);
 })
  */
-router.get('/:archive_no/files',verifyToken,async (req, res, next) => {
+router.get('/:archive_no/files',async (req, res, next) => {
     let archive_no = req.params.archive_no;
-    let user_no = req.decoded.user_no;
    
 
 /*     if (authority_level < authLevel.manager) {
@@ -280,7 +353,7 @@ router.get('/:archive_no/filesno',async (req, res, next) => {
         return res.status(errorCode.notAcceptable).json({});
     } */let files
     try{
-     files= await ClassEduFile.findAll({
+     files= await ArchiveFile.findAll({
         attributes:['attached_file_no','original_name','path','type','filesize'],
         where:{archive_no}
     });

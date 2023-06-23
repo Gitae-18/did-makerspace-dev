@@ -129,7 +129,7 @@ const DropItem = useCallback(async(e,i)=>{
   setModalVisible(true);
   setDropNo(e.program_no);
   },[reservList])
-  console.log(dropno);
+
   useEffect(()=>{
     getReservList();
   },[getReservList,token])

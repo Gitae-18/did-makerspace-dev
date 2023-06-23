@@ -151,8 +151,8 @@ let DownloadMyFileItems = [];
         <label htmlFor="text01">제목</label>
         <span>{data.title}</span>
       </li>
-      <li className="textarea_wrap"  style={fileNo.length>0?{'minHeight':'800px',maxHeight:'2000px',height:'1200px'}:{'height':'300px'}}>
-        <label htmlFor="text02">내용</label>
+      <li className="textarea_wrap"  style={fileNo.length>0?{'minHeight':'800px',maxHeight:'2200px',height:'1300px'}:{'height':'300px'}}>
+        <StyledLabel htmlFor="text02">내용</StyledLabel>
          <div className="textarea" style={{maxHeight:'2000px'}}>
          <ImageGettingNotice attachFile={attachFile} no={no} token={token} CommonHeader={CommonHeader}/>
           <textarea
@@ -185,8 +185,14 @@ height:30px;
 font-size:0.7rem;
 cursor:pointer;
 border:1px solide #313f4f;
+justify-content:center;
+margin:0 auto;
  &:hover{
     background-color:#transparent
     color:#313f4f
  }
+ `
+ const StyledLabel = styled.label`
+ justify-content:center;
+ line-height:1400px !important;
  `

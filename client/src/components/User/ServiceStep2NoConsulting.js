@@ -309,7 +309,7 @@ export default function ({query}) {
                 key={row} />
         )
     }
- 
+    console.log(value.title)
     return (
         <div id="wrap" className='wrap utilize7'>
             <div className="content_wrap">

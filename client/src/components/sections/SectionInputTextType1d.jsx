@@ -135,9 +135,7 @@ export default function SectionInputTextType1d(){
     }
     setOpenModal(true);
   },[token,input,imageFile,isFile,isChecked])
-  console.log("ischecked:"+isChecked)
-  console.log("isFIle:"+isFile)
-  console.log(imageFile)
+
  useEffect(()=>{
   if(imageFile.length>0)
   {

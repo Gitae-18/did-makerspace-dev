@@ -122,11 +122,11 @@ let DownloadMyFileItems = [];
       <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1g "> 
       <ul className="text_wrap">
       <li>
-        <label htmlFor="text01">제목</label>
+      <StyledLabel htmlFor="text01">제목</StyledLabel>
         <span>{data.title}</span>
       </li>
       <li className="textarea_wrap" style={fileNo.length>0?{'height':'800px'}:{'height':'300px'}}>
-        <label htmlFor="text02">내용</label>
+      <StyledLabel2 htmlFor="text02">내용</StyledLabel2>
         <div className="textarea">
         <textarea
           name="text02"
@@ -153,7 +153,7 @@ let DownloadMyFileItems = [];
          <span>{data.title}</span>
        </li>
        <li className="textarea_wrap" style={fileNo.length>0?{'height':'800px'}:{'height':'300px'}}>
-         <label htmlFor="text02">내용</label>
+         <StyledLabel2 htmlFor="text02">내용</StyledLabel2>
          <div className="textarea">
          <textarea
            name="text02"
@@ -193,4 +193,8 @@ border:1px solide #313f4f;
 `
 const StyledLabel = styled.label`
 position:relative;
+`
+const StyledLabel2 = styled.label`
+justify-content:center;
+line-height:300px !important;
 `

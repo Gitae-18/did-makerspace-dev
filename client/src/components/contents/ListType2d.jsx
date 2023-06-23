@@ -41,6 +41,7 @@ export default function ListType2d() {
   const sethandlePage = (e) =>{
     setCurrentPage(e);
   }
+  console.log(total)
   const onWrite = (e) =>{
     let archiveNo;
     if(total[0]!==undefined){
@@ -77,7 +78,7 @@ export default function ListType2d() {
     setData(json);
     setCount(json.length);
   },[])
-  console.log(data);
+
   useEffect(()=>{
     getItem();
   },[getItem])
@@ -86,7 +87,8 @@ export default function ListType2d() {
       <ol>
         {currentPost.map((item,index)=>(
           <li key={index}>
-          <div className="image_part"><img onClick={(e)=>onItem(e,index)} src={item.src} alt="no" style={{"cursor":"pointer"}}/></div>
+          <div className="image_part">{item.attached_file==="Y"?<img src={"https://img.youtube.com/vi"+item.url.replace("https://www.youtube.com/embed","")+"/maxresdefault.jpg"} style={{"width":"240px","height":"150px","cursor":"pointer"}} onClick={(e)=>onItem(e,index)} />
+          :<img onClick={(e)=>onItem(e,index)} src={item.src} alt="no" style={{"cursor":"pointer"}}/>}</div>
           <div className="text_part">
             <h5 onClick={(e)=>onItem(e,index)}  style={{"cursor":"pointer"}}>{item.title} </h5>
             <div className="dl_wrap">

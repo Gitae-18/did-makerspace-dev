@@ -458,6 +458,7 @@ router.get('/:service_no', verifyToken, async (req, res, next) => {
     }
     */
     //console.log(query);
+    query.where = { service_no };
     let result;
     try {
         result = await Service.findOne(query);

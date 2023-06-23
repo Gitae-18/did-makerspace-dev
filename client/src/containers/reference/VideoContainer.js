@@ -7,6 +7,8 @@ import qs from 'qs';
 export const VideoContainer = (props) =>{
     const { isLoading, isLoggedIn, authority_level } = useSelector(state => state.user);
     const { search } = useLocation();
+    const location = useLocation();
+    const currentUrl = location.pathname;
     const history = useNavigate();
     const query = qs.parse(search, {
         ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
@@ -14,7 +16,7 @@ export const VideoContainer = (props) =>{
     useEffect(() => {
         
         if (isLoading) { return; }
-        if (!isLoggedIn) { return history('/notmember',{replace:false}); }
+        if (!isLoggedIn) { return history('/notmember',{state:{url:currentUrl}}); }
         
 	}, [isLoading, isLoggedIn, authority_level, history])
 

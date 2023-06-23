@@ -15,8 +15,7 @@
   }
  .sub_side_menu .sub_modal {
   z-index: 9;
-  position: absolute;
-  right:320px;
+  position: fixed;
   top:180px;
   width:200px;
   height: calc( 100vh - 100px);

@@ -13,6 +13,7 @@ export const ClassEduContainer = (props) =>{
     const { search } = useLocation();
     const location = useLocation();
     const history = useNavigate();
+    const currentUrl = location.pathname;
     const query = qs.parse(search, {
         ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
     });
@@ -20,7 +21,7 @@ export const ClassEduContainer = (props) =>{
 
     useEffect(() => {
         if (isLoading) { return; }
-        if (!isLoggedIn) { return history('/notmember',{replace:true}); }
+        if (!isLoggedIn) { return history('/notmember',{state:{url:currentUrl}}); }
 	}, [isLoading, isLoggedIn, authority_level, history])
     const View = location.pathname === "/classprogram/detail" ? InfoType2b : ClassEdu_program4;
     return(

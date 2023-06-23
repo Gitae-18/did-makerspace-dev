@@ -88,7 +88,6 @@ module.exports = (sequelize, DataTypes) => {
         login_jwt: {
             type: DataTypes.STRING(255),
             allowNull: true,
-            defaultValue: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
         },
         login_jwt_exfire: {
             type: DataTypes.DATE,

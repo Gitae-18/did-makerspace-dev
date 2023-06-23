@@ -96,7 +96,7 @@ const upload = multer({
 router.post('/:program_no/files',verifyToken,upload.array('imageFiles'), async(req, res, next) => {
      let user_no = req.decoded.user_no;
      let program_no = req.params.program_no;
- 
+    console.log(program_no);
     for(let i = 0; i<req.files.length;i++){
         let inputResult;
         try {
@@ -269,7 +269,8 @@ router.post('/class_application',verifyToken,async(req,res,next)=>{
 router.post('/addprogram',verifyToken,async(req,res,next)=>{
     let body = req.body;
     let user_no = req.decoded.user_no;
-    let inputResult
+    let inputResult;
+    console.log(body.attached_file);
     try{
         inputResult  = await ClasseduProgram.create({
            title:body.title,
@@ -301,6 +302,8 @@ router.put('/:program_no/update_program',verifyToken,async(req,res,next)=>{
     let body = req.body;
     let user_no = req.decoded.user_no;
     let program_no = req.params.program_no;
+
+    let inputResult;
     try{
         inputResult  = await ClasseduProgram.update({
            title:body.title,

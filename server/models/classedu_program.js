@@ -18,23 +18,24 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue:0,
         },
         attached_file:{
-            type: DataTypes.STRING(255),
+            type: DataTypes.CHAR(5),
             allowNull:true,
+            defaultValue:"N",
         },
         class_period_start:{
-            type:DataTypes.STRING(55),
+            type:DataTypes.STRING(255),
             allowNUll:false,
         },
         class_period_end:{
-            type:DataTypes.STRING(55),
+            type:DataTypes.STRING(255),
             allowNUll:false,
         },
         application_period_start:{
-            type:DataTypes.STRING(55),
+            type:DataTypes.STRING(255),
             allowNUll:false,
         },
         application_period_end:{
-            type:DataTypes.STRING(55),
+            type:DataTypes.STRING(255),
             allowNUll:false,
         },
         content:{

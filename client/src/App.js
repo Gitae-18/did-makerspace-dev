@@ -46,6 +46,10 @@ import { ClassEduUpdate } from './components/pages/PageSub6';
 import { FaqUpdateContainer } from './containers/Faq/FaqUpdateContainer';
 import { NoticeUpdateContainer } from './containers/notice/NoticeUpdateContainer';
 import { VideoContainer } from './containers/reference/VideoContainer';
+import { ArchiveManageContainer } from './containers/reference/ArchiveManageContainer';
+import { MentoringContainer } from './containers/Mentoring/MentoringContainer';
+import { TextContainer } from './containers/reference/TextContainer';
+import { BasicStudyContianer } from './containers/reference/BasicStudyContainer';
 import './css/common-s.css';
 import './css/style-s.css';
 import Materials, { Materials1, Materials2, Materials3 } from './components/Admin/Statistics/pages/Materials';
@@ -153,9 +157,10 @@ const App = () => {
         <Route path="/eqreservation/equip/selectreserv" element = {<EReservation/>}/>
         <Route path="/eqreservation/equip/test" element={<TestReservation/>}/>
 
-        <Route path="/mentoring" element = {<Mentoring/>}/>
-        <Route path="/umentoring/*" element = {<UMentoring/>}/>
-        <Route path="/umentoring/detail" element = {<UMentoringApplication/>}/>
+        <Route path="/mentoring" element = {<MentoringContainer/>}/>
+        <Route path="/umentoring/*" element = {<MentoringContainer/>}/>
+        <Route path="/umentoringapplication" element = {<UMentoringApplication/>}/>
+        <Route path="/umentoring/detail" element = {<></>}/>
         <Route path="/classprogram" element = {<ClassContainer/>}/>
         <Route path="/eduprogram" element = {<EduContainer/>}/>
         <Route path="/classprogram/detail" element = {<ClassEduA/>}/>
@@ -166,7 +171,10 @@ const App = () => {
         <Route path="/archive/video" element = {<Contact2/>}/>
         <Route path="/archive/video/addvideo" element = {<VideoContainer/>}/>
         <Route path="/archive/text" element = {<Contact5/>}/>
+        <Route path="/archive/text/addtext" element = {<TextContainer/>}/>
         <Route path="/archive/basic" element = {<Contact3/>}/>
+        <Route path="/archive/basic/addbasic" element = {<BasicStudyContianer/>}/>
+        <Route path="/archive/control" element = {<ArchiveManageContainer/>}/>
         <Route path="/notice/*" element = {<NoticeContainer/>}/>
         <Route path="/notice/addnotice" element = {<NoticeAddContainer/>}/>
         <Route path="/notice/notice/detail" element = {<NoticeDetailContainer/>}/>
@@ -175,6 +183,7 @@ const App = () => {
         <Route path='/archive/text/detail' element = {<BasicDetail/>}/>
         <Route path='/archive/basic/detail' element = {<ContactDetail2/>}/>
         <Route path="/mschedule" element = {<Schedule/>} />
+   
         
         <Route path='/mentorcontrol/mentorapplication' element = {<MentorApplication/>}/>
         <Route path='/mentorcontrol/mentorapplication/detail' element = {<MentorApplicationDetail/>}/>

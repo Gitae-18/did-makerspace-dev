@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue:0,
         },
         attached_file:{
-            type: DataTypes.STRING(255),
+            type: DataTypes.CHAR(5),
             allowNull:true,
         },
         content:{
