@@ -123,7 +123,7 @@ export default function TableType2a_a() {
             <tr key={i}>
              <td>{item.username}</td>
              <td>{item.modelname}</td>
-             <td>{item.created_at.slice(0,10)}</td>
+             <td>{item.reservation_date}</td>
              <td>{item.reservation_time}</td>
              <td><StyledBtn3 onClick={(e)=> DropItem(item,i)}>삭제</StyledBtn3></td>
              {dropModal&& <PopupDeleteModal4  no={dropno} visible={dropModal} closable={true} maskClosable={true} onclose={closeModal} token={token} serviceItems={reservationList} />} 

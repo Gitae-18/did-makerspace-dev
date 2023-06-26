@@ -3,12 +3,13 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Portal } from "react-portal";
+import { useSelector } from "react-redux";
 import "../../css/ModalStyle.css";
 
 
-function PopupSaveModal({ classname, visible, onclose, closable, url }) {
+function PopupApplicateModal({ classname, visible, onclose, closable, url }) {
   const history = useNavigate();
-
+  const {authority_level} = useSelector(state => state.user)
   /*  const open = (e) =>{
        onClose(true)
     }
@@ -20,16 +21,15 @@ function PopupSaveModal({ classname, visible, onclose, closable, url }) {
     onclose(e);
   };
   const backToList = (e) => {
-    if (url.includes("info")) {
-      history("/did/info/faq", { replace: true });
-    } else if (url.includes("notice")) {
-      history("/notice", { replace: true });
-    } else if (url.includes("archive")){
-      history("/archive/video")
-    } else if (url.includes("class")||url.includes("edu")){
-      history("/classeducontrol")
+    if(authority_level<10)
+    {
+        history('/umentoring');
+    }
+    else {
+        history('/mentoring');
     }
   };
+  console.log(url);
   return (
     <Portal elementId="modal-root">
       <ModalOverlay visible={visible} />
@@ -68,7 +68,7 @@ function PopupSaveModal({ classname, visible, onclose, closable, url }) {
   );
 }
 
-PopupSaveModal.propTypes = {
+PopupApplicateModal.propTypes = {
   visible: PropTypes.bool,
 };
 
@@ -159,4 +159,4 @@ const ModalInner = styled.div`
   padding: 40px 20px;
 `;
 
-export default React.memo(PopupSaveModal);
+export default React.memo(PopupApplicateModal);

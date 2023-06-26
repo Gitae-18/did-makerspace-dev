@@ -1305,7 +1305,9 @@ h3.title_type2 {
   top: 0;
   margin: 0 4px;
 }
-
+.info_type2 {
+  max-height: 1000px;
+}
 .info_type2 .title_part {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1348,7 +1350,16 @@ h3.title_type2 {
   width: calc( 100% - 250px);
   height: 280px;
 }
-
+.info_type2 .desc_part{
+  border-bottom: 2px solid #313f4f;
+}
+.info_type2 .btn_part{
+  height:150px;
+}
+.info_type2 .btn_part button{
+  position:relative;
+  top:70px;
+}
 .info_type2 .title_part .info_part dl {
   position:relative;
   top:10px;

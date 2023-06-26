@@ -166,7 +166,9 @@ export default function InfoType2a() {
       <div className="desc_part">
         <SectionTabType1a></SectionTabType1a>
       </div>
-      <StyledBtn2 onClick={(e)=>history('/eduprogram')}><BsListUl style={{"position":"relative","top":"2px",'right':'1px'}}/>목록</StyledBtn2>
+      <div className="btn_part">
+      <StyledBtn2 onClick={(e)=>history('/classprogram')}><BsListUl style={{"position":"relative","top":"2px",'right':'1px'}}/>목록</StyledBtn2>
+      </div>
     </div>
   );
 }

@@ -256,6 +256,7 @@ router.post('/:archive_no/files',verifyToken,upload.array('imageFiles'), async(r
     {
         makedir('upload/newarchive');
     }
+ 
     for(let i = 0; i<req.files.length;i++){
         let inputResult;
         try {
@@ -275,13 +276,11 @@ router.post('/:archive_no/files',verifyToken,upload.array('imageFiles'), async(r
         }
     }
 
-
     res.status(errorCode.ok).json({});
 })
 router.post('/:archive_no/nofiles',verifyToken,upload.array('Files'), async(req, res, next) =>{
     let user_no = req.decoded.user_no;
     let archive_no = req.params.archive_no;
-
     if(req.files.length>0)
     {
         makedir('upload/newarchive');

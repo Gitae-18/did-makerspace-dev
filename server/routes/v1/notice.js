@@ -224,7 +224,6 @@ router.post('/notices',verifyToken,async(req,res,next)=>{
     let user_no = req.decoded.user_no;
 
     let result;
-    console.log(body.content)
     try{
         result = await Notice.create({
             title:body.title,
@@ -311,7 +310,6 @@ router.get('/recentnotice',async(req,res,next)=>{
         console.error(error);
         return res.status(errorCode.internalServerError).json({});
     }
-    console.log(result);
     res.status(errorCode.ok).json(result);
 })
 router.get('/:notice_no/detail',async(req,res,next)=>{

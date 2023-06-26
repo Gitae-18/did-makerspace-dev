@@ -2,7 +2,7 @@ import React ,{useState,useEffect} from "react";
 import { MENU_CHANGE } from "../../store/sidemenu";
 import SubSideMenu from "../contents/SubSideMenu";
 import MServiceGuide from "../contents/ServiceGuide";
-import SectionTextType2a from "../sections/SectionTextType2a";
+import SectionInputTextType1a from "../sections/SectionInputTextType1a";
 import PageSub04a1 from "../pages/PageSub04/PageSub04a1";
 import TableType5c from "../contents/TableType5c";
 import NotCompeleted from "../NotCompeleted";
@@ -58,7 +58,7 @@ export default function Mentoring({location,history}) {
         <SubSideMenu title={"멘토링"} ></SubSideMenu>
         <div className="sub_page_inner_wrap">
           <div className="sub_inner">
-            <SectionTextType2a/>
+            <SectionInputTextType1a/>
           </div>
         </div>
       </div>

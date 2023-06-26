@@ -41,7 +41,7 @@ export default function ListType2e() {
   console.log(data)
   const onWrite = (e) =>{
     let archiveNo;
-    if(total[0]!==undefined){
+    if(total[0]!== null){
      archiveNo = total.at(-1).archive_no;
     }
     else{
@@ -51,6 +51,18 @@ export default function ListType2e() {
     history('/archive/basic/addbasic  ',{state:{archive_no:archiveNo}});
   }
   const getItem = useCallback(async() =>{
+
+    const list = await fetch(PreUri +'/archive/totalist',{
+      method:Method.get,
+      headers:CommonHeader,
+    })
+    const listjson = await list.json();
+
+    if(!list.ok){
+      return(alert(getRspMsg(list.status)))
+    }
+    setTotal(listjson);
+
     let requri = PreUri + '/archive/list?file_type='+ file_type;
     const response = await fetch(requri,{
       method:Method.get,

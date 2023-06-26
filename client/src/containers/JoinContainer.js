@@ -119,8 +119,8 @@ export const JoinContainer = (props) => {
             payload.co_telephone = value.company.phoneNumber;
             payload.co_business = value.company.businessField;
             payload.co_zip = value.company.zip;
-            payload.co_address = value.company.address;
-            payload.co_address_detail = value.company.addressDetail;
+            payload.address = value.company.address;
+            payload.address_detail = value.company.addressDetail;
         }
 
         const response = await fetch(PreUri + '/user/join', {
@@ -138,9 +138,7 @@ export const JoinContainer = (props) => {
             }
             return;
         }
-
         const json = await response.json();
-
         dispatch({ type: CLEAR });
         return history('/join?type=join_success',{replace:true});
     }, [value, dispatch, history]);
@@ -203,7 +201,7 @@ export const JoinContainer = (props) => {
     const query = qs.parse(search, {
         ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
     });
-
+    console.log(query);
     const JoinPage = () => {
         switch (query.type) {
             case 'join_form':

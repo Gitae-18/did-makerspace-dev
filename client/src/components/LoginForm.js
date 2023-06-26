@@ -14,6 +14,7 @@ import '../css/style-s.css';
   function LoginForm ({onLoginStart, onChange, userId, password, isAutoLogin}){
     const history = useNavigate();
     const [modalOpen, setModalOpen] = useState(false);
+    const { isLoggedIn } = useSelector(state => state.user);
     const openModal = () => {
         setModalOpen(true);
       };
@@ -24,8 +25,7 @@ import '../css/style-s.css';
         history(1);
     }   
     return (
-        <form onSubmit={onLoginStart}>
-        
+        <form onSubmit={onLoginStart} style={{marginLeft:'134px'}}>
             <div className='join_box'>
             <Link className="join" to="/join">회원가입</Link>
             <Link className="find_pw" to="/findpw">비밀번호 찾기</Link>
@@ -35,6 +35,7 @@ import '../css/style-s.css';
         
                 {modalOpen && <LoginModal open={modalOpen} close={closeModal} change={onChange} userid={userId} password={password} isAutoLogin={isAutoLogin} onLoginClick={onLoginClick}/>}
             </div>
+   
         </form>
     );
 }
@@ -51,101 +52,19 @@ export function LoggedInForm({onLogout, username}) {
     const onLogoutClick = () =>{
         history('/');
     }
+    const length = username.length;
     return (
-        <form onSubmit={onLogout}>
+        <Form onSubmit={onLogout} length={length} authority_level={authority_level}>
             
-		<div className="member_box" style={authority_level<10&&username.length>3?{"left":"321px"}:authority_level<10?{"left":"311px"}:username.length>3?{"left":"2px"}:{}}>
-			<span ><strong>{username}</strong> 님</span>
+		<div className="member_box">
+			<span style={length===2?{marginLeft:'39px'}:length===3?{marginLeft:'26px'}:length===4?{marginLeft:'15px'}:length===5?{marginLeft:"12px"}:length===6?{marginLeft:"2px"}:{marginLeft:"1px"}}><strong>{username}</strong> 님</span>
 			<span className="my_info"><Link to="/myinfo">내 정보</Link></span>
         <button className="logout" type="submit" onClick={()=>onLogoutClick()}>로그아웃</button>
         </div>
-        </form>
+        </Form>
     );
 }
 
-/*
-export default function LoginForm(user) {
-    const [form, setValues] = useState({
-        userId: '',
-        password: '',
-    });
-
-    const [keepLogin, setKeepLogin] = useState(false);
-
-    const loginTry = useCallback (async (e) => {
-        e.preventDefault();
-        console.log("aa");
-
-        if (form.userId.length <= 0) {
-            alert('아이디를 입력해 주세요.');
-            return;
-        }
-
-        if (form.password.length <= 0) {
-            alert('패스워드를 입력해 주세요.');
-            return;
-        }
-
-        const response = await fetch(PreUri + '/user/login', {
-            method: Method.post,
-            body: JSON.stringify({
-                "user_id": form.userId,
-                "password": form.password
-            }),
-            headers: CommonHeader
-        });
-
-        if (!response.ok) {
-
-            switch (response.status) {
-                case 400: alert('사용자 정보가 잘못되었습니다.'); break;
-                case 404: alert('페이지를 찾을 수 없습니다.'); break;
-                case 500: alert('서버 문제'); break;
-                default: alert('Unknown Error'); break;
-            }
-            return;
-        }
-
-        const json = await response.json();
-        console.log(json);
-    }, []);
-
-    const updateField = useCallback ((e) => {
-        setValues({
-            ...form,
-            [e.target.name]: e.target.value
-        });
-    }, []);
-     
-    // const BeforeLoginForm = () => (
-    //     <form onSubmit={loginTry}>
-    //         <input value={form.userId} name="userId" placeholder="아이디" onChange={updateField} /> //         <input value={form.password} name="password" type="password" placeholder="패스워드" onChange={updateField} /> //         <input value={keepLogin} name="keepLogin" type="checkbox" onChange={() => setKeepLogin(!keepLogin)} />
-    //         <label>자동 로그인</label>
-    //         <button type="submit" >로그인</button>
-    //     </form>
-    // );
-
-    // const AfterLoginForm = () => (
-    //     <form onSubmit={logout}>
-    //         <a>{user.name}</a>
-    //         <button type="submit" >로그아웃</button>
-    //     </form>
-    // );
-
-    // //console.log('islogin ', user.isLogind);
-    // const CurrentForm = (true) ? BeforeLoginForm : AfterLoginForm;
-
-    return (
-        <form onSubmit={loginTry}>
-            <input value={form.userId} name="userId" placeholder="아이디" onChange={updateField} />
-            <input value={form.password} name="password" type="password" placeholder="패스워드" onChange={updateField} />
-            <input value={keepLogin} name="keepLogin" type="checkbox" onChange={() => setKeepLogin(!keepLogin)} />
-            <label>자동 로그인</label>
-            <button type="submit" >로그인</button>
-        </form>
-    );
-}
-*/
 const LoginButton = styled.button`
  width:120px;
  height:8vh;
@@ -167,3 +86,8 @@ const Imgtag = styled.img`
   padding:0px;
   bottom:0px;
 `;
+const Form = styled.form`
+position:relative;
+left:${(props) => (props.length===6? "3px" : props.length===5?"6px":props.length===4?"15px":props.length===3?'16px':'17px')} !important;
+margin-left:${(props)=>(props.authority_level<10?"267px !important":"0px")}
+`

@@ -93,6 +93,13 @@ if (!fs.existsSync('upload/newarchive')) {
         }
     });
 }
+if (!fs.existsSync('upload/newmentoring')) {
+    mkdirp.sync('upload/newmentoring', (error) => {
+        if (error) {
+            console.error(error);
+        }
+    });
+}
 /*
 fs.readdir('uploads/temp', (error) => {
   if (error) {
@@ -185,6 +192,7 @@ app.use('/api/v1/faq', faqRouter);
 app.use('/api/v1/archive',archiveRouter);
 app.use('/api/v1/fileview',fileviewRouter);
 app.use('/api/v1/exam',examRouter);
+app.use('/api/v1/mentoring',mentoringRouter);
 app.use('/api/v1/worker',workerRouter);
 //app.use('/api/v1/mentoring',mentoringRouter);
 //app.use('/api/v1/survey', surveyRouter);

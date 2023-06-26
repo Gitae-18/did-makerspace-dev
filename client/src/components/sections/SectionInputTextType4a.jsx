@@ -74,7 +74,6 @@ export default function SectionInputTextType4a(props) {
 }
 const onChangeFile = (e) =>{
   let pickedFile=[];
-
   if(e.target.files){
     for(let i = 0;i<e.target.files.length;i++)
     {
@@ -87,6 +86,7 @@ const onChangeFile = (e) =>{
     setIsValid(false);
   }
 }
+
 const onDelete = (file) => {
   setFile((prevFiles) => prevFiles.filter((prevFile) => prevFile !== file));
 };

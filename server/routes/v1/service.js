@@ -559,8 +559,8 @@ router.post('/consulting', verifyToken, upload.array('files'), async (req, res, 
     }
 
  //   console.log(body);
-
     const service_no = inputResult.dataValues.service_no;
+    console.log(inputResult.dataValues.service_no);
     try {
         inputResult = await ConsultingApplication.create({
             service_no,

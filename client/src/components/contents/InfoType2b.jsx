@@ -153,7 +153,7 @@ export default function InfoType2b() {
  
   return (
 
-    <div className="info_type2">
+    <div className="info_type2"> 
       <div className="title_part">
       {data.attached_file==="Y"?<ImageProgram attachFile={attachFile} no={no} token={token} CommonHeader={CommonHeader} />:<img src="/images/Noimg.png" alt="no"/>}
         <div className="info_part">
@@ -197,7 +197,9 @@ export default function InfoType2b() {
       <div className="desc_part">
         <SectionTabType1a content={data.content}></SectionTabType1a>
       </div>
+      <div className="btn_part">
       <StyledBtn2 onClick={(e)=>history('/classprogram')}><BsListUl style={{"position":"relative","top":"2px",'right':'1px'}}/>목록</StyledBtn2>
+      </div>
     </div>
 
   );

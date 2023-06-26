@@ -48,10 +48,10 @@ export default function ListType2c() {
   const sethandlePage = (e) =>{
     setCurrentPage(e);
   }
-
+console.log(total)
   const onWrite = (e) =>{
     let archiveNo;
-    if(total[0]!==undefined){
+    if(total[0]!== null){
      archiveNo = total.at(-1).archive_no;
     }
     else{

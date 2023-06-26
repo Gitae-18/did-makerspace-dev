@@ -113,26 +113,25 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
   return(
   <>
   <ol className="menu">
-    <li><Link to="/didadmin/info/greetings">DID기술융합공작소</Link>
+    <li className="dep2"><Link to="/didadmin/info/greetings">DID기술융합공작소</Link>
           <SubMenu1/>
     </li>
-    <li><Link to="/eqreservation/equip">장비 및 시설예약</Link>
+    <li className="dep2"><Link to="/eqreservation/equip">장비 및 시설예약</Link>
          <SubMenu2/>
     </li>
        
-    <li><Link to={"/uservice/guide"}>시제품 제작</Link>
+    <li className="dep2"><Link to={"/uservice/guide"}>시제품 제작</Link>
           <SubMenu3/>
     </li>
         
-    <li><Link to="/classprogram">교육/행사</Link>
+    <li className="dep2"><Link to="/classprogram">교육/행사</Link>
           <SubMenu4/>
     </li>
         
-    <li><Link to="/umentoring">멘토링</Link>
+    <li className="dep2"><Link to="/umentoring">멘토링</Link>
           <SubMenu5/>
     </li>
-          
-    <li><Link to="/contact">Contact</Link>
+    <li className="dep2"><Link to="/contact">Contact</Link>
           <SubMenu6/>
     </li>
     {/* <li className='dep2' style={authority_level < AuthLevel.partner ?{"display":"block"}:{"display":"none"}}> <Link onClick={() => { dispatch({ type: CHANGE_MENU, target: 0 }); }} to="/management">운영 관리</Link>
