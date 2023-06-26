@@ -33,6 +33,7 @@ db.Mentor                    = require('./mentor')(sequelize,Sequelize);
 db.MentoringCategory         = require('./mentoring_category')(sequelize,Sequelize);
 db.MentorCompliment          = require('./mentor_compliment')(sequelize,Sequelize);
 db.MentoringApplication      = require('./mentoring_application')(sequelize,Sequelize);
+db.MentoringFile             = require('./mentoring_attached')(sequelize,Sequelize);
 db.Mentoring                 = require('./mentoring')(sequelize,Sequelize);
 db.MentorSearch              = require('./mentor_search')(sequelize,Sequelize);
 db.Notice                    = require('./notice')(sequelize,Sequelize);

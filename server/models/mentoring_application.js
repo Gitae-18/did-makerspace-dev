@@ -21,11 +21,11 @@ module.exports = (sequelize,DataTypes) => {
             allowNull:false,
         },
         application_title: {
-            type: DataTypes.STRING(255),
+            type: DataTypes.STRING(500),
             allowNull:false,
         },
         specific_content: {
-            type: DataTypes.STRING(500),
+            type: DataTypes.TEXT,
             allowNull:true,
         },
         part:{
@@ -36,7 +36,7 @@ module.exports = (sequelize,DataTypes) => {
             type: DataTypes.STRING(255),
             allowNull:true,
         },
-        response:{
+        sub:{
             type: DataTypes.STRING(255),
             allowNull:true,
         },
@@ -72,9 +72,14 @@ module.exports = (sequelize,DataTypes) => {
             type: DataTypes.STRING(255),
             allowNull:true,
         },  
-        privacy_agree_flag: {
-            type: DataTypes.CHAR(5),
-            allowNull: false,
+        mentor:{
+            type: DataTypes.STRING(55),
+            allowNUll:false,
+        },
+        status:{
+            type: DataTypes.STRING(55),
+            allowNUll:false,
+            defaultValue:"신청",
         },
         created_user_no: {
             type: DataTypes.INTEGER,
