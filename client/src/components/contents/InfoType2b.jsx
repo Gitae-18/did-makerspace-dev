@@ -9,6 +9,7 @@ import styled from "styled-components";
 import PopupModal2 from "../Modals/PopupModal2";
 import SubSideMenu from "./SubSideMenu";
 import ImageProgram from "../sections/ImageProgram";
+import EduReservModal from "../Modals/EduReservModal";
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
 import { COUNT_INCREASE } from "../../store/action";
 import { IoLocation,IoCalendarSharp,IoPerson } from "react-icons/io5";
@@ -23,6 +24,7 @@ export default function InfoType2b() {
   const dispatch = useDispatch();
   const [openModal,setOpenModal] = useState(false);
   const [closemodal,setCloseModal] = useState(false);
+  const [modalOpen,setModalOpen] = useState(false);
   const [data,setData] = useState([]);
   const [imageUrl,setImageUrl] = useState("");
   const [attachFile,setAttachFile] = useState({})
@@ -32,7 +34,7 @@ export default function InfoType2b() {
   const [title,setTitle] = useState("")
   const [count,setCount] = useState();
   const [cost,setCost] = useState();
-  const { token } = useSelector(state => state.user);
+  const { token, authority_level} = useSelector(state => state.user);
   let type = "edu";
 
   const getEduList = useCallback(async()=>{
@@ -50,7 +52,6 @@ export default function InfoType2b() {
     }
 
     const json = await response.json();
-    console.log(json);
     setData(json);
     setCost(json.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     setTitle(json.title);
@@ -105,6 +106,7 @@ export default function InfoType2b() {
       headers:CommonHeader,
       body:JSON.stringify(
         {
+          program_no:no,
           type: type,
           title : title,
           flag : 'Y',
@@ -150,7 +152,12 @@ export default function InfoType2b() {
   const onClose = () =>{
     setOpenModal(false);
   }
- 
+  const openReserv = () =>{
+    setModalOpen(true);
+  }
+  const reservClose = () =>{
+    setModalOpen(false);
+  }
   return (
 
     <div className="info_type2"> 
@@ -188,9 +195,11 @@ export default function InfoType2b() {
             </dl>
           </div>
           <div className="btns">
-            <StyledBtn id="button_id" onClick={onApplicate} disabled={getFlag.length>data.limit_number-1?true:false} type="submit">신청하기</StyledBtn>
+            <StyledBtn id="button_id" onClick={onApplicate}>신청하기</StyledBtn>
             {openModal && getFlag.length < data.limit_number && <PopupModal2 visible={openModal} closable={true} onclose={onClose} history={history} location={location}/>}
-          
+            {authority_level>10?<StyledBtn onClick={openReserv}>예약목록</StyledBtn>
+            :null}
+            {modalOpen && <EduReservModal visible={modalOpen} closeable={true} onclose ={reservClose} no={no}/>}
           </div>
         </div>
       </div>

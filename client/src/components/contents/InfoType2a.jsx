@@ -7,6 +7,7 @@ import SectionTabType1a from "../sections/SectionTabType1a";
 import ImageProgram from "../sections/ImageProgram";
 import styled from "styled-components";
 import PopupModal2 from "../Modals/PopupModal2";
+import EduReservModal from "../Modals/EduReservModal";
 import { CommonHeader, PreUri, Method, getRspMsg  } from "../../CommonCode";
 import { IoLocation,IoCalendarSharp,IoPerson } from "react-icons/io5";
 import { RiReservedFill ,RiCheckFill} from "react-icons/ri";
@@ -18,6 +19,7 @@ export default function InfoType2a() {
   const no = location.state.no;
   const dispatch = useDispatch();
   const [openModal,setOpenModal] = useState(false);
+  const [modalOpen,setModalOpen] = useState(false);
   //const [closemodal,setCloseModal] = useState(false);
   const [data,setData] = useState([]);
   const [getFlag,setGetFlag] = useState([]);
@@ -27,7 +29,8 @@ export default function InfoType2a() {
   const [title,setTitle] = useState("")
   const [count,setCount] = useState();
   const [cost,setCost] = useState();
-  const { token } = useSelector(state => state.user);
+  const { token, authority_level } = useSelector(state => state.user);
+
   let type = "class";
 
   const getEduList = useCallback(async()=>{
@@ -81,6 +84,7 @@ export default function InfoType2a() {
       headers:CommonHeader,
       body:JSON.stringify(
         {
+          program_no:no,
           type: type,
           title : title,
           flag: "Y",
@@ -91,6 +95,12 @@ export default function InfoType2a() {
       return(alert(getRspMsg(response.status)))
     }
   },[getFlag])
+  const openReserv = () =>{
+    setModalOpen(true);
+  }
+  const reservClose = () =>{
+    setModalOpen(false);
+  }
   const getFile = useCallback(async()=>{
     CommonHeader.authorization = token;
     const res = await fetch(PreUri + '/classedu/' + no + '/files', {
@@ -158,13 +168,16 @@ export default function InfoType2a() {
             </dl>
           </div>
           <div className="btns">
-            <StyledBtn onClick={onApplicate}>신청하기</StyledBtn>
-            {openModal && getFlag.length < data.limit_number && <PopupModal2 visible={openModal} closable={true} onclose={onClose}/>}
+            <StyledBtn id="button_id" onClick={onApplicate}>신청하기</StyledBtn>
+            {openModal && getFlag.length < data.limit_number && <PopupModal2 visible={openModal} closable={true} onclose={onClose} history={history} location={location}/>}
+            {authority_level>10?<StyledBtn onClick={openReserv}>예약목록</StyledBtn>
+            :null}
+            {modalOpen && <EduReservModal visible={modalOpen} closeable={true} onclose ={reservClose} no={no}/>}
           </div>
         </div>
       </div>
       <div className="desc_part">
-        <SectionTabType1a></SectionTabType1a>
+      <SectionTabType1a content={data.content}></SectionTabType1a>
       </div>
       <div className="btn_part">
       <StyledBtn2 onClick={(e)=>history('/classprogram')}><BsListUl style={{"position":"relative","top":"2px",'right':'1px'}}/>목록</StyledBtn2>

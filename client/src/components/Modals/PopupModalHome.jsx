@@ -23,47 +23,39 @@ function PopupModalHome({
       onClose(e);
     }
   };
-  const VISITED_BEFORE_DATE = localStorage.getItem("NoticeCookie");
-  // 현재 날짜
-  const VISITED_NOW_DATE = Math.floor(new Date().getDate());
-  /*  const open = (e) =>{
-       onClose(true)
-    }
+  const visitedBeforeDate = localStorage.getItem('HomeCookie');
+  const currentDate = new Date().getDate();
 
-    const close = (e) => {
-        onClose(true)
-    } */
-  // 팝업 오늘 하루닫기 체크
-  if (VISITED_BEFORE_DATE !== null) {
-    //날짜가 같을 경우
-    if (VISITED_BEFORE_DATE === VISITED_NOW_DATE) {
-      localStorage.removeItem("NoticeCookie");
-      onClose(false);
-    }
-    if (VISITED_BEFORE_DATE !== VISITED_NOW_DATE) {
-      onClose(true);
-    }
+  useEffect(()=>{
+    if (visitedBeforeDate !== null) {
+      // 날짜가 같을경우 노출
+      if (visitedBeforeDate === currentDate) {
+          localStorage.removeItem('HomeCookie')
+          onClose(true)
+      }
+      // 날짜가 다를경우 비노출
+      if (visitedBeforeDate !== currentDate) {
+          onClose(false)
+      }
   }
-  /*  const close = (e) => {
-        console.log("on")
-            onclose(e)
-    } */
-  const Dayclose = (e) => {
+  },[])
+  const close = useCallback((e) => {
     if (onClose) {
       onClose(e);
+    }
+  }, [onClose]);
+
+  const closePopupToday = () => {
+    if (onClose) {
+      onClose(true);
 
       const expiry = new Date();
-      // +1일 계산
-      const expiryDate = expiry.setHours(23,59,59,0);
-      // 로컬스토리지 저장
-      localStorage.setItem("NoticeCookie", expiryDate);
+      expiry.setDate(expiry.getDate() + 1);
+      const expiryDate = expiry.getDate();
+      localStorage.setItem('HomeCookie', expiryDate);
     }
-  };
-  const close = (e) => {
-    if (onClose) {
-      onClose(e);
-    }
-  };
+  }
+const [isMounted, setIsMounted] = useState(false);
 
   const getFile = useCallback(async () => {
     CommonHeader.authorization = token;
@@ -82,6 +74,10 @@ function PopupModalHome({
   }, [token]);
   useEffect(() => {
     getFile();
+    setIsMounted(true);
+    if (!isMounted) {
+      return null;
+    }
   }, [getFile, no]);
   return (
     <Portal elementId="modal-root">
@@ -107,7 +103,7 @@ function PopupModalHome({
             </ImgStyle>
             {closable && (
               <CloseStyle>
-                <Close className="modal-close" onClick={Dayclose}>
+                <Close className="modal-close" onClick={closePopupToday}>
                   오늘 하루 닫기
                 </Close>
                 <Close className="modal-close" onClick={close}>

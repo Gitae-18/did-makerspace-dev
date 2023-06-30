@@ -111,7 +111,8 @@ export default function TableType1e() {
   const onWrite = useCallback(async(e) => {
     let notice_no;
     if(data[0]!==undefined){
-     notice_no = data[0].notice_no;
+      console.log(data.at(0).notice_no);
+     notice_no = data.at(0).notice_no;
     }
     else{
      notice_no = 0

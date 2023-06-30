@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import TitleType1 from "../contents/TitleType1";
-
+import { useSelector } from "react-redux";
 export default function SectionTabType1a({ props, content }) {
+
   useEffect(() => {
     document.getElementById("tab_btn0").classList.add("on");
   });

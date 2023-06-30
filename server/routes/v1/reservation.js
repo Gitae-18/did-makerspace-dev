@@ -42,9 +42,10 @@ router.get('/equipment',verifyToken, async(req,res,next)=>{
     const category = (req.query.category === undefined) ? 0 : (req.query.category);
     let result ;
     try{
-        result = await EquipmentReservation.findOne({
+        result = await EquipmentReservation.findAll({
             attributes:['equipment_reservation_no','reservation_status','reservation_date','reservation_time'],
             where:{equipment_category_no:category,reservation_date:{[Op.like]:`${date}%`}},
+            order:[['reservation_time','ASC']],
             raw:true
         })
         
@@ -55,11 +56,34 @@ router.get('/equipment',verifyToken, async(req,res,next)=>{
         console.error(error);
         return res.status(errorCode.internalServerError).json({});
     }
-
-    
+    console.log(result)
    // res.status(errorCode.ok).json({});
 })
-
+//예약시간 GET
+router.get('/time',verifyToken, async(req,res,next)=>{   
+    
+    const date = (req.query.date === undefined) ? moment(new Date()).format("YYYY-MM-DD") : (req.query.date);
+    console.log(req.query.date)
+    const category = (req.query.category === undefined) ? 0 : (req.query.category);
+    let result ;
+    try{
+        result = await EquipmentReservation.findAll({
+            attributes:['reservation_time'],
+            where:{equipment_category_no:category,reservation_date:{[Op.like]:`${date}%`}},
+            order:[['reservation_time','ASC']],
+            raw:true,
+        })
+        
+            res.json(result);
+       
+    }
+    catch(error){
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    }    
+    console.log(result);
+   // res.status(errorCode.ok).json({});
+})
 //내 예약정보 GET
 router.get('/myreserv',verifyToken,async(req,res,next)=>{
     let body = req.body;

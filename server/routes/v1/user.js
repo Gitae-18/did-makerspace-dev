@@ -36,7 +36,6 @@ function generatePass(pwLength) {
     for (let i = 0; i < pwLength; i++) {
         temp += keylist.charAt(Math.floor(Math.random() * keylist.length));
     }
-
     return temp;
 }
 
@@ -253,7 +252,6 @@ router.post('/join/partner', verifyToken, async (req, res, next) => {
     let user_no = req.decoded.user_no;
     let authority_level = req.decoded.authority_level;
     
-    console.log(body);
 
     if (authority_level < authLevel.manager) {
         return res.status(errorCode.notAcceptable).json({});
@@ -399,7 +397,6 @@ router.get('/myinfo', verifyToken, async (req, res, next) => {
 router.put('/myinfo', verifyToken, async (req, res, next) => {
     const user_no = req.decoded.user_no;
     const body = req.body;
-    console.log(body);
 
     let findResult;
     try {
@@ -605,7 +602,6 @@ router.get('/:id', verifyToken, async (req, res, next) => {
     let authority_level = req.decoded.authority_level;
     let target_user_no = req.params.id;
 
-    console.log(req.params.id);
     let findResult;
     try {
         User.hasOne(Company, {foreignKey: 'company_no', sourceKey: 'company_no'});
@@ -680,8 +676,6 @@ router.post('/login', async (req, res, next) => {
     //let user_no = req.decoded.user_no;
     //let authority_level = req.decoded.authority_level;
     //let target_user_no = req.params.id;
-    console.log(user_id);
-    console.log(password);
 
     if (!user_id || !password) {
         return res.status(errorCode.badRequest).json({
@@ -740,7 +734,6 @@ router.post('/login', async (req, res, next) => {
             //expiresIn: '1m',
             issuer: 'feelink',
         });
-        res.send(token);
         await User.update({
             login_jwt: token,
         }, {
@@ -979,7 +972,7 @@ router.post('/findpassword', async (req, res, next) => {
     }
 
     if (!find) {
-        return res.status(errorCode.noContent).json();
+        return res.status(errorCode.notFound).json();
     } 
 
      const user_no = find.dataValues.user_no;
@@ -1032,7 +1025,6 @@ router.post('/findpassword', async (req, res, next) => {
      
  
     }    main(body.email);
-    //res.send("result");
     res.status(errorCode.ok).json({});
 });
 

@@ -126,7 +126,8 @@ export default function TableType1d() {
   //새글쓰기
   const goToWrite = useCallback(async(e) =>{
     if(data[0]!==undefined){
-    const faq_no = data[0].faq_no;
+    console.log(data.at(0).faq_no);
+    const faq_no = data.at(0).faq_no;
     history('/did/info/write',{state:{faq_no:faq_no}});
     }
     else{

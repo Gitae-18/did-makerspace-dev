@@ -10,7 +10,7 @@ import '../../css/ModalStyle.css';
 import Pagination from "react-js-pagination";
 import '../../css/Paging.css'
 import styled from "styled-components";
-import VideoModal from "./VideoModal";
+import Paging2 from "./Paging2";
 import PopupDeleteModal4 from "../Modals/PopupDeleteModal4";
 export default function TableType2a_a() {
    const { token } = useSelector(state => state.user);
@@ -52,7 +52,9 @@ export default function TableType2a_a() {
       setPassFlag(json);
     
    },[token])
-
+   const setPage = (e) =>{
+    setCurrentPage(e);
+  }
    //
    let typepass = passflag.map((item)=>item.type);
    //
@@ -119,7 +121,7 @@ export default function TableType2a_a() {
             <th>삭제</th>
         </thead>
         <tbody>
-          {currentPosts&& reservationList.length > 0 ? (reservationList.map((item,i)=>(
+          {currentPosts&& (reservationList.map((item,i)=>(
             <tr key={i}>
              <td>{item.username}</td>
              <td>{item.modelname}</td>
@@ -128,21 +130,12 @@ export default function TableType2a_a() {
              <td><StyledBtn3 onClick={(e)=> DropItem(item,i)}>삭제</StyledBtn3></td>
              {dropModal&& <PopupDeleteModal4  no={dropno} visible={dropModal} closable={true} maskClosable={true} onclose={closeModal} token={token} serviceItems={reservationList} />} 
             </tr>
-          ))
-          ):<tr><td>게시물이 없습니다.</td></tr>}
+          )))}
         </tbody>
       </table>
       
       <div className="page_control">
-{/*       <Pagination
-       activePage={currentPage}
-       itemsCountPerPage={5}
-       totalItemsCount={reservationList.length}
-       pageRangeDisplayed={10}
-       prevPageText={"<"}
-       nextPageText={">"}
-       onChange={setPage} 
-    /> */}
+      <Paging2 count={count} page={currentPage} setPage={setPage}/>
       </div>
     </div>
 

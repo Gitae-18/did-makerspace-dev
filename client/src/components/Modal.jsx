@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Portal } from "react-portal";
@@ -6,71 +6,49 @@ import "../css/ModalStyle.css";
 import { setCookie, getCookie } from "./cookie";
 import { useCallback } from "react";
 
-function Modal({
-  className,
-  onClose,
-  maskClosable,
-  closable,
-  visible,
-  isLoggedIn,
-  setModalVisible,
-}) {
-  const onMaskClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose(e);
-    }
-  };
-  // 이전 방문 날짜
-  const VISITED_BEFORE_DATE =localStorage.getItem("VisitCookie");
-  // 현재 날짜
-  const VISITED_NOW_DATE = Math.floor(new Date().getDate());
+function Modal({className,onClose,maskClosable,closable,visible,isLoggedIn,setModalVisible,}){
+  const visitedBeforeDate = localStorage.getItem('VisitCookie');
+  const currentDate = new Date().getDate();
 
-  // 팝업 오늘 하루닫기 체크
-  if (VISITED_BEFORE_DATE !== null) {
-    
-    if (VISITED_BEFORE_DATE === VISITED_NOW_DATE) {
-      localStorage.removeItem("VisitCookie");
-      onClose(false);
-    }
-    if (VISITED_BEFORE_DATE !== VISITED_NOW_DATE) {
-      onClose(true);
-    }
+  useEffect(()=>{
+    if (visitedBeforeDate !== null) {
+      // 날짜가 같을경우 노출
+      if (visitedBeforeDate === currentDate) {
+          localStorage.removeItem('VisitCookie')
+          onClose(true)
+      }
+      // 날짜가 다를경우 비노출
+      if (visitedBeforeDate !== currentDate) {
+          onClose(false)
+      }
   }
-
-/*   useEffect(()=>{
-      Dayclose();
-  },[VISITED_BEFORE_DATE]) */
-
-  const Dayclose = (e) => {
+  },[])
+  const close = useCallback((e) => {
     if (onClose) {
       onClose(e);
+    }
+  }, [onClose]);
+
+  const closePopupToday = () => {
+    if (onClose) {
+      onClose(true);
 
       const expiry = new Date();
-      // +1일 계산
-      const expiryDate = expiry.setHours(23,59,59,0);
-      // 로컬스토리지 저장
-      localStorage.setItem("VisitCookie", expiryDate);
+      expiry.setDate(expiry.getDate() + 1);
+      const expiryDate = expiry.getDate();
+      localStorage.setItem('VisitCookie', expiryDate);
     }
-  };
+  }
+const [isMounted, setIsMounted] = useState(false);
 
-  const close = useCallback(
-    async (e) => {
-      if(onClose){
-      onClose(e);
-     /*  const expiry = new Date();
-      // +1일 계산
-      const expiryDate = expiry.getHours() + 1;
-      localStorage.setItem("VisitCookie", expiryDate); */
-      }
-      /* if (onClose) {
-        onClose(false);
-      }
-      if (isLoggedIn) {
-        onClose(true);
-      } */
-    },
-    [onClose]
-  );
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <Portal elementId="modal-root">
       <ModalOverlay visible={visible} />
@@ -99,7 +77,7 @@ function Modal({
             </ImgStyle>
             {closable && (
               <CloseStyle>
-                <Close className="modal-close" onClick={Dayclose}>
+                <Close className="modal-close" onClick={closePopupToday}>
                   오늘 하루 닫기
                 </Close>
                 <Close className="modal-close" onClick={close}>

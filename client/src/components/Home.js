@@ -63,13 +63,23 @@ function Home() {
    
         const MainBanner = () => {
           const [modalVisible,setModalVisible] = useState(true);
-          const [modalControl1,setModalControl1] = useState(true);
-          const [modalSet,setModalSet] = useState(true);
+          const [modalControl1,setModalControl1] = useState(false);
+          const [modalSet,setModalSet] = useState(false);
           const [data,setData] = useState("");
           const [video, setVideo] = useState(null);
           const [isPlaying, setIsPlaying] = useState(false);
           const videoRef = useRef(null);
+          
         
+          const openModal = () =>{
+            setModalVisible(true);
+          }
+          const openModal2 = () =>{
+            setModalVisible(true);
+          }
+          const openModal3 = () =>{
+             setModalVisible(true);
+          }
           const closeModal = () =>{
             setModalVisible(false);
           }
@@ -106,7 +116,7 @@ function Home() {
            useEffect(() => {
             getRecentNotice();
             const video = videoRef.current;
-
+            
             video.playbackRate = 0.7; // 재생 속도를 0.5배로 설정
 
             return () => {
@@ -117,6 +127,7 @@ function Home() {
            const onSiteMove = (url) =>{
             window.open(url,"_blank");
           }
+   
         return (
           <>
           <div className="bg">

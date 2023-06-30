@@ -253,6 +253,8 @@ router.post('/class_application',verifyToken,async(req,res,next)=>{
     console.log(body)
     try{
         inpurtResult  = await ClasseduApplication.create({
+           user_no,
+           program_no:body.program_no,
            classedu_type:body.type,
            title:body.title,
            flag:body.flag,
@@ -488,9 +490,44 @@ router.get('/:program_no/filesno',async (req, res, next) => {
         return res.status(errorCode.internalServerError).json({});
     } 
     
-    
 
     res.status(errorCode.ok).json(files);
 
 });
+
+router.get('/reservlist',verifyToken,async(req, res, next)=>{
+        let program_no = req.query.program_no;
+        let user_no = req.decoded.user_no;
+        ClasseduApplication.hasOne(User,{ foreignKey: 'user_no' , sourceKey: 'user_no'})
+        let result;
+        try{
+            result = await ClasseduApplication.findAll({
+                attributes:['application_no','user_no','classedu_type','title','created_at'],
+                include:[{model:User,
+                    attributes:['name','phone_number','email'],
+                }],
+                where:{program_no:program_no},
+                order:[['created_at','DESC']],
+                required:false,
+                raw:true,
+        })
+        }
+        catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+        }
+        for (let i = 0; i < result.length; i++) {
+            result[i]['name'] = result[i]['user.name'];
+            delete result[i]['user.name'];
+        }
+            for (let i = 0; i < result.length; i++) {
+            result[i]['phone'] = result[i]['user.phone_number'];
+            delete result[i]['user.phone_number'];
+        }
+            for (let i = 0; i < result.length; i++) {
+            result[i]['email'] = result[i]['user_email'];
+            delete result[i]['user_email'];
+        }
+        res.status(errorCode.ok).json(result);
+})
 module.exports = router;

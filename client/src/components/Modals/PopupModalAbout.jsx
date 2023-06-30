@@ -21,47 +21,47 @@ function PopupModalAbout({
       onClose(e);
     }
   };
-  const VISITED_BEFORE_DATE = localStorage.getItem("AboutCookie");
-  // 현재 날짜
-  const VISITED_NOW_DATE = Math.floor(new Date().getDate());
-  /*  const open = (e) =>{
-       onClose(true)
-    }
+  const visitedBeforeDate = localStorage.getItem('AboutCookie');
+  const currentDate = new Date().getDate();
 
-    const close = (e) => {
-        onClose(true)
-    } */
-  // 팝업 오늘 하루닫기 체크
-  if (VISITED_BEFORE_DATE !== null) {
-    //날짜가 같을 경우
-    if (VISITED_BEFORE_DATE === VISITED_NOW_DATE) {
-      localStorage.removeItem("AboutCookie");
-      onClose(false);
-    }
-    if (VISITED_BEFORE_DATE !== VISITED_NOW_DATE) {
-      onClose(true);
-    }
+  useEffect(()=>{
+    if (visitedBeforeDate !== null) {
+      // 날짜가 같을경우 노출
+      if (visitedBeforeDate === currentDate) {
+          localStorage.removeItem('AboutCookie')
+          onClose(true)
+      }
+      // 날짜가 다를경우 비노출
+      if (visitedBeforeDate !== currentDate) {
+          onClose(false)
+      }
   }
-  /*  const close = (e) => {
-        console.log("on")
-            onclose(e)
-    } */
-  const Dayclose = (e) => {
+  },[])
+  const close = useCallback((e) => {
     if (onClose) {
       onClose(e);
+    }
+  }, [onClose]);
+
+  const closePopupToday = () => {
+    if (onClose) {
+      onClose(true);
 
       const expiry = new Date();
-      // +1일 계산
-      const expiryDate = expiry.setHours(23,59,59,0);
-      // 로컬스토리지 저장
-      localStorage.setItem("AboutCookie", expiryDate);
+      expiry.setDate(expiry.getDate() + 1);
+      const expiryDate = expiry.getDate();
+      localStorage.setItem('AboutCookie', expiryDate);
     }
-  };
-  const close = (e) => {
-    if (onClose) {
-      onClose(e);
-    }
-  };
+  }
+const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
 
   return (
@@ -88,7 +88,7 @@ function PopupModalAbout({
             </ImgStyle>
             {closable && (
               <CloseStyle>
-                <Close className="modal-close" onClick={Dayclose}>
+                <Close className="modal-close" onClick={closePopupToday}>
                   오늘 하루 닫기
                 </Close>
                 <Close className="modal-close" onClick={close}>

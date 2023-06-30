@@ -15,8 +15,9 @@ import qs from 'qs';
 export const JoinContainer = (props) => {
     const value = useSelector(state => state.userInfo);
     const dispatch = useDispatch();
-    const { location } = useLocation;
+    const location = useLocation();
     const history = useNavigate();
+    const pathname = location.pathname;
     const { search } = useLocation();
     const onCheckEmail = useCallback(async (e) => {
         dispatch({ type: CHECK_EMAIL_SUCCESS, value: false });
@@ -140,9 +141,10 @@ export const JoinContainer = (props) => {
         }
         const json = await response.json();
         dispatch({ type: CLEAR });
-        return history('/join?type=join_success',{replace:true});
+        
+         history(pathname+'?type=join_success',{replace:true});
     }, [value, dispatch, history]);
-
+    console.log(pathname);
     const onInputChange = useCallback((e) => {
         e.preventDefault();
         const re = /^[0-9\b]+$/;
@@ -201,7 +203,7 @@ export const JoinContainer = (props) => {
     const query = qs.parse(search, {
         ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
     });
-    console.log(query);
+
     const JoinPage = () => {
         switch (query.type) {
             case 'join_form':

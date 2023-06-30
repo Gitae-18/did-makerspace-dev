@@ -8,6 +8,14 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             primaryKey: true,
         },
+        program_no: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        user_no: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
         classedu_type:{
             type: DataTypes.CHAR(5),
             allowNull: false,

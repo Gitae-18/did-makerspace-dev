@@ -42,7 +42,7 @@ const postPerPage = 10;
 //const offset = (page-1)*postPerPage;
 const indexOfLastPost = currentPage * postPerPage
 const indexOfFirstPost = indexOfLastPost - postPerPage;
-let currentPost;
+const currentPost = searchItem.slice(indexOfFirstPost, indexOfLastPost)
 
 
 const headpath = '/images/equipment'
@@ -251,9 +251,9 @@ for (let i = 0; i < PageMax; i++) {
         </thead>
         <tbody>
         {
-        searchItem.map((item,index)=>(
+        currentPost.map((item,index)=>(
           <tr key={index}>
-            <td onClick={(e)=>onSelectItem(item,index)} className="num"><span className="more">{searchItem.length - index - (currentPage - 1) * postPerPage}</span></td>
+            <td onClick={(e)=>onSelectItem(item,index)} className="num"><span className="more">{itemList.length - index - (currentPage - 1) * postPerPage}</span></td>
             <td onClick={(e)=>onSelectItem(item,index)}><span className="more">{item.model_name? item.model_name : '-'}</span></td>
             <td className="num"><img src={headpath+item.src} alt="no-image" style={{'width':'50px','height':'50px'}}/></td>
             <td onClick={(e)=>onSelectItem(item,index)} style={{'width':'160px'}}>{item.location}</td>
