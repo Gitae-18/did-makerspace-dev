@@ -12,6 +12,10 @@ const LoginContainer = () => {
 
     const dispatch = useDispatch();
     const history = useNavigate();
+
+    const checkAuthAndAutoLogOut = () =>{
+    
+    }
     useEffect(() => {
         dispatch({ type: LOAD_USER });
     }, []);

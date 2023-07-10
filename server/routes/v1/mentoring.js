@@ -342,6 +342,10 @@ router.get('/reportnumber',verifyToken,async(req,res,next)=>{
             attributes:['mentoring_report_no'],
             order:[['created_at','DESC']]
         })
+
+        if (!items) {
+            throw new Error('No items found');
+          }
     }
     catch(error){
         console.error(error);
@@ -372,25 +376,25 @@ router.get('/:mentoring_no/mentoring_result',verifyToken,async(req,res,next)=>{
 router.get('/report',verifyToken,async(req,res,next)=>{
     let body = req.body;
 
-    /* let query= {
-        attributes: ['mentoring_application_no','mentoring_report_no'],
+   /*  let query= {
+        attributes: ['mentoring_application_no','mentor'],
         order: [
             ['created_at', 'DESC'],
         ],
         raw: true,
-    }; */
-    //let report;
-   /*  try{
-        report = await MentoringReport.findAll(query)
+    }; 
+    let report;
+    try{
+        report = await MentoringApplication.findAll(query)
         report = report.map(i => i.mentoring_application_no);
-    } */
+    }
   
-   /*  catch (error) {
+     catch (error) {
         console.log(error);
         return res.status(errorCode.internalServerError).json({});
-    } */
+    }
 
-
+    console.log(report.length); */
     let items;
     MentoringReport.hasOne(MentoringApplication,{foreignKey:'mentoring_application_no', sourceKey:'mentoring_application_no'});
     try{
@@ -414,6 +418,9 @@ router.get('/report',verifyToken,async(req,res,next)=>{
             raw:true,
 
         })
+        if (!items) {
+            throw new Error('No items found');
+          }
     }
     catch(error)
     {
@@ -429,7 +436,6 @@ router.get('/report',verifyToken,async(req,res,next)=>{
         items[i]['mentor'] = items[i]['mentoring_application.mentor'];
         delete items[i]['mentoring_application.mentor'];
     }
-
     res.status(errorCode.ok).json(items);
 })
 module.exports = router;

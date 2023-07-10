@@ -15,6 +15,8 @@ import '../css/style-s.css';
     const history = useNavigate();
     const [modalOpen, setModalOpen] = useState(false);
     const { isLoggedIn } = useSelector(state => state.user);
+    const [loginTime, setLoginTime] = useState(null);
+    const [logoutTimer, setLogoutTimer] = useState(null);
     const openModal = () => {
         setModalOpen(true);
       };
@@ -24,6 +26,7 @@ import '../css/style-s.css';
     const onLoginClick = () =>{
         history(1);
     }   
+   
     return (
         <form onSubmit={onLoginStart} style={{marginLeft:'134px'}}>
             <div className='join_box'>
@@ -42,6 +45,31 @@ import '../css/style-s.css';
 export default React.memo(LoginForm)
 export function LoggedInForm({onLogout, username}) {
     const { token, authority_level } = useSelector(state => state.user);
+    const { isLoggedIn } = useSelector(state => state.user);
+    const [loginTime, setLoginTime] = useState(null);
+    const [logoutTimer, setLogoutTimer] = useState(null);
+
+    const startLogoutTimer = () => {
+        const logoutTimeInMinutes = 30; // 일정 시간 (여기서는 30분)
+        const logoutTimeInMillis = logoutTimeInMinutes * 60 * 1000;
+    
+        setLoginTime(new Date().getTime());
+    
+        const timer = setTimeout(() => {
+          handleLogout();
+        }, logoutTimeInMillis);
+    
+        setLogoutTimer(timer);
+      };
+      const clearLogoutTimer = () => {
+        if (logoutTimer) {
+          clearTimeout(logoutTimer);
+          setLogoutTimer(null);
+        }
+      };
+      const handleLogout = () => {
+       onLogout();
+      };
     //let alarmOn = (false) ? "name on" : "name off";
     
    // const[alarm,setAlarm] = useState(false);
@@ -52,6 +80,13 @@ export function LoggedInForm({onLogout, username}) {
     const onLogoutClick = () =>{
         history('/');
     }
+    useEffect(() => {
+        if (isLoggedIn) {
+          startLogoutTimer();
+        } else {
+          clearLogoutTimer();
+        }
+      }, [isLoggedIn]);
     const length = username.length;
     return (
         <Form onSubmit={onLogout} length={length} authority_level={authority_level}>
