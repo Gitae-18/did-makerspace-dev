@@ -3,6 +3,7 @@ import { CommonHeader,PreUri, Method, getRspMsg,MaxFileCount,AuthLevel, } from "
 import { useSelector } from "react-redux";
 import { useNavigate,useLocation } from "react-router-dom";
 import styled from "styled-components";
+import Paging2 from "../Paging2";
 import '../../../css/style-s.css';
 import fileDownload from 'js-file-download'
 import moment from "moment";
@@ -129,7 +130,9 @@ export default function MentoringReport(){
     setReport(1);
     }
   },[])
-
+  const sethandlePage = (e) =>{
+    setCurrentPage(e);
+  }
   const getNumber = useCallback(async()=>{
     CommonHeader.authorization = token;
     const response = await fetch(PreUri + '/mentoring/report',{
@@ -207,25 +210,7 @@ export default function MentoringReport(){
       </table>
       <StyledBtn style={{marginTop:'50px'}} onClick={goWrite}>글쓰기</StyledBtn>
       <div className="page_control">
-        <div className="btn_first btn-s">
-          <img src="/images/backward-solid.svg" alt="처음으로" />
-        </div>
-        <div className="btn_prev">
-          <img src="/images/caret-left-solid.svg" alt="이전으로" />
-        </div>
-        <ol className="btn_page_num">
-          <li className="on">1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
-        </ol>
-        <div className="btn_next">
-          <img src="/images/caret-right-solid.svg" alt="다음으로" />
-        </div>
-        <div className="btn_last btn-s">
-          <img src="/images/forward-solid.svg" alt="끝으로" />
-        </div>
+      <Paging2 count={count} page={currentPage} setPage={sethandlePage}/>
       </div>
     </div>
   );
