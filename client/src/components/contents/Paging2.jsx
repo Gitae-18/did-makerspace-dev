@@ -5,7 +5,6 @@ import '../../css/Paging.css'
 
 const Paging2 = ({page,count,setPage}) =>{
     return(
-
     <Pagination
     activePage={page}
     itemsCountPerPage={10}
@@ -15,7 +14,6 @@ const Paging2 = ({page,count,setPage}) =>{
     nextPageText={">"}
     onChange={setPage}
     />
-
     )
   } 
   export default Paging2

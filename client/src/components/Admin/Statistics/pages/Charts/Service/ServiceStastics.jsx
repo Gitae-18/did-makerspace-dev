@@ -51,8 +51,7 @@ function ServiceStatics() {
   const [endDate, setEndDate] = useState("");
 
   // 날짜 데이터 String
-  //const NewDate = moment(startDate, "YYYY-MM-dd" + " " + "hh:mm:ss").format();
-  //const EndDate = moment(endDate, "YYYY-MM-dd" + " " + "hh:mm:ss").format();
+
   const NewDate = moment(startDate, "YYYY-MM-dd hh:mm:ss").format();
   const EndDate = moment(endDate, "YYYY-MM-dd hh:mm:ss").format();
 
@@ -141,22 +140,18 @@ function ServiceStatics() {
   const DateFilterData = [
     {
       id: 1,
-      value: "기본",
-    },
-    {
-      id: 2,
       value: "당일",
     },
     {
-      id: 3,
+      id: 2,
       value: "1주일",
     },
     {
-      id: 4,
+      id: 3,
       value: "1개월",
     },
     {
-      id: 5,
+      id: 4,
       value: "3개월",
     },
   ];
@@ -256,7 +251,7 @@ function ServiceStatics() {
               </button>
             ))}
 
-            <div class="filter">
+            <div className="filter">
               <p>
                 <MyDatePicker
                   id="startdate"

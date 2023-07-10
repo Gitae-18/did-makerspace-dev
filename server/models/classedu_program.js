@@ -67,6 +67,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(255),
             allowNull:true,
         },
+        img_style:{
+            type: DataTypes.STRING(255),
+            allowNull:true,
+        },
         attached_file:{
             type: DataTypes.STRING(255),
             allowNull:true,

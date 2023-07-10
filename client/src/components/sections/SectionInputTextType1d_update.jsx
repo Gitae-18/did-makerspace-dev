@@ -8,12 +8,14 @@ import { CommonHeader,PreUri, Method, ProgressCode, StatusCode, PageMax, getRspM
 import SideNavi from "../Admin/Management/SideNavi";
 import { useRef } from "react";
 import PopupSecondSaveModal from "../Modals/PopupSecondSaveModal";
+import { Editor } from '@tinymce/tinymce-react';
+import {css} from '../../css/comb/pages/sections.css'
+import imageCompression from 'browser-image-compression';
 export default function SectionInputTextType1d_update(){
   
   const { token } = useSelector(state => state.user);
   const [update,setUpdate] = useState(false);
   const [data,setData] = useState([]);
-  const {programNo} = useSelector(state=> state.classeduManage)
   const [openModal,setOpenModal] = useState(false);
   const [pay,setPay] = useState("");
   const [imageFile,setImageFile] = useState([]);
@@ -21,6 +23,7 @@ export default function SectionInputTextType1d_update(){
   const [isChecked,setIsChecked] = useState(false);
   const location = useLocation();
   const history = useNavigate();
+  const editorRef = useRef(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   let type = location.pathname === "/educontrol" ? "edu" : "class";
   const no = location.state.no;
@@ -39,7 +42,7 @@ export default function SectionInputTextType1d_update(){
     application_period_end:'',
   });
   const [text,setText] = useState('')
-
+  const [content,setContent] = useState('');
   const {className,place,fnum,cost,map,popup,class_period_start,class_period_end,application_period_start,application_period_end} = input;
   const onChangeInput = (e) =>{
     const {name,value} = e.target;
@@ -49,7 +52,6 @@ export default function SectionInputTextType1d_update(){
     })
 
   }
-
 
   const getData = useCallback(async()=>{
     CommonHeader.authorization = token;
@@ -79,8 +81,8 @@ export default function SectionInputTextType1d_update(){
     setPay(e.target.value);
   }
 
-  const handleChangeFile = (e) =>{
-    setImageFile(e.target.files);
+  const handleChangeFile = async(e) =>{
+    setImageFile(e.target.files)
     const file = e.target.files[0];
     const url = URL.createObjectURL(e.target.files[0]);
     const reader =  new FileReader();
@@ -88,7 +90,64 @@ export default function SectionInputTextType1d_update(){
       setImageUrl(reader.result)
     }
     reader.readAsDataURL(file)
+   // const fileList = e.target.files; // 전체 파일 리스트
+  /* const options = {
+    maxSizeMB: 0.2,
+    maxWidthOrHeight: 800,
+    useWebWorker: true,
+    fileType: 'image/*',
+  };
+  
+  // 파일 리스트를 순회하며 압축 및 처리
+  const compressedFiles = [];
+  for (let i = 0; i < fileList.length; i++) {
+    const imageFile = fileList[i];
+    const comp = await imageCompression(imageFile, options);
+    compressedFiles.push(comp);
   }
+  const file = e.target.files[0];
+  const url = URL.createObjectURL(e.target.files[0]);
+  const reader =  new FileReader();
+  reader.onload=function(){
+    setImageUrl(reader.result)
+  }
+  reader.readAsDataURL(file)
+  setImageFile(compressedFiles); */
+  }
+  const compressImage = (file) =>{
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = 800; // 원하는 너비로 조정
+          canvas.height = 600; // 원하는 높이로 조정
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.globalCompositeOperation = 'destination-over';
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const compressedDataUrl = canvas.toDataURL('image/png', 0.7); // 압축 품질 조정
+          resolve(compressedDataUrl);
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+  function dataURLToBlob(dataURL) {
+    const byteString = atob(dataURL.split(',')[1]);
+    const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const uint8Array = new Uint8Array(arrayBuffer);
+  
+    for (let i = 0; i < byteString.length; i++) {
+      uint8Array[i] = byteString.charCodeAt(i);
+    }
+  
+    return new Blob([arrayBuffer], { type: mimeString });
+  }
+
   const handleCheckBox = (e) =>{
     if(e.target.checked){
       setIsChecked(true);
@@ -97,8 +156,12 @@ export default function SectionInputTextType1d_update(){
       setIsChecked(false);
     }
   }
-  
+  const handleEditorChange = (content,editor) =>{
+    setContent(content);
+    editorRef.current = content;
+  }
   //formdata.append("image","image.png");
+
   const formData = new FormData();
   const sendData = useCallback(async(e)=>{
     CommonHeader.authorization = token;
@@ -108,7 +171,7 @@ export default function SectionInputTextType1d_update(){
       headers:CommonHeader,
       body:JSON.stringify({
         title:className,
-        content:text,
+        content:content,
         type:type,
         class_period_start:class_period_start,
         class_period_end: class_period_end,
@@ -120,39 +183,27 @@ export default function SectionInputTextType1d_update(){
         cost:cost,
         map:map,
         popup_flag:isChecked===true?"Y":"N",
-        attahced_file:imageFile?imageFile:"N",
+        attahced_file:imageFile.length>0?imageFile:"N",
       })
     })
     if(!response.ok){
       return(alert(getRspMsg(response.status)))
     }
-    let index = 0;
-  
-   /*  for (let i  = 0 ; i < imageFile.length; i++){
-      
-    } */
-   
-/*     if(imageFile !== undefined){
-      formData.append("imagefile", imageFile);
-    }
- */
+    const files = imageFile;
+    const formData = new FormData();
 
-   
-    
-    for (let i = 0; i <imageFile.length; i++) {
-      formData.append("imageFiles", imageFile[i]);
-      index++;
+    for (let i = 0; i<files.length; i++){
+      const file = files[i];
+      const compressedDataUrl = await compressImage(file);
+      const compressedBlob = dataURLToBlob(compressedDataUrl);
+      formData.append('imageFiles',compressedBlob, file.name);
     }
-    //formData.append("imageFiles", imageFile);
-   
-    for(let value of formData.values()){
+ /*    for(let value of formData.values()){
       console.log(value)
     }
     for(let key of formData.keys()){
       console.log(key)
-    }
-   /*  if(index > 0)
-    { */
+    } */
 
       const res = await fetch( PreUri +'/classedu/'+ programno +'/files',{
         method:Method.put,
@@ -166,13 +217,7 @@ export default function SectionInputTextType1d_update(){
     setUpdate(false);
     setOpenModal(true);
   },[token,input,imageFile])
-
-
- 
-/*   useEffect(()=>{
-//    onMemoChange();
-    getData();
-  },[input,token]) */
+  
   return (
     <>
     
@@ -192,14 +237,49 @@ export default function SectionInputTextType1d_update(){
         </li>
         <li className="textarea_wrap">
           <label htmlFor="text02">내용</label>
-          <textarea
-            name="text02"
-            id="text02"
-            cols="30"
-            rows="6"
-            placeholder="입력하세요."
-            onChange={onMemoChange}
-          ></textarea>
+          <div className="editor_wrap">
+          <Editor 
+            id= 'tinyEditor'
+            className="tiny"
+            apiKey = {process.env.REACT_APP_TINYMCE_KEY}
+            init={{
+              height: 300,
+              width: 800,
+              forced_root_block : false,
+              force_br_newlines : true,
+              force_p_newlines : false,
+              selector:'textarea',
+              content_css:css,
+              menubar: false,
+              plugins: [
+                'lists',
+                  'link',
+                  'image',
+                  'charmap',
+                  'preview',
+                  'searchreplace',
+                  'fullscreen',
+                  'media',
+                  'table',
+                  'code',
+                  'help',
+                  'emoticons',
+                  'codesample',
+                  'quickbars',
+              ],
+              toolbar:
+                  'undo redo | blocks | ' +
+                  'bold italic forecolor | alignleft aligncenter ' +
+                  'alignright alignjustify | bullist numlist outdent indent | ' +
+                  'lists table link charmap searchreplace | ' +
+                  'codesample emoticons fullscreen preview | ' +
+                  'removeformat | help ',
+              content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px;}',
+              
+             }}
+             onEditorChange={handleEditorChange}
+             />
+             </div>
         </li>
         <li>
           <label htmlFor="select01">유/무료</label>

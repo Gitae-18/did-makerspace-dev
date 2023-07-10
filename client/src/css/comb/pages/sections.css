@@ -767,6 +767,26 @@
   position:relative;
   left:0;
 }
+.section_input_text_type1 div.form{
+  margin-left:5px;
+}
+.section_input_text_type1 .form table{ 
+border-collapse: separate;
+border-spacing: 10px 15px;
+}
+.section_input_text_type1 .form table tbody{
+  margin:0 auto;
+}
+.section_input_text_type1 table tbody tr{
+ vertical-align:top;border-left:1px solid #e5e5e5;
+}
+.section_input_text_type1 table tbody tr td{
+  padding:0 10px; border-left:1px solid #e5e5e5;
+}
+.section_input_text_type1 h1{
+  font-weight:bold;
+  font-size:15px;
+}
 
 .section_input_text_type1 h2 {
   margin-bottom: 24px;
@@ -1189,9 +1209,23 @@
 }
 
 .section_input_text_type1p .text_wrap li.textarea_wrap label {
-  height: 200px;
+  height:400px;
+  line-height: 400px;
+  max-height:1200px;
 }
-
+.section_input_text_type1e .text_wrap li.textarea_wrap label {
+  height:400px;
+  line-height: 400px;
+  max-height:1200px;
+}
+.section_input_text_type1p .text_wrap li.textarea_wrap .editor_wrap{
+  position:relative;
+  left:20px;
+}
+.section_input_text_type1e .text_wrap li.textarea_wrap .editor_wrap{
+  position:relative;
+  left:20px;
+}
 .section_input_text_type1p > .tp_btn {
   margin-top: 24px;
 }
@@ -1214,4 +1248,8 @@
 .section_input_text_type1p button.cancel {
   position:relative;
   left:44%;
+}
+#tinyEditor, .tiny{
+  position:relative;
+  left:50px;
 }

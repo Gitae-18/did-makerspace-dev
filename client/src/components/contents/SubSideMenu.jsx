@@ -140,6 +140,9 @@ export default function SubSideMenu(props,onCategory) {
           <li>
             <p onClick={(e)=>{Dep2Handler(e);history("/mentoring")}}>멘토링 관리</p>
           </li>
+          <li>
+            <p onClick={(e)=>{Dep2Handler(e);history("/mentoring/report")}}>멘토링 보고서</p>
+          </li>
         </ol>
       );
     };
@@ -192,7 +195,6 @@ export default function SubSideMenu(props,onCategory) {
               <li onClick={Dep3Handler}>전문 멘토 명단</li>
               <li onClick={Dep3Handler}>전문 멘토 신청</li>
               <li onClick={Dep3Handler}>전문 멘토 권한</li>
-              <li onClick={Dep3Handler}>멘토링 보고서</li>
             </ol>
           </li>
           <li>

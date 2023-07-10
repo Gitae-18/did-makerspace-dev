@@ -69,7 +69,7 @@ export default function JoinForm({ onJoinTry, onCheckEmail, onCompletePostcode, 
 									<tr>
 										<th>*비밀번호</th>
 										<td><input type="password" className="middle" maxLength={20} value={value.user.password} name="user.password" 
-											placeholder="숫자,문자,특수문자(!@#$%^&+=)를 포함해 8~20자리입니다." onChange={onInputChange} /></td>
+											placeholder="숫자,문자,특수문자(!@#$%^&+=*)를 포함해 8~20자리입니다." onChange={onInputChange} /></td>
 									</tr>
 									<tr className="enter" />
 									<tr>

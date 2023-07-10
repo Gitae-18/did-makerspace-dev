@@ -162,7 +162,7 @@ const DropItem = useCallback(async(e,i)=>{
         <tbody>
           {currentPost && reservList.length>0 ? currentPost.map((item,index)=>(
             <tr key={index}>
-            <td>{item.program_no}</td>
+            <td>{reservList.length - index - (currentPage - 1) * 10}</td>
             <td onClick={(e)=>onSelectItem(e,index)}>{item.title}</td>
             <td onClick={(e)=>onSelectItem(e,index)}>{item.type==="class"? "행사프로그램":"교육프로그램"}</td>
             <td style={{"whiteSpace":"pre-wrap"}}>{item.class_period_start} ~ {item.class_period_end}</td>

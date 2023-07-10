@@ -44,6 +44,10 @@ module.exports = (sequelize,DataTypes) => {
             type: DataTypes.STRING(255),
             allowNull:false,
         },
+        securitynum:{
+            type: DataTypes.INTEGER,
+            allowNull:false,
+        },
         email:{
             type: DataTypes.STRING(255),
             allowNull:false,
@@ -79,7 +83,15 @@ module.exports = (sequelize,DataTypes) => {
         status:{
             type: DataTypes.STRING(55),
             allowNUll:false,
-            defaultValue:"신청",
+            defaultValue:"OSA",
+        },
+        reject_content:{
+            type: DataTypes.TEXT('tiny'),
+            allowNull: true,
+        },
+        memo:{
+            type:DataTypes.TEXT,
+            allowNull:true,
         },
         created_user_no: {
             type: DataTypes.INTEGER,

@@ -89,16 +89,7 @@ function Home() {
           const closeModal3 = ()=>{
             setModalSet(false);
           }
-         /*  if() */
- /*         const openModal = () =>{
-          setModalVisible(true);
-        }
-        const openModal2 = () =>{
-          setModalControl1(true);
-        }
-        const openModal3 = () =>{
-          setModalSet(true);
-        } */
+
             const getRecentNotice = useCallback(async() =>{
               let requri = PreUri + '/notice/recentnotice';
               const response = await fetch(requri,{

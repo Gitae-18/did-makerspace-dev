@@ -50,6 +50,9 @@ import { ArchiveManageContainer } from './containers/reference/ArchiveManageCont
 import { MentoringContainer } from './containers/Mentoring/MentoringContainer';
 import { TextContainer } from './containers/reference/TextContainer';
 import { BasicStudyContianer } from './containers/reference/BasicStudyContainer';
+import { MentoringDetailContainer } from './containers/Mentoring/MentoringDetailContainer';
+import { MentoringReportContainer } from './containers/Mentoring/MentoringReportContainer';
+import { MentoringAddContainer } from './containers/Mentoring/MentoringAddContainer';
 import './css/common-s.css';
 import './css/style-s.css';
 import Materials, { Materials1, Materials2, Materials3 } from './components/Admin/Statistics/pages/Materials';
@@ -62,7 +65,7 @@ import DidReservation,{DidReservation2,DidReservation3,DidReservation4,SelectRes
 import ClassEdu_Program,{ClassEdu_Program2,ClassEdu_program3,ClassEdu_program4} from './components/pages/PageSub3';
 import Contact,{Contact2,Contact3,ContactNoticeDetail,Contact5,Contact6,ContactDetail,ContactDetail2,BasicDetail,AddNotice} from './components/pages/PageSub4';
 import Mentoring,{UMentoring,UMentoringApplication,MserviceGuide}from './components/pages/PageSub5';
-import { MentorApplication,MentorApplicationDetail,MentoringReport,MentoringReportDetail,MentorAuthority,ClassEduControl, ClassEduControl2} from './components/pages/PageSub6';
+import { MentorApplication,MentorApplicationDetail,MentoringReportDetail,MentorAuthority,ClassEduControl, ClassEduControl2} from './components/pages/PageSub6';
 import NotCompeleted from './components/NotCompeleted';
 
 
@@ -158,9 +161,12 @@ const App = () => {
         <Route path="/eqreservation/equip/test" element={<TestReservation/>}/>
 
         <Route path="/mentoring" element = {<MentoringContainer/>}/>
+        <Route path="/mentoring/*" element = {<MentoringDetailContainer/>}/>
+        <Route path="/mentoring/report/*" element = {<MentoringReportContainer/>}/>
+        <Route path="/mentoring/report/add" element = {<MentoringAddContainer/>}/>
         <Route path="/umentoring/*" element = {<MentoringContainer/>}/>
         <Route path="/umentoringapplication" element = {<UMentoringApplication/>}/>
-        <Route path="/umentoring/detail" element = {<></>}/>
+        <Route path="/umentoring/detail" element = {<MentoringDetailContainer/>}/>
         <Route path="/classprogram" element = {<ClassContainer/>}/>
         <Route path="/eduprogram" element = {<EduContainer/>}/>
         <Route path="/classprogram/detail" element = {<ClassEduA/>}/>
@@ -186,10 +192,10 @@ const App = () => {
    
         
         <Route path='/mentorcontrol/mentorapplication' element = {<MentorApplication/>}/>
-        <Route path='/mentorcontrol/mentorapplication/detail' element = {<MentorApplicationDetail/>}/>
+        <Route path='/mentorcontrol/mentorapplication/detail' element = {<NotCompelete/>}/>
         <Route path='/mentorcontrol/mentorauthority' element = {<MentorAuthority/>}/>
-        <Route path='/mentorcontrol/mentoringreport' element = {<MentoringReport/>}/>
-        <Route path='/mentorcontrol/mentoringreport/detail' element = {<MentoringReportDetail/>}/>
+        {/*<Route path='/mentorcontrol/mentoringreport' element = {<MentoringReport/>}/> */}
+        {/*<Route path='/mentorcontrol/mentoringreport/detail' element = {<MentoringReportDetail/>}/> */}
         <Route path='/educontrol' element = {<EduAddContainer/>}/>
         <Route path='/classcontrol' element = {<ClassAddContainer/>}/>
         <Route path="/classeducontrol" element={<ClassEduControlContainer/>}/>

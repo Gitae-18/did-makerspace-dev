@@ -1,10 +1,13 @@
-import React,{useState,useEffect,useCallback} from "react";
+import React,{ useState, useEffect, useCallback, useRef} from "react";
 import { useNavigate , useLocation } from "react-router";
 import TitleType1 from "../contents/TitleType1";
 import styled from "styled-components";
 import ButtonType2 from "../contents/ButtonType2";
 import { useSelector , useDispatch} from "react-redux";
-import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg,MaxFileCount} from "../../CommonCode";
+import { CommonHeader, PreUri, Method, getRspMsg, MaxFileCount} from "../../CommonCode";
+
+import { Editor } from '@tinymce/tinymce-react';
+import {css} from '../../css/comb/pages/sections.css'
 import PopupSaveModal from "../Modals/PopupSaveModal";
 import fileDownload from 'js-file-download';
 export default function SectionInputTextType1h_update() {
@@ -20,32 +23,69 @@ export default function SectionInputTextType1h_update() {
   const [title,setTitle] = useState('');
   const [update,setUpdate] = useState(false);
   const [isChecked,setIsChecked] = useState(false);
+  const [content,setContent] = useState("");
   const history = useNavigate();
   const location = useLocation();
   const n_no = location.state.no;
   const no = location.state.no;
+  const editorRef = useRef(null);
   const notice_no = location.state.update_no;
   const url = location.pathname;
+
+  const handleEditorChange = (content,editor) =>{
+    setContent(content);
+    editorRef.current = content;
+  }
   const onMemoChange = (e) =>{ 
     setText(e.target.value);
  };
  const onTitleChange = (e) =>{
    setTitle(e.target.value);
  }
- const handleChangeFile = (e) =>{
-  setImageFile(e.target.files);
+ const handleChangeFile = async(e) =>{
+  setImageFile(e.target.files) // 전체 파일 리스트
+ const file = e.target.files[0];
+ const url = URL.createObjectURL(e.target.files[0]);
+ const reader =  new FileReader();
+ reader.onload=function(){
+   setImageUrl(reader.result)
+ }
+ reader.readAsDataURL(file)
+ }
+ const compressImage = (file) =>{
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 800; // 원하는 너비로 조정
+        canvas.height = 600; // 원하는 높이로 조정
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.globalCompositeOperation = 'destination-over';
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const compressedDataUrl = canvas.toDataURL('image/png', 0.7); // 압축 품질 조정
+        resolve(compressedDataUrl);
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function dataURLToBlob(dataURL) {
+  const byteString = atob(dataURL.split(',')[1]);
+  const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+  const arrayBuffer = new ArrayBuffer(byteString.length);
+  const uint8Array = new Uint8Array(arrayBuffer);
 
-  const file = e.target.files[0];
-  const url = URL.createObjectURL(e.target.files[0]);
-  const reader =  new FileReader();
-  reader.onload=function(){
-    setImageUrl(reader.result)
+  for (let i = 0; i < byteString.length; i++) {
+    uint8Array[i] = byteString.charCodeAt(i);
   }
-  reader.readAsDataURL(file)
+
+  return new Blob([arrayBuffer], { type: mimeString });
 }
 
-
- const formData = new FormData();
   const sendData = useCallback(async()=>{
     CommonHeader.authorization = token;
     
@@ -63,12 +103,16 @@ export default function SectionInputTextType1h_update() {
     if(!response.ok){
       return(alert(getRspMsg(response.status)))
     }
-    let index = 0;
-  
-    for (let i = 0; i <imageFile.length; i++) {
-      formData.append("imageFiles", imageFile[i]);
-      index++;
+    const files = imageFile;
+    const formData = new FormData();
+
+    for (let i = 0; i<files.length; i++){
+      const file = files[i];
+      const compressedDataUrl = await compressImage(file);
+      const compressedBlob = dataURLToBlob(compressedDataUrl);
+      formData.append('imageFiles',compressedBlob, file.name);
     }
+
     const res = await fetch( PreUri +'/notice/'+ notice_no +'/files',{
       method:Method.put,
       headers: { authorization: token},
@@ -110,10 +154,14 @@ export default function SectionInputTextType1h_update() {
     const fileList = await res.json();
     setAttachFile(fileList)
   },[token,no ])
-  const arr =  Object.values(attachFile)
+
+
   useEffect(()=>{
+
     getData();
+    
     getFile();
+
   },[getData])
   const onFileDownload = useCallback(async (e, fileInfo) => {
   
@@ -173,14 +221,49 @@ export default function SectionInputTextType1h_update() {
         </li>
         <li className="textarea_wrap" style={{"height":"300px"}}>
           <label htmlFor="text02">내용</label>
-          <textarea
-            name="text02"
-            id="text02"
-            cols="30"
-            rows="6"
-            placeholder="내용을 입력하세요."
-            onChange={onMemoChange}
-          ></textarea>
+           <div className="editor_wrap">
+          <Editor 
+            id= 'tinyEditor'
+            className="tiny"
+            apiKey = {process.env.REACT_APP_TINYMCE_KEY}
+            init={{
+              height: 300,
+              width: 800,
+              forced_root_block : false,
+              force_br_newlines : true,
+              force_p_newlines : false,
+              selector:'textarea',
+              content_css:css,
+              menubar: false,
+              plugins: [
+                'lists',
+                  'link',
+                  'image',
+                  'charmap',
+                  'preview',
+                  'searchreplace',
+                  'fullscreen',
+                  'media',
+                  'table',
+                  'code',
+                  'help',
+                  'emoticons',
+                  'codesample',
+                  'quickbars',
+              ],
+              toolbar:
+                  'undo redo | blocks | ' +
+                  'bold italic forecolor | alignleft aligncenter ' +
+                  'alignright alignjustify | bullist numlist outdent indent | ' +
+                  'lists table link charmap searchreplace | ' +
+                  'codesample emoticons fullscreen preview | ' +
+                  'removeformat | help ',
+              content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px;}',
+              
+             }}
+             onEditorChange={handleEditorChange}
+             />
+             </div>
         </li>
         <li>
           <label htmlFor="checkbox01">팝업등록</label>

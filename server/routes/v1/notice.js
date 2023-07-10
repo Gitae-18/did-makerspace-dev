@@ -229,6 +229,7 @@ router.post('/notices',verifyToken,async(req,res,next)=>{
             title:body.title,
             content:body.content,
             popup:body.popup,
+            attached_file:body.attached_file,
             created_user_no: user_no,
             updated_user_no: user_no,
         })
@@ -356,7 +357,7 @@ router.get('/noticehome',async(req,res,next)=>{
     let result;
     try{
         result = await Notice.findAll({
-            attributes:['notice_no','title','created_at','hit'],
+            attributes:['notice_no','title','created_at','hit','attached_file'],
             order:[['created_at','DESC']],
             limit:4,
             raw:true,

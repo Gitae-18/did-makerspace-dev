@@ -1002,7 +1002,7 @@ router.post('/findpassword', async (req, res, next) => {
                     from : OAUTH_USER,
                     to: receiverEmail,
                     subject: '[DID 기술융합공작소] 임시 비밀번호가 발송되었습니다.',
-                    text:'임시 비밀번호입니다 ['+  newPassword+ '] 확인 후 변경 바랍니다.',
+                    text:'임시 비밀번호입니다 ['+  newPassword + '] 확인 후 변경 바랍니다.',
                 };
                 return mailOptions;
             }

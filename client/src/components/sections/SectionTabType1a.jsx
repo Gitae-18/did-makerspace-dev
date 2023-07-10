@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import TitleType1 from "../contents/TitleType1";
 import { useSelector } from "react-redux";
-export default function SectionTabType1a({ props, content }) {
-
+import ImageProgramContent from "./ImageProgramContent";
+export default function SectionTabType1a({ props, content , attachFile , no , token }) {
+ 
   useEffect(() => {
     document.getElementById("tab_btn0").classList.add("on");
   });
@@ -13,7 +14,9 @@ export default function SectionTabType1a({ props, content }) {
         <li className="tab_inner on">
           <TitleType1 title={props.tabNames[0]}></TitleType1>
           <div className="inner" style={{ whiteSpace: "pre-wrap" }}>
-            {content}
+            <ImageProgramContent attachFile={attachFile} no={no} token={token}/>
+            <div style={{marginTop:'50px'}} dangerouslySetInnerHTML={{__html: content}}/>
+          
           </div>
         </li>
         <li className="tab_inner">

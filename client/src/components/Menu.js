@@ -206,7 +206,7 @@ const AdminMenu = ({viewDepth}) => {
     return(
           <ol className='menu_dep2'>
             <li onClick={(e)=>onClick2(e,0)}><NavLink to={'/mentoring'}>멘토링 관리</NavLink></li>
-            <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/notcomplete'}>멘토 검색</NavLink></li>
+            <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/mentoring/report'}>멘토링 보고서</NavLink></li>
           </ol>
     )
   }

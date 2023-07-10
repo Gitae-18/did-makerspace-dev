@@ -2,7 +2,7 @@ import React,{useEffect,useState,useCallback} from "react";
 import { useLocation,useNavigate } from "react-router-dom";
 import {useDispatch,useSelector}  from "react-redux";
 import { PreUri , CommonHeader ,  Method, getRspMsg } from "../../CommonCode";
-import ImageGetProgramList from "../sections/ImageGetProgramList";
+import ImageGetProgramListProgram from "../sections/ImageGetProgramListProgram";
 import Paging2 from "./Paging2";
 import styled from "styled-components";
 
@@ -143,7 +143,7 @@ export default function ListType2a() {
   const sethandlePage = (e) =>{
     setCurrentPage(e);
   }
-
+  console.log(currentPost)
   return (
     <div className="table_box">
     <div className="table_wrap list_type2">
@@ -158,10 +158,7 @@ export default function ListType2a() {
       {currentPost!==undefined?currentPost.map((item,index)=>(
         
         <li key={index}>
-
-        {item.attached_file==="Y"?
-        <ImageGetProgramList attachFile={attachFile} no={itemList[index].program_no} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)}/>
-         :<img src="/images/Noimg.png" alt="no"/>}
+        <ImageGetProgramListProgram attachFile={item.attached_file} no={item.attached_file==="Y"&&item.type==="class"?item.program_no:0} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)} />
         <div className="text_part" onClick={(e)=>onItem(item,index)}>
           <h5 >{item.title}</h5>
           <div className="tag">

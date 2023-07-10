@@ -212,7 +212,7 @@ export default ({ no , query }) => {
             return;
 		}
         //const json = await response.json();
-        history.replace('/mservice');
+        history('/mservice',{replace:true});
 	}, [no, token, rejectContent, history]);
 
     const onChange = useCallback((e) => {
@@ -772,7 +772,7 @@ export default ({ no , query }) => {
                                         // 관리자
                                         : <div className="btn_box">
                                             <button className="reject" onClick={() => { $('.pop').css('display', 'block'); }} >반려</button>
-                                            <button className="success" onClick={onResponseConfirm}>수락</button>
+                                            <button className="success" onClick={onResponseConfirm}>승인</button>
                                         </div>
 						: <div className="btn_box"><button className="success" onClick={() => { history(-1) }}>확인</button></div>
 					}

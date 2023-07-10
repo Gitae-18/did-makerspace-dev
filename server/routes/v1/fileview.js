@@ -107,7 +107,7 @@ router.get('/:fileview_no/noticefile',async (req, res, next) => {
 });
 router.get('/:fileview_no/classedufile'/* ,verifyToken */, async (req, res, next) => {
     let program_no = req.params.fileview_no;
-
+    console.log(program_no);
     /*     const imgPath = path.resolve("./upload/newfaq/","banner05.png")
         const imgMime = mime.getType(imgPath)
         console.log(imgMime); */
@@ -127,41 +127,32 @@ router.get('/:fileview_no/classedufile'/* ,verifyToken */, async (req, res, next
         console.error(error);
         return res.status(errorCode.internalServerError).json({});
     }
-
-    let file_data = files[0].dataValues;
-
+    let file_data
+   
+    file_data = files[0].dataValues;
+ /*    for(let i = 0; i<files.length; i++)
+    {
+    }
+ */
     const path = "upload/newprogram/";
     const file_name = path + file_data.name;
  
     let file = fs.readFileSync(`${file_name}`, 'binary')
-    let encode = Buffer.from(file).toString('base64');
-    /*    let encode = fs.readFile(file_name,'utf8',(err,data)=>{
-           if(err){
-               console.log(err)
-           }
-           else{
-               console.log(data)
-           }
-       }) */
-    //console.log(encode);
-    /*   res.setHeader('Content-Length',file.length);
-      res.write(file,'binary');
-      res.end(); */
-    let params = [file, encode];
     return res.set({ "Content-Type": "image/*" }).send({ file });
     //res.send(image);
 
 });
-/* router.get('/:fileview_no/noticeview',verifyToken,async (req, res, next) => {
-    let notice_no = req.params.fileview_no;
 
 
+
+router.get('/:fileview_no/classeducontent', async (req, res, next) => {
+    let program_no = req.params.fileview_no;
     let files;
     try {
-        files = await NoticeFile.findAll({
+        files = await ClassEduFile.findAll({
             attributes: ['attached_file_no', 'original_name', 'name', 'path', 'filesize'],
             where: {
-                notice_no
+                program_no
             }
         });
     }
@@ -170,19 +161,20 @@ router.get('/:fileview_no/classedufile'/* ,verifyToken */, async (req, res, next
         return res.status(errorCode.internalServerError).json({});
     }
 
-    let file_data = files[0].dataValues;
-    console.log(file_data.name);
-    const path = "upload/newnotice/";
-    const file_name = path + file_data.name;
-    console.log(file_name)
-    let file = fs.readFileSync(`${file_name}`, 'binary')
-    let encode = Buffer.from(file).toString('base64');
-
-    let params = [file, encode];
+    let file_data = [];
+    const path = "upload/newprogram/";
+    file_data = files.map((item,index)=>(
+       path + item.dataValues.name
+    ))
+    let file = [];
+    file = file_data.map((item, index) => {
+      const data = fs.readFileSync(item, 'binary');
+      return data
+    });
     return res.set({ "Content-Type": "image/*" }).send({ file });
-    //res.send(image);
+});
 
-}); */
+
 router.get('/:fileview_no/archivefile', async (req, res, next) => {
     let archive_no = req.params.fileview_no;
     console.log(archive_no)

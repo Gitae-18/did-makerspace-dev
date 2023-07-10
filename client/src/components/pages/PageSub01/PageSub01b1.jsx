@@ -26,7 +26,7 @@ export default function PageSub01b1() {
         <div className="extra">
           <p>2022년 2월</p>
           <p>대전전문랩, DID융합기술공작소 사업총괄책임자</p>
-          <p><img src="/images/greetings_sign.png"/></p>
+          {/* <p><img src="/images/greetings_sign.png"/></p> */}
         </div>
       </div>
       <div className="hello_image">

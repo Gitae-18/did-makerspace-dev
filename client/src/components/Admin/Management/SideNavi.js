@@ -124,9 +124,9 @@ export default function ({ viewDepth ,onCategory}) {
 			  <li>
 				<p onClick={Dep2Handler}>전문멘토관리</p>
 				<ol className="has_dep3">
-				  <li onClick={(e)=>{onClick(e,7);history("/notcomplete"/* "/mentorcontrol/mentorauthority" */)}}>전문 멘토 명단</li>
-				  <li onClick={(e)=>{onClick(e,8);history("/notcomplete"/* "/mentorcontrol/mentorapplication" */)}}>전문 멘토 신청서</li>
-				  <li onClick={(e)=>{onClick(e,9);history("/notcomplete"/*"/mentorcontrol/mentoringreport" */)}}>멘토링 보고서</li>
+				  <li onClick={(e)=>{onClick(e,7);history("/mentorcontrol/mentorauthority")}}>전문 멘토 명단</li>
+				  <li onClick={(e)=>{onClick(e,8);history("/mentorcontrol/mentorapplication")}}>전문 멘토 신청서</li>
+				  <li onClick={(e)=>{onClick(e,9);history("/mentorcontrol/mentoringreport")}}>멘토링 보고서</li>
 				</ol>
 			  </li>
 			  <li className={url.includes("classedu")?"on":"off"}>

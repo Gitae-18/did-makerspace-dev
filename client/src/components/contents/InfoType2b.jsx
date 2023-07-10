@@ -30,9 +30,7 @@ export default function InfoType2b() {
   const [attachFile,setAttachFile] = useState({})
   const [fileNo,setFileNo] = useState({});
   const [getFlag,setGetFlag] = useState([]);
-  const [limit,setLimit] = useState("");
   const [title,setTitle] = useState("")
-  const [count,setCount] = useState();
   const [cost,setCost] = useState();
   const { token, authority_level} = useSelector(state => state.user);
   let type = "edu";
@@ -57,25 +55,6 @@ export default function InfoType2b() {
     setTitle(json.title);
   },[token])
 
-/* 
-  const ongetImage = useCallback(async(e,index)=>{
-    let requri = PreUri + '/classedu/'+ no + '/getimage';
-    const response = await fetch(requri,{
-      method:Method.get,
-      headers:CommonHeader,
-    })
-    if(!response.ok) {
-      console.log('잘못된 접근입니다.');
-      return;
-    }
-    const json = await response.json();
-    setImageUrl(json.path);
-    const reader = new FileReader();
-    reader.onload = (event) =>{
-      const downloadImage = String(event.target?.result);
-    }
-  },[title])
- */
   let  button_click = document.getElementById('button_id');
   let counter;
 
@@ -97,6 +76,7 @@ export default function InfoType2b() {
   },[token,title])
  
   const onApplicate = useCallback(async() =>{
+    if (getFlag.length < data.limit_number) {
     setOpenModal(true);
    // dispatch({ type: COUNT_INCREASE, target: count });
    CommonHeader.authorization = token;
@@ -113,9 +93,12 @@ export default function InfoType2b() {
         }
       )
     })
-    if(!response.ok){
-      return(alert(getRspMsg(response.status)))
+    if (!response.ok) {
+      return(alert(getRspMsg(response.status)));
     }
+  } else {
+    alert('정원이 가득찼습니다.');
+  }
   },[getFlag])     
  /*  const memo = useMemo(()=>{
     return onApplicate();
@@ -124,16 +107,15 @@ export default function InfoType2b() {
 
     const res = await fetch(PreUri + '/classedu/' + no + '/files', {
       method: Method.get,
-      headers: {
-        authorization: token,
-    }, 
     })
     const fileList = await res.json();
+    console.log(fileList)
     if(fileList!==null||undefined)
     {
     setAttachFile(fileList)
     }
   },[token,no])
+  
   const getFileNo = useCallback(async()=>{
     const response = await fetch(PreUri + '/classedu/'+ no + '/filesno',{
       method:Method.get,
@@ -158,6 +140,7 @@ export default function InfoType2b() {
   const reservClose = () =>{
     setModalOpen(false);
   }
+  console.log(data);
   return (
 
     <div className="info_type2"> 
@@ -182,7 +165,6 @@ export default function InfoType2b() {
             <dl>
               <dt><RiCheckFill/>신청 가능 여부</dt>
               <dd>{getFlag.length > data.limit_number -1 ? "불가능": "가능"}</dd>
-              {getFlag.length > data.limit_number -1 ? alert("정원이 가득참"):null}
             </dl>
             <dl>
               <dt><IoPerson/>정원</dt>
@@ -204,7 +186,7 @@ export default function InfoType2b() {
         </div>
       </div>
       <div className="desc_part">
-        <SectionTabType1a content={data.content}></SectionTabType1a>
+        <SectionTabType1a content={data.content} no={no} attachFile={attachFile}></SectionTabType1a>
       </div>
       <div className="btn_part">
       <StyledBtn2 onClick={(e)=>history('/classprogram')}><BsListUl style={{"position":"relative","top":"2px",'right':'1px'}}/>목록</StyledBtn2>

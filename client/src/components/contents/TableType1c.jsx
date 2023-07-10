@@ -18,7 +18,7 @@ const TableType1c = () => {
   const indexOfLastPost = currentPage * postPerPage
   const indexOfFirstPost = indexOfLastPost - postPerPage;
   const currentPost = itemList.slice(indexOfFirstPost, indexOfLastPost)
-
+  console.log(count);
   const getWorkers = useCallback(async(e)=>{
     let requri = PreUri + '/worker/workers';
     const response = await fetch(requri,{
@@ -103,7 +103,7 @@ const activeEnter = (e) => {
         </tbody>
       </table>
       <div className="page_control">
-        <Paging2 page={currentPage} count = {count} setPage={sethandlePage}/>
+      <Paging2 count={count} page={currentPage} setPage={sethandlePage}/>
       </div>
     </div>
   )}

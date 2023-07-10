@@ -83,11 +83,12 @@ export default function TableType2a_a() {
         return;
       }
       const json = await response.json();
-      console.log(json);
       setReservationList(json);
       setLoading(false);
+      setCount(json.length);
       setCurrentPosts(json.slice(indexOfFirstPost,indexOfLastPost))
    },[])
+   console.log(reservationList);
    const closeModal = () =>{
     setDropModal(false);
   }
@@ -121,7 +122,7 @@ export default function TableType2a_a() {
             <th>삭제</th>
         </thead>
         <tbody>
-          {currentPosts&& (reservationList.map((item,i)=>(
+          {currentPosts&&reservationList.map((item,i)=>(
             <tr key={i}>
              <td>{item.username}</td>
              <td>{item.modelname}</td>
@@ -130,7 +131,7 @@ export default function TableType2a_a() {
              <td><StyledBtn3 onClick={(e)=> DropItem(item,i)}>삭제</StyledBtn3></td>
              {dropModal&& <PopupDeleteModal4  no={dropno} visible={dropModal} closable={true} maskClosable={true} onclose={closeModal} token={token} serviceItems={reservationList} />} 
             </tr>
-          )))}
+          ))}
         </tbody>
       </table>
       

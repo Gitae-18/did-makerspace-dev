@@ -1,15 +1,17 @@
 import React, { useCallback, useEffect,useState} from "react";
 import {useNavigate/* ,useLocation */} from "react-router-dom"
 import { CommonHeader, PreUri, Method } from "../../CommonCode";
+import { useSelector /* , useDispatch */} from "react-redux";
 import TitleType1 from "../contents/TitleType1";
+import ImageHomeNotice from "./ImageHomeNotice";
 //import styled from "styled-components";
 import { HiOutlinePlus } from "react-icons/hi2";
 export default function SectionTabType1(props) {
  const history = useNavigate();
  const [data,setData] = useState([]);
-
+ const [no,setNo] = useState([]);
+ const { token } = useSelector(state => state.user);
   const getNotice = useCallback(async()=>{
-   
     let uri = PreUri + '/notice/noticehome'
 
     const response = await fetch(uri,{
@@ -22,17 +24,13 @@ export default function SectionTabType1(props) {
     }
     const json = await response.json();
     setData(json);
-
+    setNo(json.map((item,index) => item));
   },[])
-  useEffect(() => {
-    /* document.getElementById("tab_btn0").classList.add("on"); */
-    getNotice()
-  },[getNotice]);
-
-
   const goToNotice = () =>{
     history('/notice')
   }
+
+
   const  onItem = useCallback(async(e,index) =>{
     const hit_cnt = data[index].hit;
     const notice_no = data[index].notice_no;
@@ -54,6 +52,10 @@ export default function SectionTabType1(props) {
     }
     history('/notice/notice/detail',{state:{no:notice_no}});
   },[data])
+  useEffect(() => {
+    /* document.getElementById("tab_btn0").classList.add("on"); */
+    getNotice();
+  },[getNotice]);
   // 내부 탭 내용 주입
   const Tabs = (props) => {
     return (
@@ -64,9 +66,9 @@ export default function SectionTabType1(props) {
           {data !== undefined && data.length > 0 && data.map((item,index) =>(
             <ol key={index}>
             <li key={index}>
-            <span className="title">공지사항 new</span><HiOutlinePlus className="plus" onClick={goToNotice}/>
+            {item.attached_file==="Y"?<ImageHomeNotice no={item.notice_no} token={token} CommonHeader={CommonHeader}/>:<></>}
+            <span className="title"><span onClick={(e)=>onItem(e,index)} className="sub_title" style={{"whiteSpace":"pre-line","wordBreak":"break-word"}}> {item.title}</span></span><HiOutlinePlus className="plus" onClick={goToNotice}/>
             <div className="text_part">
-            <span onClick={(e)=>onItem(e,index)} className="sub_title" style={{"whiteSpace":"pre-line","wordBreak":"break-word"}}> {item.title}</span>
             <div className="date_part">
             <span className="date">{item.created_at.slice(0,10)}</span>
             </div>

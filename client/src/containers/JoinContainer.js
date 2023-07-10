@@ -74,9 +74,9 @@ export const JoinContainer = (props) => {
             return;
         }
 
-        const passwordRegex = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+        const passwordRegex = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=*]).*$/;
         if (!passwordRegex.test(value.user.password)) {
-            alert('숫자, 문자, 특수문자(!@#$%^&+=)를 포함해 8 ~ 20자리로 입력해 주세요.');
+            alert('숫자, 문자, 특수문자(!@#$%^&+=*)를 포함해 8 ~ 20자리로 입력해 주세요.');
             return;
         }
 

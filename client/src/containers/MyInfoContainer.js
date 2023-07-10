@@ -14,7 +14,10 @@ export const MyInfoContainer = ({  }) => {
     const loginUser = useSelector(state => state.user);
     const location = useLocation();
     const history = useNavigate();
-    //const dispatch = useDispatch();
+    const { search } = useLocation();
+    const query = qs.parse(search, {
+        ignoreQueryPrefix: true // /about?details=true 같은 쿼리 주소의 '?'를 생략해주는 옵션입니다.
+    });
 
     let header = CommonHeader;
     const [value, setValues] = useState({
@@ -101,9 +104,9 @@ export const MyInfoContainer = ({  }) => {
             return;
         }
 
-        const passwordRegex = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+        const passwordRegex = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=*]).*$/;
         if (!passwordRegex.test(value.user.password)) {
-            alert('숫자와 문자와 특수문자(!@#$%^&+=)를 포함한 8~20자리 이내로 입력해 주세요.');
+            alert('숫자와 문자와 특수문자(!@#$%^&+=*)를 포함한 8~20자리 이내로 입력해 주세요.');
             return;
         }
 
@@ -237,16 +240,16 @@ export const MyInfoContainer = ({  }) => {
 
     const onBtnChpw = useCallback((e) => {
         e.preventDefault();
-        return history('/myinfo?type=chpw');
+       return  history('/myinfo?type=chpw');
     }, [history]);
 
     const onBtnDrop = useCallback((e) => {
         e.preventDefault();
-        return history('/myinfo?type=drop');
+       return history('/myinfo?type=drop');
     }, [history]);
 
-    const query = location ==='?detail=true';
-
+    //const query = location ==='?detail=true';
+   
     const CurrentPage = () => {
         switch (query.type) {
         case 'chpw':

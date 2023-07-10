@@ -49,7 +49,7 @@ export default function ({
 									<tr>
 										<th>*현재 비밀번호</th>
 										<td><input type="password" className="middle" maxLength={20} value={value.user.password} name="user.password"
-											placeholder="숫자,문자,특수문자(!@#$%^&+=)를 포함해 8~20자리입니다." onChange={onInputChange} /></td>
+											placeholder="숫자,문자,특수문자(!@#$%^&+=*)를 포함해 8~20자리입니다." onChange={onInputChange} /></td>
 									</tr>
 								</tbody>
 							</table>

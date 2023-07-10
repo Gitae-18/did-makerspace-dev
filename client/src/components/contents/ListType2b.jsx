@@ -141,7 +141,7 @@ export default function ListType2b() {
     getFileNo();
     getItemList();
   },[getFile,getFileNo,getItemList,token])
-
+  console.log(attachFile)
   return (
     <div className="table_wrap list_type2">
     <div className="table_extra">
@@ -152,32 +152,31 @@ export default function ListType2b() {
       </div>
       </div>
       <ol>
-        {currentPost.map((item,index)=>(
+        {currentPost!==undefined?currentPost.map((item,index)=>(
         
-            <li key={index}>
-         {item.attached_file==="Y"?
-        <ImageGetProgramList attachFile={attachFile} no={itemList[index].program_no} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)}/>
-         :<img src="/images/Noimg.png" alt="no"/>}
-            <div className="text_part">
-              <h5 onClick={(e)=>onItem(item,index)}>{item.title}</h5>
-              <div className="tag">
-                <span>무료</span>
-              </div>
-              <dl>
-                <dt>교육</dt>
-                <dd>{item.class_period_start}</dd>
-              </dl>
-              <dl>
-                <dt>조회수</dt>
-                <dd>{item.hit}</dd>
-              </dl>
-              <dl>
-                <dt>마감</dt>
-                <dd>{item.application_period_end}</dd>
-              </dl>
-            </div>
-          </li>
-        ))}
+        <li key={index}>
+        <ImageGetProgramList attachFile={item.attached_file} no={item.attached_file==="Y"&&item.type==="edu"?item.program_no:0} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)} />
+
+        <div className="text_part" onClick={(e)=>onItem(item,index)}>
+          <h5 >{item.title}</h5>
+          <div className="tag">
+            <span>무료</span>
+          </div>
+          <dl>
+            <dt>교육</dt>
+            <dd>{item.class_period_start}</dd>
+          </dl>
+          <dl>
+            <dt>조회수</dt>
+            <dd>{item.hit}</dd>
+          </dl>
+          <dl>
+            <dt>마감</dt>
+            <dd>{item.application_period_end}</dd>
+          </dl>
+        </div>
+      </li>
+    )):null}
       </ol>
       <div className="page_control">
           <Paging2 page={currentPage} count = {count} setPage={sethandlePage}/>

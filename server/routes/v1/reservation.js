@@ -163,7 +163,7 @@ router.get('/reserv_list',verifyToken,async(req,res,next)=>{
 
     try{
         reservlist = await EquipmentReservation.findAll({
-            attributes:['equipment_reservation_no','user_no','equipment_category_no','reservation_time','created_at'],
+            attributes:['equipment_reservation_no','user_no','equipment_category_no','reservation_time','reservation_date','created_at'],
             include:[{
                 model: User, 
                 attributes: ['name'],

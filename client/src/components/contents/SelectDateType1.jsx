@@ -28,7 +28,7 @@ export default function SelectDateType1({query}) {
   const [modalOpen, setModalOpen] = useState(false);
   const { token } = useSelector(state => state.user);
   const [value,onChange] = useState(new Date());
-  const [timepart,setTimepart] = useState('')
+  const [timepart,setTimepart] = useState([]);
   const {isLoggedIn} = useSelector(state => state.user);
 	const navigate = useNavigate();
   const [clickedTime,setClickedTime] = useState('');
@@ -36,10 +36,9 @@ export default function SelectDateType1({query}) {
   const [getdata,setGetdata] = useState([])
   const [btnActive,setBtnActive] = useState(false);
   const [btnClick,setBtnClick] = useState(false);
+  const [btnClick2,setBtnClick2] = useState(false);
+  const [btnClick3,setBtnClick3] = useState(false);
   const [selectStatus,setSelectStatus] = useState('');
-  const [currentDate,setCurrentDate] = useState(null);
-  const [previousDate, setPreviousDate] = useState(null);
-  const [dateChanged,setDateChanged] = useState(false);
 
   const history = useNavigate();
   const location = useLocation();
@@ -47,8 +46,8 @@ export default function SelectDateType1({query}) {
 
   const { search } = useLocation();
   const ref = useRef(false);
-  const timeref= useRef();
-  const timetable = ["10:00","14:00"];
+//  const timeref= useRef();
+
 
  const status = `can't`;
  const status2 = `can't`;
@@ -56,14 +55,14 @@ export default function SelectDateType1({query}) {
 
 
 
-
- 
  const dateClick =useCallback((e)=>{
   setNewDate(moment(e).format("YYYY-MM-DD",true).toString());
-  //setCurrentDate(moment(e).format("YYYY-MM-DD",true).toString());
 },[NewDate])
-  console.log(NewDate)
-    const ButtonTable = useCallback(() =>{
+
+const checkTimeInArray = (time) =>{
+  return timepart.some(item => item.reservation_time === time);
+}
+    const ButtonTable = () =>{
       return(
         <>
         <ol className="table_time">
@@ -72,7 +71,7 @@ export default function SelectDateType1({query}) {
             name="10"
             value="10:00"
             className={
-              selectStatus === "can't" && timepart === "10:00"
+             checkTimeInArray('10:00')
                 ? "cant"
                 : btnClick === true
                 ? "selected"
@@ -82,12 +81,42 @@ export default function SelectDateType1({query}) {
             }
             onClick={timeClick}
           ></input>
-          <input
+           <input
+            type="button"
+            name="12"
+            value="12:00"
+            className={
+              checkTimeInArray('12:00')
+                ? "cant"
+                : btnClick2 === true
+                ? "selected"
+                : btnClick2 === false
+                ? "can"
+                : null
+            }
+            onClick={timeClick2}
+          ></input>
+           <input
             type="button"
             name="14"
             value="14:00"
             className={
-              selectStatus === "can't" && timepart === "14:00"
+              checkTimeInArray('14:00')
+                ? "cant"
+                : btnClick3 === true
+                ? "selected"
+                : btnClick3 === false
+                ? "can"
+                : null
+            }
+            onClick={timeClick3}
+          ></input>
+          <input
+            type="button"
+            name="16"
+            value="16:00"
+            className={
+              checkTimeInArray('16:00')
                 ? "cant"
                 : btnActive === true
                 ? "selected"
@@ -95,19 +124,25 @@ export default function SelectDateType1({query}) {
                 ? "can"
                 : null
             }
-            onClick={timeClick2}
+            onClick={timeClick4}
           ></input>
         </ol>
         </>
       )
-    },[clickedTime, selectStatus, btnClick, btnActive ])
+    }
 
-    
     const openModal = () => {
+      const today = new Date();
+
       if(clickedTime===null||clickedTime==='')
       {
         alert("시간을 선택해주세요");
         return ;
+      }
+      else if(NewDate<moment(today).format("YYYY-MM-DD",true).toString())
+      {
+        alert("이전 날짜는 예약이 불가능합니다.");
+        return;
       }
       else{
          setModalOpen(true);
@@ -124,6 +159,8 @@ export default function SelectDateType1({query}) {
         if(btnClick===true||second===1)
         {
           setBtnActive(false);
+          setBtnClick2(false);
+          setBtnClick3(false);
           second=0;
         }
         if(clickedTime==="10:00")
@@ -133,32 +170,73 @@ export default function SelectDateType1({query}) {
         else if(clickedTime===""||clickedTime==="14:00"){
         setClickedTime(e.target.value)
         }
-     },[btnClick,btnActive])
-
+     },[btnActive,btnClick,btnClick2,btnClick3])
 
     const timeClick2 =useCallback(async(e) =>{
       let second = 0;
-      setBtnActive(!btnActive);
+      setBtnClick2(!btnClick2);
       second++;
-      if(btnActive===true||second===1)
+      if(btnClick2===true||second===1)
       {
         setBtnClick(false);
+        setBtnClick3(false);
+        setBtnActive(false);
+        second=0;
+      }
+      if(clickedTime==="12:00")
+      {
+        setClickedTime('');
+      }
+      else if(clickedTime===''||clickedTime==="10:00"||clickedTime==="14:00"||clickedTime==="16:00"){
+        setClickedTime(e.target.value);
+      }
+
+    },[btnActive,btnClick,btnClick2,btnClick3]);
+    console.log(NewDate);
+    const timeClick3 =useCallback(async(e) =>{
+      let second = 0;
+      setBtnClick3(!btnClick3);
+      second++;
+      if(btnClick3===true||second===1)
+      {
+        setBtnActive(false);
+        setBtnClick(false);
+        setBtnClick2(false);
         second=0;
       }
       if(clickedTime==="14:00")
       {
         setClickedTime('');
       }
-      else if(clickedTime===''||clickedTime==="10:00"){
+      else if(clickedTime===''||clickedTime==="10:00"||clickedTime==="12:00"||clickedTime==="16:00"){
         setClickedTime(e.target.value);
       }
 
-    },[btnActive,btnClick]);
+    },[btnActive,btnClick,btnClick2,btnClick3]);
+    const timeClick4 =useCallback(async(e) =>{
+      let second = 0;
+      setBtnActive(!btnActive);
+      second++;
+      if(btnActive===true||second===1)
+      {
+        setBtnClick3(false);
+        setBtnClick(false);
+        setBtnClick2(false);
+        second=0;
+      }
+      if(clickedTime==="16:00")
+      {
+        setClickedTime('');
+      }
+      else if(clickedTime===''||clickedTime==="10:00"||clickedTime==="12:00"||clickedTime==="14:00"){
+        setClickedTime(e.target.value);
+      }
+
+    },[btnActive,btnClick,btnClick2,btnClick3]);
    
   const getReservation = useCallback(async() => {
     CommonHeader.authorization = token;
     
-
     let requri = PreUri + '/reservation/equipment?date=' + NewDate;
     if(categorynum > 0 && categorynum < 100){
       requri += "&category=" + categorynum;
@@ -174,8 +252,20 @@ export default function SelectDateType1({query}) {
       return;
     }
     const json = await response.json();
-    console.log(json);
     setGetdata(json);
+    let reuri = PreUri + '/reservation/time?date='+ NewDate;
+    if(categorynum > 0 && categorynum < 100){
+      reuri += "&category=" + categorynum;
+    }
+    const res = await fetch(reuri,{
+      method:Method.get,
+      headers:CommonHeader
+    })
+    if(!res.ok) {
+      console.log('잘못된 접근입니다.');
+      return;
+    }
+    const list = await res.json();
     if(json === null)
     {
       setSelectStatus("can")
@@ -183,20 +273,10 @@ export default function SelectDateType1({query}) {
     else {
       setSelectStatus(`can't`)
     }
-    
-   
-    if(json !== null && json.reservation_date !== undefined && json.reservation_date !== null){
-      setTimepart(json.reservation_time);
-    } 
-   
-/*      setGetdata(getdata =>({
-      ...getdata,
-      reservationNo:json.result.equipment_reservation_no,
-      status:json.result.reservation_status,
-      date:json.result.reservation_date
-    }));  */
+ 
+    setTimepart(list);
+
   },[token,NewDate])
-  console.log(selectStatus)
   useEffect(()=>{
     getReservation();
     ButtonTable();
@@ -232,7 +312,7 @@ export default function SelectDateType1({query}) {
     // get api
     // data
     
-    const handleDateClick = (date) => {
+  /*   const handleDateClick = (date) => {
       if (!date) {
         // 선택된 날짜가 null 또는 undefined인 경우
         console.error('유효하지 않은 날짜입니다.');
@@ -246,8 +326,7 @@ export default function SelectDateType1({query}) {
       }
       setCurrentDate(date);
       setPreviousDate(date);
-    }
-
+    } */
   return (
     <>
      <div id="pageSub02a3">

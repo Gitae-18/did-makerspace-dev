@@ -22,10 +22,10 @@ export const MyInfoChangePWContainer = () => {
             return alert('필수입력 항목이 비어있습니다.')
         }
 
-        const passwordRegex = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+        const passwordRegex = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=*]).*$/;
         if (/*!passwordRegex.test(value.password) ||*/
             !passwordRegex.test(value.newPassword)) {
-            return alert('숫자와 문자와 특수문자(!@#$%^&+=)를 포함한 8~20자리 이내로 입력해 주세요.');
+            return alert('숫자와 문자와 특수문자(!@#$%^&+=*)를 포함한 8~20자리 이내로 입력해 주세요.');
         }
 
         if (value.newPassword !== value.newPasswordConfirm) {

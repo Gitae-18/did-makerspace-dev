@@ -8,12 +8,15 @@ import { CommonHeader,PreUri, Method, ProgressCode, StatusCode, PageMax, getRspM
 import SideNavi from "../Admin/Management/SideNavi";
 import { useRef } from "react";
 import PopupSaveModal from "../Modals/PopupSaveModal";
+import imageCompression from 'browser-image-compression';
+import { Editor } from '@tinymce/tinymce-react';
+import {css} from '../../css/comb/pages/sections.css'
 export default function SectionInputTextType1d(){
   
   const { token } = useSelector(state => state.user);
-  const {programNo} = useSelector(state=> state.classeduManage)
   const [openModal,setOpenModal] = useState(false);
   const [pay,setPay] = useState("");
+  const [value,setValue] = useState("<p>This is the initial content of the editor.</p>");
   const [imageFile,setImageFile] = useState([]);
   const [imageUrl,setImageUrl] = useState([]);
   const [isChecked,setIsChecked] = useState('');
@@ -25,6 +28,7 @@ export default function SectionInputTextType1d(){
   let type = location.pathname === "/educontrol" ? "edu" : "class";
   const no = location.state.no;
   const url = location.pathname;
+  const editorRef = useRef(null);
   const [input,setInput] = useState({
     className: '',
     place: '',
@@ -36,10 +40,11 @@ export default function SectionInputTextType1d(){
     class_period_end:'',
     application_period_start:'',
     application_period_end:'',
+    style:'',
   });
-  const [text,setText] = useState('')
-
-  const {className,place,fnum,cost,map,popup,class_period_start,class_period_end,application_period_start,application_period_end} = input;
+  const [text,setText] = useState('');
+  const [content,setContent] = useState('');
+  const {className,place,fnum,cost,map,popup,class_period_start,class_period_end,application_period_start,application_period_end,style} = input;
   const onChangeInput = (e) =>{
     const {name,value} = e.target;
     setInput({
@@ -48,27 +53,16 @@ export default function SectionInputTextType1d(){
     })
 
   }
+
   const onClose = () =>{
     setOpenModal(false);
   }
-  const onMemoChange = (e) =>{ 
-    setText(e.target.value);
- };
-
+  const handleEditorChange = (content,editor) =>{
+    setContent(content);
+    editorRef.current = content;
+  }
   const onChangePay = (e)=>{
     setPay(e.target.value);
-  }
-
-  const handleChangeFile = (e) =>{
-    setImageFile(e.target.files);
-
-    const file = e.target.files[0];
-    const url = URL.createObjectURL(e.target.files[0]);
-    const reader =  new FileReader();
-    reader.onload=function(){
-      setImageUrl(reader.result)
-    }
-    reader.readAsDataURL(file)
   }
   const handleCheckBox = (e) =>{
     if(e.target.checked===true){
@@ -78,19 +72,135 @@ export default function SectionInputTextType1d(){
       setIsChecked("N");
     }
   }
+
+  
+
+
+  const handleChangeFile = async(e) =>{
+   setImageFile(e.target.files) // 전체 파일 리스트
+  const file = e.target.files[0];
+  const url = URL.createObjectURL(e.target.files[0]);
+  const reader =  new FileReader();
+  reader.onload=function(){
+    setImageUrl(reader.result)
+  }
+  reader.readAsDataURL(file)
+  /*   const options = {
+    maxSizeMB: 0.2,
+    maxWidthOrHeight: 800,
+    useWebWorker: true,
+  };
+  
+  // 파일 리스트를 순회하며 압축 및 처리
+  let compressedFiles = [];
+  for (let i = 0; i < fileList.length; i++) {
+    const imageFile = fileList[i];
+    console.log(imageFile)
+    const comp = await imageCompression(imageFile, options);
+    compressedFiles.push(new Blob([comp],{ type:'image/jpeg' }));
+    compressedFiles.name = imageFile.name;
+
+  } */
+  }
+/*   const processImage = useCallback(async(files) =>{
+    
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const reader = new FileReader();
+
+    reader.onload = function(event){
+      const img = new Image();
+      img.onload = function(){
+        canvas.width = 800;
+        canvas.height = 600;
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        onClick(canvas.toDataURL('image/jpeg'),file.name)
+      };
+      img.src=event.target.result;
+    }
+    reader.readAsDataURL(file);
+  },[imageFile]) */
+
+  const compressImage = (file) =>{
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = 800; // 원하는 너비로 조정
+          canvas.height = 600; // 원하는 높이로 조정
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.globalCompositeOperation = 'destination-over';
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const compressedDataUrl = canvas.toDataURL('image/png', 0.7); // 압축 품질 조정
+          resolve(compressedDataUrl);
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+  function dataURLToBlob(dataURL) {
+    const byteString = atob(dataURL.split(',')[1]);
+    const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const uint8Array = new Uint8Array(arrayBuffer);
+  
+    for (let i = 0; i < byteString.length; i++) {
+      uint8Array[i] = byteString.charCodeAt(i);
+    }
+  
+    return new Blob([arrayBuffer], { type: mimeString });
+  }
+  
   //formdata.append("image","image.png");
-  const formData = new FormData();
+/*   const formData = new FormData();
+  let index = 0;
+  const formDataHandler = async(dataURI) =>{
+    
+    for (let i = 0; i <imageFile.length; i++) {
+      formData.append("imageFiles", imageFile[i]);
+      index++;
+    }
+  } */
+  console.log(no);
+  const convertToHTML = () => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content, 'text/html');
+    const html = doc.documentElement.innerHTML;
+    return html;
+  }
   const sendData = useCallback(async(e)=>{
-    console.log(isFile)
     CommonHeader.authorization = token;
+
+    const htmlContent = convertToHTML();
+    const form = new FormData();
+    form.append('content', htmlContent);
+    let val;
+    for(let value of form.values()){
+      val = value;
+    }
+    
+   /*  const send = await fetch(PreUri + '/classedu/submit',{
+      method:Method.post,
+      headers:CommonHeader,
+      body:JSON.stringify({
+        content:htmlContent
+      }),
+    })
+    if(!send.ok){
+      return(alert('에러 발생'))
+    } */
     let requri =  PreUri + '/classedu/addprogram'
     const response = await fetch(requri,{
       method:Method.post,
       headers:CommonHeader,
       body:JSON.stringify({
         title:className,
-        content:text,
         type:type,
+        content:content,
         class_period_start:class_period_start,
         class_period_end: class_period_end,
         application_period_start:application_period_start,
@@ -98,57 +208,47 @@ export default function SectionInputTextType1d(){
         pay_flag:pay,        
         place:place,
         limit_number:fnum,
-        cost:cost,
+        cost:cost!==null?cost:alert("비용을 입력해주세요"),
         map:map,
         popup_flag:isChecked,
-        attached_file:isFile,
+        attached_file:imageFile.length>0? "Y":"N",
       })
     })
     if(!response.ok){
       return(alert(getRspMsg(response.status)))
     }
-    let index = 0;
-  
-   /*  for (let i  = 0 ; i < imageFile.length; i++){
-      
+    const files = imageFile;
+    const formData = new FormData();
+
+    for (let i = 0; i<files.length; i++){
+      const file = files[i];
+      const compressedDataUrl = await compressImage(file);
+      const compressedBlob = dataURLToBlob(compressedDataUrl);
+      formData.append('imageFiles',compressedBlob, file.name);
+    } 
+ /*    for(let value of formData.values()){
+      console.log(value)
+    }
+    for(let key of formData.keys()){
+      console.log(key)
     } */
-   
-/*     if(imageFile !== undefined){
-      formData.append("imagefile", imageFile);
-    }
- */
-
-   
-    
-    for (let i = 0; i <imageFile.length; i++) {
-      formData.append("imageFiles", imageFile[i]);
-      index++;
-    }
-
-      const res = await fetch( PreUri +'/classedu/'+ (no+1) +'/files',{
-        method:Method.post,
-        headers: { authorization: token},
-        body:formData
-      })
-      if(!res.ok){
-        return(alert(getRspMsg(res.status)))
-    }
-    setOpenModal(true);
-  },[token,input,imageFile,isFile,isChecked])
+    const res = await fetch( PreUri +'/classedu/'+ (no+1) +'/files',{
+      method:Method.post,
+      headers: { authorization: token},
+      body:formData
+    })
+    if(!res.ok){
+      return(alert(getRspMsg(res.status)))
+  }
+      
+   setOpenModal(true);
+  },[token,input,isChecked,imageFile])
 
  useEffect(()=>{
-  if(imageFile.length>0)
-  {
-    setIsFile("Y");
-  }
-  else{
-    setIsFile("N");
-  }
  },[isChecked,imageFile,isFile])
-/*   useEffect(()=>{
-//    onMemoChange();
-    getData();
-  },[input,token]) */
+
+
+
   return (
     <>
     <div id="sub_page_wrap">
@@ -171,14 +271,57 @@ export default function SectionInputTextType1d(){
         </li>
         <li className="textarea_wrap">
           <label htmlFor="text02">내용</label>
-          <textarea
+          {/* <textarea
             name="text02"
             id="text02"
             cols="30"
             rows="6"
             placeholder="입력하세요."
-            onChange={onMemoChange}
-          ></textarea>
+            onChange={handleEditorChange}
+          ></textarea> */}
+          <div className="editor_wrap">
+          <Editor 
+            id= 'tinyEditor'
+            className="tiny"
+            apiKey = {process.env.REACT_APP_TINYMCE_KEY}
+            init={{
+              height: 300,
+              width: 800,
+              forced_root_block : false,
+              force_br_newlines : true,
+              force_p_newlines : false,
+              selector:'textarea',
+              content_css:css,
+              menubar: false,
+              plugins: [
+                'lists',
+                  'link',
+                  'image',
+                  'charmap',
+                  'preview',
+                  'searchreplace',
+                  'fullscreen',
+                  'media',
+                  'table',
+                  'code',
+                  'help',
+                  'emoticons',
+                  'codesample',
+                  'quickbars',
+              ],
+              toolbar:
+                  'undo redo | blocks | ' +
+                  'bold italic forecolor | alignleft aligncenter ' +
+                  'alignright alignjustify | bullist numlist outdent indent | ' +
+                  'lists table link charmap searchreplace | ' +
+                  'codesample emoticons fullscreen preview | ' +
+                  'removeformat | help ',
+              content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px;}',
+              
+             }}
+             onEditorChange={handleEditorChange}
+             />
+             </div>
         </li>
         <li>
           <label htmlFor="select01">유/무료</label>
@@ -250,6 +393,16 @@ export default function SectionInputTextType1d(){
             onChange={handleCheckBox}
           />
         </li>
+    {/*     <li>
+          <label htmlFor="checkbox01">이미지 크기</label>
+          <input
+            type="text"
+            name="popup"
+            id="checkbox01"
+            className="input_checkbox w_auto"
+            onChange={onChangeInput}
+          />
+        </li> */}
       </ul>
     
         <StyledBtn className="apply" onClick={sendData}>등록</StyledBtn>

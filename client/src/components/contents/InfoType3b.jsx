@@ -61,16 +61,18 @@ const getFileNo = useCallback(async()=>{
   setFileNo(json);
 },[no])
 const FileDownload = useCallback((props) => {
-  return (<>
-    <button className="download" style={{ border: "0px", cursor: 'pointer' }} onClick={props.onClick}>{props.filename}</button>
-  </>);
+  return (
+    <div style={{display:'inline-block',margin:'0px 5px'}}>
+    <label>{props.index}.</label>
+    <button className="download" style={{ border: "0px", cursor: 'pointer',display:'inline-block' }} onClick={props.onClick}>{props.filename}</button>
+    </div>);
 }, []);
 let DownloadMyFileItems = [];
   if (fileNo && fileNo.length > 0) {
     for (let i = 0; i < fileNo.length; i++) {
       DownloadMyFileItems.push(
         <FileDownload index={i}
-          filename={fileNo[i].original_name}
+          filename={fileNo[i].original_name.length<20?fileNo[i].original_name:fileNo[i].original_name.slice(0,20)+'...'}
           onClick={(e) => onFileDownload(e, fileNo[i])}
           key={i} />);
     };
@@ -107,7 +109,7 @@ let DownloadMyFileItems = [];
         <dd style={{"whiteSpace":"pre-wrap"}}>{data.content}</dd>
       </dl>
       <div>
-        <label style={{backgroundColor:"gray",marginRight:"10px",color:"white",width:"55px !important",height:"50px !important"}}>파일 다운로드</label>
+        <label style={{backgroundColor:"gray",marginRight:"10px",color:"white",width:"60px !important",height:"60px !important",fontSize:'9px',padding:'4px 4px'}}>파일 다운로드</label>
         {DownloadMyFileItems}
       </div>
       </>

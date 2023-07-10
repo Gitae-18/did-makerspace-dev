@@ -238,7 +238,7 @@ for (let i = 0; i < PageMax; i++) {
           <button className="search_btn" type="button" onClick={onSearch}>검색</button>
         </div>
       </div>
-      <table>
+      <table style={{width:'1300px',tableLayout:'fixed'}}>
         <caption className="blind">장비소개</caption>
         <thead>
           <tr>

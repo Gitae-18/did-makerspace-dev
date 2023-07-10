@@ -167,7 +167,7 @@ export const ManagementMaterialItem = () =>{
       );
 }
 
-export const MentoringReport = () =>{
+/* export const MentoringReport = () =>{
   return (
       <>
        
@@ -183,7 +183,7 @@ export const MentoringReport = () =>{
       </div>
       </>
     );
-}
+} */
 export const MentoringReportDetail = () =>{
   return (
       <>

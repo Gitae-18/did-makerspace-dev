@@ -1,39 +1,36 @@
 'use strict';
 
-
-
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('service_application', {
-        service_no: {
+    return sequelize.define('mentoring_report_attached_file', {
+        attached_file_no: {
             type: DataTypes.INTEGER,
-            autoIncrement: false,
+            autoIncrement: true,
             allowNull: false,
             primaryKey: true,
         },
-        service_categories_no: {
-            type: DataTypes.STRING(45),
+        mentoring_application_no: {
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
-        product_name: {
+        original_name: {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
-        content: {
-            type: DataTypes.TEXT,
+        name: {
+            type: DataTypes.STRING(100),
             allowNull: false,
         },
-        business_plan: {
-            type: DataTypes.TEXT,
+        type: {
+            type: DataTypes.STRING(100),
             allowNull: false,
         },
-        requirement: {
-            type: DataTypes.TEXT,
-            allowNull: true,
-        },
-        attached_file_flag: {
-            type: DataTypes.CHAR(1),
+        path: {
+            type: DataTypes.STRING(255),
             allowNull: false,
-            defaultValue: 'N',
+        },
+        filesize: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
         },
         created_user_no: {
             type: DataTypes.INTEGER,
@@ -43,15 +40,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: true,
         },
-        memo:{
-            type:DataTypes.TEXT,
-            allowNull:true,
-        }
     }, {
         timestamps: true, // created_at, updated_at
         paranoid: true,    // deleted_at
         underscored: true,
         charset: 'utf8',
-        comment: '서비스 신청서',
+        comment: '첨부파일',
     });
 };

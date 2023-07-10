@@ -96,7 +96,7 @@ const upload = multer({
 router.post('/:program_no/files',verifyToken,upload.array('imageFiles'), async(req, res, next) => {
      let user_no = req.decoded.user_no;
      let program_no = req.params.program_no;
-    console.log(program_no);
+     console.log(req.files);
     for(let i = 0; i<req.files.length;i++){
         let inputResult;
         try {
@@ -128,6 +128,9 @@ router.post('/:program_no/files',verifyToken,upload.array('imageFiles'), async(r
 
 
 router.put('/:program_no/files',verifyToken,upload.array('imageFiles'), async(req, res, next) => {
+    const program_no = req.params.program_no;
+    let user_no = req.decoded.user_no;
+
     for(let i = 0; i<req.files.length;i++){
         let inputResult;
         try {
@@ -140,6 +143,8 @@ router.put('/:program_no/files',verifyToken,upload.array('imageFiles'), async(re
                 filesize:req.files[i].size,
                 created_user_no: user_no,
                 updated_user_no: user_no,
+            },{
+                where:{program_no:program_no}
             });
         } catch (error) {
             console.error(error);
@@ -272,7 +277,6 @@ router.post('/addprogram',verifyToken,async(req,res,next)=>{
     let body = req.body;
     let user_no = req.decoded.user_no;
     let inputResult;
-    console.log(body.attached_file);
     try{
         inputResult  = await ClasseduProgram.create({
            title:body.title,
@@ -365,8 +369,7 @@ router.put('/classedu_cnt',async(req,res,next)=>{
         console.log(error);
     }
 })
-router.get('/:program_no/class_receive',verifyToken,async(req,res,next)=>{
-    let user_no = req.decoded.user_no;
+router.get('/:program_no/class_receive',async(req,res,next)=>{
     const no = req.params.program_no;
     let result ;
     try{
@@ -437,10 +440,8 @@ router.get('/:program_no/getimage',async(req,res,next)=>{
  
     res.send(file_info)
 })
-router.get('/:program_no/files',verifyToken,async (req, res, next) => {
+router.get('/:program_no/files',async (req, res, next) => {
     let program_no = req.params.program_no;
-    let user_no = req.decoded.user_no;
-   
 
 /*     if (authority_level < authLevel.manager) {
         return res.status(errorCode.notAcceptable).json({});
@@ -529,5 +530,22 @@ router.get('/reservlist',verifyToken,async(req, res, next)=>{
             delete result[i]['user_email'];
         }
         res.status(errorCode.ok).json(result);
+})
+router.post('/submit',async(req,res,next)=>{
+    let body = req.body;
+
+    //const {content} = req.body;
+    //const newContent = new ClasseduProgram({content:content});
+    //newContent.save();
+    try{
+         newContent = await ClasseduProgram.create({
+            content:body.content,
+        })
+    }
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json({});
 })
 module.exports = router;

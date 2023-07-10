@@ -89,13 +89,13 @@ export default function MyClassReserv() {
   return (
     <div className="table_wrap table_type2">
       <div className="table_extra">
-        <div className="table_search">
+    {/*     <div className="table_search">
         <select name="" id="">
-            <option value="1">모델명</option>
+            <option value="1">교육/행사 명</option>
           </select>
         <input type="text" name="" id="" placeholder="제목을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange}/>
           <StyledBtn onClick={(e)=>onSearch(e)} >검색</StyledBtn>
-          </div>
+          </div> */}
       </div>
       <table>
         <caption className="blind">내 교육/행사 예약</caption>

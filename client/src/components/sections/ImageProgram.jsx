@@ -8,9 +8,6 @@ export default function ImageProgram({no,token,attachFile}){
        
         const res = await fetch(PreUri + '/fileview/'+ no +'/classedufile',  {
           method: Method.get,
-          headers: {
-            authorization: token,
-        }, 
         })
         const fileName = await res.json();
         const filesrc = btoa(fileName.file);
