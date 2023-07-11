@@ -22,7 +22,6 @@ router.get("/examlist"/* ,verifyToken */, async(req,res,next) =>{
         item = await ExamQuestion.findAll({
             attributes:['question_no','question_title','answer','pic_src'],
             where:{exam_type:examtype},
-            /* order:sequelize.random(), */
             raw:true,
            // required:false,
         })
@@ -42,6 +41,7 @@ router.get('/bogilist',async(req,res,next)=>{
         answer = await ExamChoice.findAll({
             attributes:['choice_no','content','question_no','exam_type'],
             where:{exam_type:examtype},
+            order:sequelize.random(),
             raw:true,
         })
     }

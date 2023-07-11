@@ -19,6 +19,8 @@ export default function SectionInputTextType1d(){
   const [value,setValue] = useState("<p>This is the initial content of the editor.</p>");
   const [imageFile,setImageFile] = useState([]);
   const [imageUrl,setImageUrl] = useState([]);
+  const [file, setFile] = useState([]);
+  const [isValid, setIsValid] = useState(false);
   const [isChecked,setIsChecked] = useState('');
   const [pop,setPop] = useState('');
   const [isFile,setIsFile] = useState('');
@@ -74,7 +76,24 @@ export default function SectionInputTextType1d(){
   }
 
   
-
+  const onChangeFile = (e) =>{
+    let pickedFile=[];
+  
+    if(e.target.files){
+      for(let i = 0;i<e.target.files.length;i++)
+      {
+        pickedFile.push(e.target.files[i]);
+      }
+      setFile([...file,...pickedFile]);
+      setIsValid(true);
+    }
+    else{
+      setIsValid(false);
+    }
+  }
+  const onDelete = (file) => {
+    setFile((prevFiles) => prevFiles.filter((prevFile) => prevFile !== file));
+  };
 
   const handleChangeFile = async(e) =>{
    setImageFile(e.target.files) // 전체 파일 리스트
@@ -226,6 +245,12 @@ export default function SectionInputTextType1d(){
       const compressedBlob = dataURLToBlob(compressedDataUrl);
       formData.append('imageFiles',compressedBlob, file.name);
     } 
+    const formFile = new FormData();
+    let index2 = 0;
+    for (let i = 0; i<file.length; i++){
+      formFile.append('Files',file[i]);
+      index2++;
+    }
  /*    for(let value of formData.values()){
       console.log(value)
     }
@@ -240,14 +265,31 @@ export default function SectionInputTextType1d(){
     if(!res.ok){
       return(alert(getRspMsg(res.status)))
   }
-      
+  const resq = await fetch(PreUri + '/classedu/'+(no+1)+'/nofiles',{
+    method:Method.post, 
+     headers:{authorization:token},
+      body:formFile,
+  })
+  if(!resq.ok){
+    return(alert(getRspMsg(res.status)))
+   }
    setOpenModal(true);
   },[token,input,isChecked,imageFile])
 
  useEffect(()=>{
  },[isChecked,imageFile,isFile])
 
-
+ const File = ({ item, index, onDelete })=> {
+    
+  return (
+    <StyledDiv>
+      <StyledP style={{width:"150px"}}>
+        {index}. {item.name}
+      </StyledP>
+      <StyledBtn2 onClick={()=>{onDelete(index)}}>삭제</StyledBtn2>
+    </StyledDiv>
+  );
+}
 
   return (
     <>
@@ -310,13 +352,9 @@ export default function SectionInputTextType1d(){
                   'quickbars',
               ],
               toolbar:
-                  'undo redo | blocks | ' +
-                  'bold italic forecolor | alignleft aligncenter ' +
-                  'alignright alignjustify | bullist numlist outdent indent | ' +
-                  'lists table link charmap searchreplace | ' +
-                  'codesample emoticons fullscreen preview | ' +
-                  'removeformat | help ',
-              content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px;}',
+              "undo redo spellcheckdialog  | blocks fontfamily fontsizeselect | bold italic underline forecolor backcolor | link | align lineheight checklist bullist numlist | indent outdent | removeformat typography",
+              font_size_formats:
+              "8pt 9pt 10pt 11pt 12pt 14pt 18pt 24pt 30pt 36pt 48pt 60pt 72pt 96pt",
               
              }}
              onEditorChange={handleEditorChange}
@@ -377,6 +415,19 @@ export default function SectionInputTextType1d(){
           />
           <span>원</span>
         </li>
+        <li className="filearea_wrap">
+        <label htmlFor="text02">파일 업로드</label>
+          <StyledLabel  htmlFor="file2">파일 추가 +</StyledLabel>
+          <input type="file" name="Files" id="file2" className="w_auto" style={{display:"none"}} onChange={onChangeFile} multiple accept=".pdf,video/*,text/plain,.word"/>
+          {file&&file.map((item,index)=>(
+          <File
+          item={item}
+          index={index}
+          onDelete={()=>onDelete(item)}
+          key={item.name}
+          />
+           ))}
+  </li>
         <li>
           <label htmlFor="file01" style={imageFile.length>0?{"height":'150px'}:{"height":"60px"}}>파일#1</label>
           <input type="file" name="imagefile" id="file01" className="w_auto" onChange={handleChangeFile} multiple accept="image/*" />
@@ -443,4 +494,44 @@ border:1px solide #313f4f;
     background-color:#transparent
     color:#313f4f
  }
+ `
+ const StyledLabel = styled.label`
+ padding: 0.25rem; 
+ margin-right: 0.5rem; 
+ &:hover {
+   font-weight: 600; 
+  cursor: pointer; 
+  background: #ffcdd2;
+   }
+ `
+ const StyledP= styled.p`
+ width: 250px;
+ 
+ @media (min-width: 640px) { 
+   width: 400px;
+  }
+ @media (min-width: 768px) { 
+   width: 500px;
+  }
+ @media (min-width: 1024px) { 
+   width: 600px;
+  }
+ `
+ const StyledDiv = styled.div`
+ display: flex; 
+ padding-left: 0.5rem;
+ padding-right: 0.5rem; 
+ margin-bottom: 0.25rem; 
+ justify-content: space-between; 
+ border-radius: 0.25rem; 
+ `
+ const StyledBtn2= styled.button`
+ color:#fff;
+ background-color:#313f4f;
+ width:40px !important;
+ height:25px !important;
+ font-size:0.5rem;
+ cursor:pointer;
+ position:relative !important;
+ left:3px !important;
  `

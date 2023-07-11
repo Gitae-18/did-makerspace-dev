@@ -9,7 +9,9 @@ export default function () {
     const history  = useNavigate();
     const location = useLocation();
     const url = location.state.url;
+    const no = location.state.no;
     console.log(url);
+    console.log(no);
     useEffect(()=>{
         if(isLoggedIn)
         {

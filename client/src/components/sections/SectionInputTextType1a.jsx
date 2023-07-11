@@ -42,6 +42,7 @@ export default function SectionInputTextType1a() {
       [id]:value,
     })
   }
+  console.log(input)
  const onUserChangeInput = (e) =>{
   const {id,value} = e.target;
   setUserInput({
@@ -558,7 +559,7 @@ const onClose = () =>{
             (
               <>
               <div style={{flexBasis:"10%",boxSizing:"border-box",padding:"5px"}} key={idx}>
-                  <input type="checkbox"  id="radio_button" name={item.text} value={item.text} style={{width:"20px",height:"25px"}}  onChange={(e)=>checkedItemHandler(item.text,e.currentTarget.checked)} isReadOnly/> 
+                  <input type="checkbox"  id="checkbox" name={item.text} value={item.text} style={{width:"20px",height:"25px"}}  onChange={(e)=>checkedItemHandler(item.text,e.currentTarget.checked)}/> 
                   <div style={item.length===2?{position:"relative",left:"25px"}:item.length===3?{position:"relative",left:"20px"}:{position:"relative",left:"15px"}}>
                   <h3 style={item.text.includes("IoT")?{width:"100px",position:"relative",left:"10px"}:item.text.length<3?{width:"100px",position:"relative",left:"9px"}:{width:"100px",position:"relative"}}>{item.text}</h3>
                   </div>

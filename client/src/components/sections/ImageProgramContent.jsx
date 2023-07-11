@@ -4,7 +4,6 @@ import { CommonHeader, PreUri, Method } from "../../CommonCode";
 export default function ImageProgramContent({no,token,attachFile}){
     const [fileurl2,setFileUrl2] = useState([]);
     const elements = document.getElementsByClassName('sub_page_inner_wrap')
-    console.log(fileurl2.length)
     for (let i = 0; i < elements.length; i++) {
       elements[i].style.height = `${fileurl2.length*1300}px`;
       if(fileurl2.length===1){
@@ -25,7 +24,7 @@ export default function ImageProgramContent({no,token,attachFile}){
         setFileUrl2(filesrc);
        }
       },[no,attachFile])
-      console.log(fileurl2)
+
       useEffect(()=>{
         getFileName();
       },[getFileName])

@@ -104,8 +104,6 @@ let DownloadMyFileItems = [];
         <dt className="blind">설명</dt>
         <dd style={{"whiteSpace":"pre-wrap"}}>{data.content}<br/>
         </dd>
-        <dt>첨부파일</dt>
-        <dd>제조 양산의 기초 실리콘몰드제작.pdf</dd>
       </dl>
       <div>
       <label style={{backgroundColor:"gray",marginRight:"10px",color:"white",width:"55px !important",height:"50px !important"}}>파일 다운로드</label>

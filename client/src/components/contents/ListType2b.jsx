@@ -2,6 +2,7 @@ import React,{useEffect,useState,useCallback} from "react";
 import { useLocation,useNavigate } from "react-router-dom";
 import { PreUri , CommonHeader ,  Method, getRspMsg } from "../../CommonCode";
 import {useDispatch,useSelector}  from "react-redux";
+import { M_CLASS_SET } from "../../store/classedu_manage";
 import ImageGetProgramList from "../sections/ImageGetProgramList";
 import Paging2 from "./Paging2";
 import styled from "styled-components";
@@ -13,6 +14,7 @@ export default function ListType2b() {
   const [attachFile,setAttachFile] = useState({});
   const [page,setPage] = useState(1);
   const [count,setCount] = useState(0);
+  const dispatch = useDispatch();
   const [search,setSearch] = useState('');
   const [currentPage,setCurrentPage] = useState(1);
   const [itemList,setItemList] = useState([]);
@@ -60,8 +62,10 @@ export default function ListType2b() {
     return;
    }
 
-    history(location.pathname + '/detail',{state:{no:program_no}});
-  },[currentPost,itemList])
+    history(location.pathname + '/detail'/* ,{state:{no:program_no}} */);
+    dispatch({ type: M_CLASS_SET, target: program_no });
+  },[currentPost,itemList,dispatch])
+
   const item = Object.values(itemList).map(item=>item);
 
   const tit = item;
@@ -141,7 +145,7 @@ export default function ListType2b() {
     getFileNo();
     getItemList();
   },[getFile,getFileNo,getItemList,token])
-  console.log(attachFile)
+
   return (
     <div className="table_wrap list_type2">
     <div className="table_extra">

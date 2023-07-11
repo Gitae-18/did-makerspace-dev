@@ -217,7 +217,7 @@
  .sub_page_inner_wrap  {
   position:relative;
   top:100px;
-  max-height:3000px;
+  max-height:100%;
 }
 .sub_inner{
   max-width:2400px;
@@ -227,7 +227,6 @@
   position:relative;
   left:2%;
   font-size:0.8rem;
-  
 } 
 .sub_inner .tale_wrap  > tbody > tr > td > a{
   color:#000000;
@@ -371,7 +370,6 @@
 #pageSub02a5 .testpage{
   border: 1.5px solid #2d2d2d;
   width:auto;
-  height:300px;
   max-height:100%;
   box-sizing: border-box;
   font-size: 0.6rem;

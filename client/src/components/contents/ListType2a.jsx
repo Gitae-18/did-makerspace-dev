@@ -1,21 +1,21 @@
 import React,{useEffect,useState,useCallback} from "react";
 import { useLocation,useNavigate } from "react-router-dom";
-import {useDispatch,useSelector}  from "react-redux";
 import { PreUri , CommonHeader ,  Method, getRspMsg } from "../../CommonCode";
-import ImageGetProgramListProgram from "../sections/ImageGetProgramListProgram";
+import {useDispatch,useSelector}  from "react-redux";
+import { M_CLASS_SET, M_EDU_SET } from "../../store/classedu_manage";
+import ImageGetProgramList from "../sections/ImageGetProgramList";
 import Paging2 from "./Paging2";
 import styled from "styled-components";
-
-export default function ListType2a() {
+export default function ListType2b() {
   const { token } = useSelector(state => state.user);
   const location = useLocation();
   const history = useNavigate();
-  const [search,setSearch] = useState('');
   const [fileNo,setFileNo] = useState({});
-  //페이징
-  const [page,setPage] = useState(1);
   const [attachFile,setAttachFile] = useState({});
+  const [page,setPage] = useState(1);
   const [count,setCount] = useState(0);
+  const dispatch = useDispatch();
+  const [search,setSearch] = useState('');
   const [currentPage,setCurrentPage] = useState(1);
   const [itemList,setItemList] = useState([]);
   const postPerPage = 10;
@@ -23,10 +23,10 @@ export default function ListType2a() {
   const indexOfLastPost = currentPage * postPerPage
   const indexOfFirstPost = indexOfLastPost - postPerPage;
   const currentPost = itemList.slice(indexOfFirstPost, indexOfLastPost)
+  const title="원목 트레이 만들기"
   const type = "class";
-
   const getItemList = useCallback(async()=>{
-    CommonHeader.authorization = token;
+
     let requri = PreUri + '/classedu/edulist?type=' + type;
    
     const response = await fetch(requri,{
@@ -42,16 +42,8 @@ export default function ListType2a() {
     setCount(json.length);
   },[token])
 
-
   const onItem = useCallback(async(e,index)=>{
     const hit_cnt = e.hit;
-   /*  let program_no;
-    if(itemList[0]!==undefined){
-      program_no = itemList[index].notice_no;
-    }
-    else{
-      program_no = 1
-    } */
     const program_no = e.program_no;
     
     const response = await fetch(PreUri + '/classedu/classedu_cnt',{
@@ -68,8 +60,24 @@ export default function ListType2a() {
     console.log('잘못된 접근입니다.');
     return;
    }
+   dispatch({ type: M_EDU_SET, target: program_no });
     history(location.pathname + '/detail',{state:{no:program_no}});
-  },[currentPost,itemList])
+  },[currentPost,itemList,dispatch])
+  const item = Object.values(itemList).map(item=>item);
+
+  const tit = item;
+
+  const sethandlePage = (e) =>{
+    setCurrentPage(e);
+  }
+  const onMove = () =>{
+    history('/classprogram/myreserv');
+  }
+  const onChange = (e) =>{
+    e.preventDefault();
+    setSearch(e.target.value);
+  }
+ 
   const onSearch = useCallback(async(e) =>{
     e.preventDefault();
     
@@ -95,21 +103,14 @@ export default function ListType2a() {
       onSearch(e);
     }
   }
-  const onChange = (e) =>{
-    e.preventDefault();
-    setSearch(e.target.value);
-  }
-  const onMove = () =>{
-    history('/classprogram/myreserv');
-  }
   let no;
   for(let i = 0; i<itemList.length;i++){
     no = itemList[i].program_no;
   }
- 
+
   const getFile = useCallback(async()=>{
     if(no!==undefined){
-    CommonHeader.authorization = token;
+   
     const res = await fetch(PreUri + '/classedu/' + no + '/files', {
       method: Method.get,
       headers: {
@@ -135,30 +136,27 @@ export default function ListType2a() {
     }
   },[no])
 
+  //console.log(item);
   useEffect(()=>{
     getFile();
     getFileNo();
     getItemList();
-  },[getFile,getItemList,getFileNo,token])
-  const sethandlePage = (e) =>{
-    setCurrentPage(e);
-  }
-  console.log(currentPost)
+  },[getFile,getFileNo,getItemList,token])
   return (
-    <div className="table_box">
     <div className="table_wrap list_type2">
-      <div className="table_extra">
-      <StyledBtn2 onClick={onMove}>내 예약정보</StyledBtn2>
-       <div className="table_search">
-         <input type="text" name="" id="" placeholder="제목을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange}/>
-           <StyledBtn onClick={(e)=>onSearch(e)} >검색</StyledBtn>
-       </div>
+    <div className="table_extra">
+    <StyledBtn2 onClick={onMove}>내 예약정보</StyledBtn2>
+      <div className="table_search">
+       <input type="text" name="" id="" placeholder="제목을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange}/>
+          <StyledBtn onClick={(e)=>onSearch(e)} >검색</StyledBtn>
+      </div>
       </div>
       <ol>
-      {currentPost!==undefined?currentPost.map((item,index)=>(
+        {currentPost!==undefined?currentPost.map((item,index)=>(
         
         <li key={index}>
-        <ImageGetProgramListProgram attachFile={item.attached_file} no={item.attached_file==="Y"&&item.type==="class"?item.program_no:0} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)} />
+        <ImageGetProgramList attachFile={item.attached_file} no={item.attached_file==="Y"&&item.type==="edu"?item.program_no:0} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)} />
+
         <div className="text_part" onClick={(e)=>onItem(item,index)}>
           <h5 >{item.title}</h5>
           <div className="tag">
@@ -181,14 +179,11 @@ export default function ListType2a() {
     )):null}
       </ol>
       <div className="page_control">
-       <Paging2 page={currentPage} count = {count} setPage={sethandlePage}/>
+          <Paging2 page={currentPage} count = {count} setPage={sethandlePage}/>
       </div>
-    </div>
     </div>
   );
 }
-
-
 const StyledBtn= styled.button`
 color:#fff;
 background-color:#313f4f;

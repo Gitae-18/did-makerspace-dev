@@ -16,11 +16,10 @@ import { IoLocation,IoCalendarSharp,IoPerson } from "react-icons/io5";
 import { RiReservedFill ,RiCheckFill} from "react-icons/ri";
 import { FaMoneyCheck } from "react-icons/fa";
 import { BsListUl } from "react-icons/bs";
-export default function InfoType2b() {
+export default function InfoType2b({no}) {
   const history = useNavigate();
   const location = useLocation();
-  const no = location.state.no;
-  const programno = location.state.programno;
+  //const no = location.state.no;
   const dispatch = useDispatch();
   const [openModal,setOpenModal] = useState(false);
   const [closemodal,setCloseModal] = useState(false);
@@ -109,7 +108,6 @@ export default function InfoType2b() {
       method: Method.get,
     })
     const fileList = await res.json();
-    console.log(fileList)
     if(fileList!==null||undefined)
     {
     setAttachFile(fileList)
@@ -140,7 +138,6 @@ export default function InfoType2b() {
   const reservClose = () =>{
     setModalOpen(false);
   }
-  console.log(data);
   return (
 
     <div className="info_type2"> 

@@ -14,6 +14,7 @@ export default function ImageGetProgramList({no,token,attachFile,onItem}){
         setFileUrl2(filesrc);
       }
       },[attachFile])
+
       useEffect(()=>{
         getFileName();
       },[getFileName])

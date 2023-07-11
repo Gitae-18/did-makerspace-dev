@@ -16,11 +16,10 @@ import { IoLocation,IoCalendarSharp,IoPerson } from "react-icons/io5";
 import { RiReservedFill ,RiCheckFill} from "react-icons/ri";
 import { FaMoneyCheck } from "react-icons/fa";
 import { BsListUl } from "react-icons/bs";
-export default function InfoType2b() {
+export default function InfoType2a({no}) {
   const history = useNavigate();
   const location = useLocation();
-  const no = location.state.no;
-  const programno = location.state.programno;
+  //const no = location.state.no;
   const dispatch = useDispatch();
   const [openModal,setOpenModal] = useState(false);
   const [modalOpen,setModalOpen] = useState(false);
@@ -32,7 +31,6 @@ export default function InfoType2b() {
   const [cost,setCost] = useState();
   const { token, authority_level} = useSelector(state => state.user);
   let type = "class";
-
   const getEduList = useCallback(async()=>{
     CommonHeader.authorization = token;
 
@@ -154,7 +152,6 @@ export default function InfoType2b() {
   const reservClose = () =>{
     setModalOpen(false);
   }
-
   return (
 
     <div className="info_type2"> 

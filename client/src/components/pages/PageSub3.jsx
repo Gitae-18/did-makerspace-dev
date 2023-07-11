@@ -34,7 +34,7 @@ export default function ClassEdu_Program() {
       </>
     );
   }
-  export const ClassEdu_Program2 = ({location,history}) => {
+  export const ClassEdu_Program2 = () => {
     return (
         <>
          
@@ -51,14 +51,15 @@ export default function ClassEdu_Program() {
         </>
       );
   }
-  export const ClassEdu_program3 = () => {
+  export const ClassEdu_program3 = ({no}) => {
+    console.log(no);
     return (
         <>
         <div id="sub_page_wrap">
         <SubSideMenu title={"교육프로그램"}></SubSideMenu>
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
-              <InfoType2b/>
+              <InfoType2b no={no}/>
             </div>
           </div>
         </div>
@@ -68,14 +69,15 @@ export default function ClassEdu_Program() {
       );
   }
 
-  export const ClassEdu_program4 = () => {
+  export const ClassEdu_program4 = ({no}) => {
+    console.log(no);
     return (
         <>
         <div id="sub_page_wrap">
           <SubSideMenu subtitle={"행사프로그램"}></SubSideMenu>
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
-              <InfoType2a/>
+              <InfoType2a no={no}/>
             </div>
           </div>
         </div>

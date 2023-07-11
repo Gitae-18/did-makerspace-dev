@@ -25,6 +25,7 @@ export default function PageSub02a5() {
   const [testfile,setTestFile] = useState([]);
   const [passflag,setPassflag] = useState('');
   const [totalScore,setTotalScore] = useState(0);
+  const [score,setScore] = useState(0);
   const [inputs,setInputs] = useState({
     name:'',
     attached:'',
@@ -35,11 +36,18 @@ export default function PageSub02a5() {
   const {input1,input2,input3,input4,input5,input6,input7,input8,input9,input10} = input; */
   let array = Object.values(input);
   let countup = 0;
-  let score = 0 ;
   let incorrect;
   let pass ;
-  const correctAnswer = testfile.map(ele=>ele.answer);
+  const correctAnswer = testfile.map(ele=>ele.answer.replace(/[\r\n]/g, ''));
   const answerlist = Object.values(input);
+  /* const element = document.getElementById('pageSub02a5');
+  if (element) {
+    element.style.height = '2500px';
+  } */
+  const elements = document.getElementsByClassName('sub_page_inner_wrap')
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].style.height = `5000px !important`;
+  }
   const onChangeInput = useCallback( async(e) =>{
     const {name,value} = e.target;
     setInput({
@@ -50,7 +58,9 @@ export default function PageSub02a5() {
    
 
   },[input]);
-
+console.log(input)
+console.log(answerlist)
+console.log(correctAnswer)
   const handleSubmit = (e) =>{
     e.preventDefault();
 
@@ -97,7 +107,7 @@ export default function PageSub02a5() {
     })
     const data = await res.json();
     setTestAnswer(data);
-  },[testfile,testAnswer])
+  },[])
  
 /*   const getPassflag= useCallback(async()=>{
     let requri = PreUri + '/'
@@ -124,7 +134,7 @@ export default function PageSub02a5() {
   },[token,passflag])
   const onCheckModal = useCallback(async()=>{
     setModalOpen(true);
-  },[input])
+  },[])
   
   /* const onSubmit = useCallback(async(e) =>{
     CommonHeader.authorization = token;
@@ -132,7 +142,9 @@ export default function PageSub02a5() {
      
    
   },[token,passflag]) */
-  const checkAnswer = useCallback(async() =>{
+  console.log(score)
+  const checkAnswer = () =>{
+    let updatedscore =  0;
     for(let i = 0; i<answerlist.length;i++)
     {
   /*     const isCorrect = answerlist.every((answer,index)=>answer === correctAnswer[index]);
@@ -146,14 +158,13 @@ export default function PageSub02a5() {
         if(answerlist[i]===correctAnswer[i])
         {
         countup+=1;
-        score+=10;
+        updatedscore += 10;
         console.log("정답");
       }else{
         incorrect+=1;
       }
       
     }
-    setTotalScore(score);
     if(countup>=6)
     {
       setPassflag("Y");
@@ -162,7 +173,9 @@ export default function PageSub02a5() {
     else {
       setPassflag("N");
     }
-  },[input]);
+    setTotalScore(updatedscore);
+    setScore(updatedscore);
+  };
 
   const onSendResult = useCallback(async()=>{
     CommonHeader.authorization = token;
@@ -185,11 +198,12 @@ export default function PageSub02a5() {
    history('/eqreservation/equip');
   },[token,passflag])
 
-
-  useEffect(()=>{
+  useEffect(() => {
     getExam();
+  }, []);
+  useEffect(()=>{
     checkAnswer();
-  },[checkAnswer])
+  },[answerlist,correctAnswer,score,incorrect])
   return (
     <div id="pageSub02a5">
       <TextExtraType1b></TextExtraType1b>

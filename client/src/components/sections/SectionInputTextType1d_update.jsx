@@ -20,6 +20,8 @@ export default function SectionInputTextType1d_update(){
   const [pay,setPay] = useState("");
   const [imageFile,setImageFile] = useState([]);
   const [imageUrl,setImageUrl] = useState([]);
+  const [file, setFile] = useState([]);
+  const [isValid, setIsValid] = useState(false);
   const [isChecked,setIsChecked] = useState(false);
   const location = useLocation();
   const history = useNavigate();
@@ -81,6 +83,25 @@ export default function SectionInputTextType1d_update(){
     setPay(e.target.value);
   }
 
+  const onChangeFile = (e) =>{
+    let pickedFile=[];
+  
+    if(e.target.files){
+      for(let i = 0;i<e.target.files.length;i++)
+      {
+        pickedFile.push(e.target.files[i]);
+      }
+      setFile([...file,...pickedFile]);
+      setIsValid(true);
+    }
+    else{
+      setIsValid(false);
+    }
+  }
+  const onDelete = (file) => {
+    setFile((prevFiles) => prevFiles.filter((prevFile) => prevFile !== file));
+  };
+
   const handleChangeFile = async(e) =>{
     setImageFile(e.target.files)
     const file = e.target.files[0];
@@ -90,6 +111,7 @@ export default function SectionInputTextType1d_update(){
       setImageUrl(reader.result)
     }
     reader.readAsDataURL(file)
+
    // const fileList = e.target.files; // 전체 파일 리스트
   /* const options = {
     maxSizeMB: 0.2,
@@ -198,6 +220,13 @@ export default function SectionInputTextType1d_update(){
       const compressedBlob = dataURLToBlob(compressedDataUrl);
       formData.append('imageFiles',compressedBlob, file.name);
     }
+
+    const formFile = new FormData();
+    let index2 = 0;
+    for (let i = 0; i<file.length; i++){
+      formFile.append('Files',file[i]);
+      index2++;
+    }
  /*    for(let value of formData.values()){
       console.log(value)
     }
@@ -213,6 +242,14 @@ export default function SectionInputTextType1d_update(){
       if(!res.ok){
         return(alert(getRspMsg(res.status)))
     }
+    const resq = await fetch(PreUri + '/classedu/'+ programno +'/nofiles',{
+      method:Method.put, 
+       headers:{authorization:token},
+        body:formFile,
+    })
+    if(!resq.ok){
+      return(alert(getRspMsg(res.status)))
+     }
     //}
     setUpdate(false);
     setOpenModal(true);
@@ -268,12 +305,7 @@ export default function SectionInputTextType1d_update(){
                   'quickbars',
               ],
               toolbar:
-                  'undo redo | blocks | ' +
-                  'bold italic forecolor | alignleft aligncenter ' +
-                  'alignright alignjustify | bullist numlist outdent indent | ' +
-                  'lists table link charmap searchreplace | ' +
-                  'codesample emoticons fullscreen preview | ' +
-                  'removeformat | help ',
+              "undo redo spellcheckdialog  | blocks fontfamily fontsizeselect | bold italic underline forecolor backcolor | link | align lineheight checklist bullist numlist | indent outdent | removeformat typography",
               content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px;}',
               
              }}

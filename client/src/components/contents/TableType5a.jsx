@@ -66,7 +66,7 @@ export default function TableType5a() {
       setSearchItem(json);
   }
   else if(selectCategory==="title"){
-    const filterData = data.filter((item) => item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
+    const filterData = data.filter((item) => item.application_title.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
     setSearchItem(filterData)
   
     setCurrentPage(1)
@@ -82,6 +82,7 @@ export default function TableType5a() {
     setSearch('');
   }
 },[search])
+console.log(data)
 const onSelectChange = (e) =>{
   e.preventDefault();
   setSelectCategory(e.target.value);
@@ -116,7 +117,7 @@ const activeEnter = (e) => {
     }
     const json = await response.json();
     setCount(json.length);
-    setTotal(json);
+    setData(json);
     setSearchItem(json);
   },[])
 
@@ -161,9 +162,9 @@ const activeEnter = (e) => {
           </tr>
         </thead>
         <tbody>
-        {total!==undefined ? currentPost.map((item,index)=>(
+        {searchItem!==undefined ? currentPost.map((item,index)=>(
             <tr key={index}>
-            <td>{total.length - index - (currentPage - 1) * postPerPage}</td>
+            <td>{searchItem.length - index - (currentPage - 1) * postPerPage}</td>
             <td  onClick={()=>onItem(item)}>{item.application_title}</td>
             <td>{item.mentor}</td>
             <td>{item.status==="OSA"?"신청":item.status==="REJ"?"반려":item.status==="RUN"?'진행':"종료"}</td>

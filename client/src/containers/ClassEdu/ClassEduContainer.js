@@ -7,7 +7,7 @@ import { ClassEdu_program4 ,ClassEdu_program3} from "../../components/pages/Page
 import qs from 'qs';
 export const ClassEduContainer = (props) =>{
     const { isLoading, isLoggedIn, authority_level } = useSelector(state => state.user);
-    const viewState = useSelector(state => state.reservation);
+    const viewState = useSelector(state => state.classeduManage);
     const { search } = useLocation();
     const location = useLocation();
     const history = useNavigate();
@@ -18,11 +18,11 @@ export const ClassEduContainer = (props) =>{
 
     useEffect(() => {
         if (isLoading) { return; }
-        if (!isLoggedIn) { return history('/notmember',{state:{url:currentUrl}}); }
+        if (!isLoggedIn) { return history('/notmember',{state:{url:currentUrl,no:viewState.programNo}}); }
 	}, [isLoading, isLoggedIn, authority_level, history])
-    const View = location.pathname === "/classprogram/detail" ? ClassEdu_program3 : ClassEdu_program4;
+    const View = location.pathname === "/eduprogram/detail" ?  ClassEdu_program4:location.pathname === "/classprogram/detail" ? ClassEdu_program3:<></> ;
     return(
         (isLoading || !isLoggedIn /* || authority_level < AuthLevel.partner */) ? <></>:
-        View? <View query={query}/> : <></>
+        View? <View query={query}  no={ location.pathname === "/classprogram/detail"? viewState.programNo : location.pathname === "/eduprogram/detail"?viewState.eduNo: null}/> : <></>
     )
 }

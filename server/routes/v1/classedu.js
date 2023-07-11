@@ -153,6 +153,66 @@ router.put('/:program_no/files',verifyToken,upload.array('imageFiles'), async(re
     }
     res.status(errorCode.ok).json({});
 })
+router.post('/:program_no/nofiles',verifyToken,upload.array('Files'), async(req, res, next) =>{
+    let user_no = req.decoded.user_no;
+    let program_no = req.params.program_no;
+
+    if(req.files.length>0)
+    {
+        makedir('upload/newprogram');
+    }
+    for(let i = 0; i<req.files.length;i++){
+        let inputResult;
+        try {
+            inputResult = await ClassEduFile.create({
+                program_no,
+                original_name: req.files[i].originalname,
+                name: req.files[i].filename,
+                type: req.files[i].mimetype,
+                path: req.files[i].path,
+                filesize:req.files[i].size,
+                created_user_no: user_no,
+                updated_user_no: user_no,
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(errorCode.internalServerError).json({});
+        }
+    }
+
+
+    res.status(errorCode.ok).json({});
+})
+router.put('/:program_no/nofiles',verifyToken,upload.array('Files'), async(req, res, next) =>{
+    let user_no = req.decoded.user_no;
+    let program_no = req.params.program_no;
+
+    if(req.files.length>0)
+    {
+        makedir('upload/newprogram');
+    }
+    for(let i = 0; i<req.files.length;i++){
+        let inputResult;
+        try {
+            inputResult = await ClassEduFile.update({
+                program_no:program_no,
+                original_name: req.files[i].originalname,
+                name: req.files[i].filename,
+                type: req.files[i].mimetype,
+                path: req.files[i].path,
+                filesize:req.files[i].size,
+                created_user_no: user_no,
+                updated_user_no: user_no,
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(errorCode.internalServerError).json({});
+        }
+    }
+
+
+    res.status(errorCode.ok).json({});
+})
 router.get('/edulist',async(req,res,next)=>{
     let body = req.body;
     const type = req.query.type;

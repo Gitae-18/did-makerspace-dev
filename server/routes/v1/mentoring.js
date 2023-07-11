@@ -178,6 +178,7 @@ router.post('/addmentoring',verifyToken,async(req,res,nex)=>{
             address: body.address,
             address_detail: body.address_detail,
             mentor: body.mentor,
+            securitynum:body.securitynum,
             created_user_no: user_no,
             updated_user_no: user_no,
         })

@@ -29,7 +29,7 @@ const LoginContainer = () => {
     
     const loginStart = useCallback(async (e) => {
         e.preventDefault();
-
+        history(1);
     }, []);
     return (
         <>

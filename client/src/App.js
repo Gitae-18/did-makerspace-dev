@@ -170,7 +170,7 @@ const App = () => {
         <Route path="/classprogram" element = {<ClassContainer/>}/>
         <Route path="/eduprogram" element = {<EduContainer/>}/>
         <Route path="/classprogram/detail" element = {<ClassEduA/>}/>
-        <Route path="/eduprogram/detail" element = {<ClassEdu_program4/>}/>
+        <Route path="/eduprogram/detail" element = {<ClassEduA/>}/>
         <Route path="/classprogram/myreserv" element = {<MyClassContainer/>}/>
 
         <Route path="/contact" element = {<Contact/>}/>

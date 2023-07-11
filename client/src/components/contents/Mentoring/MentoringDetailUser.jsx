@@ -297,14 +297,14 @@ export default function MentoringDetailUser(){
                     type="text"
                     name="text01"
                     id="text01"
-                    value={data.company_name}
+                    value={data.represent}
                 />
             <StyledLabel htmlFor="text02">이메일</StyledLabel>
                 < input
                   type="email"
                   name="text02"
                   id="text02"
-                  value={data.securitynum}
+                  value={data.email}
                   readOnly
                   />
           </li>
@@ -314,7 +314,7 @@ export default function MentoringDetailUser(){
                     type="text"
                     name="text01"
                     id="text01"
-                    value={data.company_name}
+                    value={data.tel_num}
                     readOnly
                 />
             <StyledLabel htmlFor="text02">주요사업분야</StyledLabel>
@@ -322,7 +322,7 @@ export default function MentoringDetailUser(){
                   type="email"
                   name="text02"
                   id="text02"
-                  value={data.securitynum}
+                  value={data.part}
                   readOnly
                   />
           </li>
