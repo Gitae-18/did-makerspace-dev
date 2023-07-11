@@ -6,9 +6,6 @@ export default function ImageProgramContent({no,token,attachFile}){
     const elements = document.getElementsByClassName('sub_page_inner_wrap')
     for (let i = 0; i < elements.length; i++) {
       elements[i].style.height = `${fileurl2.length*1300}px`;
-      if(fileurl2.length===1){
-        elements[i].style.height = '1800px';
-      }
     }
     const getFileName = useCallback(async()=>{
        if(attachFile.length>0)
