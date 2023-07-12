@@ -24,8 +24,7 @@ export default function TableType5c({query}) {
   const indexOfLastPost = currentPage * postPerPage
   const indexOfFirstPost = indexOfLastPost - postPerPage
   const currentPost = searchItem.slice(indexOfFirstPost, indexOfLastPost);
-
-
+  
   const location = useLocation();
   const currentUrl = location.pathname;
 
@@ -124,6 +123,7 @@ const activeEnter = (e) => {
     const json = await res.json(); 
     setCount(json.length);
     setSearchItem(json);
+    console.log(json);
     if(json!==undefined||null)
     {
     setData(json);
@@ -182,7 +182,7 @@ const activeEnter = (e) => {
           </tr>
         </thead>
         <tbody>
-          {data!==undefined ? currentPost.map((item,index)=>(
+          {currentPost.length>0 ? currentPost.map((item,index)=>(
             <tr key={index}>
             <td>{data.length - index - (currentPage - 1) * postPerPage}</td>
             <td  onClick={(e)=>{pageMove(item)}}>{item.application_title}</td>
@@ -191,7 +191,7 @@ const activeEnter = (e) => {
             <td>{item.created_at.slice(0,10)}</td>
           </tr>
           ))
-          :null}
+          :<div>게시물이 없습니다.</div>}
         </tbody>
       </table>
       <StyledBtn2 onClick={(e)=>onWrite(e)}>글쓰기</StyledBtn2>
