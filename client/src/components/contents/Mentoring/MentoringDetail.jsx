@@ -61,7 +61,7 @@ export default function MentoringDetail(){
         }
         const blob = await response.blob();
         if(fileInfo!==undefined){
-          fileDownload(blob, fileInfo.original_name);
+          fileDownload(blob, fileInfo.file_name);
         }
         /* var fileDownload = require('js-file-download');
         fileDownload(await (await new Response(response.body)).blob(), fileInfo.original_name); */
@@ -131,8 +131,13 @@ export default function MentoringDetail(){
             headers:CommonHeader
           })
           const json = await response.json();
-      
-          setFileNo(json);
+          const formattedFiles = json.map(file => {
+            return {
+              ...file,
+              file_name: file.original_name
+            };
+          });
+          setFileNo(formattedFiles);
         },[mentoring_no])
         
         const getFile = useCallback(async()=>{

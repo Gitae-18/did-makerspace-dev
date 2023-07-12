@@ -210,7 +210,7 @@ router.get('/:mentoring_no/file/:file_no',async (req, res, next) => {
         return res.status(errorCode.internalServerError).json({});
     }
 
-    const path = "upload/newarchive/";
+    const path = "upload/newmentoring/";
     const file = path + file_info.dataValues.name;
     console.log(file);
     res.download(file, file_info.dataValues.original_name, function(err) {
@@ -307,7 +307,7 @@ router.get('/:mentoring_no/filesno',async (req, res, next) => {
     } */let files
     try{
      files= await MentoringFile.findAll({
-        attributes:['attached_file_no','original_name','path','type','filesize'],
+        attributes:['attached_file_no','original_name','name','path','type','filesize'],
         where:{mentoring_application_no:mentoring_application_no}
     });
     }  
