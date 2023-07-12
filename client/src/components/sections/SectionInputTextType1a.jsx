@@ -42,7 +42,6 @@ export default function SectionInputTextType1a() {
       [id]:value,
     })
   }
-  console.log(input)
  const onUserChangeInput = (e) =>{
   const {id,value} = e.target;
   setUserInput({
@@ -222,17 +221,6 @@ export default function SectionInputTextType1a() {
     }
   }
 
-/*   const handleChangeFile = (e) =>{
-    setImageFile(e.target.files);
-  
-    const file = e.target.files[0];
-    const url = URL.createObjectURL(e.target.files[0]);
-    const reader =  new FileReader();
-    reader.onload=function(){
-      setImageUrl(reader.result)
-    }
-    reader.readAsDataURL(file)
-  } */
   const onChangeSelect = (e) =>{
     setMentor(e.target.value);
   }
@@ -303,6 +291,39 @@ const onClose = () =>{
     setAddressDetail(fullAddr);
     setIsOpenPost(false);
   };
+  const compressImage = (file) =>{
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = 800; // 원하는 너비로 조정
+          canvas.height = 600; // 원하는 높이로 조정
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.globalCompositeOperation = 'destination-over';
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const compressedDataUrl = canvas.toDataURL('image/png', 0.7); // 압축 품질 조정
+          resolve(compressedDataUrl);
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+  function dataURLToBlob(dataURL) {
+    const byteString = atob(dataURL.split(',')[1]);
+    const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const uint8Array = new Uint8Array(arrayBuffer);
+  
+    for (let i = 0; i < byteString.length; i++) {
+      uint8Array[i] = byteString.charCodeAt(i);
+    }
+  
+    return new Blob([arrayBuffer], { type: mimeString });
+  }
   const onChangeAddress = (e) =>{
     setAddressDetail(e.target.value);
   }
@@ -317,7 +338,6 @@ const onClose = () =>{
     padding: '10px',
   };
   //데이터 전송
-
   const sendData  = useCallback(async()=>{
     CommonHeader.authorization = token;
     const response = await fetch(PreUri + '/mentoring/addmentoring',{
@@ -346,11 +366,27 @@ const onClose = () =>{
     if(!response.ok){
       return(alert(getRspMsg(response.status)))
     }
+    const files = file;
     const formData = new FormData();
-
-    for (let i = 0; i<file.length; i++){
-      formData.append('files',file[i]);
+    for (let i = 0; i<files.length; i++){
+    
+      const file = files[i];
+      console.log(file)
+      if(file.type==="image/png"||file.type==='image/jpg')
+      {
+        
+        const compressedDataUrl = await compressImage(file);
+        const compressedBlob = dataURLToBlob(compressedDataUrl);
+        formData.append('files',compressedBlob, file.name);
+        
+      }
+      else 
+      { 
+        formData.append('files',files[i]);
+       
+      }
     }
+
     const res = await fetch(PreUri + '/mentoring/'+(no+1)+'/nofiles',{
       method:Method.post, 
        headers:{authorization:token},
@@ -389,7 +425,7 @@ const onClose = () =>{
   }
 
   return (
-    <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1e">
+    <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1e" style={{marginTop:'20px',border:"1px solid #d3d3d3",padding:'40px 40px'}}>
       <div className="title_wrap">
         <h1 style={{position:"relative",top:"-30px",fontSize:"18px"}}>신청기업 정보</h1>
       </div>
@@ -433,7 +469,7 @@ const onClose = () =>{
         onChange={(e) => {
         onChangeEmail(e);
         }}
-         style={{"width":"452px","position":"relative"}}
+         style={{"width":"416px","position":"relative"}}
         onKeyUp={handleKeyUp}
        />
         {isDrobBox && (
@@ -532,7 +568,7 @@ const onClose = () =>{
         onChange={(e) => {
         onChangeEmailUser(e);
         }}
-         style={{"width":"452px","position":"relative"}}
+         style={{"width":"416px","position":"relative"}}
         onKeyUp={handleKeyUpUser}
        />
         {isDrobBox2 && (

@@ -253,7 +253,7 @@ export default function MentoringDetail(){
     },[getData,getFile,getFileNo])
 
     return(
-        <section className="section_input_text_type1" style={{marginTop:'20px'}}>
+        <section className="section_input_text_type1" style={{marginTop:'20px',border:"1px solid #d3d3d3",padding:'40px 40px'}}>
             <div className="title_wrap">
             <StyledH1>신청분야</StyledH1>
             <div style={{display:"inline-flex",flexWrap:"wrap",position:"relative",width:"100%",height:"100%",overflowWrap:"break-word",wordWrap:"break-word"}}>

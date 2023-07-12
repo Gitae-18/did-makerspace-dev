@@ -184,7 +184,6 @@ export default function SectionInputTextType1d(){
       index++;
     }
   } */
-  console.log(no);
   const convertToHTML = () => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(content, 'text/html');
@@ -238,7 +237,7 @@ export default function SectionInputTextType1d(){
     }
     const files = imageFile;
     const formData = new FormData();
-
+    
     for (let i = 0; i<files.length; i++){
       const file = files[i];
       const compressedDataUrl = await compressImage(file);
@@ -429,7 +428,7 @@ export default function SectionInputTextType1d(){
            ))}
   </li>
         <li>
-          <label htmlFor="file01" style={imageFile.length>0?{"height":'150px'}:{"height":"60px"}}>파일#1</label>
+          <label htmlFor="file01" style={imageFile.length>0?{"height":'150px'}:{"height":"60px"}}>이미지파일#1</label>
           <input type="file" name="imagefile" id="file01" className="w_auto" onChange={handleChangeFile} multiple accept="image/*" />
           <img src={imageUrl} alt={imageUrl.name} style={{"width":"150px"}}/>
         </li>

@@ -40,7 +40,7 @@ export default function MentoringDetailUser(){
       //첨부파일
       const [attachFile,setAttachFile] = useState({});
       const [fileNo,setFileNo] = useState([]);
-
+      console.log(attachFile)
       const onFileDownload = useCallback(async (e, fileInfo) => {
         let attached_file_no ;
         for(let i = 0; i < attachFile.length&&i<MaxFileCount; i++){
@@ -254,7 +254,7 @@ export default function MentoringDetailUser(){
     },[getData,getFile,getFileNo])
 
     return(
-        <section className="section_input_text_type1" style={{marginTop:'20px'}}>
+        <section className="section_input_text_type1" style={{marginTop:'20px',border:"1px solid #d3d3d3",padding:'40px 40px'}}>
             <div className="title_wrap">
             <StyledH1>신청분야</StyledH1>
             <div style={{display:"inline-flex",flexWrap:"wrap",position:"relative",width:"100%",height:"100%",overflowWrap:"break-word",wordWrap:"break-word"}}>

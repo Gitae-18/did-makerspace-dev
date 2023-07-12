@@ -129,11 +129,12 @@ const activeEnter = (e) => {
     setData(json);
     }
   },[token])
-
+  console.log(total);
   const onWrite = (e) =>{
     let mentoring_application_no;
-    if(total[0]!==null&&undefined){
+    if(total.length>0){
       mentoring_application_no = total.at(0).mentoring_application_no;
+      
     }
     else{
       mentoring_application_no = 0

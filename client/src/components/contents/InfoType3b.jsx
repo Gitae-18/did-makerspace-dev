@@ -94,13 +94,13 @@ let DownloadMyFileItems = [];
     }
     }
   },[no])
-  console.log(attachFile)
+
   useEffect(()=>{
     getOne();
     getFile();
     getFileNo();
   },[getOne,getFile,getFileNo])
-  console.log(attachFile)
+  
   const Desc = () => {
     return (
       <>
