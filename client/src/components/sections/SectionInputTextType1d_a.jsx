@@ -382,7 +382,7 @@ export default function  SectionInputTextType1d_a(){
           key={item.name}
           />
            ))}
-  </li>
+        </li>
         <li>
           <label htmlFor="file01" style={imageFile.length>0?{"height":'150px'}:{"height":"60px"}}>파일#1</label>
           <input type="file" name="imagefile" id="file01" className="w_auto" onChange={handleChangeFile} multiple accept="image/*" />
@@ -439,14 +439,16 @@ border:1px solide #313f4f;
  }
  `
  const StyledLabel = styled.label`
-padding: 0.25rem; 
-margin-right: 0.5rem; 
-&:hover {
-  font-weight: 600; 
- cursor: pointer; 
- background: #ffcdd2;
-  }
-`
+ background-color:#313d4d !important;
+ color:#fff;
+ text-align:center;
+ font-size:12px; 
+ width:60px !important;
+ height:40px !important;
+ padding: 2px 0px !important;
+ position:absolute;
+ left:10px;
+ `
 const StyledP= styled.p`
 width: 250px;
 

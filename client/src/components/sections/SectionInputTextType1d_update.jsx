@@ -254,7 +254,17 @@ export default function SectionInputTextType1d_update(){
     setUpdate(false);
     setOpenModal(true);
   },[token,input,imageFile])
-  
+  const File = ({ item, index, onDelete })=> {
+    
+    return (
+      <StyledDiv>
+        <StyledP style={{width:"150px"}}>
+          {index}. {item.name}
+        </StyledP>
+        <StyledBtn3 onClick={()=>{onDelete(index)}}>삭제</StyledBtn3>
+      </StyledDiv>
+    );
+  }
   return (
     <>
     
@@ -367,6 +377,19 @@ export default function SectionInputTextType1d_update(){
           />
           <span>원</span>
         </li>
+        <li className="filearea_wrap">
+        <label htmlFor="text02">파일 업로드</label>
+          <StyledLabel  htmlFor="file2">파일 추가 +</StyledLabel>
+          <input type="file" name="Files" id="file2" className="w_auto" style={{display:"none"}} onChange={onChangeFile} multiple accept=".pdf,video/*,text/plain,.word"/>
+          {file&&file.map((item,index)=>(
+          <File
+          item={item}
+          index={index}
+          onDelete={()=>onDelete(item)}
+          key={item.name}
+          />
+           ))}
+        </li>
         <li>
           <label htmlFor="file01" style={imageFile.length>0?{"height":'150px'}:{"height":"60px"}}>파일#1</label>
           <input type="file" name="imagefile" id="file01" className="w_auto" onChange={handleChangeFile} multiple accept="image/*" />
@@ -421,6 +444,17 @@ border:1px solide #313f4f;
     color:#313f4f
  }
  `
+ const StyledLabel = styled.label`
+ background-color:#313d4d !important;
+ color:#fff;
+ text-align:center;
+ font-size:12px; 
+ width:60px !important;
+ height:40px !important;
+ padding: 2px 0px !important;
+ position:absolute;
+ left:10px;
+ `
  const StyledBtn2= styled.button`
  color:#fff;
  background-color:#313f4f;
@@ -434,3 +468,34 @@ border:1px solide #313f4f;
      color:#313f4f
   }
   `
+   const StyledP= styled.p`
+ width: 250px;
+ 
+ @media (min-width: 640px) { 
+   width: 400px;
+  }
+ @media (min-width: 768px) { 
+   width: 500px;
+  }
+ @media (min-width: 1024px) { 
+   width: 600px;
+  }
+ `
+ const StyledDiv = styled.div`
+ display: flex; 
+ padding-left: 0.5rem;
+ padding-right: 0.5rem; 
+ margin-bottom: 0.25rem; 
+ justify-content: space-between; 
+ border-radius: 0.25rem; 
+ `
+ const StyledBtn3= styled.button`
+ color:#fff;
+ background-color:#313f4f;
+ width:40px !important;
+ height:25px !important;
+ font-size:0.5rem;
+ cursor:pointer;
+ position:relative !important;
+ left:3px !important;
+ `

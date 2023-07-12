@@ -132,7 +132,7 @@ const activeEnter = (e) => {
 
   const onWrite = (e) =>{
     let mentoring_application_no;
-    if(total[0]!==null){
+    if(total[0]!==null&&undefined){
       mentoring_application_no = total.at(0).mentoring_application_no;
     }
     else{

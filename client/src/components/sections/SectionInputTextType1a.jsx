@@ -433,7 +433,7 @@ const onClose = () =>{
         onChange={(e) => {
         onChangeEmail(e);
         }}
-         style={{"width":"447px","position":"relative"}}
+         style={{"width":"452px","position":"relative"}}
         onKeyUp={handleKeyUp}
        />
         {isDrobBox && (
@@ -532,7 +532,7 @@ const onClose = () =>{
         onChange={(e) => {
         onChangeEmailUser(e);
         }}
-         style={{"width":"447px","position":"relative"}}
+         style={{"width":"452px","position":"relative"}}
         onKeyUp={handleKeyUpUser}
        />
         {isDrobBox2 && (
@@ -570,8 +570,8 @@ const onClose = () =>{
             }
         </div>
         </li>
-        <li className="textarea_wrap" style={{"padding":"0px 0px"}}>
-          <StyledLabel2 htmlFor="text13" >*신청명</StyledLabel2>
+        <li style={{"padding":"0px 0px"}}>
+          <StyledLabel htmlFor="text13" >*신청명</StyledLabel>
           <input 
             name="title"
             id="title"
