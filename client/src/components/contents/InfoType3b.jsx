@@ -8,6 +8,7 @@ export default function InfoType3a() {
   const location = useLocation();
   const no = location.state.archive_no;
   const [data,setData] = useState([]);
+  const [file,setFile] = useState();
   const [attachFile,setAttachFile] = useState({});
   const [fileNo,setFileNo] = useState([]);
   const [date,setDate] = useState("");
@@ -24,8 +25,8 @@ export default function InfoType3a() {
     setData(json);
     setDate(json.created_at.slice(0,10))
   },[no])
+
   const onFileDownload = useCallback(async (e, fileInfo) => {
-    console.log(fileInfo);
     let attached_file_no ;
     for(let i = 0; i < attachFile.length&&i<MaxFileCount; i++){
       if(attachFile.legnth>1){
@@ -35,7 +36,7 @@ export default function InfoType3a() {
         attached_file_no = attachFile.attached_file_no
       }
     }
- 
+    console.log(fileInfo.attached_file_no);
     const response = await fetch(PreUri + '/archive/' + no + '/file/' + fileInfo.attached_file_no, {
         method: Method.get,
     });
@@ -46,7 +47,7 @@ export default function InfoType3a() {
     }
     const blob = await response.blob();
     if(fileInfo!==undefined){
-      fileDownload(blob, fileInfo.original_name);
+      fileDownload(blob, fileInfo.file_name);
     }
     /* var fileDownload = require('js-file-download');
     fileDownload(await (await new Response(response.body)).blob(), fileInfo.original_name); */
@@ -57,9 +58,15 @@ const getFileNo = useCallback(async()=>{
     headers:CommonHeader
   })
   const json = await response.json();
-
-  setFileNo(json);
+  const formattedFiles = json.map(file => {
+    return {
+      ...file,
+      file_name: file.original_name
+    };
+  });
+  setFileNo(formattedFiles);
 },[no])
+
 const FileDownload = useCallback((props) => {
   return (
     <div style={{display:'inline-block',margin:'0px 5px'}}>

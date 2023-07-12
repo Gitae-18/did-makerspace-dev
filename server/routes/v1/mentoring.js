@@ -197,9 +197,13 @@ router.get('/:mentoring_no/file/:file_no',async (req, res, next) => {
     try {
         file_info = await MentoringFile.findOne({
             attributes: ['attached_file_no', 'original_name', 'name', 'path', 'filesize'],
-            where: { 
+            where: [{ 
                 mentoring_application_no
+            },
+            {
+                attached_file_no,
             }
+        ]
         });
     } catch (error) {
         console.error(error);
@@ -208,6 +212,7 @@ router.get('/:mentoring_no/file/:file_no',async (req, res, next) => {
 
     const path = "upload/newarchive/";
     const file = path + file_info.dataValues.name;
+    console.log(file);
     res.download(file, file_info.dataValues.original_name, function(err) {
         if (err) {
             res.json({err:err.path});

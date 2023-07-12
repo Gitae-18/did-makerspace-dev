@@ -51,7 +51,7 @@ export default function MentoringDetailUser(){
             attached_file_no = attachFile.attached_file_no
           }
         }
-     
+        console.log(fileInfo.attached_file_no)
         const response = await fetch(PreUri + '/mentoring/' + mentoring_no + '/file/' + fileInfo.attached_file_no, {
             method: Method.get,
         });

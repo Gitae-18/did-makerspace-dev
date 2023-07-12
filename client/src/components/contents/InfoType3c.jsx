@@ -24,6 +24,7 @@ export default function InfoType3a() {
     setData(json);
     setDate(json.created_at.slice(0,10))
   },[no])
+  
   const onFileDownload = useCallback(async (e, fileInfo) => {
     console.log(fileInfo);
     let attached_file_no ;

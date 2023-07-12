@@ -147,10 +147,9 @@ export default function MentoringDetail(){
           }
           }
         },[mentoring_no])
-
         const handleChangeStatus = useCallback(async(confirmFlag)=>{
           CommonHeader.authorization = token;
-         
+          console.log(confirmFlag)
           if(confirmFlag === 'REJ')
           {
           setStatus('REJ');
@@ -211,7 +210,7 @@ export default function MentoringDetail(){
       headers: CommonHeader,
       body: JSON.stringify({
         mentoring_application_no:mentoring_no,
-        status:status,
+        status:'REJ',
       })
       });
       if(!response.ok){

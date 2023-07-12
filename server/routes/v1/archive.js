@@ -138,20 +138,23 @@ router.get('/onlist',async(req,res,next)=>{
    router.get('/:archive_no/file/:file_no',async (req, res, next) => {
     let archive_no = req.params.archive_no;
     let attached_file_no = req.params.file_no;
-
+ 
     let file_info;
     try {
         file_info = await ArchiveFile.findOne({
             attributes: ['attached_file_no', 'original_name', 'name', 'path', 'filesize'],
-            where: { 
+            where: [{ 
                 archive_no
+            },
+            {
+                attached_file_no,
             }
+        ]
         });
     } catch (error) {
         console.error(error);
         return res.status(errorCode.internalServerError).json({});
     }
-
     const path = "upload/newarchive/";
     const file = path + file_info.dataValues.name;
     res.download(file, file_info.dataValues.original_name, function(err) {
@@ -353,7 +356,7 @@ router.get('/:archive_no/filesno',async (req, res, next) => {
     } */let files
     try{
      files= await ArchiveFile.findAll({
-        attributes:['attached_file_no','original_name','path','type','filesize'],
+        attributes:['attached_file_no','original_name','name','path','type','filesize'],
         where:{archive_no}
     });
     }  
