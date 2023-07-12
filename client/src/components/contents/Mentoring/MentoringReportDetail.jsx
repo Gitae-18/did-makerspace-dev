@@ -103,7 +103,7 @@ export default function MentoringReportDetail(){
           attached_file_no = attachFile.attached_file_no
         }
       }
-   
+      console.log(fileInfo.attached_file_no)
       const response = await fetch(PreUri + '/mentoring/' + mentoring_no + '/file/' + fileInfo.attached_file_no, {
           method: Method.get,
       });
@@ -114,10 +114,8 @@ export default function MentoringReportDetail(){
       }
       const blob = await response.blob();
       if(fileInfo!==undefined){
-        fileDownload(blob, fileInfo.original_name);
+        fileDownload(blob, fileInfo.file_name);
       }
-      /* var fileDownload = require('js-file-download');
-      fileDownload(await (await new Response(response.body)).blob(), fileInfo.original_name); */
   }, [attachFile]);
   const FileDownload = useCallback((props) => {
     return (<>
@@ -148,8 +146,13 @@ export default function MentoringReportDetail(){
         headers:CommonHeader
       })
       const json = await response.json();
-  
-      setFileNo(json);
+      const formattedFiles = json.map(file => {
+        return {
+          ...file,
+          file_name: file.original_name
+        };
+      });
+      setFileNo(formattedFiles);
     },[mentoring_no])
     const getFile = useCallback(async()=>{
       if(mentoring_no!==undefined){
