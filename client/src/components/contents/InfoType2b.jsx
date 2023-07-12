@@ -1,6 +1,7 @@
 import React,{useEffect,useState,useCallback,useMemo}from "react";
 import { useNavigate,useLocation } from "react-router-dom";
 import { useSelector , useDispatch} from "react-redux";
+import moment from "moment";
 import TitleType1 from "./TitleType1";
 import ButtonType2,{GoBackBtn}from "./ButtonType2";
 import ButtonType4 from "./ButtonType4";
@@ -16,10 +17,10 @@ import { IoLocation,IoCalendarSharp,IoPerson } from "react-icons/io5";
 import { RiReservedFill ,RiCheckFill} from "react-icons/ri";
 import { FaMoneyCheck } from "react-icons/fa";
 import { BsListUl } from "react-icons/bs";
-export default function InfoType2b({no}) {
+export default function InfoType2b() {
   const history = useNavigate();
   const location = useLocation();
-  //const no = location.state.no;
+  const no = location.state.no;
   const dispatch = useDispatch();
   const [openModal,setOpenModal] = useState(false);
   const [closemodal,setCloseModal] = useState(false);
@@ -29,12 +30,13 @@ export default function InfoType2b({no}) {
   const [attachFile,setAttachFile] = useState({})
   const [fileNo,setFileNo] = useState({});
   const [getFlag,setGetFlag] = useState([]);
+  const [reservList,setReservList] = useState([]);
   const [title,setTitle] = useState("")
   const [cost,setCost] = useState();
-  const { token, authority_level} = useSelector(state => state.user);
+  const { token, authority_level ,userName} = useSelector(state => state.user);
   let type = "edu";
-
   const getEduList = useCallback(async()=>{
+    
     CommonHeader.authorization = token;
     const tit = 0;
     let requri = PreUri + '/classedu/'+ no +'/class_receive';
@@ -53,7 +55,6 @@ export default function InfoType2b({no}) {
     setCost(json.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     setTitle(json.title);
   },[token])
-
   let  button_click = document.getElementById('button_id');
   let counter;
 
@@ -74,34 +75,46 @@ export default function InfoType2b({no}) {
     setGetFlag(json)
   },[token,title])
  
-  const onApplicate = useCallback(async() =>{
-    if (getFlag.length < data.limit_number) {
-    setOpenModal(true);
-   // dispatch({ type: COUNT_INCREASE, target: count });
-   CommonHeader.authorization = token;
-
-    const response = await fetch(PreUri + '/classedu/class_application',{
-      method:Method.post,
-      headers:CommonHeader,
-      body:JSON.stringify(
-        {
-          program_no:no,
-          type: type,
-          title : title,
-          flag : 'Y',
+  console.log(data.name)
+  const onApplicate = useCallback(async () => {
+    const currentData = moment(new Date()).format('YYYY-MM-DD').toString();
+    
+    if (currentData >= data.application_period_start && currentData <= data.application_period_end) {
+      if (getFlag.length < data.limit_number) {
+        const duplicateCheck = reservList.some(item => item.name === userName);
+        if (duplicateCheck) {
+          alert('중복 신청은 불가합니다.');
+        } else {
+          setOpenModal(true);
+          // dispatch({ type: COUNT_INCREASE, target: count });
+          CommonHeader.authorization = token;
+    
+          const response = await fetch(PreUri + '/classedu/class_application', {
+            method: Method.post,
+            headers: CommonHeader,
+            body: JSON.stringify({
+              program_no: no,
+              type: type,
+              title: title,
+              flag: 'Y',
+            }),
+          });
+    
+          if (!response.ok) {
+            return alert(getRspMsg(response.status));
+          }
         }
-      )
-    })
-    if (!response.ok) {
-      return(alert(getRspMsg(response.status)));
+      } else {
+        alert('정원이 가득찼습니다.');
+      }
+    } else {
+      alert('신청 기간 내에 신청해주시기 바랍니다.');
     }
-  } else {
-    alert('정원이 가득찼습니다.');
-  }
-  },[getFlag])     
+  }, [getFlag, reservList]);
  /*  const memo = useMemo(()=>{
     return onApplicate();
   }) */
+
   const getFile = useCallback(async()=>{
 
     const res = await fetch(PreUri + '/classedu/' + no + '/files', {
@@ -123,12 +136,29 @@ export default function InfoType2b({no}) {
 
     setFileNo(json);
   },[no])
+  const  getReservList = useCallback(async() =>{
+    CommonHeader.authorization = token;
+    const response = await fetch(PreUri + '/classedu/reserv?program_no='+ no ,{
+        method:Method.get,
+        headers:CommonHeader
+      })
+      const json = await response.json();
+      if(!response.ok) {
+        console.log('잘못된 접근입니다.');
+        return;
+      }
+      setReservList(json);
+ },[no])
+
   useEffect(()=>{   
+   
     getFile();
     getEduList();
     getFileNo();
     getApplicationList();
-  },[getEduList,getApplicationList,token,title,getFile,getFileNo])
+    getReservList();
+
+  },[getEduList,getApplicationList,token,title,getFile,getFileNo,getReservList])
   const onClose = () =>{
     setOpenModal(false);
   }
@@ -156,7 +186,7 @@ export default function InfoType2b({no}) {
               <dd>{data.place}</dd>
             </dl>
             <dl>
-              <dt><RiReservedFill/>점수 및 등록 기간</dt>
+              <dt><RiReservedFill/>신청 기간</dt>
               <dd>{data.application_period_start} ~ {data.application_period_end}</dd>
             </dl>
             <dl>

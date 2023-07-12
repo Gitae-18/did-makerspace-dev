@@ -66,13 +66,14 @@ function EduReservModal({ classname, visible, onclose, closable, no }) {
               />
               <Title>{/* {reservList.at(0).title}  */}예약자목록</Title>
               <StyledDiv className="table_wrap">
-                <table>
+                <table style={{tableLayout:'fixed'}}>
                     <thead>
                     <tr>
                     <th>이름</th>
                     <th>전화번호</th>
                     <th>이메일</th>
                     <th>신청일</th>
+                    <th>삭제여부</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -82,6 +83,7 @@ function EduReservModal({ classname, visible, onclose, closable, no }) {
                             <StyledTd>{item.phone}</StyledTd>
                             <StyledTd>{item.email}</StyledTd>
                             <StyledTd>{item.created_at.slice(0,10)}</StyledTd>
+                            <StyledTd>{item.deleted_at?"취소함":""}</StyledTd>
                         </StyledTr>
                     ))
                     }

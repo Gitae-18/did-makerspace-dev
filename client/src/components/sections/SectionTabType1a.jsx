@@ -6,7 +6,7 @@ export default function SectionTabType1a({ props, content , attachFile , no , to
  
   useEffect(() => {
     document.getElementById("tab_btn0").classList.add("on");
-  });
+  },[]);
   // 내부 탭 내용 주입
   const Tabs = (props) => {
     return (

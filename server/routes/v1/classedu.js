@@ -563,13 +563,14 @@ router.get('/reservlist',verifyToken,async(req, res, next)=>{
         let result;
         try{
             result = await ClasseduApplication.findAll({
-                attributes:['application_no','user_no','classedu_type','title','created_at'],
+                attributes:['application_no','user_no','classedu_type','title','created_at','deleted_at'],
                 include:[{model:User,
                     attributes:['name','phone_number','email'],
                 }],
                 where:{program_no:program_no},
                 order:[['created_at','DESC']],
                 required:false,
+                paranoid:false,
                 raw:true,
         })
         }
@@ -586,10 +587,45 @@ router.get('/reservlist',verifyToken,async(req, res, next)=>{
             delete result[i]['user.phone_number'];
         }
             for (let i = 0; i < result.length; i++) {
-            result[i]['email'] = result[i]['user_email'];
-            delete result[i]['user_email'];
+            result[i]['email'] = result[i]['user.email'];
+            delete result[i]['user.email'];
         }
         res.status(errorCode.ok).json(result);
+})
+router.get('/reserv',async(req, res, next)=>{
+    let program_no = req.query.program_no;
+
+    ClasseduApplication.hasOne(User,{ foreignKey: 'user_no' , sourceKey: 'user_no'})
+    let result;
+    try{
+        result = await ClasseduApplication.findAll({
+            attributes:['application_no','user_no','classedu_type','title','created_at'],
+            include:[{model:User,
+                attributes:['name'],
+            }],
+            where:{program_no:program_no},
+            order:[['created_at','DESC']],
+            required:false,
+            raw:true,
+    })
+    }
+    catch(error){
+    console.log(error);
+    return res.status(errorCode.internalServerError).json({});
+    }
+    for (let i = 0; i < result.length; i++) {
+        result[i]['name'] = result[i]['user.name'];
+        delete result[i]['user.name'];
+    }
+        /* for (let i = 0; i < result.length; i++) {
+        result[i]['phone'] = result[i]['user.phone_number'];
+        delete result[i]['user.phone_number'];
+    }
+        for (let i = 0; i < result.length; i++) {
+        result[i]['email'] = result[i]['user_email'];
+        delete result[i]['user_email'];
+    } */
+    res.status(errorCode.ok).json(result);
 })
 router.post('/submit',async(req,res,next)=>{
     let body = req.body;
@@ -607,5 +643,21 @@ router.post('/submit',async(req,res,next)=>{
         return res.status(errorCode.internalServerError).json({});
     }
     res.status(errorCode.ok).json({});
+})
+//예약삭제
+router.delete('/:program_no/drop',verifyToken,async(req, res , next)=>{
+    const program_no = req.params.program_no;
+
+    let deleteservice;
+    try{
+          deleteservice = await ClasseduApplication.destroy({
+           where:{application_no:program_no},
+           raw:true
+       })
+    }
+    catch (error) {
+        console.error(error);
+    } 
+   res.status(errorCode.ok).json({});
 })
 module.exports = router;

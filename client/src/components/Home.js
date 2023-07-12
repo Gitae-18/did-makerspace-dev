@@ -161,10 +161,9 @@ function Home() {
         return (
           <div id="pageIndex">
             <MainBanner></MainBanner>
-            <SectionTextType1
+         {/*    <SectionTextType1
               title="DID 주요 서비스"
-            ></SectionTextType1>
-          
+            ></SectionTextType1> */}
             <NoticeHomeContainer></NoticeHomeContainer>
             <SectionTabType3 title="DID 동영상"/>
             <SectionBannerType1 title="DID 협력기관"></SectionBannerType1>

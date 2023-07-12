@@ -2,6 +2,7 @@ import React,{useState,useEffect, useCallback}from "react";
 import TitleType1 from "./TitleType1";
 import { useLocation,useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import PopupDeleteModal5 from "../Modals/PopupDeleteModal5";
 import { CommonHeader, PreUri, Method } from "../../CommonCode";
 import Paging2 from "./Paging2";
 import styled from "styled-components";
@@ -13,8 +14,10 @@ export default function MyClassReserv() {
   const [title,setTitle] = useState("")
   const [search,setSearch] = useState('');
   const [loading,setLoading] = useState(false);
+  const [dropno,setDropNo] = useState();
   const [currentPage,setCurrentPage] = useState(1);
   const [postPage, setPostPage] = useState(10);
+  const [modalvisible,setModalVisible] = useState(false);
   const [count,setCount] = useState(0);
   const indexOfLastPost = currentPage * postPage
   const indexOfFirstPost = indexOfLastPost - postPage
@@ -52,7 +55,11 @@ export default function MyClassReserv() {
   const handlePageChange = (e) =>{
     setCurrentPage(e)
   }
-
+  console.log(reservList)
+  const DropItem = useCallback(async(e,i)=>{
+    setModalVisible(true);
+    setDropNo(e.application_no);
+    },[reservList])
   const onChange = (e) =>{
     e.preventDefault();
     setSearch(e.target.value);
@@ -78,7 +85,9 @@ export default function MyClassReserv() {
   }
  setSearch('');
 },[search])
-
+const closeModal = () =>{
+  setModalVisible(false);
+}
   const setPage = (e) =>{
     setCurrentPage(e);
   }
@@ -97,7 +106,7 @@ export default function MyClassReserv() {
           <StyledBtn onClick={(e)=>onSearch(e)} >검색</StyledBtn>
           </div> */}
       </div>
-      <table>
+      <table style={{width:'1300px',tableLayout:'fixed'}}>
         <caption className="blind">내 교육/행사 예약</caption>
         <thead>
           <tr>
@@ -105,6 +114,7 @@ export default function MyClassReserv() {
             <th>구분</th>
             <th>제목</th>
             <th>예약시간</th>
+            <th>삭제</th>
           </tr>
         </thead>
         <tbody>
@@ -118,6 +128,8 @@ export default function MyClassReserv() {
               &nbsp;
               <span className="time">{item.created_at.slice(10,)}</span>
             </td>
+            <td><StyledBtn3 onClick={(e)=>DropItem(item,index)}>삭제</StyledBtn3></td>
+            {modalvisible&& <PopupDeleteModal5  no={dropno} visible={modalvisible} closable={true} maskClosable={true} onclose={closeModal} token={token} serviceItems={reservList} />} 
           </tr>)):<>내용이 비었습니다</>}
         </tbody>
       </table>
@@ -135,6 +147,20 @@ height:30px;
 font-size:0.7rem;
 cursor:pointer;
 border:1px solide #313f4f;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `
+ const StyledBtn3= styled.button`
+ position:relative;
+ color:#fff;
+ background-color:#313f4f;
+ width:120px;
+ height:30px;
+ font-size:0.7rem;
+ cursor:pointer;
+ border:1px solide #313f4f;
  &:hover{
     background-color:#transparent
     color:#313f4f
