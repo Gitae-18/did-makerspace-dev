@@ -252,14 +252,9 @@ function dataURLToBlob(dataURL) {
                   'quickbars',
               ],
               toolbar:
-                  'undo redo | blocks | ' +
-                  'bold italic forecolor | alignleft aligncenter ' +
-                  'alignright alignjustify | bullist numlist outdent indent | ' +
-                  'lists table link charmap searchreplace | ' +
-                  'codesample emoticons fullscreen preview | ' +
-                  'removeformat | help ',
-              content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px;}',
-              
+              "undo redo spellcheckdialog  | blocks fontfamily fontsizeselect | bold italic underline forecolor backcolor | link | align lineheight checklist bullist numlist | indent outdent | removeformat typography",
+              font_size_formats:
+              "8pt 9pt 10pt 11pt 12pt 14pt 18pt 24pt 30pt 36pt 48pt 60pt 72pt 96pt",
              }}
              onEditorChange={handleEditorChange}
              />

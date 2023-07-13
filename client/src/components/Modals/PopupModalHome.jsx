@@ -23,22 +23,23 @@ function PopupModalHome({
       onClose(e);
     }
   };
+  
   const visitedBeforeDate = localStorage.getItem('HomeCookie');
   const currentDate = new Date().getDate();
-
-  useEffect(()=>{
+  //const currentDate = 14;
+  useEffect(() => {
     if (visitedBeforeDate !== null) {
-      // 날짜가 같을경우 노출
-      if (visitedBeforeDate === currentDate) {
-          localStorage.removeItem('HomeCookie')
-          onClose(true)
+      // 날짜가 같을 경우 노출
+      if (parseInt(visitedBeforeDate) === currentDate) {
+        localStorage.removeItem('HomeCookie');
+        onClose(true);
       }
-      // 날짜가 다를경우 비노출
-      if (visitedBeforeDate !== currentDate) {
-          onClose(false)
+      // 날짜가 다를 경우 비노출
+      if (parseInt(visitedBeforeDate) !== currentDate) {
+        onClose(false);
       }
-  }
-  },[])
+    }
+  }, []);
   const close = useCallback((e) => {
     if (onClose) {
       onClose(e);
@@ -75,10 +76,11 @@ const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     getFile();
     setIsMounted(true);
-    if (!isMounted) {
-      return null;
-    }
-  }, [getFile, no]);
+  }, [getFile]);
+
+  if (!isMounted) {
+    return null;
+  }
   return (
     <Portal elementId="modal-root">
       <ModalOverlay visible={visible} />
@@ -162,7 +164,7 @@ const CloseStyle = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: #282828;
-  width: 120px;
+  width: 210px;
   padding: 10px;
   border-radius: 0 0 15px 15px;
   color: #ffffff;

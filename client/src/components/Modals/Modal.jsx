@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Portal } from "react-portal";
-import "../css/ModalStyle.css";
-import { setCookie, getCookie } from "./cookie";
+import "../../css/ModalStyle.css";
+import { setCookie, getCookie } from "../cookie";
 import { useCallback } from "react";
 
 function Modal({className,onClose,maskClosable,closable,visible,isLoggedIn,setModalVisible,}){
-  const visitedBeforeDate = localStorage.getItem('VisitCookie');
+  /* const visitedBeforeDate = localStorage.getItem('VisitCookie');
   const currentDate = new Date().getDate();
 
   useEffect(()=>{
@@ -40,6 +40,50 @@ function Modal({className,onClose,maskClosable,closable,visible,isLoggedIn,setMo
     }
   }
 const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  } */
+  const visitedBeforeDate = localStorage.getItem('VisitCookie');
+  const currentDate = new Date().getDate();
+  //const currentDate = 14;
+
+  useEffect(() => {
+    if (visitedBeforeDate !== null) {
+      // 날짜가 같을 경우 노출
+      if (parseInt(visitedBeforeDate) === currentDate) {
+        localStorage.removeItem('VisitCookie');
+        onClose(true);
+      }
+      // 날짜가 다를 경우 비노출
+      if (parseInt(visitedBeforeDate) !== currentDate) {
+        onClose(false);
+      }
+    }
+  }, []);
+
+  const close = useCallback((e) => {
+    if (onClose) {
+      onClose(e);
+    }
+  }, [onClose]);
+
+  const closePopupToday = () => {
+    if (onClose) {
+      onClose(true);
+
+      const expiry = new Date();
+      expiry.setDate(expiry.getDate() + 1);
+      const expiryDate = expiry.getDate();
+      localStorage.setItem('VisitCookie', expiryDate);
+    }
+  };
+
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);

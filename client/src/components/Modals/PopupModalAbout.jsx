@@ -23,20 +23,21 @@ function PopupModalAbout({
   };
   const visitedBeforeDate = localStorage.getItem('AboutCookie');
   const currentDate = new Date().getDate();
+  //const currentDate = 14;
 
-  useEffect(()=>{
+  useEffect(() => {
     if (visitedBeforeDate !== null) {
-      // 날짜가 같을경우 노출
-      if (visitedBeforeDate === currentDate) {
-          localStorage.removeItem('AboutCookie')
-          onClose(true)
+      // 날짜가 같을 경우 노출
+      if (parseInt(visitedBeforeDate) === currentDate) {
+        localStorage.removeItem('AboutCookie');
+        onClose(true);
       }
-      // 날짜가 다를경우 비노출
-      if (visitedBeforeDate !== currentDate) {
-          onClose(false)
+      // 날짜가 다를 경우 비노출
+      if (parseInt(visitedBeforeDate) !== currentDate) {
+        onClose(false);
       }
-  }
-  },[])
+    }
+  }, []);
   const close = useCallback((e) => {
     if (onClose) {
       onClose(e);

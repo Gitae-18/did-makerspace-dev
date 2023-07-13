@@ -23,6 +23,8 @@ export default function TableType2a() {
    const indexOfLastPost = currentPage * postPage
    const indexOfFirstPost = indexOfLastPost - postPage
    const [currentPosts,setCurrentPosts] = useState([]);
+  const now = useLocation();
+  const history = useNavigate();
    //const [passtype,setPasstype] = useState([]);
    //const location = useLocation();
    //const history = useNavigate();
@@ -42,6 +44,8 @@ export default function TableType2a() {
    const fdmsrc = '/images/fdm3dwox1.png';
    const uvsrc = '/images/uvprinter.png';
 
+    const modelname = passflag.map((item,index)=> item.type);
+    const pass = passflag.map((item,index)=> item.pass_flag);
    const getUserTest = useCallback(async()=>{
 
     CommonHeader.authorization = token;
@@ -56,27 +60,10 @@ export default function TableType2a() {
         return;
       }
       const json = await response.json();
-      console.log(json);
       setPassFlag(json);
-    
    },[token])
+   let typepass = passflag.map((item)=>item.type);  
 
-   //
-   let typepass = passflag.map((item)=>item.type);
-   //
-   let pass =  passflag.map((item)=>item.pass_flag);
- 
-   //
-    /* for (let i = 0 ; i < passflag.length ; i++){
-      if(passflag[i].pass_flag==="Y" )
-      {
-        pass="Y";
-      }
-      else
-      {
-        pass="N";
-      }
-    } */
    const getItemList = useCallback(async(currentPage)=>{
       setLoading(true);
       let requri = PreUri + `${'/equipment/equipmentlist'}`;
@@ -90,7 +77,6 @@ export default function TableType2a() {
       }
       const json = await response.json();
       setReservationList(json);
-      getUserTest();
       setLoading(false);
       setCount(json.length);
       setCurrentPosts(json.slice(indexOfFirstPost,indexOfLastPost))
@@ -128,14 +114,21 @@ export default function TableType2a() {
     }
   } 
   },[reservationList])
-  console.log(pass)
-  console.log(passflag)
+  const onTestClick = (e) =>{
+    const name = e.equipment_cateogry_no;
+    history(now.pathname + "/test",{state:{name:name}})
+  }
+  const onReservClick = (e) =>{
+    const categoryNo = e.model_name;
+    history('/eqreservation/equip/selectreserv?categoryNo=' + categoryNo,{state:{category:categoryNo}})
+  }
   useEffect(()=>{
     getUserTest();
     getItemList();
     goToVideo();
     //checkTestFlag();
    },[getUserTest,getItemList])
+
    const categoryNum = reservationList.map((item,index)=> item.equipment_category_no);
   return (
     <div id="sub_page_wrap">
@@ -161,25 +154,30 @@ export default function TableType2a() {
             <th>예약</th>
           </tr>
         </thead>
+    
         <tbody>
-          {currentPosts && reservationList.length > 0 ? (reservationList.map((item,i)=>(
+
+          {reservationList.length > 0 ? (reservationList.map((item,i)=>(
             <tr className="res_tr" key={i}>
                 <td><img alt="no image" src={item.model_name.includes("A0플로터")?flotersrc:item.model_name.includes("X-cut")?xcutsrc:item.model_name.includes("UV 프린터 : 329UV")?uvsrc:item.model_name.includes("FDM : 3DWOX") ?fdmsrc:null}/></td>
                 <td>{item.model_name}</td>
                 <td style={{"width":"410px","lineHeight":"40px","wordBreak":"break-all"}}>{item.model_specification}</td>
                 <td>{item.location}</td>
                 <td className="btns_wrap">
-                <StyledBtn onClick={(e)=>{goToVideo(e,i);openModal(e)}}>동영상보기</StyledBtn>
-                {pass[i] === "Y" ?<ButtonType2test btnName="시험불가"/>:
-                <ButtonType2test  btnName="시험보기"active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active:nonactive} name={item.model_name}/>
-                }
-                 </td>
+                  <StyledBtn onClick={(e) => { goToVideo(e, i); openModal(e);}}>
+                   동영상보기
+                  </StyledBtn>
+                   {modelname[i] === item.model_name && pass[i] === "Y" ? ( <StyledBtn2> 시험불가</StyledBtn2>
+                    ) : (
+                   <StyledBtn2 onClick={(e) => onTestClick(item)}>시험보기</StyledBtn2>
+                   )}
+                </td>
                  {visible&&<VideoModal visible={visible} closable={true} maskClosable={true} onClose={closeModal} modelName={reservationList[i].model_name} src={link}/>}  
                  <td className="res_btn">
-                  { pass[i] === "Y" && typepass.includes(item.model_name) ?
-                 <ButtonType3small categoryNo={categoryNum[i]} active={item.model_name.includes("A0플로터") ? active: item.model_name.includes("X-cut") ? active: item.model_name.includes("UV 프린터 : 329UV") ? active:item.model_name.includes("FDM : 3DWOX") ? active : nonactive} btnName="예약하기"></ButtonType3small>:
-                 <ButtonType3small btnName="예약 불가" style={{"background-color":"3f3f3f"}}></ButtonType3small>
-                  }
+                    {modelname[i] === item.model_name && pass[i] === "Y" ? ( <StyledBtn3 onClick={(e) => onReservClick(item)}>예약하기</StyledBtn3>
+                    ) : (
+                   <StyledBtn3>예약불가</StyledBtn3>
+                   )}
                 </td>
             </tr>
           ))
@@ -223,3 +221,31 @@ position:relative;
     color:#313f4f
  }
  `
+ const StyledBtn2= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:80px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
+border:1px solide #313f4f;
+position:relative;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `
+ const StyledBtn3= styled.button`
+ color:#fff;
+ background-color:#313f4f;
+ width:100px;
+ height:30px;
+ font-size:0.7rem;
+ cursor:pointer;
+ border:1px solide #313f4f;
+ position:relative;
+  &:hover{
+     background-color:#transparent
+     color:#313f4f
+  }
+  `

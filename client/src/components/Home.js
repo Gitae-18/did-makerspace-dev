@@ -4,7 +4,7 @@ import {withCookies,Cookies,ReactCookieProps} from 'react-cookie';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
-import Modal from './Modal'
+import Modal from './Modals/Modal'
 import PopupModalHome from './Modals/PopupModalHome';
 import PopupModalAbout from './Modals/PopupModalAbout';
 import { CommonHeader,PreUri, Method } from '../CommonCode';
@@ -33,53 +33,15 @@ function Home() {
         });
     });
         });
-
-        /*const Modal = () =>{
-          const getCookie = (name) =>{
-            const value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-            return value ? value[2] : null;
-          }
-          const closeModal = () =>{
-            document.querySelector('div.modalWrap').getElementsByClassName.display = 'none';
-            const modal = document.getElementById('modal');
-            document.querySelector('#parent').removeChild(modal);
-          }
-          const closeModalDuringOneday = () =>{
-            let date = new Date(Date.now() + 86400e3);
-            date = date.toUTCString();
-            document.cookie = `modalClose=T; expires =${date}`
-            closeModal();
-          }
-          (function(){ if (getCookie('modalClose'))closeModal();}());
-          return(
-            <div id="parent">
-              <div className="modalWrap" onClick={closeModal()}></div>
-              <div id="modal"><button onClick={closeModalDuringOneday()}>오늘 하루 동안 이 창을 열지 않음</button></div>
-            </div>
-          )
-        }*/
-      /*   const v = document.getElementById("my_video")
-        v.playbackRate=0.5 */
    
         const MainBanner = () => {
           const [modalVisible,setModalVisible] = useState(true);
-          const [modalControl1,setModalControl1] = useState(false);
-          const [modalSet,setModalSet] = useState(false);
+          const [modalControl1,setModalControl1] = useState(true);
+          const [modalSet,setModalSet] = useState(true);
           const [data,setData] = useState("");
-          const [video, setVideo] = useState(null);
-          const [isPlaying, setIsPlaying] = useState(false);
           const videoRef = useRef(null);
           
         
-          const openModal = () =>{
-            setModalVisible(true);
-          }
-          const openModal2 = () =>{
-            setModalVisible(true);
-          }
-          const openModal3 = () =>{
-             setModalVisible(true);
-          }
           const closeModal = () =>{
             setModalVisible(false);
           }
@@ -118,7 +80,7 @@ function Home() {
            const onSiteMove = (url) =>{
             window.open(url,"_blank");
           }
-   
+          console.log(localStorage)
         return (
           <>
           <div className="bg">

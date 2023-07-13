@@ -220,11 +220,12 @@ export function ButtonType2test(props) {
       setActive(false);
     }
   },[names])
+
   const ClickTest= useCallback(() =>{
     if(props.active ==="active"){
       history(now+"/test",{state:{name:props.name}})
     }
-  },[history,location.pathname])
+  },[history,location])
 
   return (
     <button className={classNames} onClick={ClickTest} >

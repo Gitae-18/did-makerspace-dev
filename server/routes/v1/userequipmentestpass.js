@@ -41,9 +41,9 @@ router.get('/testresult',verifyToken,async(req,res,next)=>{
      let result;
      try{
         result = await UserEquipmentTestPass.findAll({
-            attributes:['pass_flag','type','user_no'],
-            where:{user_no},
-            raw:true,
+            attributes: [[UserEquipmentTestPass.sequelize.fn('DISTINCT', UserEquipmentTestPass.sequelize.col('type')), 'type'], 'pass_flag', 'user_no'],
+            where: { user_no },
+            raw: true,
         })
      }
      catch(error){
