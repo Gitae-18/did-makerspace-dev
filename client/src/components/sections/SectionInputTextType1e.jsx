@@ -29,21 +29,15 @@ export default function SectionInputTextType1e() {
     setData(json);
   },[no])
   const getFile = useCallback(async()=>{
-    CommonHeader.authorization = token;
     const res = await fetch(PreUri + '/notice/' + no + '/files', {
       method: Method.get,
-      headers: {
-        authorization: token,
-    }, 
     })
     const fileList = await res.json();
     if(fileList!==null||undefined)
     {
     setAttachFile(fileList)
     }
-  },[token,no])
-
- const arr =  Object.values(attachFile)
+  },[no])
 
  const getFileNo = useCallback(async()=>{
   const response = await fetch(PreUri + '/notice/'+ no + '/filesno',{
@@ -51,18 +45,21 @@ export default function SectionInputTextType1e() {
     headers:CommonHeader
   })
   const json = await response.json();
-
-  setFileNo(json);
+  const formattedFiles = json.map(file => {
+    return {
+      ...file,
+      file_name: file.original_name
+    };
+  });
+  setFileNo(formattedFiles);
 },[no])
+console.log(fileNo)
   useEffect(()=>{
     getData();
     getFile();
     getFileNo();
   },[getData,getFile,getFileNo])
-   console.log(fileNo)
-   console.log(attachFile)
   const onFileDownload = useCallback(async (e, fileInfo) => {
-    console.log(fileInfo);
     let attached_file_no ;
     for(let i = 0; i < attachFile.length&&i<MaxFileCount; i++){
       if(attachFile.legnth>1){
@@ -72,20 +69,17 @@ export default function SectionInputTextType1e() {
         attached_file_no = attachFile.attached_file_no
       }
     }
- 
+    console.log(fileInfo.attached_file_no)
     const response = await fetch(PreUri + '/notice/' + no + '/file/' + fileInfo.attached_file_no, {
         method: Method.get,
-        headers: {
-          authorization: token}
     });
-
     if (!response.ok) {
         console.log('response error');
         return;
     }
     const blob = await response.blob();
     if(fileInfo!==undefined){
-      fileDownload(blob, fileInfo.original_name);
+      fileDownload(blob, fileInfo.file_name);
     }
     /* var fileDownload = require('js-file-download');
     fileDownload(await (await new Response(response.body)).blob(), fileInfo.original_name); */
@@ -100,7 +94,7 @@ let DownloadMyFileItems = [];
 		for (let i = 0; i < fileNo.length; i++) {
 			DownloadMyFileItems.push(
 				<FileDownload index={i}
-					filename={fileNo[i].original_name}
+					filename={fileNo[i].original_name.length<20?fileNo[i].original_name:fileNo[i].original_name.slice(0,20)+'...'}
 					onClick={(e) => onFileDownload(e, fileNo[i])}
 					key={i} />);
 		};
@@ -135,7 +129,6 @@ let DownloadMyFileItems = [];
         </li>
         <li className="file_wrap">
           <label htmlFor="file01">파일#1</label>
-          {/* <span>{arr[0]!==undefined?arr[0].name:"파일이 없습니다"}</span><button className="download"  onClick={(e)=>onFileDownload(e,arr[0])}>다운로드</button> */}
           {DownloadMyFileItems}
         </li>
       </ul>

@@ -118,9 +118,6 @@ router.post('/:notice_no/images',upload.array('files'),async(req,res,)=>{
 router.post('/:notice_no/files',upload.array('imageFiles'), async(req, res, next) =>{
     let notice_no = req.params.notice_no; 
 
-
-    
-    console.log(req.files);
     if(req.files.length>0)
     {
         makedir('upload/newnotice');
@@ -145,7 +142,7 @@ router.post('/:notice_no/files',upload.array('imageFiles'), async(req, res, next
     res.status(errorCode.ok).json({});
     
 })
-router.put('/:notice_no/files',verifyToken,upload.array('imageFiles'), async(req, res, next) =>{
+router.put('/:notice_no/files',upload.array('imageFiles'), async(req, res, next) =>{
     let user_no = req.decoded.user_no;
     let notice_no = req.params.notice_no;
 
@@ -190,18 +187,21 @@ router.get('/:notice_no/files'/* ,verifyToken */,async (req, res, next) => {
 
 });
 
-router.get('/:notice_no/file/:file_no',verifyToken,async (req, res, next) => {
+router.get('/:notice_no/file/:file_no'/* ,verifyToken */,async (req, res, next) => {
     let notice_no = req.params.notice_no;
-    let user_no = req.decoded.user_no;
     let attached_file_no = req.params.file_no;
 
     let file_info;
     try {
         file_info = await NoticeFile.findOne({
             attributes: ['attached_file_no', 'original_name', 'name', 'path', 'filesize'],
-            where: { 
+            where: [{ 
                 notice_no
+            },
+            {
+                attached_file_no,
             }
+        ]   
         });
     } catch (error) {
         console.error(error);

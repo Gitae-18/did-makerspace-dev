@@ -67,8 +67,11 @@ export default function SectionTabType1(props) {
             <ol key={index}>
             <li key={index}>
             {item.attached_file==="Y"?<ImageHomeNotice no={item.notice_no} token={token} CommonHeader={CommonHeader}/>:<></>}
+            <div><span>{item.content}</span></div>
             <span className="title"><span onClick={(e)=>onItem(e,index)} className="sub_title" style={{"whiteSpace":"pre-line","wordBreak":"break-word"}}> {item.title}</span></span><HiOutlinePlus className="plus" onClick={goToNotice}/>
+            <span>{item.content}</span>
             <div className="text_part">
+              
             <div className="date_part">
             <span className="date">{item.created_at.slice(0,10)}</span>
             </div>

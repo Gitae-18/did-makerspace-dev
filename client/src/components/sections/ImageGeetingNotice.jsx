@@ -4,12 +4,11 @@ import { CommonHeader, PreUri, Method } from "../../CommonCode";
 export default function ImageGettingNotice({no,token,attachFile}){
     const [fileurl2,setFileUrl2] = useState("");
     const getFileName = useCallback(async()=>{
-        CommonHeader.authorization = token;
         const res = await fetch(PreUri + '/fileview/'+ no +'/noticefile',  {
           method: Method.get,
-          headers: {
+/*           headers: {
             authorization: token,
-        }, 
+        },  */
         })
         const fileName = await res.json();
         const filesrc = btoa(fileName.file);
@@ -25,7 +24,7 @@ export default function ImageGettingNotice({no,token,attachFile}){
           setFilename(reader.result);
         }
         URL.revokeObjectURL(src) */
-      },[token,no,attachFile])
+      },[no,attachFile])
       useEffect(()=>{
         getFileName();
       },[])
