@@ -144,7 +144,7 @@ export default function TableType1d() {
         </p>
         <div className="table_search">
           <select name="" id="">
-            <option value="1">이름</option>
+            <option value="1">제목</option>
           </select>
           <input type="text" name="" id="" placeholder="제목을 입력하세요" onChange={onChange} onKeyDown={(e) => activeEnter(e)} />
           <StyledBtn onClick={onSearch}>검색</StyledBtn>

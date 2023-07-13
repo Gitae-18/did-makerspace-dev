@@ -116,8 +116,8 @@ let DownloadMyFileItems = [];
           <label htmlFor="text01">제목</label>
           <span>{data.title}</span>
         </li>
-        <li className="textarea_wrap" style={fileNo.length>0?{'height':'800px'}:{'height':'300px'}}>
-          <label htmlFor="text02">내용</label>
+        <li className="textarea_wrap" style={fileNo.length>0?{'height':'800px'}:{'height':'800px'}}>
+          <label htmlFor="text02" style={{lineHeight:"800px"}}>내용</label>
            {<div style={{marginLeft:"30px",border:"2px solid #313d4d",width:"800px",height:"500px",padding:"10px 10px"}} dangerouslySetInnerHTML={{__html:data.content}}/>}
         </li>
         <li className="file_wrap">
@@ -137,7 +137,7 @@ let DownloadMyFileItems = [];
         <label htmlFor="text01">제목</label>
         <span>{data.title}</span>
       </li>
-      <li className="textarea_wrap"  style={fileNo.length>0?{'minHeight':'800px',maxHeight:'2200px',height:'1300px'}:{'height':'300px'}}>
+      <li className="textarea_wrap"  style={fileNo.length>0?{'minHeight':'800px',maxHeight:'2200px',height:'1300px'}:{'height':'800px'}}>
         <StyledLabel htmlFor="text02">내용</StyledLabel>
          <div className="textarea" style={{maxHeight:'2000px'}}>
          <ImageGettingNotice attachFile={attachFile} no={no} token={token} CommonHeader={CommonHeader}/>

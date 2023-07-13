@@ -236,10 +236,7 @@ router.get('/:faq_no/files',async (req, res, next) => {
 router.get('/:faq_no/filesno',async (req, res, next) => {
     let faq_no = req.params.faq_no;
    
-    console.log(faq_no)
-/*     if (authority_level < authLevel.manager) {
-        return res.status(errorCode.notAcceptable).json({});
-    } */let files
+    let files
     try{
      files= await FaqFile.findAll({
         attributes:['attached_file_no','original_name','path','type','filesize'],
@@ -331,7 +328,6 @@ router.get('/:faq_no/fileinfo',async (req, res, next) => {
         }
     })
     //console.log(encode);
-    console.log(file);
     res.setHeader('Content-Length',file.length);
     res.write(file,'binary');
     res.end();

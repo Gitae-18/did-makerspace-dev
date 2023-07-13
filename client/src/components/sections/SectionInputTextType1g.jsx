@@ -124,17 +124,10 @@ let DownloadMyFileItems = [];
       <StyledLabel htmlFor="text01">제목</StyledLabel>
         <span>{data.title}</span>
       </li>
-      <li className="textarea_wrap" style={fileNo.length>0?{'height':'800px'}:{'height':'300px'}}>
-      <StyledLabel2 htmlFor="text02">내용</StyledLabel2>
+      <li className="textarea_wrap" style={fileNo.length>0?{'height':'800px'}:{'height':'800px'}}>
+      <label htmlFor="text02" style={{lineHeight:"800px"}}>내용</label>
         <div className="textarea">
-        <textarea
-          name="text02"
-          id="text02"
-          cols="50"
-          rows="6"
-          readOnly={true}
-          value={data.content}
-        ></textarea>
+        {<div style={{marginLeft:"30px",border:"2px solid #313d4d",width:"800px",height:"500px",padding:"10px 10px"}} dangerouslySetInnerHTML={{__html:data.content}}/>}
         </div>
       </li>
       <li className="file_wrap">
@@ -151,17 +144,10 @@ let DownloadMyFileItems = [];
          <StyledLabel htmlFor="text01">제목</StyledLabel>
          <span>{data.title}</span>
        </li>
-       <li className="textarea_wrap" style={fileNo.length>0?{'height':'800px'}:{'height':'300px'}}>
+       <li className="textarea_wrap" style={fileNo.length>0?{'minHeight':'800px',maxHeight:'2200px',height:'1300px'}:{'height':'800px'}}>
          <StyledLabel2 htmlFor="text02">내용</StyledLabel2>
          <div className="textarea">
-         <textarea
-           name="text02"
-           id="text02"
-           cols="50"
-           rows="6"
-           readOnly={true}
-           value={data.content}
-         ></textarea>
+         {<div style={{marginLeft:"30px",border:"2px solid #313d4d",width:"800px",height:"500px",padding:"10px 10px"}} dangerouslySetInnerHTML={{__html:data.content}}/>}
           <ImageGetting attachFile={attachFile} no={no} token={token} CommonHeader={CommonHeader}/>
          </div>
        </li>
@@ -195,5 +181,5 @@ position:relative;
 `
 const StyledLabel2 = styled.label`
 justify-content:center;
-line-height:300px !important;
+line-height:1400px !important;
 `
