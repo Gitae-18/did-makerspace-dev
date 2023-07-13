@@ -34,9 +34,6 @@ export default function SectionInputTextType1g() {
     CommonHeader.authorization = token;
     const res = await fetch(PreUri + '/faq/' + no + '/files', {
       method: Method.get,
-      headers: {
-        authorization: token,
-    }, 
     })
     const fileList = await res.json();
     if(fileList!==null||undefined)
@@ -51,8 +48,13 @@ export default function SectionInputTextType1g() {
       headers:CommonHeader
     })
     const json = await response.json();
-
-    setFileNo(json);
+    const formattedFiles = json.map(file => {
+      return {
+        ...file,
+        file_name: file.original_name
+      };
+    });
+    setFileNo(formattedFiles);
   },[no])
   const arr =  Object.values(attachFile)
 
@@ -76,8 +78,6 @@ export default function SectionInputTextType1g() {
     const response = await fetch(PreUri + '/faq/' + no + '/file/' + fileInfo.attached_file_no, {
         responseType: 'blob',
         method: Method.get,
-        headers: {
-          authorization: token}
     });
 
     if (!response.ok) {
@@ -103,7 +103,7 @@ let DownloadMyFileItems = [];
 		for (let i = 0; i < fileNo.length; i++) {
 			DownloadMyFileItems.push(
 				<FileDownload index={i}
-					filename={fileNo[i].original_name}
+					filename={fileNo[i].file_name}
 					onClick={(e) => onFileDownload(e, fileNo[i])}
 					key={i} />);
 		};

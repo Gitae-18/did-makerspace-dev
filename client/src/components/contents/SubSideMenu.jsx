@@ -96,7 +96,7 @@ export default function SubSideMenu(props,onCategory) {
               <li onClick={(e)=>onClick(e,1)}><button onClick={(e)=>history("/didadmin/info/greetings")}>인사말</button></li>
               <li onClick={(e)=>onClick(e,1)}><button onClick={(e)=>history("/didadmin/info/vision")}>미션/비전</button></li>
               <li onClick={(e)=>onClick(e,1)}><button onClick={(e)=>history("/didadmin/info/organization")}>조직도</button></li>
-              <li onClick={(e)=>onClick(e,1)}><button onClick={(e)=>history("/didadmin/info/partner")}>협력기관안내</button></li>
+              {/* <li onClick={(e)=>onClick(e,1)}><button onClick={(e)=>history("/didadmin/info/partner")}>협력기관안내</button></li> */}
             </ol>
           </li>
           <li onClick={Dep2Handler} sidebar={sidebar} className={url.includes("didinfo")?"on":"off"}/*  onClick={checkUrl} */>

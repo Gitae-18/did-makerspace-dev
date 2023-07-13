@@ -216,11 +216,9 @@ router.get('/:faq_no/detail',async(req,res,next)=>{
     }
     res.status(errorCode.ok).json(result);
 });
-router.get('/:faq_no/files',verifyToken,async (req, res, next) => {
+router.get('/:faq_no/files',async (req, res, next) => {
     let faq_no = req.params.faq_no;
-    let user_no = req.decoded.user_no;
    
-
 /*     if (authority_level < authLevel.manager) {
         return res.status(errorCode.notAcceptable).json({});
     } */
@@ -277,18 +275,21 @@ router.get('/:faq_no/fileurl/:file_no',verifyToken,async (req, res, next) => {
     }
     res.status(errorCode.ok).json(file_info);
 });
-router.get('/:faq_no/file/:file_no',verifyToken,async (req, res, next) => {
+router.get('/:faq_no/file/:file_no',async (req, res, next) => {
     let faq_no = req.params.faq_no;
-    let user_no = req.decoded.user_no;
     let attached_file_no = req.params.file_no;
 
     let file_info;
     try {
         file_info = await FaqFile.findOne({
             attributes: ['attached_file_no', 'original_name', 'name', 'path', 'filesize'],
-            where: { 
+            where: [{ 
                 faq_no
+            },
+            {
+                attached_file_no,
             }
+        ]   
         });
     } catch (error) {
         console.error(error);
@@ -306,15 +307,8 @@ router.get('/:faq_no/file/:file_no',verifyToken,async (req, res, next) => {
     });
 });
 
-router.get('/:faq_no/fileinfo',verifyToken,async (req, res, next) => {
+router.get('/:faq_no/fileinfo',async (req, res, next) => {
     let faq_no = req.params.faq_no;
-    let user_no = req.decoded.user_no;
-   
-
-/*     if (authority_level < authLevel.manager) {
-        return res.status(errorCode.notAcceptable).json({});
-    } */
-    
     let files = await SelectFileInfo(faq_no);
     if (!files) {
         return res.status(errorCode.internalServerError).json({});

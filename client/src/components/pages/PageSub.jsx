@@ -248,7 +248,6 @@ export const DidInfo10= () => {
 export const DidInfo1Detail = ({location,history}) =>{
   const dispatch = useDispatch();
   const { sideNaviPos } = useSelector(state => state.sidemenu);
-
   return(
     <>
     

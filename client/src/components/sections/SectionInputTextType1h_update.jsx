@@ -95,7 +95,7 @@ function dataURLToBlob(dataURL) {
       body:JSON.stringify(
         {
            title:title,
-           content:text,
+           content:content,
         }
       )
       

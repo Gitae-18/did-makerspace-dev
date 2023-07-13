@@ -1,18 +1,21 @@
-import React ,{useState,useEffect,useCallback}from "react";
+import React ,{useState,useEffect,useCallback,useRef}from "react";
 import { useNavigate,useLocation } from "react-router-dom";
 import TitleType1 from "../contents/TitleType1";
 import styled from "styled-components";
 import ButtonType2 from "../contents/ButtonType2";
 import { useSelector , useDispatch} from "react-redux";
-import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg ,MaxFileCount} from "../../CommonCode";
+import { CommonHeader, PreUri, Method,  getRspMsg ,MaxFileCount} from "../../CommonCode";
 import fileDownload from 'js-file-download';
 import PopupSaveModal from "../Modals/PopupSaveModal";
+import { Editor } from '@tinymce/tinymce-react';
+import {css} from '../../css/comb/pages/sections.css'
 export default function SectionInputTextType1f_update() {
   const { token } = useSelector(state => state.user);
   const [openModal,setOpenModal] = useState(false);
   const [update,setUpdate] = useState(false);
   const [fileNo,setFileNo] = useState([]);
   const [imageFile,setImageFile] = useState([]);
+  const [content,setContent] = useState("");
   const [imageUrl,setImageUrl] = useState([]);
   const [attachFile,setAttachFile] = useState({})
   const [data,setData] = useState([]);
@@ -23,6 +26,7 @@ export default function SectionInputTextType1f_update() {
   const no = location.state.no;
   const faqno = location.state.faq_no
   const url = location.pathname;
+  const editorRef = useRef(null);
 
   const onMemoChange = (e) =>{ 
     setText(e.target.value);
@@ -30,6 +34,10 @@ export default function SectionInputTextType1f_update() {
  const onTitleChange = (e) =>{
    setTitle(e.target.value);
  }
+ const handleEditorChange = (content,editor) =>{
+  setContent(content);
+  editorRef.current = content;
+}
  const handleChangeFile = (e) =>{
   setImageFile(e.target.files);
   const file = e.target.files[0];
@@ -40,6 +48,40 @@ export default function SectionInputTextType1f_update() {
   }
   reader.readAsDataURL(file)
 }
+const compressImage = (file) =>{
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 800; // 원하는 너비로 조정
+        canvas.height = 600; // 원하는 높이로 조정
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.globalCompositeOperation = 'destination-over';
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const compressedDataUrl = canvas.toDataURL('image/png', 0.7); // 압축 품질 조정
+        resolve(compressedDataUrl);
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function dataURLToBlob(dataURL) {
+  const byteString = atob(dataURL.split(',')[1]);
+  const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+  const arrayBuffer = new ArrayBuffer(byteString.length);
+  const uint8Array = new Uint8Array(arrayBuffer);
+
+  for (let i = 0; i < byteString.length; i++) {
+    uint8Array[i] = byteString.charCodeAt(i);
+  }
+
+  return new Blob([arrayBuffer], { type: mimeString });
+}
+
 const getData = useCallback(async()=>{
   CommonHeader.authorization = token;
  
@@ -123,7 +165,7 @@ const formData = new FormData();
     body:JSON.stringify(
       {
          title:title,
-         content:text,
+         content:content,
       }
     )
     
@@ -132,11 +174,14 @@ const formData = new FormData();
     return(alert(getRspMsg(response.status)))
   }
 
-  let index = 0;
-  
-  for (let i = 0; i <imageFile.length; i++) {
-    formData.append("imageFiles", imageFile[i]);
-    index++;
+  const files = imageFile;
+  const formData = new FormData();
+
+  for (let i = 0; i<files.length; i++){
+    const file = files[i];
+    const compressedDataUrl = await compressImage(file);
+    const compressedBlob = dataURLToBlob(compressedDataUrl);
+    formData.append('imageFiles',compressedBlob, file.name);
   }
 
   const res = await fetch( PreUri +'/faq/'+ faqno +'/files',{

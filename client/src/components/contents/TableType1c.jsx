@@ -17,8 +17,8 @@ const TableType1c = () => {
   const postPerPage = 10;
   const indexOfLastPost = currentPage * postPerPage
   const indexOfFirstPost = indexOfLastPost - postPerPage;
-  const currentPost = itemList.slice(indexOfFirstPost, indexOfLastPost)
-  console.log(count);
+  const currentPost = searchItem.slice(indexOfFirstPost, indexOfLastPost)
+  
   const getWorkers = useCallback(async(e)=>{
     let requri = PreUri + '/worker/workers';
     const response = await fetch(requri,{
@@ -33,7 +33,7 @@ const TableType1c = () => {
 
     setData(json);
     setSearchItem(json);
-    setCount(json.length);
+    setCount(json.length)
   },[])
 
 
@@ -91,7 +91,7 @@ const activeEnter = (e) => {
           </tr>
         </thead>
         <tbody>
-          {searchItem.map((item,index)=>(
+          {searchItem.length>0&&currentPost.map((item,index)=>(
           <tr key={index}>
             <td>{item.indp}</td>
             <td>{item.name}</td>

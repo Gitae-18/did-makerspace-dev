@@ -97,36 +97,7 @@ function dataURLToBlob(dataURL) {
 
   return new Blob([arrayBuffer], { type: mimeString });
 }
-/*   const uploadImage = useCallback(async(loader)=>{
-    const formData = new FormData();
-    let index = 0;
-      for (let i = 0; i <imageFile.length; i++) {
-        formData.append("files", image[i]);
-        index++;
-      }
-        const response = await fetch( PreUri +'/notice/'+ (no+1) +'/files',{
-          method:Method.post,
-                 headers:{authorization:token},
-          body:formData,
-        })
-          if(!response.ok){
-            return(alert(getRspMsg(response.status)))
-          }
-        },[image,no]); */
-/*   const getPreViewImage = useCallback(async()=>{
-    const res = await fetch(PreUri + '/fileview/'+ (no+1) +'/noticeview',  {
-      method: Method.get,
-      headers: {
-        authorization: token,
-    }, 
-    })
-    const fileName = await res.json();
-    const filesrc = btoa(fileName.file);
-    setFileUrl2(filesrc);
-  },[token,no]) */
-/*   useEffect(()=>{
-    getPreViewImage();
-  },[]) */
+
   const sendData = useCallback(async()=>{
 
     CommonHeader.authorization = token;
@@ -136,7 +107,7 @@ function dataURLToBlob(dataURL) {
       body:JSON.stringify(
         {
            title:title,
-           content:text,
+           content:content,
            popup:isChecked===true?"Y":"N",
            attached_file:imageFile.length>0?"Y":"N"
         }
@@ -177,22 +148,6 @@ function dataURLToBlob(dataURL) {
       setIsChecked(false);
     }
   }
-/*   ClassicEditor
-  .create( document.querySelector( '#editor' ), {
-      extraPlugins: [uploadPlugin],
-      toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
-      heading: {
-          options: [
-              { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-              { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-              { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
-          ]
-      }
-  } )
-  .catch( error => {
-      console.log( error );
-  } ); */
-  
   return (
     <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1e">
       <ul className="text_wrap">
