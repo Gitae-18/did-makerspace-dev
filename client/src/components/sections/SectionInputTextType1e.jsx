@@ -118,7 +118,7 @@ let DownloadMyFileItems = [];
         </li>
         <li className="textarea_wrap" style={fileNo.length>0?{'height':'800px'}:{'height':'300px'}}>
           <label htmlFor="text02">내용</label>
-           {<div style={{marginLeft:"50px",border:"2px solid #313d4d",width:"800px",height:"500px",padding:"10px 10px"}} dangerouslySetInnerHTML={{__html:data.content}}/>}
+           {<div style={{marginLeft:"30px",border:"2px solid #313d4d",width:"800px",height:"500px",padding:"10px 10px"}} dangerouslySetInnerHTML={{__html:data.content}}/>}
         </li>
         <li className="file_wrap">
           <label htmlFor="file01">파일#1</label>

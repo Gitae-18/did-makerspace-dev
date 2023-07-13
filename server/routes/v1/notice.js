@@ -357,7 +357,7 @@ router.get('/noticehome',async(req,res,next)=>{
     let result;
     try{
         result = await Notice.findAll({
-            attributes:['notice_no','title','created_at','hit','attached_file'],
+            attributes:['notice_no','title','created_at','hit','attached_file','content'],
             order:[['created_at','DESC']],
             limit:4,
             raw:true,

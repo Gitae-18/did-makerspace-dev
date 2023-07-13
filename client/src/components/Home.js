@@ -80,7 +80,6 @@ function Home() {
            const onSiteMove = (url) =>{
             window.open(url,"_blank");
           }
-          console.log(localStorage)
         return (
           <>
           <div className="bg">
