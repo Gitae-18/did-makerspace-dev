@@ -55,6 +55,7 @@ import { MentoringReportContainer } from './containers/Mentoring/MentoringReport
 import { MentoringAddContainer } from './containers/Mentoring/MentoringAddContainer';
 import './css/common-s.css';
 import './css/style-s.css';
+import TableType2a_a from './components/contents/TableType2a_a';
 import Materials, { Materials1, Materials2, Materials3 } from './components/Admin/Statistics/pages/Materials';
 import Service, { Service1, Service2, Service3, Service4 ,StaticsAnalyze} from './components/Admin/Statistics/pages/Service';
 import Users, { Users1, Users2 } from './components/Admin/Statistics/pages/Users';
@@ -157,6 +158,7 @@ const App = () => {
         <Route path="/eqreservation/space" element = {<DidReservation2/>}/>
         <Route path="/eqreservation/lab" element = {<DidReservation3/>}/>
         <Route path="/eqreservation/myvation" element = {<MyReservContainer/>}/>
+        <Route path="/eqreservation/checkreserv" element = {<TableType2a_a/>}/>
         <Route path="/eqreservation/equip/selectreserv" element = {<EReservation/>}/>
         <Route path="/eqreservation/equip/test" element={<TestReservation/>}/>
 

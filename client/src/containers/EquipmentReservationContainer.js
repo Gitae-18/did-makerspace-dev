@@ -24,7 +24,7 @@ export const EquipmentReservationContainer = (props) =>{
         
 	}, [isLoading, isLoggedIn, authority_level, history])
     
-    const View = authority_level<10 ? TableType2a : TableType2a_a;
+    const View = authority_level<10 ? TableType2a : TableType2a;
 
     return(
         (isLoading || !isLoggedIn /* || authority_level < AuthLevel.partner */) ? <></>:

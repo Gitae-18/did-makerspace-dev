@@ -153,10 +153,7 @@ router.post('/equipment_reserv', verifyToken, async(req,res,next)=>{
 
     res.status(errorCode.ok).json({});
 })
-router.get('/reserv_list',verifyToken,async(req,res,next)=>{
-    let user_no = req.decoded.user_no;
-
-    
+router.get('/reserv_list',async(req,res,next)=>{    
    EquipmentReservation.hasOne(User, { foreignKey: 'user_no', sourceKey: 'user_no' });
    EquipmentReservation.hasOne(EquipmentCategory,{foreignKey:'equipment_category_no', sourceKey:'equipment_category_no'});
     let reservlist;

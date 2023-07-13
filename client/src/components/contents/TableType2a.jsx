@@ -12,7 +12,7 @@ import '../../css/Paging.css'
 import styled from "styled-components";
 import VideoModal from "./VideoModal";
 export default function TableType2a() {
-   const { token } = useSelector(state => state.user);
+   const { token , authority_level} = useSelector(state => state.user);
    const [reservationList, setReservationList] = useState([]);
    const [passflag ,setPassFlag] = useState([]);
    const [count,setCount] = useState(0);
@@ -114,6 +114,9 @@ export default function TableType2a() {
     }
   } 
   },[reservationList])
+  const onCheckClick = (e) =>{
+    history('/eqreservation/checkreserv')
+  }
   const onTestClick = (e) =>{
     const name = e.equipment_cateogry_no;
     history(now.pathname + "/test",{state:{name:name}})
@@ -141,6 +144,7 @@ export default function TableType2a() {
     <div className="table_wrap table_type2">
       <div className="table_extra">
         <ButtonType2 btnName="내 예약정보"></ButtonType2>
+        {authority_level>10?<StyledBtn4 onClick={onCheckClick}>예약 확인</StyledBtn4>:<></>}
       </div>
       <table>
         <caption className="blind">장비 예약</caption>
@@ -249,3 +253,17 @@ position:relative;
      color:#313f4f
   }
   `
+  const StyledBtn4= styled.button`
+  color:#fff;
+  background-color:#313f4f;
+  width:120px;
+  height:30px;
+  font-size:0.7rem;
+  cursor:pointer;
+  border:1px solide #313f4f;
+  position:relative;
+   &:hover{
+      background-color:#transparent
+      color:#313f4f
+   }
+   `

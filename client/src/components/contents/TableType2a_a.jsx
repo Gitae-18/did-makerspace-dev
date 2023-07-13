@@ -20,60 +20,25 @@ export default function TableType2a_a() {
    const [equiptype,setEquipType] = useState('');
    const [loading,setLoading] = useState(false);
    const [currentPage,setCurrentPage] = useState(1);
-   const [postPage, setPostPage] = useState(2);
+   const [postPage, setPostPage] = useState(10);
    const indexOfLastPost = currentPage * postPage
    const indexOfFirstPost = indexOfLastPost - postPage
    const [currentPosts,setCurrentPosts] = useState([]);
-   //const [passtype,setPasstype] = useState([]);
-   //const location = useLocation();
-   //const history = useNavigate();
    const [modalVisible,setModalVisible] = useState(true);
    const [dropModal,setDropModal] = useState(false);
    const [dropno,setDropNo] = useState();
    const [visible,setVisible] = useState(false);
-  const [link,setLink] = useState("");
-    //let rowNumber = Array.from(1,reservationList.length);
-
-   const getUserTest = useCallback(async()=>{
-
-    CommonHeader.authorization = token;
-
-      const requri = PreUri + '/userequipmentestpass/testresult'  
-      const response = await fetch(requri,{
-        method:Method.get,
-        headers:CommonHeader
-      })
-      if (!response.ok) {
-        console.log('잘못된 접근입니다.');
-        return;
-      }
-      const json = await response.json();
-
-      setPassFlag(json);
-    
-   },[token])
+   const [link,setLink] = useState("");
+   const currentPost = reservationList.slice(indexOfFirstPost, indexOfLastPost)
+   
    const setPage = (e) =>{
     setCurrentPage(e);
   }
-   //
-   let typepass = passflag.map((item)=>item.type);
-   //
-   let pass =  passflag.map((item)=>item.pass_flag);
- 
-   //
-    /* for (let i = 0 ; i < passflag.length ; i++){
-      if(passflag[i].pass_flag==="Y" )
-      {
-        pass="Y";
-      }
-      else
-      {
-        pass="N";
-      }
-    } */
-   const getItemList = useCallback(async(currentPage)=>{
+
+   const getItemList = useCallback(async()=>{
+    CommonHeader.authorization = token;
       setLoading(true);
-      let requri = PreUri + `${'/reservation/reserv_list'}`;
+      let requri = PreUri + '/reservation/reserv_list';
       const response = await fetch(requri, {
         method:Method.get,
         headers:CommonHeader
@@ -83,10 +48,10 @@ export default function TableType2a_a() {
         return;
       }
       const json = await response.json();
+      console.log(json)
       setReservationList(json);
       setLoading(false);
       setCount(json.length);
-      setCurrentPosts(json.slice(indexOfFirstPost,indexOfLastPost))
    },[])
    console.log(reservationList);
    const closeModal = () =>{
@@ -97,10 +62,9 @@ export default function TableType2a_a() {
     setDropNo(e.equipment_reservation_no);
     },[reservationList])
   useEffect(()=>{
-    getUserTest();
     getItemList();
     //checkTestFlag();
-   },[getUserTest,getItemList])
+   },[getItemList])
   return (
     <div id="sub_page_wrap">
         <SubSideMenu title={"장비예약"} ></SubSideMenu>
@@ -122,7 +86,7 @@ export default function TableType2a_a() {
             <th>삭제</th>
         </thead>
         <tbody>
-          {currentPosts&&reservationList.map((item,i)=>(
+          {reservationList.length>0&&currentPost.map((item,i)=>(
             <tr key={i}>
              <td>{item.username}</td>
              <td>{item.modelname}</td>
