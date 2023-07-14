@@ -79,6 +79,7 @@ export default function TableType2a() {
       setReservationList(json);
       setLoading(false);
       setCount(json.length);
+      console.log(json)
       setCurrentPosts(json.slice(indexOfFirstPost,indexOfLastPost))
    },[])
 
@@ -118,11 +119,11 @@ export default function TableType2a() {
     history('/eqreservation/checkreserv')
   }
   const onTestClick = (e) =>{
-    const name = e.equipment_cateogry_no;
+    const name = e.model_name;
     history(now.pathname + "/test",{state:{name:name}})
   }
   const onReservClick = (e) =>{
-    const categoryNo = e.model_name;
+    const categoryNo = e.equipment_category_no;
     history('/eqreservation/equip/selectreserv?categoryNo=' + categoryNo,{state:{category:categoryNo}})
   }
   useEffect(()=>{
@@ -253,17 +254,17 @@ position:relative;
      color:#313f4f
   }
   `
-  const StyledBtn4= styled.button`
-  color:#fff;
-  background-color:#313f4f;
-  width:120px;
-  height:30px;
-  font-size:0.7rem;
-  cursor:pointer;
-  border:1px solide #313f4f;
-  position:relative;
-   &:hover{
-      background-color:#transparent
-      color:#313f4f
-   }
-   `
+    const StyledBtn4= styled.button`
+    color:#fff;
+    background-color:#313f4f;
+    width:120px;
+    height:30px;
+    font-size:0.7rem;
+    cursor:pointer;
+    border:1px solide #313f4f;
+    position:relative;
+    &:hover{
+        background-color:#transparent
+        color:#313f4f
+    }
+    `

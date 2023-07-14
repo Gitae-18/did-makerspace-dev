@@ -7,10 +7,14 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true,
             allowNull: false,
             primaryKey: true,
-        },
+            },
             user_no: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
+            },
+            name: {
+                type: DataTypes.STRING(55),
+                allowNull:false,
             },
             permission_flag: {
                 type: DataTypes.CHAR(5),
@@ -23,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
             },
            mentor_profile: {
                 type: DataTypes.STRING(500),
+                allowNull:true,
+           },
+           introduction:{
+                type:DataTypes.TEXT,
                 allowNull:true,
            },
            career: {

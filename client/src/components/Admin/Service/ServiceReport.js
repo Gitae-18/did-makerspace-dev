@@ -8,6 +8,7 @@ import 'react-quill/dist/quill.snow.css'
 import '../../../css/common-s.css';
 import '../../../css/style-s.css';
 export default ({query}) => {
+    console.log(query)
     const mountedRef = useRef(true);
     const { token } = useSelector(state => state.user);
     const location = useLocation();

@@ -101,14 +101,14 @@ export default function ({ query }) {
 
         if (curPageGrp < totPageGrp) {
             const querySearch = (search.length > 0) ? ("&search=" + search) : "";
-            history((location.pathname+location.search+location.hash)+ '?page=' + (newPageOffset + 1) + querySearch);
+            history((location.pathname)+ '?page=' + (newPageOffset + 1) + querySearch);
         }
     }, [history, items, search]);
 
     const onSelectItem = useCallback((e, i) => {
         e.preventDefault();
         dispatch({ type: COMPANY_ITEM, target: items.items[i] });
-        history((location.pathname+location.search+location.hash) + '?edit=1');
+        history((location.pathname) + '?edit=1');
     }, [items, dispatch, history]);
 
     const onSearch = useCallback((e) => {

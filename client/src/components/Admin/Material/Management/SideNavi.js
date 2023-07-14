@@ -12,15 +12,20 @@ import { MdHome,MdChevronRight } from "react-icons/md";
 export default function ({ viewDepth ,onCategory}) {
 	const { sideNaviPos } = useSelector(state => state.management);
 	const { token } = useSelector(state => state.user);
-	const { categoryList, categoryIndex } = useSelector(state => state.material);
 	const mountedRef = useRef(true);
 	const dispatch = useDispatch();
 	const location = useLocation();
     const history = useNavigate();
 	const url = location.pathname;
-	let title,subtitle;
+	/* let title,subtitle;
+
 	if(location.pathname.includes('mentorcontrol')){
-		title="전문멘토관리"
+		if(location.pathname.includes('mentorauthority')){
+			title="전문멘토관리"
+			subtitle="전문멘토명단"
+		}
+		
+		
 	}
 	if((location.pathname.includes('edu'))||(location.pathname.includes('class'))){
 		title="교육/행사관리"
@@ -49,7 +54,7 @@ export default function ({ viewDepth ,onCategory}) {
 	else if(sideNaviPos === 6){
 		title="기/자재관리"
 		subtitle="자재 항목관리"
-	}
+	} */
 	
 	const onClick = useCallback((e, index) => {
 		e.preventDefault();

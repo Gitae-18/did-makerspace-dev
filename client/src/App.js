@@ -83,6 +83,10 @@ export const ScrollToTop = () =>{
     {
        element.style.display='none';
     }
+    if(location.search.includes("user_no"))
+    {
+       element.style.display='none';
+    }
     window.scrollTo(0, 0);
   }, [pathname]);
   setTimeout(() => {  window.scrollTo(0, 0);  }, 300);
@@ -125,6 +129,7 @@ const App = () => {
         <Route path="/mservice/guide" element = {<MserviceGuide/>}/>
         <Route path="/mmaterial" element = {<MMaterial/>} /> 
         <Route path="/management/*" element = {<Management1/>} />
+      
      
 
 
@@ -196,8 +201,8 @@ const App = () => {
         <Route path='/mentorcontrol/mentorapplication' element = {<MentorApplication/>}/>
         <Route path='/mentorcontrol/mentorapplication/detail' element = {<NotCompelete/>}/>
         <Route path='/mentorcontrol/mentorauthority' element = {<MentorAuthority/>}/>
-        {/*<Route path='/mentorcontrol/mentoringreport' element = {<MentoringReport/>}/> */}
-        {/*<Route path='/mentorcontrol/mentoringreport/detail' element = {<MentoringReportDetail/>}/> */}
+        {/* <Route path='/mentorcontrol/mentoringreport' element = {<MentoringReport/>}/> */}
+        <Route path='/mentorcontrol/mentoringreport/detail' element = {<MentoringReportDetail/>}/>
         <Route path='/educontrol' element = {<EduAddContainer/>}/>
         <Route path='/classcontrol' element = {<ClassAddContainer/>}/>
         <Route path="/classeducontrol" element={<ClassEduControlContainer/>}/>

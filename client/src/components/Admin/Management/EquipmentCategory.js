@@ -62,7 +62,7 @@ export default function ({ query }) {
     const onPage = useCallback((e, newPageNumber) => {
         e.preventDefault();
         const querySearch = (search.length > 0) ? ("&search=" + search) : "";
-        history((location.pathname+location.search+location.hash) + '?page=' + newPageNumber + querySearch);
+        history((location.pathname) + '?page=' + newPageNumber + querySearch);
     }, [history, search]);
 
     const onPagePrev = useCallback((e) => {
@@ -79,7 +79,7 @@ export default function ({ query }) {
         const curPageGrp = Math.ceil(items.pageOffset / PageMax);
         if (curPageGrp > 0) {
             const querySearch = (search.length > 0) ? ("&search=" + search) : "";
-            history((location.pathname+location.search+location.hash) + '?page=' + items.pageOffset + querySearch);
+            history((location.pathname) + '?page=' + items.pageOffset + querySearch);
         }
     }, [history, items, search]);
 
@@ -100,14 +100,14 @@ export default function ({ query }) {
 
         if (curPageGrp < totPageGrp) {
             const querySearch = (search.length > 0) ? ("&search=" + search) : "";
-            history((location.pathname+location.search+location.hash) + '?page=' + (newPageOffset + 1) + querySearch);
+            history((location.pathname) + '?page=' + (newPageOffset + 1) + querySearch);
         }
     }, [history, items, search]);
 
     const onSelectItem = useCallback((e, i) => {
         e.preventDefault();
         dispatch({ type: EQUIP_CATEGORY_ITEM, target: items.items[i] });
-        history((location.pathname+location.search+location.hash) + '?edit=3');
+        history((location.pathname) + '?edit=3');
     }, [items, dispatch, history]);
 
     const onSearch = useCallback((e) => {

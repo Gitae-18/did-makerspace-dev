@@ -289,7 +289,6 @@ export const ClassEduControl2 = () =>{
 export const ClassEduTotalControl = ({no}) =>{
   return (
       <>
-       
       <div id="sub_page_wrap">
         <SideNavi/>
         <div className="sub_page_inner_wrap">

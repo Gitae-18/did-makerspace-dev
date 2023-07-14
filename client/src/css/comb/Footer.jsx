@@ -65,7 +65,7 @@ export default function Footer() {
   const FooterWrap = () => {
     return (
       <>
-      {location.search.includes("report_no")?
+      {location.search.includes("report_no")||location.search.includes("user_no")?
       null
       :<footer id="footer">
       <div className="wrap2" id="wrap2">

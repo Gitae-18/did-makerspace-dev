@@ -26,9 +26,12 @@ import MaterialItemEdit from '../components/Admin/Management/MaterialItemEdit';
 import OldServiceItem from '../components/Admin/Management/OldServiceItem';
 import OldServiceItemReg from '../components/Admin/Management/OldServiceItemReg';
 import OldServiceItemEdit from '../components/Admin/Management/OldServiceItemEdit';
+import TableType5b from '../components/contents/TableType5b';
+import MentorAdd from '../components/Modals/MentorAdd';
+import { ClassEduTotalControl } from '../components/pages/PageSub6';
 import qs from 'qs';
 
-const ListView = [Company, User, EquipmentCategory, Equipment, ServiceCategory, MaterialCategory, MaterialItem, OldServiceItem];
+const ListView = [Company, User, EquipmentCategory, Equipment, ServiceCategory, MaterialCategory, MaterialItem, OldServiceItem, TableType5b,ClassEduTotalControl];
 const RegView = [CompanyReg, UserReg, EquipmentCategoryReg, EquipmentReg, ServiceCategoryReg, MaterialCategoryReg, MaterialItemReg, OldServiceItemReg];
 const EditView = [CompanyEdit, UserEdit, EquipmentCategoryEdit, EquipmentEdit, ServiceCategoryEdit, MaterialCategoryEdit, MaterialItemEdit, OldServiceItemEdit];
 export const ManagementContainer = () => {
@@ -47,20 +50,26 @@ export const ManagementContainer = () => {
         if (isLoading) { return; }
         if (!isLoggedIn) { return history('/notmember',{state:{url:currentUrl}}); }
         if (authority_level < AuthLevel.manager) { return history('/notauthhorized',{replace:true}); }
-	}, [isLoading, isLoggedIn, authority_level, history])
+    }, [isLoading, isLoggedIn, authority_level, history])
 
     let View;
     if (query.reg) {
         View = RegView[Number(query.reg) - 1];
     } else if (query.edit) {
         View = EditView[Number(query.edit) - 1];
+    } else if (query.user_no) {
+        View = MentorAdd;
     } else {
         View = ListView[sideNaviPos];
     }
- 
+    let View2;
+    if (query.user_no) {
+        View2 = <MentorAdd />;
+    }
+
     return (
         (isLoading || !isLoggedIn || authority_level < AuthLevel.manager)
             ? <></>
-            : View ? <View location={location}  query={query} sideNaviPos={sideNaviPos} /> : <></>
+            :(View ? <View location={location}  query={query} sideNaviPos={sideNaviPos} /> : View2)
     );
 }

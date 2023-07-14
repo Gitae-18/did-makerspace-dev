@@ -110,7 +110,6 @@ export default function MentoringReport(){
     setSearch('');
   }
 },[search])
-
   const getItemList = useCallback(async() => {
     CommonHeader.authorization = token;
     const response = await fetch(PreUri + '/mentoring/reportnumber',{
@@ -122,14 +121,11 @@ export default function MentoringReport(){
         return;
     }
     const json = await response.json();
-
-    if(json.length>0)
-    {
+  if (json && json.length > 0) {
     setReport(json);
-    }
-    else{
+  } else {
     setReport(1);
-    }
+  }
   },[])
   const sethandlePage = (e) =>{
     setCurrentPage(e);
@@ -199,14 +195,14 @@ export default function MentoringReport(){
           </tr>
         </thead>
         <tbody>
-          {searchItem.length > 0 && currentPost.map((item,index)=>(
+          {searchItem.length > 0 && searchItem !== null ? currentPost.map((item,index)=>(
             <tr key={index}>
               <td>{searchItem.length - index - (currentPage - 1) * postPage}</td>
               <td onClick={(e)=>onItem(item,index)}>{item.title}</td>
               <td onClick={(e)=>onItem(item,index)}>{item.mentor}</td>
               <td>{item.created_at.slice(0,10)}</td>
             </tr>
-          ))}
+          )):<div>게시물이 없습니다.</div>}
         </tbody>
       </table>
       <StyledBtn style={{marginTop:'50px'}} onClick={goWrite}>글쓰기</StyledBtn>

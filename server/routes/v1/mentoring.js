@@ -2,7 +2,7 @@
 
 const express = require('express');
 const { verifyToken, errorCode, getErrMsg, authLevel, makedir, SendMail } = require('../../middlewares/middlewares');
-const { User, Company, Mentoring ,MentoringApplication, MentoringFile, MentoringReport ,MentoringReportFile} = require('../../models');
+const { User, Company, Mentoring ,MentoringApplication, MentoringFile, MentoringReport ,MentoringReportFile, Mentor} = require('../../models');
 const { Op, or } = require("sequelize");
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
@@ -42,6 +42,7 @@ async function SelectFileInfo(mentoring_application_no) {
 
     return files;
 }
+
 router.get('/mentoring_specific',async(req,res,next)=>{
    let item;
    const mentoring_no  = req.query.mentoring_no;
@@ -88,6 +89,27 @@ router.put('/change_status',verifyToken,async(req,res,next)=>{
         },
         {
             where:{mentoring_application_no:body.mentoring_application_no}
+        }
+        )
+    }
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json({});
+})
+router.put('/:mentor_no/update_authority',verifyToken,async(req,res,next)=>{
+    let body = req.body;
+    let user_no = req.decoded.user_no;
+    const mentor_no = req.params.mentor_no;
+    console.log(mentor_no)
+    let status;
+    try{
+        status = await Mentor.update({
+           permission_flag:body.permission_flag
+        },
+        {
+            where:{user_no:mentor_no}   
         }
         )
     }
@@ -181,6 +203,75 @@ router.post('/addmentoring',verifyToken,async(req,res,nex)=>{
             securitynum:body.securitynum,
             created_user_no: user_no,
             updated_user_no: user_no,
+        })
+    }
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(result);
+})
+
+router.post('/addmentor',verifyToken,async(req,res,next)=>{
+    let body = req.body;
+    let result;
+    const no = body.no;
+    try{
+        result = await Mentor.create({
+            user_no:no,
+            name:body.name,
+            keyword:body.keyword,
+            mentor_profile:body.profile,
+            career:body.career,
+            field:body.field,
+            introduction:body.introduction,
+            created_user_no: no,
+            updated_user_no: no,
+        })
+    }
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(result);
+});
+router.get('/:mentoring_no/mentor', verifyToken,async(req,res,next)=>{
+    let user_no = req.params.mentoring_no;
+    let query = {
+        attributes: ['user_no','email','phone_number','address','address_detail','name'],
+    }
+    query.where = { user_no };
+    let result;
+    try {
+        result = await User.findOne(query);
+    } catch (error) {
+        console.error(error);
+    }
+
+    return res.json(result);
+})
+router.get('/user_list', async( req, res, next ) => {
+    let result;
+    try{
+        result = await User.findAll({
+            attributes:['user_no','name','email','phone_number','address','address_detail','company_position','created_at'],
+            order:[['created_at','DESC']],
+            raw:true
+        })
+        res.status(errorCode.ok).json(result);
+    }
+    catch(error){
+        console.error(error);
+        res.status(errorCode.internalServerError).json({ error: 'Internal server error' });
+    }
+   
+})
+router.get('/mentorlist',verifyToken,async(req,res,next)=>{
+    let result;
+    try{
+        result = await Mentor.findAll({
+            attributes:['mentor_no','user_no','name','permission_flag','keyword','mentor_profile','career','field'],
+            order:[['created_at','DESC']],
         })
     }
     catch(error){
@@ -349,9 +440,9 @@ router.get('/reportnumber',verifyToken,async(req,res,next)=>{
             order:[['created_at','DESC']]
         })
 
-        if (!items) {
+      /*   if (!items) {
             throw new Error('No items found');
-          }
+          } */
     }
     catch(error){
         console.error(error);

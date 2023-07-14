@@ -606,6 +606,10 @@ h3.title_type2 {
   position: relative;
   left:860px;
 }
+.table_type5 .table_extra .table_search{
+  position: relative;
+  left:-10px;
+}
 .table_extra .table_search {
   display: -webkit-box;
   display: -ms-flexbox;
