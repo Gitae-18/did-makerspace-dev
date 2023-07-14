@@ -31,7 +31,8 @@ export default function SectionInputTextType1a() {
     detail:'',
     require:'',
   })
-  const [mentor,setMentor] = useState('양용희 멘토');
+  const [mentor,setMentor] = useState('선택');
+  const [mentorList,setMentorList] = useState([]);
   const {cname,pnum,securitynum,present,part} = input;
   const {name,sub,num} = userInput;
   const {title,detail,require} = text;
@@ -56,7 +57,6 @@ export default function SectionInputTextType1a() {
     [id]:value
   })
  }
-
  const [inputs,setInputs] = useState([]);
   const checkedItemHandler = (name, checked) => {
     if(checked){
@@ -229,7 +229,19 @@ const onDelete = (file) => {
 };
 const onClose = () =>{
   setOpenModal(false);
-}
+} 
+
+const getMentorList = useCallback(async()=>{
+  const response = await fetch(PreUri + '/mentoring/getmentor',{
+    method:Method.get,
+    headers:CommonHeader,
+  });
+  if(!response.ok){
+    return(alert(getRspMsg(response.status)))
+   }
+  const json = await response.json();
+  setMentorList(json);
+},[]) 
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -253,8 +265,8 @@ const onClose = () =>{
     {
       setSelectedRadio(Object.values(checkInputs));
     } */
-    
-  }, [inputRef,inputUserRef,/* inputs,text */]);
+    getMentorList();
+  }, [inputRef,inputUserRef,/* inputs,text */,getMentorList]);
 
   //주소찾기
   const onChangeOpenPost  = () =>{
@@ -659,9 +671,17 @@ const onClose = () =>{
       </li>
         <li>
           <StyledLabel htmlFor="text17">매칭희망 전문멘토</StyledLabel>
-          <select defaultValue="양용희 멘토" onChange={onChangeSelect}>
-            <option>양용희 멘토</option>
-            <option>김범수 멘토</option>
+          {/* <select onChange={ChangeData} value={Selected}>
+            {DataFilter.map((el, idx) => (
+              <option key={el.value} value={el.value}>
+                {el.value}{" "}
+              </option>
+            ))} */}
+          <select  onChange={onChangeSelect}>
+            <option>멘토 선택</option>
+            {mentorList.map((el,idx) => (
+              <option key={idx} value={el.name}>{el.name}<label style={{marginLeft:'3px'}}>, </label><span>{el.keyword}</span></option>
+            ))}
           </select>
         </li>
       </ul>

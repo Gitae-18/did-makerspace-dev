@@ -158,11 +158,11 @@ const activeEnter = (e) => {
             <th>제목</th>
             <th>멘토</th>
             <th>진행단계</th>
-            <th>신청일</th>
+            <th>신청일</th> 
           </tr>
         </thead>
         <tbody>
-        {searchItem!==undefined ? currentPost.map((item,index)=>(
+        {searchItem.legnth>0 && searchItem? currentPost.map((item,index)=>(
             <tr key={index}>
             <td>{searchItem.length - index - (currentPage - 1) * postPerPage}</td>
             <td  onClick={()=>onItem(item)}>{item.application_title}</td>
@@ -171,7 +171,7 @@ const activeEnter = (e) => {
             <td>{item.created_at.slice(0,10)}</td>
           </tr>
           ))
-          :null}
+         :<div>게시물이 없습니다.</div>}
   {/*         <tr>
             <td>1</td>
             <td>멘토링 제목1</td>

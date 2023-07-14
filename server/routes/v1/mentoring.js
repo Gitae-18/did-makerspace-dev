@@ -429,6 +429,26 @@ router.get('/:mentoring_no/files',async (req, res, next) => {
     }
 
 });
+router.get('/getmentor',async (req, res, next) => {
+
+/*     if (authority_level < authLevel.manager) {
+        return res.status(errorCode.notAcceptable).json({});
+    } */
+    
+    let results;
+    try{
+        results = await Mentor.findAll({
+            attributes:['name','keyword'],
+            where:{permission_flag:"Y"},
+            order:[['created_at','DESC']]
+        })
+    }
+    catch(error){
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(results);
+});
 router.get('/reportnumber',verifyToken,async(req,res,next)=>{
     let body = req.body;
     let user_no = req.decoded.uesr_no;

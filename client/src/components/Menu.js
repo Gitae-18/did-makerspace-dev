@@ -2,8 +2,8 @@ import React, { /*useState, useEffect, */useCallback,useEffect,useState /*useMem
 import { NavLink ,Link} from 'react-router-dom';
 import { useLocation, useNavigate} from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { CHANGE_MENU} from "../store/management";
-import { MENU_CHANGE} from '../store/sidemenu';
+import { CHANGE_MENU } from "../store/management";
+import { MENU_CHANGE } from '../store/sidemenu';
 import { CHANGE_CATEGORY } from "../store/material";
 /* import { AuthLevel } from '../CommonCode';
 import styled from 'styled-components'; */
@@ -24,17 +24,7 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
   const history = useNavigate();
   const { sideNaviPos } = useSelector(state => state.management);
   const outer1 = document.getElementsByClassName('dep2');
-	const onClick = useCallback((e, index) => {
-		e.preventDefault();
-		dispatch({ type: CHANGE_MENU, target: index });
 
-		if (viewDepth && viewDepth === 2) {
-			
-			history(-1);
-		} else {
-			history('/management')
-		}
-	}, [dispatch, history, viewDepth]);
   const onClick2 = useCallback((e, index) => {
 		e.preventDefault();
 		dispatch({ type: MENU_CHANGE, target: index });
@@ -96,20 +86,7 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
       </ol>
     );
   }
-  const SubMenu7 = () => {
-    
-    return(
-      <ol className='menu_dep2'>
-        <li onClick={(e)=>onClick(e,0)}><NavLink>기업/회원 관리</NavLink></li>
-        <li onClick={(e)=>onClick(e,2)}><NavLink>기자재 품목 관리</NavLink></li>
-        <li onClick={(e)=>onClick(e,2)}><NavLink>기자재관리</NavLink></li>
-        <li onClick={(e)=>onClick(e,3)}><NavLink>서비스항목관리</NavLink></li> 
-        <li onClick={(e)=>onClick(e,3)}><NavLink>기/자재관리</NavLink></li> 
-        <li onClick={(e)=>onClick(e,5)}><NavLink>전문멘토관리</NavLink></li>   
-        <li onClick={(e)=>{onClick2(e,5);onItem(e)}}><NavLink>교육/행사관리</NavLink></li>   
-      </ol>
-    );
-  }
+  
   return(
   <>
   <ol className="menu">

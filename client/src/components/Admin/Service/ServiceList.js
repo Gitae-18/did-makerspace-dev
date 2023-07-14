@@ -281,8 +281,6 @@ export default function ({ query , no }) {
     const onPrint = useCallback((e, index) => {
         e.preventDefault();
         const item = serviceItems.items[index];
-        
-        // window.open(window.location.href + '?report_no=' + item.service_no, 'report', 'width=820,height=900,location=no,status=no,scrollbars=yes');
         window.open(location.pathname+'?report_no='+ item.service_no, 'report', 'width=820,height=900,location=no,status=no,scrollbars=yes');
     }, [serviceItems]);
 
