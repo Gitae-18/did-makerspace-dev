@@ -328,7 +328,7 @@ margin-left:5px;
 `
 const QuestImg = styled.img`
 width:200px;
-height:700px;
+height:500;
 position:relative;
 padding-top:30px;
 `

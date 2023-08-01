@@ -40,7 +40,7 @@ export default function ({ no }) {
 
         response = await fetch(PreUri + '/service/' + no + '/done', {
             method: Method.get,
-            headers: CommonHeader
+            headers: CommonHeader 
         });
 
         if (!response.ok) {

@@ -107,7 +107,6 @@ router.get('/:fileview_no/noticefile',async (req, res, next) => {
 });
 router.get('/:fileview_no/classedufile'/* ,verifyToken */, async (req, res, next) => {
     let program_no = req.params.fileview_no;
-    console.log(program_no);
     /*     const imgPath = path.resolve("./upload/newfaq/","banner05.png")
         const imgMime = mime.getType(imgPath)
         console.log(imgMime); */

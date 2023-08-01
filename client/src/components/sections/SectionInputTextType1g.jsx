@@ -144,7 +144,7 @@ let DownloadMyFileItems = [];
          <StyledLabel htmlFor="text01">제목</StyledLabel>
          <span>{data.title}</span>
        </li>
-       <li className="textarea_wrap" style={fileNo.length>0?{'minHeight':'800px',maxHeight:'2200px',height:'1300px'}:{'height':'800px'}}>
+       <li className="textarea_wrap" style={fileNo.length>0?{'minHeight':'800px',maxHeight:'2200px',height:'1315px'}:{'height':'800px'}}>
          <StyledLabel2 htmlFor="text02">내용</StyledLabel2>
          <div className="textarea">
          {<div style={{marginLeft:"30px",border:"2px solid #313d4d",width:"800px",height:"500px",padding:"10px 10px"}} dangerouslySetInnerHTML={{__html:data.content}}/>}

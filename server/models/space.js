@@ -28,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(55),
             allowNull:false,
         },
+        src2:{
+            type: DataTypes.STRING(55),
+            allowNull:false,
+        },
         available:{
             type: DataTypes.CHAR(1),
             allowNull:true,

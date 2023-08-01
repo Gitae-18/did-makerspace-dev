@@ -30,12 +30,13 @@ export default function InfoType1a() {
   useEffect(() => {
     getequipInfo();
   }, [getequipInfo]);
+  console.log(info)
   const Desc1 = () => {
     return <p>{info.model_detail}</p>;
   };
   const DescImage = () => {
     return (
-      <div className="images_wrap">
+      <div className="images_wrap" style={{height:"500px"}}>
         <div className="image_part">
           <StyledImg src={headpath + imagesrc} alt="no-image" />
         </div>

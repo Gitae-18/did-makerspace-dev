@@ -58,10 +58,10 @@ export default function Footer() {
           <option value="https://www.daejeon.go.kr/">대전광역시</option>
           <option value="https://ccei.creativekorea.or.kr/daejeon/">대전창조경제혁신센터</option>
         </select>
+        <div className="hd" style={{}}>사이트 최적 해상도는 1024*960 입니다.</div>
       </div>
     );
   };
-  console.log(location.search);
   const FooterWrap = () => {
     return (
       <>

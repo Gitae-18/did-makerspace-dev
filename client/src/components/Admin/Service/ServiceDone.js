@@ -194,9 +194,10 @@ export default ({  no }) => {
         }
 
         serviceJson.service_element = newServiceElement;
+
         setServiceAppItem(serviceJson);
     }, [no, token, history]);
-
+    console.log(serviceAppItem);
     useEffect(() => {
         if (!no) {
             alert('Error : Service Number');
@@ -309,6 +310,7 @@ export default ({  no }) => {
 
     // Service Element 
     const CategoryElement = useCallback(({ index, categoryData, elementData }) => {
+        console.log(elementData)
         let AttemptList = [];
         for (let i = 0; i < elementData.service_element_attempts.length; i++) {
             const item = elementData.service_element_attempts[i];
@@ -381,31 +383,7 @@ export default ({  no }) => {
         );
     }, [onFileDownload]);
 
-    /*
-    const CategoryItem = useCallback((props) => {
-        return (<>
-            <p className="chkBox">
-                <label htmlFor={props.categoryNo}>
-                    <input type="checkbox"
-                        disabled={true}
-                        name={props.categoryNo}
-                        id={props.categoryNo}
-                        checked={props.checked}
-                        readOnly={true} />
-                    <span className="checkmark" />{props.categoryName}</label>
-            </p>
-        </>);
-    }, []);
 
-    let CategoryItems = [];
-    for (let i = 0; i < categoryItems.count; i++) {
-        const item = categoryItems.items[i];
-        CategoryItems.push(<CategoryItem index={i} categoryNo={item.service_category_no}
-            checked={checkValue[i]}
-            categoryName={item.service_name}
-            key={i} />);
-    };
-    */
 
     const CategoryItem = useCallback((props) => {
         return (

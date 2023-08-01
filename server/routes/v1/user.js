@@ -246,6 +246,24 @@ router.post('/join', async (req, res, next) => {
     res.status(errorCode.ok).json({});
 });
 
+router.get('/mentorinfo',verifyToken,async(req,res,next)=>{
+    let user_no = req.decoded.user_no;
+
+    let userinfo;
+
+    try{
+
+            userinfo = await User.findOne({
+            attributes:['email','name','phone_number'],
+            where:{user_no},
+            //raw:true,
+            })
+    }
+    catch(error){
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(userinfo);
+})
 
 router.post('/join/partner', verifyToken, async (req, res, next) => {
     let body = req.body;
@@ -755,6 +773,8 @@ router.post('/login', async (req, res, next) => {
         token
     });
 });
+
+
 
 /* 
  * POST : /auth/logout/

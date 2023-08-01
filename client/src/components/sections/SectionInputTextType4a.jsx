@@ -196,7 +196,7 @@ const onDelete = (file) => {
   }
 
   return (
-    <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1e">
+    <section className="section_input_text_type1 section_input_text_type1d">
       <ul className="text_wrap">
       <li>
           <label htmlFor="text01">제목</label>
@@ -209,9 +209,7 @@ const onDelete = (file) => {
           />
         </li>
         <li className="textarea_wrap" style={{'height':'300px'}}>
-          <label htmlFor="text02">내용</label>
-          {/* <Editor setContent={setContent}
-          data={content}  no={no}/> */}
+          <label htmlFor="text02" style={{lineHeight:'300px'}}>내용</label>
           <textarea
             name="text02"
             id="text02"
@@ -233,7 +231,7 @@ const onDelete = (file) => {
           key={item.name}
           />
            ))}
-  </li>
+      </li>
         <li className="filearea_wrap">
           <label htmlFor="file01">이미지 파일 업로드</label>
           <input type="file" name="imageFiles" id="file1" className="w_auto" onChange={handleChangeFile} multiple accept="image/*"/>

@@ -2,7 +2,7 @@ import React,{useState,useEffect,useCallback} from "react";
 import TitleType1 from "../contents/TitleType1";
 import ButtonType2 from "../contents/ButtonType2";
 import styled from "styled-components";
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLinkClickHandler, useLocation,useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { CommonHeader,PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg  } from "../../CommonCode";
 import SideNavi from "../Admin/Management/SideNavi";
@@ -11,6 +11,7 @@ import PopupSecondSaveModal from "../Modals/PopupSecondSaveModal";
 import { Editor } from '@tinymce/tinymce-react';
 import {css} from '../../css/comb/pages/sections.css'
 import imageCompression from 'browser-image-compression';
+
 export default function SectionInputTextType1d_update(){
   
   const { token } = useSelector(state => state.user);
@@ -18,9 +19,11 @@ export default function SectionInputTextType1d_update(){
   const [data,setData] = useState([]);
   const [openModal,setOpenModal] = useState(false);
   const [pay,setPay] = useState("");
+  const [filetype,setFileType] = useState('');
   const [imageFile,setImageFile] = useState([]);
   const [imageUrl,setImageUrl] = useState([]);
   const [file, setFile] = useState([]);
+  const [filedata,setFileData] = useState([]);
   const [isValid, setIsValid] = useState(false);
   const [isChecked,setIsChecked] = useState(false);
   const location = useLocation();
@@ -30,7 +33,7 @@ export default function SectionInputTextType1d_update(){
   let type = location.pathname === "/educontrol" ? "edu" : "class";
   const no = location.state.no;
   const programno = location.state.programno;
-
+  const toolbar = "undo redo spellcheckdialog  | blocks fontfamily fontsizeselect | bold italic underline forecolor backcolor | link | align lineheight checklist bullist numlist | indent outdent | removeformat typography";
   const [input,setInput] = useState({
     className: '',
     place: '',
@@ -45,7 +48,8 @@ export default function SectionInputTextType1d_update(){
   });
   const [text,setText] = useState('')
   const [content,setContent] = useState('');
-  const {className,place,fnum,cost,map,popup,class_period_start,class_period_end,application_period_start,application_period_end} = input;
+  const [popup,setPopup] = useState('N');
+  const {className,place,fnum,cost,map,class_period_start,class_period_end,application_period_start,application_period_end} = input;
   const onChangeInput = (e) =>{
     const {name,value} = e.target;
     setInput({
@@ -68,10 +72,44 @@ export default function SectionInputTextType1d_update(){
       }
       const json = await response.json();
       setData(json);
+      setContent(json.content);
+      setPopup(json.popup_flag);
+      setInput(input => ({
+        ...input,
+        className:json.title,
+        application_period_start:json.application_period_start,
+        application_period_end:json.application_period_end,
+        cost:json.cost,
+        fnum:json.limit_number,
+        class_period_start:json.class_period_start,
+        class_period_end:json.class_period_end,
+        place:json.place,
+      }))
   },[token])
+
+/*   const initEditor = useCallback(editor =>{
+    editor.setContent(content);
+  },[content]) 
+ */
+
+  const getFileNo = useCallback(async()=>{
+    if(programno!==undefined){
+    const response = await fetch(PreUri + '/classedu/'+ programno + '/filesno',{
+      method:Method.get,
+      headers:CommonHeader
+    })
+    
+    const json = await response.json(); 
+    console.log(json)
+    setFileData(json.map((item,index)=> item.original_name));
+    setFileType(json[0].type);
+    }
+  },[])
+  console.log(filetype)
   useEffect(()=>{
     getData();
-  },[getData,isChecked,token])
+    getFileNo();
+  },[getData,isChecked,token,content])
   const onClose = () =>{
     setOpenModal(false);
   }
@@ -111,31 +149,8 @@ export default function SectionInputTextType1d_update(){
       setImageUrl(reader.result)
     }
     reader.readAsDataURL(file)
+  }
 
-   // const fileList = e.target.files; // 전체 파일 리스트
-  /* const options = {
-    maxSizeMB: 0.2,
-    maxWidthOrHeight: 800,
-    useWebWorker: true,
-    fileType: 'image/*',
-  };
-  
-  // 파일 리스트를 순회하며 압축 및 처리
-  const compressedFiles = [];
-  for (let i = 0; i < fileList.length; i++) {
-    const imageFile = fileList[i];
-    const comp = await imageCompression(imageFile, options);
-    compressedFiles.push(comp);
-  }
-  const file = e.target.files[0];
-  const url = URL.createObjectURL(e.target.files[0]);
-  const reader =  new FileReader();
-  reader.onload=function(){
-    setImageUrl(reader.result)
-  }
-  reader.readAsDataURL(file)
-  setImageFile(compressedFiles); */
-  }
   const compressImage = (file) =>{
     return new Promise((resolve) => {
       const reader = new FileReader();
@@ -171,12 +186,9 @@ export default function SectionInputTextType1d_update(){
   }
 
   const handleCheckBox = (e) =>{
-    if(e.target.checked){
-      setIsChecked(true);
-    }
-    else{
-      setIsChecked(false);
-    }
+    const isChecked = e.target.checked;
+    setPopup(isChecked ? "Y" : "N");
+    console.log("Popup value:", isChecked ? "Y" : "N");
   }
   const handleEditorChange = (content,editor) =>{
     setContent(content);
@@ -288,6 +300,8 @@ export default function SectionInputTextType1d_update(){
           <Editor 
             id= 'tinyEditor'
             className="tiny"
+            content={content}
+            value={content}
             apiKey = {process.env.REACT_APP_TINYMCE_KEY}
             init={{
               height: 300,
@@ -317,7 +331,6 @@ export default function SectionInputTextType1d_update(){
               toolbar:
               "undo redo spellcheckdialog  | blocks fontfamily fontsizeselect | bold italic underline forecolor backcolor | link | align lineheight checklist bullist numlist | indent outdent | removeformat typography",
               content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px;}',
-              
              }}
              onEditorChange={handleEditorChange}
              />
@@ -389,11 +402,14 @@ export default function SectionInputTextType1d_update(){
           key={item.name}
           />
            ))}
+           {filetype.includes('pdf||text||word')&&<span>{imageUrl.length===0?filedata:null}</span>}
         </li>
         <li>
           <label htmlFor="file01" style={imageFile.length>0?{"height":'150px'}:{"height":"60px"}}>이미지파일#1</label>
-          <input type="file" name="imagefile" id="file01" className="w_auto" onChange={handleChangeFile} multiple accept="image/*" />
-          <img src={imageUrl} alt={imageUrl.name} style={{"width":"150px"}}/>
+          <input type="file" name="imagefile" id="file01" className="w_auto" onChange={handleChangeFile} multiple accept="image/*" style={{display:'none'}}/>
+          <StyledLabel2 className="input_button" for="file01">파일추가+</StyledLabel2>
+          <img src={imageUrl} alt={imageUrl.name} style={{"width":"150px"}}/>  
+          {filetype.includes('image')&&<span>{imageUrl.length===0?filedata:null}</span>}
         </li>
         <li>
           <label htmlFor="checkbox01">팝업등록</label>
@@ -403,6 +419,7 @@ export default function SectionInputTextType1d_update(){
             id="checkbox01"
             className="input_checkbox w_auto"
             value={popup} 
+            checked={popup === "Y"}
             onChange={handleCheckBox}
           />
         </li>
@@ -451,22 +468,21 @@ border:1px solide #313f4f;
  font-size:12px; 
  width:60px !important;
  height:40px !important;
- padding: 2px 0px !important;
+ padding: 0px 0px !important;
  position:absolute;
  left:10px;
  `
- const StyledBtn2= styled.button`
+ const StyledLabel2= styled.label`
  color:#fff;
  background-color:#313f4f;
- width:120px;
- height:30px;
- font-size:0.7rem;
+ width:70px;
+ height:40px !important;
+ font-size:12px;
+ line-height:40px !important;
+ padding:0px !important;
  cursor:pointer;
+ margin-left:10px;
  border:1px solide #313f4f;
-  &:hover{
-     background-color:#transparent
-     color:#313f4f
-  }
   `
    const StyledP= styled.p`
  width: 250px;

@@ -145,7 +145,7 @@ const DropItem = useCallback(async(e,i)=>{
           <StyledBtn onClick={(e)=>onSearch(e)} >검색</StyledBtn>
           </div>
       </div>
-      <table style={{width:'1300px',tableLayout:'fixed'}}>
+      <table style={{width:'1315px',tableLayout:'fixed'}}>
         <caption className="blind">내 교육/행사 예약</caption>
         <thead>
           <tr>
@@ -179,8 +179,8 @@ const DropItem = useCallback(async(e,i)=>{
         </tbody>
       </table>
       <div className="btn_grp">
-      <StyledBtn2 className="educontrol" onClick={(e)=>onBtnClick(e)}>교육프로그램 등록</StyledBtn2>
-      <StyledBtn2 className="classcontrol" onClick={(e)=>onBtnClick(e)}>행사프로그램 등록</StyledBtn2>
+      <StyledBtn2 className="educontrol" onClick={(e)=>onBtnClick(e)} style={{left:'10px'}}>교육프로그램 등록</StyledBtn2>
+      <StyledBtn2 className="classcontrol" onClick={(e)=>onBtnClick(e)} style={{left:'160px'}}>행사프로그램 등록</StyledBtn2>
       </div>
       <div className="page_control">
       <Paging2 page={currentPage} count = {count} setPage={setPage}/>
@@ -204,6 +204,7 @@ position:relative;
  `
  const StyledBtn2= styled.button`
  color:#fff;
+ position:absolute;
  background-color:#313f4f;
  width:120px;
  height:30px;

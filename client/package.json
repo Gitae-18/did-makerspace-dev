@@ -23,6 +23,7 @@
     "file-saver": "^2.0.5",
     "g": "^2.0.1",
     "hooks": "^0.3.2",
+    "html2canvas": "^1.4.1",
     "jotai": "^1.9.1",
     "jquery": "^3.5.1",
     "js-file-download": "^0.4.12",

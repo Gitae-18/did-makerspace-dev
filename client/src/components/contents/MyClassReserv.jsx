@@ -106,7 +106,7 @@ const closeModal = () =>{
           <StyledBtn onClick={(e)=>onSearch(e)} >검색</StyledBtn>
           </div> */}
       </div>
-      <table style={{width:'1300px',tableLayout:'fixed'}}>
+      <table style={{width:'1315px',tableLayout:'fixed'}}>
         <caption className="blind">내 교육/행사 예약</caption>
         <thead>
           <tr>

@@ -181,7 +181,7 @@ export default function ({ query , no }) {
         const totalPage = Number(json.total_page);
         const currentPage = Number(json.current_page);
         const pageOffset = Math.ceil(currentPage / PageMax);
-
+        console.log(json);
         setServiceItems(serviceItems => ({
             ...serviceItems,
             totalCount: Number(json.total_count),

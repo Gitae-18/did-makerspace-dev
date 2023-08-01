@@ -1,4 +1,4 @@
-import React, {useEffect,useState,useCallback} from "react";
+import React, {useEffect,useState,useCallback,useRef} from "react";
 import { CommonHeader,PreUri, Method, getRspMsg,MaxFileCount,AuthLevel, } from "../../../CommonCode";
 import { useSelector } from "react-redux";
 import { useNavigate,useLocation } from "react-router-dom";
@@ -9,6 +9,8 @@ import '../../../fonts/slick.ttf'
 import {jsPDF} from 'jspdf';
 import moment from "moment";
 import $ from 'jquery';
+import html2canvas from 'html2canvas';
+import { saveAs } from 'file-saver';
 
 export default function MentoringReportDetail(){
     const { token ,authority_level } = useSelector(state => state.user);
@@ -48,6 +50,24 @@ export default function MentoringReportDetail(){
       let Y_LOC = MARGIN_SIZE;	//다음 행 시작 Y좌표(자동 계산 위함)
 
       const CELL_HEIGHT = 11.641666666666664;	//기본 셀 높이
+      const imageRef = useRef();
+      console.log(imageRef)
+
+   
+      const onDownloadBtn = async () => {
+        const div = imageRef.current;
+        try {
+          const canvas = await html2canvas(div,{scale:2})
+          canvas.toBlob((blob) => {
+            if (blob !== null) {
+              saveAs(blob, `report${mentoring_no}.png`);
+            }
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
       const saveAsPDF = () =>{
         const doc = new jsPDF({format: 'a4',unit :'mm', orientation: 'landscape'})
         doc.addFont("slick.ttf", "slick", "normal");
@@ -176,7 +196,7 @@ export default function MentoringReportDetail(){
         getFileNo();
     },[getData,getFile,getFileNo])
     return(
-        <section id="report" className="section_input_text_type1" style={{marginTop:'20px'}}>
+        <section id="report" className="section_input_text_type1" style={{marginTop:'20px'}} ref  ={imageRef}>
             <div className="form">
                 <h1 style={{marginLeft:'70px'}}>멘토링 신청서</h1>
             <table>
@@ -276,6 +296,7 @@ export default function MentoringReportDetail(){
                 <StyledDiv2>
                     {/* <StyledBtn onClick={saveAsPDF}>pdf로저장</StyledBtn> */}
                     <StyledBtn3 onClick={ToList}>확인</StyledBtn3>
+                    <StyledBtn onClick={onDownloadBtn}>다운로드</StyledBtn>
                 </StyledDiv2>
             </div>
         </section>
@@ -329,10 +350,11 @@ cursor:pointer !important;
 `
 const StyledBtn= styled.button`
 color:#fff;
-background-color:#313f4f;
-width:120px;
-height:45px;
+background-color:#313d4d;
+width:160px;
+height:60px;
 font-size:0.7rem;
+border-radius:15px 15px;
 cursor:pointer;
 border:1px solide #313f4f;
  &:hover{
@@ -346,7 +368,7 @@ position:relative;
 width:100%;
 height:auto;
 top:50px;
-left:50%;
+left:40%;
 margin-bottom:100px;
 `
 const StyledBtn3 = styled.button`

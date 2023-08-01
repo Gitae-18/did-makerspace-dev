@@ -429,12 +429,31 @@ router.put('/classedu_cnt',async(req,res,next)=>{
         console.log(error);
     }
 })
+router.get('/recentprogram',async(req,res,next)=>{
+    let body = req.body;
+
+    let result;
+    try{
+        result = await ClasseduProgram.findOne({
+            attributes:['program_no'],
+            where:{popup_flag:"Y"},
+            order:[['created_at','DESC']],
+            limit:1,
+            raw:false,
+        })
+    }
+    catch(error){
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(result);
+})
 router.get('/:program_no/class_receive',async(req,res,next)=>{
     const no = req.params.program_no;
     let result ;
     try{
         result = await ClasseduProgram.findOne({
-            attributes:['content','title','cost','pay_flag','place','class_period_start','class_period_end','application_period_start','application_period_end','limit_number','attached_file'],
+            attributes:['content','title','cost','pay_flag','place','class_period_start','class_period_end','application_period_start','application_period_end','limit_number','attached_file','popup_flag'],
             where:{program_no:no},
             order:[['created_at','DESC']],
             raw:true,
@@ -537,9 +556,7 @@ router.get('/:program_no/filesno',async (req, res, next) => {
     let program_no = req.params.program_no;
    
 
-/*     if (authority_level < authLevel.manager) {
-        return res.status(errorCode.notAcceptable).json({});
-    } */let files
+    let files
     try{
      files= await ClassEduFile.findAll({
         attributes:['attached_file_no','original_name','path','type','filesize'],

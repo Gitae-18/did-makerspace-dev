@@ -50,7 +50,7 @@ const [isMounted, setIsMounted] = useState(false);
   } */
   const visitedBeforeDate = localStorage.getItem('VisitCookie');
   const currentDate = new Date().getDate();
-  //const currentDate = 14;
+  //const currentDate = 28;
 
   useEffect(() => {
     if (visitedBeforeDate !== null) {
@@ -117,6 +117,7 @@ const [isMounted, setIsMounted] = useState(false);
                   되어있지 않은 사용자들께서는 번거로우시겠지만 새로
                   통합사이트의 회원가입을 진행하여 주시길 부탁드리겠습니다.
                 </div>
+                <div>사이트 최적 해상도는 1024*960 입니다.</div>
               </div>
             </ImgStyle>
             {closable && (

@@ -6,7 +6,7 @@ import Paging2 from "./Paging2";
 import styled from "styled-components";
 import moment from "moment";
 export default function TableType5a() {
-  const { token, isLoading, isLoggedIn, authority_level } = useSelector(state => state.user);
+  const { token, isLoading, isLoggedIn, authority_level, userName} = useSelector(state => state.user);
   const history = useNavigate();
   const [btnClick,setBtnClick] = useState(false);
   const [total,setTotal] = useState([]);
@@ -56,12 +56,19 @@ export default function TableType5a() {
     e.preventDefault();
 
     if(search=== null || search === ''){
-        let requri = PreUri + '/mentoring/getlist';
+      let requri;
+      if(authority_level<70&&authority_level>10){
+        requri = '/mentoring/getlist?name=' + encodeURI(userName);
+      }
+      else{
+        requri = '/mentoring/getlist'
+      }
       const response = await fetch(requri, {
         method:Method.get,
         headers:CommonHeader
       });
       const json = await response.json(); 
+      console.log(json)
       setData(json);
       setSearchItem(json);
   }
@@ -82,7 +89,9 @@ export default function TableType5a() {
     setSearch('');
   }
 },[search])
-console.log(data)
+
+
+
 const onSelectChange = (e) =>{
   e.preventDefault();
   setSelectCategory(e.target.value);
@@ -96,6 +105,16 @@ const activeEnter = (e) => {
     onSearch(e);
   }
 }
+const onWrite = (e) =>{
+  let mentoring_application_no;
+  if(total.length>0){
+    mentoring_application_no = total.at(0).mentoring_application_no;   
+    }
+    else{
+      mentoring_application_no = 0
+    }
+    history('/umentoringapplication',{state:{mentoring_application_no:mentoring_application_no}});
+  }
   const onItem = useCallback(async(e)=>{
     //e.preventDefault();
     //setBtnClick(!btnClick);
@@ -104,7 +123,14 @@ const activeEnter = (e) => {
   },[btnClick])
 
   const getFullList = useCallback(async()=>{
-    const response = await fetch(PreUri + "/mentoring/getlist",{
+    let requri;
+    if(authority_level<70&&authority_level>10){
+      requri = '/mentoring/getlist?name=' + encodeURI(userName);
+    }
+    else{
+      requri = '/mentoring/getlist'
+    }
+    const response = await fetch(PreUri + requri,{
       method:Method.get,
       headers:CommonHeader,
     })
@@ -119,8 +145,9 @@ const activeEnter = (e) => {
     setCount(json.length);
     setData(json);
     setSearchItem(json);
+    setTotal(json);
   },[])
-
+console.log(searchItem)
   useEffect(()=>{
     getFullList();
   },[getFullList])
@@ -150,7 +177,7 @@ const activeEnter = (e) => {
           <StyledBtn onClick={(e)=>onSearch(e)}>검색</StyledBtn>
         </div>
       </div>
-      <table style={{width:'1300px',tableLayout:'fixed'}}>
+      <table style={{width:'1315px',tableLayout:'fixed'}}>
         <caption className="blind"></caption>
         <thead>
           <tr>
@@ -162,7 +189,7 @@ const activeEnter = (e) => {
           </tr>
         </thead>
         <tbody>
-        {searchItem.legnth>0 && searchItem? currentPost.map((item,index)=>(
+        {searchItem ? currentPost.map((item,index)=>(
             <tr key={index}>
             <td>{searchItem.length - index - (currentPage - 1) * postPerPage}</td>
             <td  onClick={()=>onItem(item)}>{item.application_title}</td>
@@ -186,12 +213,14 @@ const activeEnter = (e) => {
           </tr> */}
         </tbody>
       </table>
-      <div className="page_control" style={{position:'relative',left:'-45px',}}>
+      <StyledBtn2 onClick={(e)=>onWrite(e)}>글쓰기</StyledBtn2>
+      <div className="page_control" style={{position:'relative',right:'5px',}}>
       <Paging2 count={count} page={currentPage} setPage={sethandlePage}/>
       </div>
     </div>
   );
 }
+
 const StyledBtn= styled.button`
 color:#fff;
 background-color:#313f4f;
@@ -213,6 +242,22 @@ height:30px;
 font-size:0.6rem;
 cursor:pointer;
 border:1px solide #313f4f;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `
+ const StyledBtn2= styled.button`
+ position:relative;
+ left:45%;
+ top:20px;
+ color:#fff;
+ background-color:#313f4f;
+ width:120px;
+ height:30px;
+ font-size:0.7rem;
+ cursor:pointer;
+ border:1px solide #313f4f;
  &:hover{
     background-color:#transparent
     color:#313f4f

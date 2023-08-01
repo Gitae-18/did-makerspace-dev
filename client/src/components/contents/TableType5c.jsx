@@ -31,7 +31,7 @@ export default function TableType5c({query}) {
   const setPage = (e) =>{
     setCurrentPage(e);
   }
-
+  console.log(searchItem)
   const onYearSearch = useCallback(async(e) =>{
     const selectedYear = e.target.value;
     setYear(selectedYear);
@@ -63,7 +63,7 @@ export default function TableType5c({query}) {
       setSearchItem(json);
   }
   else if(selectCategory==="title"){
-    const filterData = data.filter((item) => item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
+    const filterData = data.filter((item) => item.application_title.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
     setSearchItem(filterData)
   
     setCurrentPage(1)
@@ -129,7 +129,6 @@ const activeEnter = (e) => {
     setData(json);
     }
   },[token])
-  console.log(total);
   const onWrite = (e) =>{
     let mentoring_application_no;
     if(total.length>0){
@@ -139,7 +138,6 @@ const activeEnter = (e) => {
     else{
       mentoring_application_no = 0
     }
-    console.log(mentoring_application_no);
     history('/umentoringapplication',{state:{mentoring_application_no:mentoring_application_no}});
   }
   useEffect(()=>{
@@ -172,7 +170,7 @@ const activeEnter = (e) => {
           <StyledBtn onClick={(e)=>onSearch(e)}>검색</StyledBtn>
         </div>
       </div>
-      <table style={{width:'1300px',tableLayout:'fixed'}}>
+      <table style={{width:'1315px',tableLayout:'fixed'}}>
         <thead>
           <tr>
             <th>No.</th>
@@ -183,7 +181,7 @@ const activeEnter = (e) => {
           </tr>
         </thead>
         <tbody>
-          {currentPost.length>0 ? currentPost.map((item,index)=>(
+          {searchItem.length>0 ? currentPost.map((item,index)=>(
             <tr key={index}>
             <td>{data.length - index - (currentPage - 1) * postPerPage}</td>
             <td  onClick={(e)=>{pageMove(item)}}>{item.application_title}</td>
@@ -196,7 +194,7 @@ const activeEnter = (e) => {
         </tbody>
       </table>
       <StyledBtn2 onClick={(e)=>onWrite(e)}>글쓰기</StyledBtn2>
-      <div className="page_control">
+      <div className="page_control" style={{position:'relative',right:'5px',}}>
       <Paging2 count={count} page={currentPage} setPage={setPage}/>
       </div>
     </div>

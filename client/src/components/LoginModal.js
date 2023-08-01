@@ -76,7 +76,7 @@ const LoginModal = (props) =>{
         const json = await response.json();
         console.log(json);
         dispatch({ type: LOGIN_SUCCESS, payload: json });
-        history(1);
+        history('/');
     }, [dispatch,id,pass]);
 
 /*     useEffect(()=>{

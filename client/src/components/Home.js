@@ -7,6 +7,7 @@ import moment from 'moment';
 import Modal from './Modals/Modal'
 import PopupModalHome from './Modals/PopupModalHome';
 import PopupModalAbout from './Modals/PopupModalAbout';
+import ClassHomeModal from './Modals/ClassHomeModal';
 import { CommonHeader,PreUri, Method } from '../CommonCode';
 import '../css/common-s.css';
 import '../css/style-s.css';
@@ -33,12 +34,14 @@ function Home() {
         });
     });
         });
-   
+        console.log(localStorage)
         const MainBanner = () => {
           const [modalVisible,setModalVisible] = useState(true);
           const [modalControl1,setModalControl1] = useState(true);
           const [modalSet,setModalSet] = useState(true);
+          const [classModal,setClassModal] = useState(true);
           const [data,setData] = useState("");
+          const [classdata,setClassdata] = useState("");
           const videoRef = useRef(null);
           
         
@@ -48,10 +51,26 @@ function Home() {
           const closeModal2 = () =>{
             setModalControl1(false);
           }
-          const closeModal3 = ()=>{
+          const closeModal3 = () => {
             setModalSet(false);
           }
-
+          const closeModal4 = () => {
+            setClassModal(false);
+          }
+            const getRecentProgram = useCallback(async()=>{
+              let requri = PreUri + '/classedu/recentprogram';
+              const response = await fetch(requri,{
+                method:Method.get,
+                headers:CommonHeader,
+              })
+            if(!response.ok) {
+            console.log('잘못된 접근입니다.');
+            return;
+            }
+            const json = await response.json();
+            setClassdata(json);
+            },[])
+            console.log(classdata)
             const getRecentNotice = useCallback(async() =>{
               let requri = PreUri + '/notice/recentnotice';
               const response = await fetch(requri,{
@@ -65,9 +84,9 @@ function Home() {
             const json = await response.json();
             setData(json);
            },[])
-         
            useEffect(() => {
             getRecentNotice();
+            getRecentProgram();
             const video = videoRef.current;
             
             video.playbackRate = 0.7; // 재생 속도를 0.5배로 설정
@@ -75,7 +94,7 @@ function Home() {
             return () => {
               video.playbackRate = 1.0; // cleanup 시에 재생 속도를 원래 값인 1.0으로 복원
             };
-          }, [getRecentNotice]);
+          }, [getRecentNotice,getRecentProgram]);
 
            const onSiteMove = (url) =>{
             window.open(url,"_blank");
@@ -91,7 +110,7 @@ function Home() {
               {modalVisible && (<Modal visible={modalVisible} closable={true} maskClosable={true} setModalVisible={setModalVisible}onClose={closeModal} isLoggedIn={isLoggedIn}></Modal>)}
               {modalSet &&(<PopupModalAbout visible={modalSet} closable={true} maskClosable={true} onClose={closeModal3} isLoggedIn={isLoggedIn}/>)}
               {modalControl1 && data && (<PopupModalHome visible={modalControl1} closable={true} maskClosable={true} onClose={closeModal2} isLoggedIn={isLoggedIn} token={token} no={data.notice_no}/>)}
-         
+              {classModal && classdata && (<ClassHomeModal visible={classModal} closable={true} maskClosable={true} onClose={closeModal4} isLoggedIn={isLoggedIn} no={classdata.program_no}/>)}
                 <div className="text_part">
                   <h2>
                     <span>DID</span> Digital Factory in Daejeon 

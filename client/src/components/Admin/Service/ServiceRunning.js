@@ -40,6 +40,7 @@ export default ({ no }) => {
         }
 
         const serviceJson = await response.json();
+        console.log(serviceJson)
         if (!mountedRef.current) { return }
 
         let newServiceElement = [];
@@ -425,7 +426,7 @@ export default ({ no }) => {
             headers: CommonHeader,
             body: JSON.stringify(element)
         });
-
+        
         if (!response.ok) {
             alert(getRspMsg(response.status));
             return;

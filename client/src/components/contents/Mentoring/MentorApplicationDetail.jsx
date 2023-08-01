@@ -8,12 +8,12 @@ import '../../../css/style-s.css';
 import fileDownload from 'js-file-download'
 import moment from "moment";
 import $ from 'jquery';
-export default function MentoringDetail(){
+export default function MentorApplicationDetail(){
     const location = useLocation();
     const history = useNavigate();
     const { token ,authority_level } = useSelector(state => state.user);
     const [data,setData] = useState([]);
-    const [status, setStatus] = useState('OSA');
+    const [status, setStatus] = useState('A');
     const [rejectContent,setRejectContent] = useState('');
     const [memo,setMemo] = useState('');
     const [modalOpen,setModalOpen] = useState(false);
@@ -35,6 +35,13 @@ export default function MentoringDetail(){
         {id:10,text:'회로설계',checked:false},
         {id:11,text:'PCB제작',checked:false},
         {id:12,text:'금형',checked:false},
+        {id:13,text:'전기',checked:false},
+        {id:14,text:'전자',checked:false},
+        {id:15,text:'바이오',checked:false},
+        {id:16,text:'에너지',checked:false},
+        {id:17,text:'로봇',checked:false},
+        {id:18,text:'기술경영',checked:false},
+        {id:19,text:'투자유치',checked:false},
       ]);
       //첨부파일
       const [attachFile,setAttachFile] = useState({});
@@ -53,7 +60,7 @@ export default function MentoringDetail(){
           }
         }
      
-        const response = await fetch(PreUri + '/mentoring/' + mentoring_no + '/file/' + fileInfo.attached_file_no, {
+        const response = await fetch(PreUri + '/mentoring/' + mentoring_no + '/mentorfile/' + fileInfo.attached_file_no, {
             method: Method.get,
         });
     
@@ -65,8 +72,6 @@ export default function MentoringDetail(){
         if(fileInfo!==undefined){
           fileDownload(blob, fileInfo.file_name);
         }
-        /* var fileDownload = require('js-file-download');
-        fileDownload(await (await new Response(response.body)).blob(), fileInfo.original_name); */
     }, [attachFile]);
     const openFinish = () =>{
       setModalOpen(true);
@@ -78,33 +83,12 @@ export default function MentoringDetail(){
       setModal(true);
     }
     const ToBack = () => {
-        history('/mentoring');
+        history(-1);
     }
     const onChangeMemo = (e) =>{
       setMemo(e.target.value);
     }
-    const onReport = useCallback(() =>{
-      history('/mentoring/report/add',{state:{no:mentoring_no}});
-    },[mentoring_no,history])
-    const ToComplete = useCallback(async(e)=>{
-      e.preventDefault();
-      CommonHeader.authorization = token;
-      let response = await fetch(PreUri + '/mentoring/finish', {
-          method: Method.put,
-          headers: CommonHeader,
-          body: JSON.stringify({
-            mentoring_application_no:mentoring_no,
-            status:"PRC",
-            memo:memo,
-          })
-      });
-      if (!response.ok) {
-          alert(getRspMsg(response.status));
-          return;
-      }
-      alert("진행이 완료 되었습니다");
-      history(-1);
-    },[token,mentoring_no,modalOpen])
+
 
     const FileDownload = useCallback((props) => {
         return (  <div style={{display:'inline-block',margin:'0px 5px'}}>
@@ -128,7 +112,7 @@ export default function MentoringDetail(){
           )
         }
         const getFileNo = useCallback(async()=>{
-          const response = await fetch(PreUri + '/mentoring/'+ mentoring_no + '/filesno',{
+          const response = await fetch(PreUri + '/mentoring/'+ mentoring_no + '/mentorfilesno',{
             method:Method.get,
             headers:CommonHeader
           })
@@ -157,16 +141,16 @@ export default function MentoringDetail(){
         const handleChangeStatus = useCallback(async(confirmFlag)=>{
           CommonHeader.authorization = token;
           console.log(confirmFlag)
-          if(confirmFlag === 'REJ')
+          if(confirmFlag === 'N')
           {
-          setStatus('REJ');
+          setStatus('N');
           const  reject_content = rejectContent;
     
-          const response = await fetch(PreUri + '/mentoring/reject', {
+          const response = await fetch(PreUri + '/mentoring/mentor_reject', {
             method: Method.put,
             headers: CommonHeader,
             body: JSON.stringify({
-              mentoring_application_no:mentoring_no,
+              mentor_application_no:mentoring_no,
               reject_content:reject_content,
             })
         });
@@ -178,24 +162,21 @@ export default function MentoringDetail(){
                 return;
         }
         }
-        else if(confirmFlag === 'RUN'){
-          setStatus('RUN');
+        else if(confirmFlag === 'Y'){
+          setStatus('Y');
         }
-        else if(confirmFlag === 'PRC'){
-          setStatus('PRC');
-        }
-        history('/mentoring',{replace:true});
+        history(-1);
         },[token, rejectContent,mentoring_no,status])
 
       const onResponseConfirm = useCallback(async(e) => {
           e.preventDefault();
-          handleChangeStatus('RUN')
-          const response = await fetch(PreUri + '/mentoring/change_status',{
+          handleChangeStatus('Y')
+          const response = await fetch(PreUri + '/mentoring/status_change?mentoring_no='+ mentoring_no,{
             method:Method.put,
             headers: CommonHeader,
             body: JSON.stringify({
-              mentoring_application_no:mentoring_no,
-              status:"RUN",
+              mentor_application_no:mentoring_no,
+              status:"Y",
             })
             });
             if(!response.ok){
@@ -204,20 +185,20 @@ export default function MentoringDetail(){
             const json = await response.json();
     }, [status, handleChangeStatus])
              
-    
+    console.log(status)
     const onReject = useCallback(async(e) => {
       e.preventDefault();
       if (rejectContent.length < 1) {
         alert("반려사유가 비어있습니다.")
       }
-      handleChangeStatus('REJ');
+      handleChangeStatus('N');
     
-      const response = await fetch(PreUri + '/mentoring/change_status',{
+      const response = await fetch(PreUri + '/mentoring/status_change?mentoring_no='+ mentoring_no ,{
       method:Method.put,
       headers: CommonHeader,
       body: JSON.stringify({
-        mentoring_application_no:mentoring_no,
-        status:'REJ',
+        mentor_application_no:mentoring_no,
+        status:'N',
       })
       });
       if(!response.ok){
@@ -225,14 +206,13 @@ export default function MentoringDetail(){
       }
       const json = await response.json();
     }, [status, rejectContent,handleChangeStatus,openModal])
-    console.log(status);
     const onRejectChange = useCallback((e) => {
       e.preventDefault();
           setRejectContent(e.target.value);
       }, []);
     const getData = useCallback(async()=>{
         CommonHeader.authorization = token;
-        let requri = PreUri + '/mentoring/mentoring_specific?mentoring_no=' + mentoring_no;
+        let requri = PreUri + '/mentoring/mentor_specific?mentoring_no=' + mentoring_no;
         const response = await fetch(requri,{
             method:Method.get,
             headers:CommonHeader,
@@ -242,10 +222,11 @@ export default function MentoringDetail(){
             return;
         }
         const json = await response.json();
+        console.log(json)
         setData(json);
         setStatus(json.status);
         const updateRadioButtonaList = radioButtonList.map(item => {
-            if(json.purpose.includes(item.text)){
+            if(json.specialization.includes(item.text)){
                 return {...item, checked:true};
             }
             return item;
@@ -261,7 +242,7 @@ export default function MentoringDetail(){
     return(
         <section className="section_input_text_type1" style={{marginTop:'20px',border:"1px solid #d3d3d3",padding:'40px 40px'}}>
             <div className="title_wrap">
-            <StyledH1>신청분야</StyledH1>
+            <StyledH1>전문분야</StyledH1>
             <div style={{display:"inline-flex",flexWrap:"wrap",position:"relative",width:"100%",height:"100%",overflowWrap:"break-word",wordWrap:"break-word"}}>
             {radioButtonList && radioButtonList.map((item,idx)=>
             (
@@ -277,59 +258,59 @@ export default function MentoringDetail(){
         </div>
             </div>
             <div className="title_wrap" style={{marginTop:'20px'}}>
-             <StyledH1>신청 기업정보</StyledH1>
+             <StyledH1>신청자 정보</StyledH1>
              </div>
         <ul className="text_wrap" style={{marginTop:'20px'}}>
             <li>
-            <StyledLabel htmlFor="text01">회사명</StyledLabel>
+            <StyledLabel htmlFor="text01">이름</StyledLabel>
                 <input
                     type="text"
                     name="text01"
-                    id="text01"
-                    value={data.company_name}
+                    id="name"
+                    value={data.name}
                     readOnly
                 />
-            <StyledLabel2 htmlFor="text02">사업자등록번호/예비창업주의 경우 주민번호 앞자리</StyledLabel2>
+            <StyledLabel2 htmlFor="text02">전화번호</StyledLabel2>
                 < input
                   type="email"
                   name="text02"
-                  id="text02"
-                  value={data.securitynum}
+                  id="phone_number"
+                  value={data.phone_number}
                   readOnly
                   />
           </li>
           <li>
-            <StyledLabel htmlFor="text01">대표자</StyledLabel>
+            <StyledLabel htmlFor="text01">소속</StyledLabel>
                 <input
                     type="text"
                     name="text01"
-                    id="text01"
-                    value={data.represent}
+                    id="department"
+                    value={data.department}
                 />
             <StyledLabel htmlFor="text02">이메일</StyledLabel>
                 < input
                   type="email"
                   name="text02"
-                  id="text02"
+                  id="email"
                   value={data.email}
                   readOnly
                   />
           </li>
           <li>
-            <StyledLabel htmlFor="text01">연락처</StyledLabel>
+            <StyledLabel htmlFor="text01">최종학력</StyledLabel>
                 <input
                     type="text"
                     name="text01"
-                    id="text01"
-                    value={data.tel_num}
+                    id="final_education"
+                    value={data.final_education}
                     readOnly
                 />
-            <StyledLabel htmlFor="text02">주요사업분야</StyledLabel>
+            <StyledLabel htmlFor="text02">전공분야</StyledLabel>
                 < input
                   type="email"
                   name="text02"
-                  id="text02"
-                  value={data.part}
+                  id="major"
+                  value={data.major}
                   readOnly
                   />
           </li>
@@ -339,129 +320,20 @@ export default function MentoringDetail(){
             type="text"
             name="text07"
             id="text07"
-            value={data.address+data.address_detail}
+            value={data.address}
             readOnly
           />
         </li>   
-        </ul>
-            <div className="title_wrap" style={{marginTop:'20px'}}>
-             <StyledH1>신청자 정보</StyledH1>
-             </div>
-      <ul className="text_wrap" style={{marginTop:'20px'}}>
-        <li>
-          <StyledLabel htmlFor="text01">고객명</StyledLabel>
-          <input
-            type="text"
-            name="text01"
-            id="text01"
-            value={data.name}
-            readOnly
-          />
-          <StyledLabel htmlFor="text02">이메일</StyledLabel>
-          <input
-            type="email"
-            name="text02"
-            id="text02"
-            value={data.usermail}
-            readOnly
-          />
-        </li>
-        <li>
-          <StyledLabel htmlFor="text03">전화번호</StyledLabel>
-          <input
-            type="tel"
-            name="text03"
-            id="text03"
-            value={data.p_num}
-            readOnly
-          />
-          <StyledLabel htmlFor="text04">회사명</StyledLabel>
-          <input
-            type="text"
-            name="text04"
-            id="text04"
-            value={data.company_name}
-            readOnly
-          />
-        </li>
-        <li>
-          <StyledLabel htmlFor="text05">부서</StyledLabel>
-          <input
-            type="text"
-            name="text05"
-            id="text05"
-            value={data.sub}
-            readOnly
-          />
-          <StyledLabel htmlFor="text06">신청일</StyledLabel>
-          <input type="text" name="text06" id="text06" value={moment(data.created_at).format("YYYY-MM-DD")} readOnly/>
-        </li>
-        <li>
-          <StyledLabel htmlFor="text07">제목</StyledLabel>
-          <input
-            type="text"
-            name="text07"
-            id="text07"
-            value={data.application_title}
-            readOnly
-          />
-        </li>
         <li className="textarea_wrap">
-          <StyledLabel htmlFor="text08">세부 내용</StyledLabel>
+          <StyledLabel htmlFor="text09">이전 대형프로젝트</StyledLabel>
           <textarea
-            name="text08"
-            id="text08"
+            name="text09"
+            id="text"
             cols="30"
             rows="10"
-            value={data.specific_content}
+            value={data.text}
             readOnly
           ></textarea>
-        </li>
-        <li className="textarea_wrap">
-          <StyledLabel htmlFor="text09">기타 요청사항</StyledLabel>
-          <textarea
-            name="text09"
-            id="text09"
-            cols="30"
-            rows="10"
-            value={data.requirement}
-            readOnly
-          ></textarea>
-        </li>
-        { status === "RUN" && authority_level > 70 ?
-         <li className="textarea_wrap">
-          <StyledLabel htmlFor="memo">관리자 메모</StyledLabel>
-          <textarea
-            name="text09"
-            id="text09"
-            cols="30"
-            rows="5"
-            onChange={onChangeMemo}
-          ></textarea>
-          </li>
-          :
-          status === "PRC" &&
-          <li className="textarea_wrap">
-          <StyledLabel htmlFor="memo">관리자 메모</StyledLabel>
-          <textarea
-            name="text09"
-            id="text09"
-            cols="30"
-            rows="5"
-            value={data.memo}
-            readOnly
-          ></textarea>
-          </li>
-        }
-        <li>
-          <StyledLabel htmlFor="text10">멘토</StyledLabel>
-          <input
-            type="text"
-            name="text10"
-            id="text10"
-            value={data.mentor}
-            readOnly
-          />
         </li>
         <li>
           <StyledLabel htmlFor="text11">첨부파일</StyledLabel>
@@ -469,100 +341,81 @@ export default function MentoringDetail(){
         </li>
         <li>
           {
-            status === 'REJ'?
+            status === 'N'&&
             <>
             <StyledLabel htmlFor="text12">반려</StyledLabel>
-            <textarea readOnly={true} value={data.reject_content} name="content"/>
+            <div name="content">{data.reject}</div>
             </>
-            :
-            status === 'RUN'?
-            <>
-            <StyledLabel htmlFor="text13">진행 상황</StyledLabel>
-            <textarea readOnly={true} value="멘토링이 진행중입니다." />
-            </>
-            :
-            status === 'PRC'?
-            <>
-            <StyledLabel htmlFor="text14">진행 상황</StyledLabel>
-            <textarea rows="3" cols="20" readOnly={true} value="멘토링이 종료되었습니다. 보고서작성을 해주시기 바랍니다."/>
-            </>        
-            :
-            <></>
           }
         </li>
+        </ul>
         <ButtonList>
-        {status === 'REJ' ?
-          <StyledBtn3 onClick={ToBack}>뒤로가기</StyledBtn3>
-          :
-          status === 'RUN' ?
-          <>
-          <StyledBtn2 className="btn_modify" onClick={() => { $('.pop').css('display', 'block');openFinish()}}>종료하기</StyledBtn2>
-          {authority_level < AuthLevel.manager?<></>:
-           status==="RUN"&&
-            <Popup className="pop">
-             <p>멘토링 진행을 종료하시겠습니까?</p>
-              <ul>
-                <li className="no"><button onClick={() => { $('.pop').css('display', 'none'); }}>취소</button></li>
-                <li className="yes"><button onClick={ToComplete}>확인</button></li>
-              </ul>
-            </Popup>
-          }
-          <StyledBtn3 onClick={ToBack}>뒤로가기</StyledBtn3>
+            {
+            status==='N'?
+            <StyledBtn3 onClick={ToBack}>뒤로가기</StyledBtn3>
+            :
+            status==='Y'?
+            <StyledBtn3 onClick={ToBack}>뒤로가기</StyledBtn3>
+            :
+            status==="R"?
+            <>
+            <StyledBtn onClick={() => { $('.pop5').css('display', 'block'); openConfirm();}}>승인</StyledBtn>
+            {authority_level < AuthLevel.manager ? null : status === 'R' && (
+              <Popup className="pop5">
+                <p>전문멘토를 승인하시겠습니까?</p>
+                <ul>
+                  <li className="no"><button onClick={() => { $('.pop5').css('display', 'none'); }}>취소</button></li>
+                  <li className="yes"><button onClick={onResponseConfirm}>확인</button></li>
+                </ul>
+              </Popup>
+            )}
+            <StyledBtn2 onClick={() => { $('.pop').css('display', 'block'); openReject(); }} className="reject">반려</StyledBtn2>
+            <StyledBtn3 onClick={ToBack}>뒤로가기</StyledBtn3>
+            {authority_level < AuthLevel.manager ? null : status === 'R' && (
+              <Popup className="pop">
+                <p>
+                  <textarea value={rejectContent} name="rejectContent" onChange={onRejectChange} placeholder="사유를 작성해 주세요."></textarea>
+                </p>
+                <ul>
+                  <li className="no"><button onClick={() => { $('.pop').css('display', 'none'); }}>취소</button></li>
+                  <li className="yes"><button onClick={onReject}>반려</button></li>
+                </ul>
+              </Popup>
+            )}
           </>
-          :
-          status === "PRC" ? 
-          <>
-          <StyledBtn2 onClick={onReport}>보고서 작성</StyledBtn2>
-          <StyledBtn3 onClick={ToBack}>확인</StyledBtn3>
+            :
+            status==='A'? 
+            <>
+            <StyledBtn onClick={() => { $('.pop4').css('display', 'block'); openConfirm();}}>승인</StyledBtn>
+            {authority_level < AuthLevel.manager ? null : status === 'A' && (
+              <Popup className="pop4">
+                <p>전문멘토를 승인하시겠습니까?</p>
+                <ul>
+                  <li className="no"><button onClick={() => { $('.pop4').css('display', 'none'); }}>취소</button></li>
+                  <li className="yes"><button onClick={onResponseConfirm}>확인</button></li>
+                </ul>
+              </Popup>
+            )}
+            <StyledBtn2 onClick={() => { $('.pop').css('display', 'block'); openReject(); }} className="reject">반려</StyledBtn2>
+            <StyledBtn3 onClick={ToBack}>뒤로가기</StyledBtn3>
+            {authority_level < AuthLevel.manager ? null : status === 'A' && (
+              <Popup className="pop">
+                <p>
+                  <textarea value={rejectContent} name="rejectContent" onChange={onRejectChange} placeholder="사유를 작성해 주세요."></textarea>
+                </p>
+                <ul>
+                  <li className="no"><button onClick={() => { $('.pop').css('display', 'none'); }}>취소</button></li>
+                  <li className="yes"><button onClick={onReject}>반려</button></li>
+                </ul>
+              </Popup>
+            )}
           </>
-          :
-        <>
-        <StyledBtn onClick={()=>{$('.pop2').css('display', 'block'); openConfirm()}}>승인</StyledBtn>
-        {authority_level < AuthLevel.manager?<></>:
-           status==="OSA"&&
-            <Popup className="pop2">
-             <p>멘토링 승인하시겠습니까?</p>
-              <ul>
-                <li className="no"><button onClick={() => { $('.pop2').css('display', 'none'); }}>취소</button></li>
-                <li className="yes"><button onClick={onResponseConfirm}>확인</button></li>
-              </ul>
-            </Popup>
-          }
-        <StyledBtn2  onClick={() => { $('.pop').css('display', 'block'); openReject()}} className="reject">반려</StyledBtn2>
-        <StyledBtn3 onClick={ToBack}>뒤로가기</StyledBtn3>
-        </>
-        }
-        {authority_level < AuthLevel.manager?<></>:
-        status==="OSA"&&
-        <Popup className="pop">
-           <p><textarea value={rejectContent} name="rejectContent" onChange={onRejectChange} placeholder="사유를 작성해 주세요."></textarea></p>
-          <ul>
-            <li className="no"><button onClick={() => { $('.pop').css('display', 'none'); }}>취소</button></li>
-            <li className="yes"><button onClick={onReject}>반려</button></li>
-          </ul>
-        </Popup>
-        }
+                : 
+                null
+            }
+
+            
         </ButtonList>
-        
-  {/*       <li>
-          <StyledLabel htmlFor="text12">관리자메모</StyledLabel>
-          <input
-            type="text"
-            name="text12"
-            id="text12"
-            placeholder="입력하세요."
-          />
-        </li> */}
-       {/*  <li>
-          <StyledLabel htmlFor="text13">산정평가 요청</StyledLabel>
-          <input
-            type="text"
-            name="text13"
-            id="text13"
-            placeholder="입력하세요."
-          />
-        </li> */}
-      </ul>
     </section>
     )
 }

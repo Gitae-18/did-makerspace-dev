@@ -27,11 +27,13 @@ import OldServiceItem from '../components/Admin/Management/OldServiceItem';
 import OldServiceItemReg from '../components/Admin/Management/OldServiceItemReg';
 import OldServiceItemEdit from '../components/Admin/Management/OldServiceItemEdit';
 import TableType5b from '../components/contents/TableType5b';
+import { MentorApplication } from '../components/pages/PageSub6';
 import MentorAdd from '../components/Modals/MentorAdd';
 import { ClassEduTotalControl } from '../components/pages/PageSub6';
+import { MentorAppDetail } from '../components/pages/PageSub6';
 import qs from 'qs';
 
-const ListView = [Company, User, EquipmentCategory, Equipment, ServiceCategory, MaterialCategory, MaterialItem, OldServiceItem, TableType5b,ClassEduTotalControl];
+const ListView = [Company, User, EquipmentCategory, Equipment, ServiceCategory, MaterialCategory, MaterialItem, TableType5b,MentorApplication,ClassEduTotalControl];
 const RegView = [CompanyReg, UserReg, EquipmentCategoryReg, EquipmentReg, ServiceCategoryReg, MaterialCategoryReg, MaterialItemReg, OldServiceItemReg];
 const EditView = [CompanyEdit, UserEdit, EquipmentCategoryEdit, EquipmentEdit, ServiceCategoryEdit, MaterialCategoryEdit, MaterialItemEdit, OldServiceItemEdit];
 export const ManagementContainer = () => {

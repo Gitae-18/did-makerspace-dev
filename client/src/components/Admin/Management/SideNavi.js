@@ -47,16 +47,15 @@ export default function ({ viewDepth ,onCategory}) {
 	else if(sideNaviPos === 6){
 		title="기/자재관리"
 		subtitle="자재 항목관리"
-	}else if(sideNaviPos === 8){
-	/* 	if(location.pathname.includes('mentorcontrol')){
-			if(location.pathname.includes('mentorauthority')){
-				
-			}
-			
-		} */
+	}else if(sideNaviPos === 7){
 		title="전문멘토관리"
 		subtitle="전문멘토명단"
 	}
+	else if(sideNaviPos === 8){
+		title="전문멘토관리"
+		subtitle="전문멘토신청서"
+	}
+
 	
 	const onClick = useCallback((e, index) => {
 		e.preventDefault();
@@ -126,11 +125,11 @@ export default function ({ viewDepth ,onCategory}) {
 				  <li onClick={(e)=>onClick(e,6)}>자재 항목 관리</li>
 				</ol>
 			  </li>
-			  <li className={sideNaviPos===8?"on":"off"}>
+			  <li className={sideNaviPos===7||sideNaviPos===8?"on":"off"}>
 				<p onClick={Dep2Handler}>전문멘토관리</p>
 				<ol className="has_dep3">
-				  <li onClick={(e)=>{onClick(e,8)}}>전문 멘토 명단</li>
-				  <li onClick={(e)=>{onClick(e,9);history("/notcomplete"/* "/mentorcontrol/mentorapplication" */)}}>전문 멘토 신청서</li>
+				  <li onClick={(e)=>{onClick(e,7)}}>전문 멘토 명단</li>
+				  <li onClick={(e)=>{onClick(e,8)}}>전문 멘토 신청서</li>
 				</ol>
 			  </li>
 			  <li className={sideNaviPos===9?"on":"off"}>

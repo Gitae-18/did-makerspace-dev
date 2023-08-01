@@ -157,7 +157,7 @@ export default function MentoringReport(){
     history('/mentoring/report/detail',{state:{no:mentoring_no}});
     }
   const goWrite = () => {
-     history(location.pathname + '/write',{state:{no:report}});
+     history(location.pathname + '/add',{state:{no:report}});
   }
   let dt = new Date();
     let com_year = dt.getFullYear();

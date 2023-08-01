@@ -147,7 +147,7 @@ export default function ListType2b() {
     <div className="table_extra">
     <StyledBtn2 onClick={onMove}>내 예약정보</StyledBtn2>
       <div className="table_search">
-       <input type="text" name="" id="" placeholder="제목을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange}/>
+      <input type="text" name="" id="" placeholder="제목을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange} style={{width:'155px'}}/>
           <StyledBtn onClick={(e)=>onSearch(e)} >검색</StyledBtn>
       </div>
       </div>
@@ -155,7 +155,7 @@ export default function ListType2b() {
         {currentPost!==undefined?currentPost.map((item,index)=>(
         
         <li key={index}>
-        <ImageGetProgramList attachFile={item.attached_file} no={item.attached_file==="Y"&&item.type==="edu"?item.program_no:0} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)} />
+        <ImageGetProgramList attachFile={item.attached_file} no={item.attached_file==="Y"&&item.type==="class"?item.program_no:0} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)} />
 
         <div className="text_part" onClick={(e)=>onItem(item,index)}>
           <h5 >{item.title}</h5>

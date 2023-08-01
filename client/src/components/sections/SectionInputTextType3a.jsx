@@ -156,7 +156,7 @@ export default function SectionInputTextType3a() {
   } ); */
   
   return (
-    <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1e">
+    <section className="section_input_text_type1 section_input_text_type1d">
       <ul className="text_wrap">
       <li>
           <label htmlFor="text01">제목</label>
@@ -169,7 +169,7 @@ export default function SectionInputTextType3a() {
           />
         </li>
         <li className="textarea_wrap" style={{'height':'300px'}}>
-          <label htmlFor="text02">내용</label>
+        <label htmlFor="text02" style={{lineHeight:'300px'}}>내용</label>
           {/* <Editor setContent={setContent}
           data={content}  no={no}/> */}
           <textarea

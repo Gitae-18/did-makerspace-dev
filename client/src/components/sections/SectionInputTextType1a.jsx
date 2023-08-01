@@ -208,6 +208,16 @@ export default function SectionInputTextType1a() {
       }
     }
   };
+  const activeEnter = (e) =>{
+      if(e.key === 'Enter'){
+        setIsDropbox(false);
+      }
+  }
+  const activeEnter2 = (e) =>{
+      if(e.key === "Enter"){
+        setIsDropbox2(false);
+      }
+  }
   const onChangeFile = (e) =>{
     let pickedFile=[];
   
@@ -243,6 +253,7 @@ const getMentorList = useCallback(async()=>{
   setMentorList(json);
 },[]) 
   useEffect(() => {
+    getMentorList();
     const handleClickOutside = (e) => {
       if (
         inputRef.current &&
@@ -265,7 +276,7 @@ const getMentorList = useCallback(async()=>{
     {
       setSelectedRadio(Object.values(checkInputs));
     } */
-    getMentorList();
+   
   }, [inputRef,inputUserRef,/* inputs,text */,getMentorList]);
 
   //주소찾기
@@ -424,6 +435,7 @@ const getMentorList = useCallback(async()=>{
     if(!respon.ok){
      return(alert(getRspMsg(respon.status)))
     } */
+
   const File = ({ item, index, onDelete })=> {
     
     return (
@@ -481,7 +493,8 @@ const getMentorList = useCallback(async()=>{
         onChange={(e) => {
         onChangeEmail(e);
         }}
-         style={{"width":"416px","position":"relative"}}
+        onKeyDown={(e)=>activeEnter(e)}
+         style={{"width":"400px","position":"relative"}}
         onKeyUp={handleKeyUp}
        />
         {isDrobBox && (
@@ -527,7 +540,8 @@ const getMentorList = useCallback(async()=>{
           <input readOnly type="text" value={address} name="addr" style={{width:"50%",bottom:'10px',position:'relative'}}/>
           <StyledBtn3 onClick={onChangeOpenPost}>주소찾기</StyledBtn3>
           {isOpenPost? <div>
-            <AiOutlineCloseCircle  style={{position:"relative",top:'30px',left:'50px',width:'50px'}}className="close_btn" onClick={onChangeClosePost}> </AiOutlineCloseCircle><DaumPostcode
+            <AiOutlineCloseCircle  style={{position:"relative",top:'30px',left:'430px',width:'50px'}}className="close_btn" onClick={onChangeClosePost}> </AiOutlineCloseCircle>
+          <DaumPostcode
           style={postCodeStyle}
           autoClose
           onComplete={onCompletePost}
@@ -580,8 +594,9 @@ const getMentorList = useCallback(async()=>{
         onChange={(e) => {
         onChangeEmailUser(e);
         }}
-         style={{"width":"416px","position":"relative"}}
+         style={{"width":"400px","position":"relative"}}
         onKeyUp={handleKeyUpUser}
+        onKeyDown={(e)=>activeEnter2(e)}
        />
         {isDrobBox2 && (
         <MailTipUl>
@@ -677,7 +692,7 @@ const getMentorList = useCallback(async()=>{
                 {el.value}{" "}
               </option>
             ))} */}
-          <select  onChange={onChangeSelect}>
+          <select className="select-box" onChange={onChangeSelect}>
             <option>멘토 선택</option>
             {mentorList.map((el,idx) => (
               <option key={idx} value={el.name}>{el.name}<label style={{marginLeft:'3px'}}>, </label><span>{el.keyword}</span></option>

@@ -499,7 +499,7 @@ router.get ('/equipmentlist',async(req,res,next)=>{
                 reservation_available : 'Y' 
             },
             order:[
-                ['created_at','ASC']
+                ['model_name','ASC']
             ],
             required:false,
             raw:true,

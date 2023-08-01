@@ -90,6 +90,11 @@ footer .site_map_wrap {
   right:-170px;
 }
 
+footer .site_map_wrap .hd{
+  width:250px;
+  top:70px;
+  position:relative;
+}
 footer .site_map_wrap select {
   width: 100%;
   background-color: #fff;

@@ -156,7 +156,7 @@ export default function SubSideMenu(props,onCategory) {
               </ol>
           </li>
           <li className={url.includes("mentorapplication")?"on":"off"}>
-            <p onClick={(e)=>{onClick(e,2);history("/mentorcontrol/mentorapplication/detail")}}>전문멘토신청</p>
+            <p onClick={(e)=>{onClick(e,2);history("/mentorcontrol/mentorapplication")}}>전문멘토신청</p>
           </li>
         </ol>
       );

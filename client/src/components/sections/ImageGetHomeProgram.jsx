@@ -1,14 +1,11 @@
 import React,{useCallback,useEffect,useState} from "react";
 import { CommonHeader, PreUri, Method } from "../../CommonCode";
-import YouTube from 'react-youtube';
 
-export default function ImageGetArchive({no,token,attachFile,onItem}){
+export default function ImageGetHomeProgram({no,token,attachFile}){
     const [fileurl2,setFileUrl2] = useState("");
-
     const getFileName = useCallback(async()=>{
-      if(attachFile==="Y")
-      {
-        const res = await fetch(PreUri + '/fileview/'+ no +'/archivefile',  {
+        CommonHeader.authorization = token;
+        const res = await fetch(PreUri + '/fileview/'+ no +'/classedufile',  {
           method: Method.get,
           headers: {
             authorization: token,
@@ -17,12 +14,11 @@ export default function ImageGetArchive({no,token,attachFile,onItem}){
         const fileName = await res.json();
         const filesrc = btoa(fileName.file);
         setFileUrl2(filesrc);
-      }
       },[token,no,attachFile])
       useEffect(()=>{
         getFileName();
       },[])
     return(
-        <div className="archive_image_part"><img src={"data:image/*;base64,"+ fileurl2}  alt="no-image" style={{"width":"180px","height":"210px"}} onClick={onItem}/></div>
+        <div className="image_part"><img src={"data:image/*;base64,"+ fileurl2}  alt="no-image" style={{"width":"300px","height":"400px"}}/></div>
     )
 }

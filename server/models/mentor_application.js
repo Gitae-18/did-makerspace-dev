@@ -12,9 +12,9 @@ module.exports = (sequelize,DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull:false,
         },
-        birth: {
+        name: {
             type: DataTypes.STRING(55),
-            allowNull:false
+            allowNull:true,
         },
         department: {
             type: DataTypes.STRING(55),
@@ -33,6 +33,31 @@ module.exports = (sequelize,DataTypes) => {
             allowNull:false,
         },
         keyword: {
+            type: DataTypes.STRING(55),
+            allowNull:true,
+        },
+        address: {
+            type: DataTypes.STRING(255),
+            allowNull:true,
+        },
+        reject: {
+            type: DataTypes.STRING(255),
+            allowNull:true,
+        },
+        status: {
+            type: DataTypes.CHAR(10),
+            allowNull:false,
+            defaultValue:'A',
+        },
+        text:{
+            type: DataTypes.TEXT,
+            allowNull:true,
+        },
+        email:{
+            type: DataTypes.STRING(55),
+            allowNull:true,
+        },
+        phone_number:{
             type: DataTypes.STRING(55),
             allowNull:true,
         },

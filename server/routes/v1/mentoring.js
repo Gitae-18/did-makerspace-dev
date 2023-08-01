@@ -2,7 +2,7 @@
 
 const express = require('express');
 const { verifyToken, errorCode, getErrMsg, authLevel, makedir, SendMail } = require('../../middlewares/middlewares');
-const { User, Company, Mentoring ,MentoringApplication, MentoringFile, MentoringReport ,MentoringReportFile, Mentor} = require('../../models');
+const { User, Company, Mentoring ,MentoringApplication, MentoringFile, MentoringReport ,MentoringReportFile, Mentor, MentorFile, MentorApplication} = require('../../models');
 const { Op, or } = require("sequelize");
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
@@ -42,6 +42,24 @@ async function SelectFileInfo(mentoring_application_no) {
 
     return files;
 }
+async function SelectMentorFileInfo(mentor_application_no) {
+    let files;
+
+    try {
+        files = await MentorFile.findAll({
+            attributes: ['attached_file_no', 'original_name', 'name', 'type', 'path', 'filesize'],
+            where: { 
+                mentor_application_no,
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        return null;
+        //return res.status(errorCode.internalServerError).json({});
+    }
+
+    return files;
+}
 
 router.get('/mentoring_specific',async(req,res,next)=>{
    let item;
@@ -59,6 +77,22 @@ router.get('/mentoring_specific',async(req,res,next)=>{
    }
    res.status(errorCode.ok).json(item);
 })
+router.get('/mentor_specific',async(req,res,next)=>{
+    let item;
+    const mentoring_no  = req.query.mentoring_no;
+ 
+    try{
+     item = await MentorApplication.findOne({
+         attributes: ['mentor_application_no','address','name','department','status','reject','major','final_education','specialization','email','phone_number','text','created_at'],
+         where:{mentor_application_no:mentoring_no},
+     })
+    }
+    catch(error){
+     console.log(error);
+     return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(item);
+ })
 router.put('/reject',verifyToken,async(req,res,next)=>{
     let body = req.body;
     let user_no = req.decoded.user_no;
@@ -69,6 +103,45 @@ router.put('/reject',verifyToken,async(req,res,next)=>{
         },
         {
             where:{mentoring_application_no:body.mentoring_application_no}
+        }
+        )
+    }
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json({});
+})
+router.put('/mentor_reject',verifyToken,async(req,res,next)=>{
+    let body = req.body;
+    let user_no = req.decoded.user_no;
+    let item;
+    try{
+        item = await MentorApplication.update({
+            reject:body.reject_content
+        },
+        {
+            where:{mentor_application_no:body.mentor_application_no}
+        }
+        )
+    }
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json({});
+})
+router.put('/status_change',verifyToken,async(req,res,next)=>{
+    let body = req.body;
+    let user_no = req.decoded.user_no;
+    const mentoring_no = req.query.mentoring_no;
+    let status;
+    try{
+        status = await MentorApplication.update({
+           status:body.status
+        },
+        {
+            where:{mentor_application_no:mentoring_no}
         }
         )
     }
@@ -143,20 +216,40 @@ router.put('/finish',verifyToken,async(req,res,next)=>{
 })
 router.get('/getlist',async(req,res,next)=>{
     let body = req.body;
-    
+    const name = req.query.name;
+    console.log(name);
     let itemList;
+    if(name!==undefined)
+    {
     try{
         itemList = await MentoringApplication.findAll({
             attributes:['mentoring_application_no','user_no','mentor','requirement','purpose','status','application_title','specific_content','created_at'],
+            where:{mentor:name},
             order:[['created_at','DESC']],
             raw:true,
         })
+        
     }
     catch(error){
         console.error(error);
         return res.status(errorCode.internalServerError).json({});
     }
-    res.status(errorCode.ok).json(itemList);
+    }
+    else{
+        try{
+            itemList = await MentoringApplication.findAll({
+                attributes:['mentoring_application_no','user_no','mentor','requirement','purpose','status','application_title','specific_content','created_at'],
+                order:[['created_at','DESC']],
+                raw:true,
+            })
+            
+        }
+        catch(error){
+            console.error(error);
+            return res.status(errorCode.internalServerError).json({});
+        }
+    }
+    res.status(errorCode.ok).send(itemList);
 })
 router.get('/mylist',verifyToken,async(req,res,next)=>{
     let body = req.body;
@@ -169,18 +262,72 @@ router.get('/mylist',verifyToken,async(req,res,next)=>{
             where:{user_no},
             raw:true,
         })
+        res.status(errorCode.ok).json(itemList);
     }
     catch(error){
         console.error(error);
         return res.status(errorCode.internalServerError).json({});
     }
-    res.status(errorCode.ok).json(itemList);
+   
 })
-
+router.post('/mentorapplication',verifyToken,async(req,res,nex)=>{
+    let body = req.body;
+    let user_no = req.decoded.user_no;
+    let result;
+    try{
+        result = await MentorApplication.create({
+            user_no : user_no,
+            name : body.name,
+            department : body.sub,
+            final_education : body.final_education,
+            major : body.major,
+            specialization : body.specialization,
+            email:body.email,
+            phone_number:body.num,
+            status:'A',
+        })
+    }
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(result);
+})
+router.put('/:mentoring_no/mentorapplication',verifyToken,async(req,res,nex)=>{
+    let body = req.body;
+    let user_no = req.decoded.user_no;
+    const no = req.params.mentoring_no;
+    let result;
+    try{
+        result = await MentorApplication.update({
+            user_no : user_no,
+            name : body.name,
+            department : body.part,
+            final_education : body.final_education,
+            major : body.major,
+            specialization : body.specialization,
+            email:body.email,
+            phone_number:body.num,
+            text:body.text,
+            status:'R',
+            created_user_no:user_no,
+            updated_user_no:user_no,
+        },
+        {where:{mentor_application_no:no}}
+        )
+        
+    }
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(result);
+})
 router.post('/addmentoring',verifyToken,async(req,res,nex)=>{
     let body = req.body;
     let user_no = req.decoded.user_no;
     let result;
+    console.log(typeof(body.securitynum));
     try{
         result = await MentoringApplication.create({
             application_title:body.application_title,
@@ -250,6 +397,22 @@ router.get('/:mentoring_no/mentor', verifyToken,async(req,res,next)=>{
 
     return res.json(result);
 })
+router.get('/:mentoring_no/mentorinfo', verifyToken,async(req,res,next)=>{
+    let mentor_application_no= req.params.mentoring_no;
+    let user_no = req.decoded.user_no;
+    let query = {
+        attributes: ['user_no','email','phone_number','address','final_education','major','department','text','specialization','name'],
+    }
+    query.where = { user_no };
+    let result;
+    try {
+        result = await MentorApplication.findOne(query);
+    } catch (error) {
+        console.error(error);
+    }
+
+    return res.json(result);
+})
 router.get('/user_list', async( req, res, next ) => {
     let result;
     try{
@@ -312,6 +475,38 @@ router.get('/:mentoring_no/file/:file_no',async (req, res, next) => {
         }
     });
 });
+router.get('/:mentoring_no/mentorfile/:file_no',async (req, res, next) => {
+    let mentor_application_no = req.params.mentoring_no;
+    let attached_file_no = req.params.file_no;
+
+    let file_info;
+    try {
+        file_info = await MentorFile.findOne({
+            attributes: ['attached_file_no', 'original_name', 'name', 'path', 'filesize'],
+            where: [{ 
+                mentor_application_no
+            },
+            {
+                attached_file_no,
+            }
+        ]
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+
+    const path = "upload/newmentor/";
+    const file = path + file_info.dataValues.name;
+    console.log(file);
+    res.download(file, file_info.dataValues.original_name, function(err) {
+        if (err) {
+            res.json({err:err.path});
+        } else {
+            res.end();
+        }
+    });
+});
 router.post('/savereport',verifyToken,async(req,res,next)=>{
     let body = req.body;
     let user_no = req.decoded.user_no;
@@ -361,6 +556,65 @@ router.post('/:mentoring_no/nofiles',verifyToken,upload.array('files'), async(re
     }
     res.status(errorCode.ok).json({});
 });
+//통합파일 업로드2
+router.post('/:mentoring_no/mentorfiles',verifyToken,upload.array('files'), async(req, res, next) =>{
+    let user_no = req.decoded.user_no;
+    let mentoring_no = req.params.mentoring_no;
+    if(req.files.length>0)
+    {
+        makedir('upload/newmentor');
+    }
+    for(let i = 0; i<req.files.length;i++){
+        let inputResult;
+        try {
+            inputResult = await MentorFile.create({
+                mentoring_application_no:mentoring_no,
+                original_name: req.files[i].originalname,
+                name: req.files[i].filename,
+                type: req.files[i].mimetype,
+                path: req.files[i].path,
+                filesize:req.files[i].size,
+                created_user_no: user_no,
+                updated_user_no: user_no,
+            });
+      
+        } catch (error) {
+            console.error(error);
+            return res.status(errorCode.internalServerError).json({});
+        }
+    }
+    res.status(errorCode.ok).json({});
+});
+router.put('/:mentoring_no/mentorfiles',verifyToken,upload.array('files'), async(req, res, next) =>{
+    let user_no = req.decoded.user_no;
+    let mentoring_no = req.params.mentoring_no;
+    if(req.files.length>0)
+    {
+        makedir('upload/newmentor');
+    }
+    for(let i = 0; i<req.files.length;i++){
+        let inputResult;
+        try {
+            inputResult = await MentorFile.update({
+                mentoring_application_no:mentoring_no,
+                original_name: req.files[i].originalname,
+                name: req.files[i].filename,
+                type: req.files[i].mimetype,
+                path: req.files[i].path,
+                filesize:req.files[i].size,
+                created_user_no: user_no,
+                updated_user_no: user_no,
+            },
+            {where:{mentor_application_no:mentoring_no}}
+            );
+      
+        } catch (error) {
+            console.error(error);
+            return res.status(errorCode.internalServerError).json({});
+        }
+    }
+    res.status(errorCode.ok).json({});
+});
 router.post('/:mentoring_no/reportfiles',verifyToken,upload.array('files'), async(req, res, next) =>{
     let user_no = req.decoded.user_no;
     let mentoring_no = req.params.mentoring_no;
@@ -392,10 +646,7 @@ router.post('/:mentoring_no/reportfiles',verifyToken,upload.array('files'), asyn
 router.get('/:mentoring_no/filesno',async (req, res, next) => {
     let mentoring_application_no = req.params.mentoring_no;
    
-
-/*     if (authority_level < authLevel.manager) {
-        return res.status(errorCode.notAcceptable).json({});
-    } */let files
+    let files
     try{
      files= await MentoringFile.findAll({
         attributes:['attached_file_no','original_name','name','path','type','filesize'],
@@ -410,13 +661,28 @@ router.get('/:mentoring_no/filesno',async (req, res, next) => {
     res.status(errorCode.ok).json(files);
 
 })
+router.get('/:mentoring_no/mentorfilesno',async (req, res, next) => {
+    let mentor_application_no = req.params.mentoring_no;
+   
+
+    let files
+    try{
+     files= await MentorFile.findAll({
+        attributes:['attached_file_no','original_name','name','path','type','filesize'],
+        where:{mentor_application_no:mentor_application_no}
+    });
+    }  
+    catch (error) {
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    } 
+   
+    res.status(errorCode.ok).json(files);
+
+})
 router.get('/:mentoring_no/files',async (req, res, next) => {
     let mentoring_application_no = req.params.mentoring_no;
    
-
-/*     if (authority_level < authLevel.manager) {
-        return res.status(errorCode.notAcceptable).json({});
-    } */
     
     let files = await SelectFileInfo(mentoring_application_no);
     if (!files) {
@@ -429,6 +695,68 @@ router.get('/:mentoring_no/files',async (req, res, next) => {
     }
 
 });
+router.get('/:mentoring_no/mentorfiles',async (req, res, next) => {
+    let mentor_application_no = req.params.mentoring_no;
+   
+    let files = await SelectMentorFileInfo(mentor_application_no);
+    if (!files) {
+        return res.status(errorCode.internalServerError).json({});
+    }
+    
+    if(files.length>0)
+    {
+    res.json(files);
+    }
+
+});
+router.get('/mentorapplist',async(req,res,next) => {
+    let results;
+    try{
+        results = await MentorApplication.findAll({
+            attributes:['mentor_application_no','name','department','specialization','email','phone_number','status','created_at'],
+            order:[['created_at','DESC']],
+            raw:true,
+        })
+    }
+    catch(error){
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(results);
+})
+router.get('/myapplication',async(req,res,next) => {
+    let results;
+    const name = req.query.name;
+    try{
+        results = await MentorApplication.findOne({
+            attributes:['mentor_application_no','name','department','status','reject','specialization','created_at'],
+            where:{name},
+            order:[['created_at','DESC']],
+            raw:true,
+        })
+    }
+    catch(error){
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(results);
+})
+router.get('/mentor_no',async(req,res,next) => {
+    let results;
+    try{
+        results = await MentorApplication.findAll({
+            attributes:['mentor_application_no'],
+            order:[['created_at','DESC']],
+            limit:1,
+            raw:true,
+        })
+    }
+    catch(error){
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(results);
+})
 router.get('/getmentor',async (req, res, next) => {
 
 /*     if (authority_level < authLevel.manager) {

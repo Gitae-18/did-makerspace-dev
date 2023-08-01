@@ -45,7 +45,6 @@ export default function TableType2a() {
    const uvsrc = '/images/uvprinter.png';
 
     const modelname = passflag.map((item,index)=> item.type);
-    const pass = passflag.map((item,index)=> item.pass_flag);
    const getUserTest = useCallback(async()=>{
 
     CommonHeader.authorization = token;
@@ -60,8 +59,10 @@ export default function TableType2a() {
         return;
       }
       const json = await response.json();
+      console.log(json)
       setPassFlag(json);
    },[token])
+  
    let typepass = passflag.map((item)=>item.type);  
 
    const getItemList = useCallback(async(currentPage)=>{
@@ -118,14 +119,16 @@ export default function TableType2a() {
   const onCheckClick = (e) =>{
     history('/eqreservation/checkreserv')
   }
-  const onTestClick = (e) =>{
+  const onTestClick = (e,i) =>{
     const name = e.model_name;
     history(now.pathname + "/test",{state:{name:name}})
   }
+
   const onReservClick = (e) =>{
     const categoryNo = e.equipment_category_no;
     history('/eqreservation/equip/selectreserv?categoryNo=' + categoryNo,{state:{category:categoryNo}})
   }
+  console.log()
   useEffect(()=>{
     getUserTest();
     getItemList();
@@ -172,14 +175,14 @@ export default function TableType2a() {
                   <StyledBtn onClick={(e) => { goToVideo(e, i); openModal(e);}}>
                    동영상보기
                   </StyledBtn>
-                   {modelname[i] === item.model_name && pass[i] === "Y" ? ( <StyledBtn2> 시험불가</StyledBtn2>
-                    ) : (
-                   <StyledBtn2 onClick={(e) => onTestClick(item)}>시험보기</StyledBtn2>
+                   {modelname[i] === item.model_name ?  (<StyledBtn2>시험불가</StyledBtn2>)
+                     : (
+                   <StyledBtn2 onClick={(e) =>   onTestClick(item,i)}>시험보기</StyledBtn2>
                    )}
                 </td>
                  {visible&&<VideoModal visible={visible} closable={true} maskClosable={true} onClose={closeModal} modelName={reservationList[i].model_name} src={link}/>}  
                  <td className="res_btn">
-                    {modelname[i] === item.model_name && pass[i] === "Y" ? ( <StyledBtn3 onClick={(e) => onReservClick(item)}>예약하기</StyledBtn3>
+                    {modelname[i] === item.model_name  ? ( <StyledBtn3 onClick={(e) => onReservClick(item,i)}>예약하기</StyledBtn3>
                     ) : (
                    <StyledBtn3>예약불가</StyledBtn3>
                    )}

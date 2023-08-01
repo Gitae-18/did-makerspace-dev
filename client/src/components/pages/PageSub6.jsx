@@ -19,6 +19,8 @@ import SideNavi from "../Admin/Management/SideNavi";
 import SectionInputTextType1d_update from "../sections/SectionInputTextType1d_update";
 import SectionInputTextType1d from "../sections/SectionInputTextType1d";
 import SectionInputTextType1d_a from "../sections/SectionInputTextType1d_a";
+import MentorWrite from "../contents/Mentoring/MentorWrite";
+import MentorApplicationDetail from "../contents/Mentoring/MentorApplicationDetail";
 import { useDispatch,useSelector } from "react-redux";
 
 
@@ -235,7 +237,41 @@ export const MentorApplication = () =>{
       </>
     );
 }
-export const MentorApplicationDetail = () =>{
+export const MentorAppDetail = () =>{
+  return (
+      <>
+       
+      <div id="sub_page_wrap">
+      <SideNavi/>
+        <div className="sub_page_inner_wrap">
+          <div className="sub_inner">
+            <MentorApplicationDetail/>
+          </div>
+        </div>
+      </div>
+      <div className="sub_page_outer">
+      </div>
+      </>
+    );
+}
+export const MentorAddPage = () =>{
+  return (
+      <>
+       
+      <div id="sub_page_wrap">
+      <SubSideMenu title={"멘토링"} subtitle={"전문멘토신청"}/>
+        <div className="sub_page_inner_wrap">
+          <div className="sub_inner">
+            <MentorWrite/>
+          </div>
+        </div>
+      </div>
+      <div className="sub_page_outer">
+      </div>
+      </>
+    );
+}
+export const MentorApplicationAdd = () =>{
   return (
       <>
        

@@ -4,6 +4,7 @@ import { PreUri,CommonHeader, Method, getRspMsg} from "../../CommonCode";
 import Paging2 from "./Paging2";
 import styled from "styled-components";
 import {useDispatch,useSelector}  from "react-redux";
+import ImageGetArchive from "../sections/ImageGetArchive";
 export default function ListType2d() {
   const { token } = useSelector(state => state.user);
   const { authority_level } = useSelector(state => state.user);
@@ -87,7 +88,8 @@ export default function ListType2d() {
       <ol>
         {currentPost.map((item,index)=>(
           <li key={index}>
-          <div className="image_part">{item.attached_file==="Y"?<img src={"https://img.youtube.com/vi"+item.url.replace("https://www.youtube.com/embed","")+"/maxresdefault.jpg"} style={{"width":"240px","height":"150px","cursor":"pointer"}} onClick={(e)=>onItem(e,index)} />
+          <div className="image_part">{item.attached_file==="Y"?<ImageGetArchive attachFile={item.attached_file} no={item.attached_file==="Y"&&item.file_type==="text"?item.archive_no:0} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)} />
+
           :<img onClick={(e)=>onItem(e,index)} src={item.src} alt="no" style={{"cursor":"pointer"}}/>}</div>
           <div className="text_part">
             <h5 onClick={(e)=>onItem(e,index)}  style={{"cursor":"pointer"}}>{item.title} </h5>

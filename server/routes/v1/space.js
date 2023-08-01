@@ -38,7 +38,7 @@ router.get("/list", async(req,res,next)=>{
     if(floor)
     {
        query = {
-            attributes:['space_no','space_name','space_info','location','src'],
+            attributes:['space_no','space_name','space_info','location','src',],
             where:{
                 location:floor,
             },
@@ -76,7 +76,7 @@ router.get('/:space_no/detail', async(req,res,next)=>{
     let spacelist ;
     try{
         spacelist = await Space.findOne({
-            attributes:['space_no','space_name','space_info','location','src'],
+            attributes:['space_no','space_name','space_info','location','src','src2'],
             where:{space_no:space_no},
             order:[
                 ['created_at','DESC']

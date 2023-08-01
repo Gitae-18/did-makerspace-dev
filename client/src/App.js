@@ -53,6 +53,8 @@ import { BasicStudyContianer } from './containers/reference/BasicStudyContainer'
 import { MentoringDetailContainer } from './containers/Mentoring/MentoringDetailContainer';
 import { MentoringReportContainer } from './containers/Mentoring/MentoringReportContainer';
 import { MentoringAddContainer } from './containers/Mentoring/MentoringAddContainer';
+import { MentorApplicationContainer } from './containers/Mentoring/MentorApplicationContainer';
+import { MentorApplicationDetailContainer } from './containers/Mentoring/MentorApplicationDetailContainer';
 import './css/common-s.css';
 import './css/style-s.css';
 import TableType2a_a from './components/contents/TableType2a_a';
@@ -198,8 +200,9 @@ const App = () => {
         <Route path="/mschedule" element = {<Schedule/>} />
    
         
-        <Route path='/mentorcontrol/mentorapplication' element = {<MentorApplication/>}/>
-        <Route path='/mentorcontrol/mentorapplication/detail' element = {<NotCompelete/>}/>
+        <Route path='/mentorcontrol/mentorapplication' element = {<MentorApplicationContainer/>}/>
+        <Route path='/mentorcontrol/mentorapplication/add' element = {<MentorApplicationContainer/>}/>
+        <Route path='/mentorcontrol/mentorapplication/detail' element = {<MentorApplicationDetailContainer/>}/>
         <Route path='/mentorcontrol/mentorauthority' element = {<MentorAuthority/>}/>
         {/* <Route path='/mentorcontrol/mentoringreport' element = {<MentoringReport/>}/> */}
         <Route path='/mentorcontrol/mentoringreport/detail' element = {<MentoringReportDetail/>}/>

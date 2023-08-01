@@ -2,10 +2,11 @@ import React, { useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Portal } from "react-portal";
+import ImageGetHomeProgram from "../sections/ImageGetHomeProgram";
+import { CommonHeader, PreUri, Method } from "../../CommonCode";
+import "../../css/ModalStyle.css";
 
-
-
-function PopupModalAbout({
+function ClassHomeModal({
   className,
   onClose,
   maskClosable,
@@ -21,15 +22,15 @@ function PopupModalAbout({
       onClose(e);
     }
   };
-  const visitedBeforeDate = localStorage.getItem('AboutCookie');
+  
+  const visitedBeforeDate = localStorage.getItem('ClassCookie');
   const currentDate = new Date().getDate();
-  //const currentDate = 28;
-
+  //const currentDate = 29;
   useEffect(() => {
     if (visitedBeforeDate !== null) {
       // 날짜가 같을 경우 노출
       if (parseInt(visitedBeforeDate) === currentDate) {
-        localStorage.removeItem('AboutCookie');
+        localStorage.removeItem('ClassCookie');
         onClose(true);
       }
       // 날짜가 다를 경우 비노출
@@ -51,26 +52,40 @@ function PopupModalAbout({
       const expiry = new Date();
       expiry.setDate(expiry.getDate() + 1);
       const expiryDate = expiry.getDate();
-      localStorage.setItem('AboutCookie', expiryDate);
+      localStorage.setItem('ClassCookie', expiryDate);
     }
   }
 const [isMounted, setIsMounted] = useState(false);
 
+  const getFile = useCallback(async () => {
+    CommonHeader.authorization = token;
+    if (no !== undefined) {
+      const res = await fetch(PreUri + "/classedu/" + no + "/files", {
+        method: Method.get,
+        headers: {
+          authorization: token,
+        },
+      });
+      const fileList = await res.json();
+      if (fileList !== null || undefined) {
+        setAttachFile(fileList);
+      }
+    }
+  }, [token]);
   useEffect(() => {
+    getFile();
     setIsMounted(true);
-  }, []);
+  }, [getFile]);
 
   if (!isMounted) {
     return null;
   }
-
-
   return (
     <Portal elementId="modal-root">
       <ModalOverlay visible={visible} />
       <ModalWrapper
         className={className}
-//        onClick={maskClosable ? onMaskClick : null}
+        //onClick={maskClosable ? onMaskClick : null}
         tabIndex="-1"
         visible={visible}
       >
@@ -84,7 +99,7 @@ const [isMounted, setIsMounted] = useState(false);
               />
               <Title>DID기술융합공작소 공지사항</Title>
               <div className="modal-contents">
-               <InnerImg src="/images/active_time.jpg"/>
+                <ImageGetHomeProgram token={token} no={no} attachFile={attachFile} />
               </div>
             </ImgStyle>
             {closable && (
@@ -93,7 +108,7 @@ const [isMounted, setIsMounted] = useState(false);
                   오늘 하루 닫기
                 </Close>
                 <Close className="modal-close" onClick={close}>
-                   닫기
+                  닫기
                 </Close>
               </CloseStyle>
             )}
@@ -104,11 +119,15 @@ const [isMounted, setIsMounted] = useState(false);
   );
 }
 
-PopupModalAbout.propTypes = {
+ClassHomeModal.propTypes = {
   visible: PropTypes.bool,
 };
 
-
+const SubTitle = styled.h2`
+  width: 200px;
+  height: 20px;
+  position: relative;
+`;
 const ModalInner2 = styled.div`
   display: flex;
   flex-direction: column;
@@ -119,16 +138,16 @@ const ModalInner2 = styled.div`
 const Title = styled.h1`
   font-weight: 500;
   font-size: 15px;
-  background-color:none;
+  background-color: none;
   position: relative;
-  left:200px; 
+  left:100px; 
+  top:0;
   width:auto;
 `;
 const ImgStyle = styled.div`
-  margin:0 auto;
   background-color: #ffffff;
-  width: 550px;
-  height: 450px;
+  width: 350px;
+  height: 500px;
   box-sizing: border-box;
   border: solid #000000 2px;
 `;
@@ -140,28 +159,18 @@ const Imgtag = styled.img`
   position: relative;
   display: block;
 `;
-const InnerImg = styled.img`
-  width: auto;
-  height: 200px;
-  top: 10px;
-  position: relative;
-  right:200px;
-  width:400px;
-  margin:0 auto;
-`;
 const CloseStyle = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: #282828;
   width: 210px;
-  padding: 15px;
+  padding: 10px;
   border-radius: 0 0 15px 15px;
   color: #ffffff;
-  z-index:200;
 `;
 
 const Close = styled.span`
-  cursor:pointer;
+  cursor: pointer;
   margin:0 auto;
 `;
 
@@ -169,14 +178,15 @@ const ModalWrapper = styled.div`
   box-sizing: border-box;
   display: ${(props) => (props.visible ? "block" : "none")};
   position: fixed;
-  width:30%;
+  width:40%;
   top: 100px;
   right: 0;
   bottom: 0;
-  left: 40%;
+  left: 1%;
   z-index: 200;
   //overflow: auto;
   outline: 0;
+  
 `;
 
 const ModalOverlay = styled.div`
@@ -191,11 +201,13 @@ const ModalInner = styled.div`
   box-sizing: border-box;
   position: relative;
   width: auto;
-  max-width:700px;
-  top: 200px;
-  transform: translateY(-60%);
+  max-width: 480px;
+  height: 100px;
+  top: 30px;
+  transform: translateY(-50%);
+  transform: translateX(50%);
   margin: 0 auto;
   padding: 40px 20px;
 `;
 
-export default React.memo(PopupModalAbout);
+export default React.memo(ClassHomeModal);

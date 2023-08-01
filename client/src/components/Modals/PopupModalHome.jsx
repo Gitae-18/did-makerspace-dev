@@ -26,8 +26,10 @@ function PopupModalHome({
   
   const visitedBeforeDate = localStorage.getItem('HomeCookie');
   const currentDate = new Date().getDate();
-  //const currentDate = 14;
+  //const currentDate = 29;
   useEffect(() => {
+    console.log(parseInt(visitedBeforeDate));
+    console.log(currentDate);
     if (visitedBeforeDate !== null) {
       // 날짜가 같을 경우 노출
       if (parseInt(visitedBeforeDate) === currentDate) {

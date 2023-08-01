@@ -41,14 +41,15 @@ router.get('/testresult',verifyToken,async(req,res,next)=>{
      let result;
      try{
         result = await UserEquipmentTestPass.findAll({
-            attributes: [[UserEquipmentTestPass.sequelize.fn('DISTINCT', UserEquipmentTestPass.sequelize.col('type')), 'type'], 'pass_flag', 'user_no'],
-            where: { user_no },
+            attributes: [[UserEquipmentTestPass.sequelize.fn('DISTINCT', UserEquipmentTestPass.sequelize.col('type')),'type'],'pass_flag'],
+            where: { user_no , pass_flag:"Y"},
+            order:[ ['type', 'ASC'] ],
             raw: true,
         })
      }
      catch(error){
         console.error(error);
-        return res.status(errorCode.internalServerError).json({});
+        return res.status(errorCode.internalServerError).json({})
      }
      console.log(result);
      res.status(errorCode.ok).json(result);
