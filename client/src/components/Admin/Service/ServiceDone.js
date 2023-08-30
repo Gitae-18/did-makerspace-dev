@@ -7,6 +7,7 @@ import SideNavi from './SideNavi';
 import SubSideMenu from '../../contents/SubSideMenu';
 import '../../../css/common-s.css';
 import '../../../css/style-s.css';
+import { MdContentPaste } from 'react-icons/md';
 
 export default ({  no }) => {
     const mountedRef = useRef(true);
@@ -19,7 +20,35 @@ export default ({  no }) => {
     });
     const [checkValue, setCheckValue] = useState([]);
     const [serviceAppItem, setServiceAppItem] = useState({});
-
+    const [content,setContent] = useState('');
+    const [data,setData] = useState({
+        support_content:'',
+        support_result:'',
+    });
+    const [result,setResult] = useState('');
+    const [text,setText] = useState([]);
+    
+    const {support_content,support_result} = data;
+    const getData = useCallback(async() =>{
+        CommonHeader.authorization = token;
+        const res = await fetch(PreUri + '/service/'+ no +'/content',{
+            method: Method.get,
+            headers: CommonHeader
+        })
+        if (!res.ok) {
+            alert(getRspMsg(res.status));
+            return history(-1);
+		}
+        const dataJson = await res.json();
+        for(let i = 0; i<dataJson.length; i++)
+        {
+        setData(data=>({
+            ...data,
+            support_content:dataJson[0].support_content,
+            support_result:dataJson[0].support_result,
+        }))
+        }
+    },[])
     const getCategory = useCallback(async () => {
         CommonHeader.authorization = token;
         let response = await fetch(PreUri + '/service/category/all', {
@@ -39,7 +68,7 @@ export default ({  no }) => {
         for (let i = 0; i < count; i++) {
             arrayInit[i] = false;
         }
-
+       
         response = await fetch(PreUri + '/service/' + no + '/done', {
             method: Method.get,
             headers: CommonHeader
@@ -74,8 +103,10 @@ export default ({  no }) => {
             count,
             items: json.items,
         }));
-
+       
         let newServiceElement = [];
+        let newTextElement = [];
+        let textElement;
         for (let i = 0; serviceJson.category_items && i < serviceJson.category_items.length; i++) {
             let categoryItem = serviceJson.category_items[i];
 
@@ -188,16 +219,25 @@ export default ({  no }) => {
                     service_element_attempts: [...newAttempts],
                     attached_files: serviceElement.attached_files ? serviceElement.attached_files : [],
                 }
+                textElement = {
+                    support_content: serviceElement.support_content ? serviceElement.support_content : '',
+                    support_result: serviceElement.support_result ? serviceElement.support_result : '',
+                    service_category_no:categoryItem.service_category_no,
+                }
+                
             }
-
+      
             newServiceElement[i] = { ...newElement };
+            newTextElement[i] = { ...textElement };
         }
-
         serviceJson.service_element = newServiceElement;
-
+        
+        setText(newTextElement);
         setServiceAppItem(serviceJson);
     }, [no, token, history]);
-    console.log(serviceAppItem);
+
+    const textresult=Object.values(text);
+
     useEffect(() => {
         if (!no) {
             alert('Error : Service Number');
@@ -205,16 +245,55 @@ export default ({  no }) => {
         }
 
         getCategory();
+        getData();
         return () => {
             mountedRef.current = false
         }
-    }, [no, getCategory])
+    }, [no, getCategory, getData])
 
     const onDone = useCallback(async (e) => {
         e.preventDefault();
         history(-1);
     }, [history]);
 
+    const onUpdateContent = useCallback(async()=>{
+        CommonHeader.authorization = token;
+        const response = await fetch(PreUri + '/service/' + no +'/update', {
+            method: Method.put,
+            headers: CommonHeader,
+            body: JSON.stringify({
+                support_content:content,
+                support_result:result,
+            })
+        });
+        if (!response.ok) {
+            console.log('response error');
+            return;
+        }
+        alert('수정되었습니다.')
+        history('/mservice')
+    },[content,result])
+    const handleChangeText = (e) => {
+        const {name,value} = e.target;
+        setData({
+          ...data,
+          suppport_content:value,
+        })
+        setContent(...content,value);
+      };
+      const handleChangeResult = (event) => {
+        const { name, value } = event.target;
+       /*  setText((prevText) =>
+          prevText.some((item) => item.service_category_no === name)
+            ? prevText.map((item) =>
+                item.service_category_no === name
+                  ? { ...item, support_result: value }
+                  : item
+              )
+            : [...prevText, { service_category_no: name, support_result: value }] 
+        );*/
+        setResult(...result,value);
+      };
     const onFileDownload = useCallback(async (e, fileInfo) => {
         e.preventDefault();
         CommonHeader.authorization = token;
@@ -270,7 +349,6 @@ export default ({  no }) => {
             </tr>
         </>);
     }, []);
-
     const AttemptItem = useCallback(({ eleIdx, index, lastIndex, item, categoryData }) => {
 
         let MaterialUsageList = [];
@@ -309,8 +387,10 @@ export default ({  no }) => {
     }, []);
 
     // Service Element 
-    const CategoryElement = useCallback(({ index, categoryData, elementData }) => {
-        console.log(elementData)
+
+    const CategoryElement = useCallback(({ index, categoryData, elementData,textData,contentData,resultData}) => {
+/*         const content = text[index].support_content;
+        const result = text[index].support_result; */
         let AttemptList = [];
         for (let i = 0; i < elementData.service_element_attempts.length; i++) {
             const item = elementData.service_element_attempts[i];
@@ -367,21 +447,25 @@ export default ({  no }) => {
                             </td>
                         </tr>
                         <tr className="enter"></tr>
-                        <tr>
-                            <th className="textarea">지원 내용</th>
-                            <td colSpan="3" className="textarea"><textarea name='support_content' readOnly={true} value={elementData.support_content} ></textarea></td>
-                        </tr>
-                        <tr className="enter"></tr>
-                        <tr>
+                 
+                        
+                              <tr className="enter"></tr>
+                              <tr key={index}>
+                                 <th className="textarea">지원 내용</th>
+                                 <td colSpan="3" className="textarea"><textarea name='content' id="content" value={data.support_content} onChange={handleChangeText}></textarea></td>
+                             </tr>
+                             <tr className="enter"></tr>
+                            <tr>
                             <th className="textarea">지원 결과</th>
-                            <td colSpan="3" className="textarea"><textarea name='support_result' readOnly={true} value={elementData.support_result} ></textarea></td>
-                        </tr>
+                            <td colSpan="3" className="textarea"><textarea name='result'  id="result" value={data.support_result} onChange={handleChangeResult}></textarea></td>
+                             </tr>
+                            
                         {AttachedFileItems}
                     </tbody>
                 </table>
             </div>
         );
-    }, [onFileDownload]);
+    }, [onFileDownload,text,data]);
 
 
 
@@ -481,12 +565,15 @@ export default ({  no }) => {
     let CategoryElements = [];
     const categories = serviceAppItem.category_items;
     const serviceElement = serviceAppItem.service_element;
-
     for (let i = 0; categories && i < categories.length; i++) {
         let element;
+        let content;
+        let result;
         for (let j = 0; serviceElement && j < serviceElement.length; j++) {
             if (categories[i].service_category_no === serviceElement[j].service_category_no) {
                 element = serviceElement[j];
+                content = serviceElement[j].support_content;
+                result = serviceElement[j].support_result;
             }
         }
 
@@ -495,6 +582,8 @@ export default ({  no }) => {
                 index={i}
                 categoryData={categories[i]}
                 elementData={element}
+                contentData={content}
+                resultData={result}
                 isReadOnly={true}
                 key={i} />
         );
@@ -569,6 +658,7 @@ export default ({  no }) => {
                         {CategoryElements}
                     </div>
                     <button className="btn_ok" onClick={onDone}>확인</button>
+                    <button className="btn_edit" onClick={onUpdateContent}>수정</button>
                 </div>
             </div>
         </div>

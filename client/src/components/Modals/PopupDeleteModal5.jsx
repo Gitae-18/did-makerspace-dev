@@ -15,8 +15,9 @@ function PopupDeleteModal5({
   serviceItems,
   no,
   token,
+  period
 }) {
-    console.log(no);
+  console.log(period)
   const history = useNavigate();
   /*  const open = (e) =>{
        onClose(true)
@@ -30,10 +31,15 @@ function PopupDeleteModal5({
   };
   const DropItem = useCallback(
     async (e, i) => {
-      /* for(let i = 0 ; i<ServiceItemRow.length;i++){
-        serviceNum = ServiceItemRow[i][2].service_no; 
-        }
-        console.log(serviceNum); */
+      const newdate = new Date(period); // period에는 기준 날짜가 들어가야 합니다.
+      const daysAgo = new Date(newdate);
+      daysAgo.setDate(daysAgo.getDate() - 3); // 3일 전 날짜 계산      
+      const now = new Date();
+      
+      if (now < daysAgo) {
+        alert('교육/행사 신청기한 마감 3일 전부터 취소하실 수 있습니다.');
+      }
+      else{
       CommonHeader.authorization = token;
       const response = await fetch(PreUri + "/classedu/" + no + "/drop", {
         method: Method.delete,
@@ -43,6 +49,7 @@ function PopupDeleteModal5({
         return;
       }
       alert("삭제되었습니다");
+      }
       history(0);
       /*   let item;
                 for(let i = 1 ; i<serviceItems.items.length && i < serviceItems.limit;i++)

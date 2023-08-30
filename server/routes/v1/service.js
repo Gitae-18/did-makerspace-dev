@@ -278,8 +278,8 @@ router.get('/', verifyToken, async (req, res, next) => {
     const company = (req.query.company === undefined) ? 0 : Number(req.query.company);
     const startDate = req.query.sdate ? new Date(req.query.sdate) : undefined;
     const endDate = req.query.edate ? new Date(req.query.edate) : undefined;
+    const search = (req.query.search === undefined) ? '' :String(req.query.search);
 
- 
     Service.hasOne(ServiceApplication, { foreignKey: 'service_no', sourceKey: 'service_no' });
     ServiceCategory.hasOne(Company, { foreignKey: 'company_no', sourceKey: 'company_no' });
    //필터링 쿼리
@@ -360,7 +360,15 @@ router.get('/', verifyToken, async (req, res, next) => {
             user_no,
         };
     }
-
+    
+    if (search){
+        query.where = {
+            ...query.where,
+            title: {
+                [Op.like]: `%${search}%`
+            }
+        }
+    }
     let findResult;
     try {
         findResult = await Service.findAll(query);
@@ -423,26 +431,7 @@ router.get('/', verifyToken, async (req, res, next) => {
         raw: true,
 
     }
-    try {
-        com_no = await User.findOne({
-        attributes:['company_no'],
-        where:{user_no}
-        })
-    }
-    catch(error){
-        console.log(error);
-    }
-    let companyNum = com_no.dataValues;
-    let companyName ;
-    try{
-        companyName = await Company.findOne({
-            attributes:['name'],
-            where:{company_no:companyNum.company_no}
-        })
-    }
-    catch(error){
-        console.log(error);
-    }
+
     if (query.where) { itemsQuery.where = query.where; }
     if (query.include) { itemsQuery.include.push(query.include); }
    
@@ -454,7 +443,37 @@ router.get('/', verifyToken, async (req, res, next) => {
         console.log(error);
         return res.status(errorCode.internalServerError).json({});
     }
-
+    const users = items.map((item) => item.user_no) ;
+    const promises = users.map(async (userNo) => {
+        try {
+          const comNo = await User.findOne({
+            attributes: ['company_no'],
+            where: { user_no: userNo },
+          });
+          return comNo;
+        } catch (error) {
+          console.log(error);
+          return null; // 에러 처리 필요
+        }
+      });
+      
+      const companyNumbers = await Promise.all(promises);
+    let companyNum = companyNumbers.map((items) => items.dataValues);
+    let companyName ;
+    const companyNoArray = companyNum.map((element) => element.company_no);
+    try{        
+        companyName = await Company.findAll({
+            attributes:['name'],
+            where: {
+                company_no: {
+                    [Op.in]: companyNoArray
+                }
+            }
+        });        
+    }
+    catch(error){
+        console.log(error);
+    }
     for (let i = 0; i < items.length; i++) {
         items[i]['username'] = items[i]['user.name'];
         delete items[i]['user.name'];

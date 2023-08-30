@@ -18,16 +18,12 @@ export default function MyClassReserv() {
   const [currentPage,setCurrentPage] = useState(1);
   const [postPage, setPostPage] = useState(10);
   const [modalvisible,setModalVisible] = useState(false);
+  const [period, setPeriod] = useState('');
   const [count,setCount] = useState(0);
   const indexOfLastPost = currentPage * postPage
   const indexOfFirstPost = indexOfLastPost - postPage
   const currentPost = reservList.slice(indexOfFirstPost, indexOfLastPost)
-
-
-
-
-    
-
+  
   const getReservList = useCallback(async()=>{
     CommonHeader.authorization = token;
 
@@ -42,29 +38,27 @@ export default function MyClassReserv() {
       return;
     }
     const json = await response.json();
-
     setReservList(json);
     setCount(json.length);
-
+    setPeriod(json);
   },[token])
-  const activeEnter = (e) => {
+/*   const activeEnter = (e) => {
     if(e.key === "Enter") {
       onSearch(e);
     }
-  }
+  } */
   const handlePageChange = (e) =>{
     setCurrentPage(e)
   }
-  console.log(reservList)
   const DropItem = useCallback(async(e,i)=>{
     setModalVisible(true);
     setDropNo(e.application_no);
-    },[reservList])
-  const onChange = (e) =>{
+    },[reservList,period])
+/*   const onChange = (e) =>{
     e.preventDefault();
     setSearch(e.target.value);
-  }
-  const onSearch = useCallback(async(e) =>{
+  } */
+/*   const onSearch = useCallback(async(e) =>{
     e.preventDefault();
 
     if(search=== null || search === ''){
@@ -84,7 +78,7 @@ export default function MyClassReserv() {
     setCurrentPage(1)
   }
  setSearch('');
-},[search])
+},[search]) */
 const closeModal = () =>{
   setModalVisible(false);
 }
@@ -129,7 +123,7 @@ const closeModal = () =>{
               <span className="time">{item.created_at.slice(10,)}</span>
             </td>
             <td><StyledBtn3 onClick={(e)=>DropItem(item,index)}>삭제</StyledBtn3></td>
-            {modalvisible&& <PopupDeleteModal5  no={dropno} visible={modalvisible} closable={true} maskClosable={true} onclose={closeModal} token={token} serviceItems={reservList} />} 
+            {modalvisible&& <PopupDeleteModal5  no={dropno} visible={modalvisible} closable={true} maskClosable={true} onclose={closeModal} token={token} serviceItems={reservList} period={period[index].period_end}/>} 
           </tr>)):<>내용이 비었습니다</>}
         </tbody>
       </table>

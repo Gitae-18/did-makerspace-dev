@@ -41,7 +41,20 @@ function EduReservModal({ classname, visible, onclose, closable, no }) {
       setReservList(json);
       setCount(json.length);
  },[])
- console.log(reservList)
+ const DropItem = useCallback(async(e,i)=>{
+  const no = e.application_no;
+  CommonHeader.authorization = token;
+      const response = await fetch(PreUri + "/classedu/" + no + "/dropapp", {
+        method: Method.delete,
+        headers: CommonHeader,
+      });
+      if (!response.ok) {
+        return;
+      }
+  alert('삭제되었습니다.');
+  history(0);
+  },[reservList])
+
  useEffect(()=>{
     getReservList();
  },[getReservList])
@@ -75,6 +88,7 @@ function EduReservModal({ classname, visible, onclose, closable, no }) {
                     <th>이메일</th>
                     <th>신청일</th>
                     <th>삭제여부</th>
+                    <th>삭제</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -85,6 +99,7 @@ function EduReservModal({ classname, visible, onclose, closable, no }) {
                             <StyledTd>{item.email}</StyledTd>
                             <StyledTd>{item.created_at.slice(0,10)}</StyledTd>
                             <StyledTd>{item.deleted_at?"취소함":""}</StyledTd>
+                            <StyledTd><StyledBtn3 onClick={(e)=> DropItem(item,index)}>삭제</StyledBtn3></StyledTd>                            
                         </StyledTr>
                     ))
                     }
@@ -215,5 +230,16 @@ const ModalInner = styled.div`
   margin: 0 auto;
   padding: 40px 20px;
 `;
-
+const StyledBtn3= styled.button`
+color:#fff;
+background-color:#313f4f;
+width:50px;
+height:30px;
+font-size:0.7rem;
+cursor:pointer;
+ &:hover{
+    background-color:#transparent
+    color:#313f4f
+ }
+ `
 export default React.memo(EduReservModal);

@@ -4,14 +4,19 @@ import { useNavigate,useLocation } from 'react-router-dom';
 import { CommonHeader, PreUri, Method, ProgressCode, StatusCode, PageMax, getRspMsg ,AuthLevel} from '../../../CommonCode';
 import { /* M_SERVICE_DELETE, */ M_SERVICE_SET } from "../../../store/manager_service";
 import SubSideMenu from '../../contents/SubSideMenu';
+import styled from 'styled-components';
 import PopupDeleteModal from '../../Modals/PopupDeleteModal';
 import '../../../css/Paging.css';
 import '../../../css/common-s.css';
 import '../../../css/style-s.css';
 
+const StyledInput = styled.input`
+    width:120px;
+    height:40px;
+    justify-content:'center';
+`
 
-
-function makeQuery(step, dateType, year, month, company,serviceNo) {
+function makeQuery(step, dateType, year, month, search) {
     const search_year = "year=" + year;
     const search_month = "month=" + month;
     
@@ -28,9 +33,9 @@ function makeQuery(step, dateType, year, month, company,serviceNo) {
         query += ((query.length > 0) ? "&" : "") + search_year;
         query += ((query.length > 0) ? "&" : "") + search_month;
     }
-    if(company && company !== 0){
-        query += ((query.length > 0)? "&":"") +"company="+ company;
-    }
+        if(search && search !== null){
+            query += ((query.length > 0)? "&":"") +"search="+ search;
+        }
     return query;
 }
 
@@ -43,9 +48,11 @@ export default function ({ query , no }) {
     const history = useNavigate();
     //const mountedRef = useRef(true);
     const [info,setInfo] = useState("");
+    const [searchItem,setSearchItem] = useState([]);
     const [deleted,setDeleted] = useState(false);
     const [checkValue, setCheckValue] = useState([]);
     const [serviceno,setServiceno] = useState();
+    const [currentPage, setCurrentPage] = useState(1);
 	const [serviceAppItem, setServiceAppItem] = useState({
 		serviceNo: '',
 		name: '',
@@ -63,14 +70,17 @@ export default function ({ query , no }) {
     let PageList = [];
 
     const [modalvisible,setModalVisible] = useState(false);
-    const [companyNo,setCompanyNo] = useState(0);
+    //const [companyNo,setCompanyNo] = useState(0);
     const [company,setCompany] = useState(0);
     const [step, setStep] = useState(0);
     const [dateType, setDateType] = useState("ALL");
     const [year, setYear] = useState(0);
     const [month, setMonth] = useState(0);
     const [dropno,setDropNo] = useState();
+    const [option,setOption] = useState('title');
     const [companyName,setCompanyName] = useState([]);
+    const [search,setSearch] = useState('');
+    const [isSearch, setIsSearch] = useState(false);
     const [serviceItems, setServiceItems] = useState({
         totalCount: 0,
         totalPage: 0,
@@ -84,6 +94,8 @@ export default function ({ query , no }) {
             }
         ],
     });
+console.log(serviceItems)
+    
     const getCompanyList = useCallback(async (query) =>{
 
         const res = await fetch(PreUri + "/company/companyno",{
@@ -102,7 +114,8 @@ export default function ({ query , no }) {
        
 
         const pageNumber = query.page ? query.page : 1 ;
-        const company = query.company ? query.company : 0 ;
+        //const company = query.company ? query.company : 0 ;
+        const search = query.search ? query.search : '';
         const dt = query.dt ? query.dt : "ALL";
         const year = query.year ? query.year : 0;
         const month = query.month ? query.month : 0;
@@ -112,6 +125,7 @@ export default function ({ query , no }) {
         setMonth(month);
         setStep(step);
         setCompany(company); 
+        setSearch(search)
    
         
         let startDate, endDate;
@@ -164,15 +178,14 @@ export default function ({ query , no }) {
         if (step > 0 && step < 5) {
             requri += "&step=" + step;
         }
-        if(company){
-           requri += "&company=" + company ;
+        if(search){
+            requri += "&search=" +  encodeURI(search);
         }
         const response = await fetch(requri, {
             method: Method.get,
             headers: CommonHeader
         });
-        
-
+    
         if (!response.ok) {
             console.log('잘못된 접근입니다.');
             return;
@@ -205,42 +218,45 @@ export default function ({ query , no }) {
    
     useEffect(() => {
         getServiceList(query);
-        getCompanyList(query);
-    }, [getServiceList, query],[getCompanyList,query] )
+    }, [getServiceList, query] )
  
 
     let cal = serviceItems.items
 
-    /* const ServiceDrop = useCallback((async(e,i,serviceno)=>{
-        let copy = {...serviceItems};
-        const item_no = copy.items[i].service_no;
-        if(item_no > 0){
-            CommonHeader.authorization = token;
-            let response = await fetch(PreUri + '/service/' + no + "/service/drop",{
-                method:Method.delete,
-                headers: CommonHeader                
-            });
-            if(!response.ok){
-                alert(getRspMsg(response.status));
-                console.log('remove error');
-                return;
-            }
-        }
-        //serviceItems.items.filter(item=> item.service_no !== i)
-        
-        setServiceItems(serviceItems=>({
-            ...serviceItems,
-            totalCount:serviceItems.totalCount-1,
-            totalPage:serviceItems.totalPage,
-            currentPage:serviceItems.currentPage,
-            limit: serviceItems.limit,
-            pageOffset: serviceItems.pageOffset,
-            items:serviceItems.items.filter(item=> item.service_no !== serviceno),
-            co_name:serviceItems.co_name,
-            categories:serviceItems.categorie}))
    
-    }),[serviceItems,token]) */
-  
+    const onSearch = useCallback(async(e) =>{
+        e.preventDefault();
+        if(search=== null || search === ''){
+            let addQuery = makeQuery(step, dateType, year, month, search);
+            addQuery = (addQuery.length > 0) ? "?" + addQuery : "";
+            history(location.pathname + addQuery,{replace:true});
+        }
+        else{
+            let addQuery = makeQuery(step, dateType, year, month, search);
+            addQuery = (addQuery.length > 0) ? "?" + addQuery : "";
+            history(location.pathname + addQuery,{replace:true});
+        }
+     /*  else {
+        if(option==="title")
+        {
+        const filterData = serviceItems.items.filter((item) => item.title.toLowerCase().includes(search.toLowerCase()))
+        setSearchItem(filterData)
+        setCurrentPage(1)
+        setIsSearch(true);
+        }
+        else if (option === "name"){
+        const filterData = serviceItems.items.filter((item) => item.username.toLowerCase().includes(search.toLowerCase()))
+        setSearchItem(filterData)
+        setCurrentPage(1)
+        setIsSearch(true);
+        }
+      } */
+      if(search=== null || search === '')
+      {
+      setSearch('');
+      }
+      },[history,search,step,dateType,year,month])
+
     const onPage = useCallback((e, newPageNumber) => {
         e.preventDefault();
 
@@ -301,11 +317,13 @@ export default function ({ query , no }) {
        history(location.pathname + addQuery,{replace:true});
     }, [history, dateType, year, month,company]);
     const onSelect = (e) =>{
-        setCompanyNo(e.target.value);
-        setCompany(e.target.value);
+       setOption(e.target.value);
     }
-   
-    const onSelectCompany = useCallback((e) =>{
+    const onChange = (e) => {
+        setSearch(e.target.value);
+      }
+    
+/*     const onSelectCompany = useCallback((e) =>{
         e.preventDefault();
         let addQuery = makeQuery(step,dateType, year, month, company)
         addQuery = (addQuery.length>0)?"?" + addQuery: "";
@@ -318,7 +336,7 @@ export default function ({ query , no }) {
             className={pageNum === serviceItems.currentPage ? "active" : ""}
             key={i}>{pageNum}</button>);
     }
-
+ */
       
     const ServiceItemRow = useCallback((props) => {
         return (<>                                                                                                                                                              
@@ -359,9 +377,7 @@ export default function ({ query , no }) {
                     updateDate={item.updated_at.substring(0, 10)}
                     progress={item.progress}
                     status={item.status}
-                    co_name={serviceItems.companyName.name}
-                    //onDelete={(e) => onDelete(e,i)}
-                   /*  ServiceDrop={(e) => ServiceDrop(e,i,serviceno)} */
+                    co_name={serviceItems.companyName[i].name}
                     onClick={(e) => onSelectItem(e, i)}
                     onPrint={(e) => onPrint(e, i)}
                     onDelete = {(e) =>DropItem(item.service_no,i)}
@@ -369,7 +385,6 @@ export default function ({ query , no }) {
                    )
             };
     }   
-    console.log(serviceItems)
 
     const DropItem = useCallback(async(e,i)=>{
         setDeleted(true);
@@ -402,11 +417,22 @@ export default function ({ query , no }) {
                         </ul>
                     </div>
                     <h2>서비스 신청 목록</h2>
-                    <select className="class" onChange = {(e)=>onSelect(e)}  onClick={(e)=>onSelectCompany(e,company)} >
+                   {/*  <select className="class" onChange = {(e)=>onSelect(e)}  onClick={(e)=>onSelectCompany(e,company)} >
                      {companyName.map((el,idx)=>(
                          <option  key ={el.name} value={el.company_no}>{el.name}</option>
                      ))}
-                    </select>
+                    </select> */}
+                      <div>
+                        <select name="" id="" style={{marginBottom:'2px'}} onChange = {(e)=>onSelect(e)}>
+                            <option value="title">제목</option>
+                            {/* <option value="name">신청자</option> */}
+                        </select>
+                        <div style={{marginBottom:'2px'}}>
+                        <input type="text"  value={search} name="search" onChange={onChange}   onKeyPress={(e) => { if (e.key === 'Enter') { onSearch(e) } }} placeholder='검색어를 입력하세요'
+                        style={{width:'160px',border:'1px solid #e5e5e5'}}/>
+                        <button className="search_btn" type="button" onClick={onSearch} style={{marginLeft:'10px',width:'100px'}}>검색</button>
+                        </div>
+                      </div>
                     <div className="table">
                         <div className="table_btn">
                             <button className={dateType === "ALL" ? "on" : ""} onClick={onSearchByDate}>전체</button>

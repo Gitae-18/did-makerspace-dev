@@ -507,9 +507,16 @@ router.get('/myclass_application',verifyToken,async(req,res,next)=>{
     const title = req.query.title;
     let user_no = req.decoded.user_no
     let result;
+
+    ClasseduApplication.hasOne(ClasseduProgram,{ foreignKey: 'program_no' , sourceKey: 'program_no'})
     try{
         result = await ClasseduApplication.findAll({
-            attributes:['application_no','classedu_type','title','flag','created_at'],
+            attributes:['application_no','program_no','classedu_type','title','flag','created_at'],
+            include:[
+                {model:ClasseduProgram,
+                    attributes:['application_period_end'],
+                }
+            ],
             where:{created_user_no:user_no},
             order:[['created_at','DESC']],
             raw:true,
@@ -519,6 +526,10 @@ router.get('/myclass_application',verifyToken,async(req,res,next)=>{
         console.log(error)
         return res.status(errorCode.internalServerError).json({});
     }    
+    for (let i = 0; i < result.length; i++) {
+        result[i]['period_end'] = result[i]['classedu_program.application_period_end'];
+        delete result[i]['classedu_program.application_period_end'];
+    }
     res.status(errorCode.ok).json(result);
 })
 router.get('/:program_no/getimage',async(req,res,next)=>{
@@ -569,8 +580,21 @@ router.delete('/:program_no/dropitem', verifyToken, async (req, res, next) => {
     } 
    res.status(errorCode.ok).json({});
 })
-
-module.exports = router;
+router.delete('/:application_no/dropapp', verifyToken, async (req, res, next) => {
+    const application_no  = req.params.application_no;
+    
+    let deleteservice;
+    try{
+          deleteservice = await ClasseduApplication.destroy({
+           where:{application_no},
+           raw:true
+       })
+    }
+    catch (error) {
+        console.error(error);
+    } 
+   res.status(errorCode.ok).json({});
+})
 router.get('/:program_no/filesno',async (req, res, next) => {
     let program_no = req.params.program_no;
    

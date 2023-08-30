@@ -592,6 +592,7 @@ router.put('/password', verifyToken, async (req, res, next) => {
             password : newHashPassword,
             salt: newSalt,
             updated_user_no: user_no,
+            login_jwt:null,
         }, {
             where: { user_no }
         });
@@ -829,7 +830,8 @@ router.put('/partner/:no', verifyToken, async (req, res, next) => {
     let result;
     try {
         result = await User.update({
-            authority_level: body.authority_level
+            authority_level: body.authority_level,
+            login_jwt:null,
         }, {
             where: { user_no : target_user_no }
         });

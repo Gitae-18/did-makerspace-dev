@@ -514,7 +514,7 @@ display:block;
 .wrap.service1 .content_wrap .content .page_num a.prev{width:8px;height:20px;background:url(/images/arrow_prev.png) no-repeat 50% 50%;margin-right:18px;position:relative;bottom:7px;}
 .wrap.service1 .content_wrap .content .page_num a.next{width:8px;height:20px;background:url(/images/arrow_next.png) no-repeat 50% 50%;margin-left:18px;position:relative;bottom:7px;}
 .wrap.service1 .content_wrap .content .page_num a.last{width:11px;height:20px;background:url(/images/arrow_last.png) no-repeat 50% 50%;position:relative;bottom:7px;} */
-.wrap.service1 .content_wrap .content select{width:180px;border:1px solid #999;padding-left:10px;border-radius:2px 2px;appearance: none;background:url(/images/arrow_down.png) no-repeat 95% 50%;font-family:inherit;}
+.wrap.service1 .content_wrap .content select{width:120px;border:1px solid #999;padding-left:10px;border-radius:2px 2px;appearance: none;background:url(/images/arrow_down.png) no-repeat 95% 50%;font-family:inherit;}
 
 
 /* service-2 */
@@ -852,6 +852,7 @@ display:block;
 
 /* service-8 */
 .wrap.service8{background:#fff;}
+
 .wrap.service8 .content_wrap .content{padding-left:132px;padding:68px 22px 40px 134px;box-sizing:border-box;padding-top:14%; width:92%;}
 .wrap.service8 .content_wrap .content .form{border:1px solid #e5e5e5;box-sizing:border-box;padding:60px 0;position:relative;}
 .wrap.service8 .content_wrap .content h2{font-size:22px;color:#222;padding-bottom:72px;text-align:center;}
@@ -923,6 +924,7 @@ display:block;
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);}
 .wrap.service8 .content_wrap .btn_ok{display:block;width:190px;height:50px;line-height:50px;color:#fff;font-size:16px;font-weight:500;border-radius:40px;margin:46px auto 0;background:#0f2753;text-align:center;border:0;cursor:pointer;}
+.wrap.service8 .content_wrap .btn_edit{width:190px;height:50px;line-height:50px;color:#fff;font-size:16px;font-weight:500;border-radius:40px;background:#0f2753;text-align:center;border:0;cursor:pointer;position:relative;left:58%;bottom:50px;}
 .wrap.service8 .add{width:30px;height:	30px;border:0;cursor:pointer;color:#fff;font-weight:700;border-radius:50%;background:#0f2753;box-shadow:1px 1px 10px rgba(0,0,0,0.2);font-size:26px;position:absolute;right:-16px;bottom:66px;font-family:'Roboto';line-height:29px;}
 
 /* service-9 */

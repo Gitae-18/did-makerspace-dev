@@ -526,14 +526,15 @@ export default ({ no }) => {
     //             key={i} />);
     //     };
     // }
-
+    
     const MaterialUsageItem = useCallback(({ eleIdx, atpIdx, index, lastIndex, categoryData, equipCategory, materialItems, usageItem, onChange, onAddEquipRow, isReadOnly }) => {
         let EquipOptions = [];
         let MaterialOptions = [];
-
+        console.log(categoryData);
+        console.log(equipCategory);
         EquipOptions.push(<option value={0} key={0}>없음</option>);
         for (let i = 0; i < equipCategory.length; i++) {
-            const isHidden = (categoryData.service_category_no === equipCategory[i].service_category_no) ? false : true;
+            const isHidden = ((categoryData.service_category_no === equipCategory[i].service_category_no) || (equipCategory[i].company_no === categoryData.company_no)) ? false : false;
             EquipOptions.push(<option value={i + 1} key={i + 1} hidden={isHidden} >{equipCategory[i].model_name}</option>);
         };
 
@@ -545,9 +546,10 @@ export default ({ no }) => {
                 MaterialOptions.push(<option value={i + 1} key={i + 1} hidden={isHidden} >{materialItems[i].name}</option>);
             };
         }
-
+        console.log(EquipOptions)
         const onChangeEquip = useCallback((e) => {
             if (isReadOnly) { return; }
+            console.log(e);
             onChange(e, eleIdx, atpIdx, index, EquipSec);
         }, [onChange, eleIdx, atpIdx, index, isReadOnly]);
 
