@@ -46,10 +46,11 @@ export default function SectionInputTextType3a() {
    setTitle(e.target.value);
  }
  const onAddressChange = (e) =>{
-    setAddress(e.target.value);
+   const address = e.target.value.slice(-11);
+    setAddress('https://www.youtube.com/embed/'+address);
  }
 
- const handleChangeFile = (e) =>{
+  const handleChangeFile = (e) =>{
   setImageFile(e.target.files);
 
   const file = e.target.files[0];

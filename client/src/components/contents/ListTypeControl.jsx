@@ -59,8 +59,12 @@ export default function ListTypeControl() {
   );
   const closeModal = () =>{
     setModalVisible(false);
-}
-
+  }
+  const onEdit = (e) => {
+    const archive_no = e.archive_no;
+    console.log(archive_no)
+    history('/archive/update',{state:{archive_no:archive_no}});
+  }
   const getItem = useCallback(async() =>{
     CommonHeader.authorization=token;
     const response = await fetch(PreUri +'/archive/archive_list_all',{
@@ -122,23 +126,25 @@ export default function ListTypeControl() {
   },[getItem,getFile])
   return (
     <div className="table_wrap">
-      <table>
+      <table style={{width:'1315px',tableLayout:'fixed'}}>
         <thead>
         <tr>
             <th>No</th>
             <th>제목</th>
             <th>업로드일</th>
             <th>조회수</th>
+            <th>수정</th>
             <th>삭제</th>
           </tr>
         </thead>
         {currentPost.map((item,index)=>(
             <tr key={index}>
-                <td>{data.length - index - (currentPage - 1) * postPerPage}</td>
-                <td>{item.title}</td>
-                <td>{item.created_at}</td>
-                <td>{item.hit}</td>
-                <td><StyledBtn3 onClick={(e)=>DropItem(item,index)}>삭제</StyledBtn3></td>
+                <td style={{borderBottom:'1px solid #d2d2d2'}}>{data.length - index - (currentPage - 1) * postPerPage}</td>
+                <td style={{borderBottom:'1px solid #d2d2d2'}}>{item.title}</td>
+                <td style={{borderBottom:'1px solid #d2d2d2'}}>{item.created_at}</td>
+                <td style={{borderBottom:'1px solid #d2d2d2'}}>{item.hit}</td>
+                <td style={{borderBottom:'1px solid #d2d2d2'}}><StyledBtn2 onClick={(e)=>onEdit(item,index)}>수정</StyledBtn2></td>
+                <td style={{borderBottom:'1px solid #d2d2d2'}}><StyledBtn3 onClick={(e)=>DropItem(item,index)}>삭제</StyledBtn3></td>
                 {modalvisible&& <PopupDeleteModal3  no={dropno} visible={modalvisible} closable={true} maskClosable={true} onclose={closeModal} token={token} serviceItems={data} />} 
             </tr>
         ))}
@@ -152,8 +158,6 @@ export default function ListTypeControl() {
 
 const StyledBtn2= styled.button`
 position:relative;
-left:45%;
-top:20px;
 color:#fff;
 background-color:#313f4f;
 width:120px;

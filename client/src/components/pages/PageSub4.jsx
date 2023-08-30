@@ -18,6 +18,7 @@ import SectionInputTextType3a from "../sections/SectionInputTextType3a";
 import SectionInputTextType4a from "../sections/SectionInputTextType4a";
 import SectionInputTextType5a from "../sections/SectionInputTextType5a";
 import TableType1e_User from "../contents/TableType1e_User";
+import ListType2c_update from "../contents/ListyType2c_update";
 import { useDispatch,useSelector } from "react-redux";
 export default function Contact({location,history}) {
 /*     const [value,setValue] = useState(""); */
@@ -270,6 +271,22 @@ export default function Contact({location,history}) {
           <div className="sub_page_inner_wrap">
             <div className="sub_inner">
               <ListTypeControl/>
+            </div>
+          </div>
+        </div>
+        <div className="sub_page_outer">
+        </div>
+      </>
+    )
+  }
+  export const ArchiveUpdate = () =>{
+    return(
+      <>
+       <div id="sub_page_wrap">
+          <SubSideMenu title={"자료실"} subtitle={"자료관리"}></SubSideMenu>
+          <div className="sub_page_inner_wrap">
+            <div className="sub_inner">
+              <ListType2c_update/>
             </div>
           </div>
         </div>

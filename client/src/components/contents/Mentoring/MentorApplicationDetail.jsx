@@ -19,6 +19,7 @@ export default function MentorApplicationDetail(){
     const [modalOpen,setModalOpen] = useState(false);
     const [openModal,setOpenModal] = useState(false);
     const [modal,setModal] = useState(false);
+    const [mentorNo,setMentorNo] = useState(null);
     //OSA(신청),RUN(진행),REJ(거절),PRC(진행완료)
     //멘토링 넘버
     const mentoring_no = location.state.no;
@@ -59,11 +60,10 @@ export default function MentorApplicationDetail(){
             attached_file_no = attachFile.attached_file_no
           }
         }
-     
         const response = await fetch(PreUri + '/mentoring/' + mentoring_no + '/mentorfile/' + fileInfo.attached_file_no, {
             method: Method.get,
         });
-    
+        
         if (!response.ok) {
             console.log('response error');
             return;
@@ -140,7 +140,6 @@ export default function MentorApplicationDetail(){
         },[mentoring_no])
         const handleChangeStatus = useCallback(async(confirmFlag)=>{
           CommonHeader.authorization = token;
-          console.log(confirmFlag)
           if(confirmFlag === 'N')
           {
           setStatus('N');
@@ -167,7 +166,31 @@ export default function MentorApplicationDetail(){
         }
         history(-1);
         },[token, rejectContent,mentoring_no,status])
-
+      console.log(mentorNo);
+      console.log(status);
+      const onHandleSaveMentor = useCallback(async(e) => {
+        const filteredTexts = radioButtonList
+        .filter(item => item.checked === true)
+        .map(item => item.text);
+        console.log(data.name)
+            const response = await fetch(PreUri + '/mentoring/mentorstore?mentor_no=' + mentorNo,{
+              method:Method.post,
+              headers: CommonHeader,
+              body: JSON.stringify({
+                  permission_flag:'Y',
+                  field:data.major,
+                  introduction:data.text,
+                  keyword:filteredTexts,
+                  mentor_profile:data.department,
+                  user_no:mentorNo,
+                  name:data.name,
+              })
+            })
+            if (!response.ok) {
+              alert(getRspMsg(response.status));
+            }
+          
+      },[token,mentorNo,data])
       const onResponseConfirm = useCallback(async(e) => {
           e.preventDefault();
           handleChangeStatus('Y')
@@ -183,9 +206,9 @@ export default function MentorApplicationDetail(){
               alert("response error");
             }
             const json = await response.json();
+            onHandleSaveMentor();
     }, [status, handleChangeStatus])
-             
-    console.log(status)
+
     const onReject = useCallback(async(e) => {
       e.preventDefault();
       if (rejectContent.length < 1) {
@@ -222,8 +245,8 @@ export default function MentorApplicationDetail(){
             return;
         }
         const json = await response.json();
-        console.log(json)
         setData(json);
+        setMentorNo(json.user_no);
         setStatus(json.status);
         const updateRadioButtonaList = radioButtonList.map(item => {
             if(json.specialization.includes(item.text)){
@@ -297,7 +320,7 @@ export default function MentorApplicationDetail(){
                   />
           </li>
           <li>
-            <StyledLabel htmlFor="text01">최종학력</StyledLabel>
+            <StyledLabel htmlFor="text01">최종경력</StyledLabel>
                 <input
                     type="text"
                     name="text01"

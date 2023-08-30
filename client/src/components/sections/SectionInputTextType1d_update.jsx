@@ -58,7 +58,6 @@ export default function SectionInputTextType1d_update(){
     })
 
   }
-
   const getData = useCallback(async()=>{
     CommonHeader.authorization = token;
     let requri = PreUri + '/classedu/'+ programno +'/class_receive';
@@ -100,16 +99,18 @@ export default function SectionInputTextType1d_update(){
     })
     
     const json = await response.json(); 
-    console.log(json)
+    if(json.length>0)
+    {
     setFileData(json.map((item,index)=> item.original_name));
     setFileType(json[0].type);
     }
+    }
   },[])
-  console.log(filetype)
+
   useEffect(()=>{
     getData();
     getFileNo();
-  },[getData,isChecked,token,content])
+  },[getData,isChecked,token])
   const onClose = () =>{
     setOpenModal(false);
   }
@@ -191,14 +192,16 @@ export default function SectionInputTextType1d_update(){
     console.log("Popup value:", isChecked ? "Y" : "N");
   }
   const handleEditorChange = (content,editor) =>{
+
     setContent(content);
     editorRef.current = content;
   }
   //formdata.append("image","image.png");
-
   const formData = new FormData();
+
   const sendData = useCallback(async(e)=>{
     CommonHeader.authorization = token;
+    console.log(application_period_start);
     let requri =  PreUri + '/classedu/'+ programno +'/update_program'
     const response = await fetch(requri,{
       method:Method.put,
@@ -216,7 +219,7 @@ export default function SectionInputTextType1d_update(){
         limit_number:fnum,
         cost:cost,
         map:map,
-        popup_flag:isChecked===true?"Y":"N",
+        popup_flag:popup==='Y'?"Y":"N",
         attahced_file:imageFile.length>0?imageFile:"N",
       })
     })
@@ -265,7 +268,8 @@ export default function SectionInputTextType1d_update(){
     //}
     setUpdate(false);
     setOpenModal(true);
-  },[token,input,imageFile])
+  },[token,input,imageFile,content,popup])
+
   const File = ({ item, index, onDelete })=> {
     
     return (

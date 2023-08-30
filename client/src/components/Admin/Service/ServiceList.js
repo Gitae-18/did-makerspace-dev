@@ -77,6 +77,7 @@ export default function ({ query , no }) {
         currentPage: 0,
         limit: 0,
         pageOffset: 0,
+        companyName:'',
         items: [
             {
                 co_name:" ",
@@ -181,12 +182,12 @@ export default function ({ query , no }) {
         const totalPage = Number(json.total_page);
         const currentPage = Number(json.current_page);
         const pageOffset = Math.ceil(currentPage / PageMax);
-        console.log(json);
         setServiceItems(serviceItems => ({
             ...serviceItems,
             totalCount: Number(json.total_count),
             totalPage,
             currentPage,
+            companyName:json.companyName,
             limit: Number(json.limit),
             pageOffset: (pageOffset < 1 ? 0 : (pageOffset - 1) * PageMax),
             items: json.items,
@@ -329,7 +330,7 @@ export default function ({ query , no }) {
              <td >{StatusCode[props.status]}</td>
              <td className="num" >{props.requestDate}</td>
              <td className="num" >{props.updateDate}</td>
-             <td className="name" ></td>
+             <td className="name">{props.co_name}</td>
              {(props.progress === 'STEP_01' && props.status === 'DRP') || props.progress === 'STEP_04'
                  ? <td className="btn" ><button onClick={props.onPrint}>보고서 출력</button></td>
                  : <td />
@@ -358,7 +359,7 @@ export default function ({ query , no }) {
                     updateDate={item.updated_at.substring(0, 10)}
                     progress={item.progress}
                     status={item.status}
-                    co_name={serviceItems.co_name}
+                    co_name={serviceItems.companyName.name}
                     //onDelete={(e) => onDelete(e,i)}
                    /*  ServiceDrop={(e) => ServiceDrop(e,i,serviceno)} */
                     onClick={(e) => onSelectItem(e, i)}
@@ -367,7 +368,8 @@ export default function ({ query , no }) {
                     key={i}/>
                    )
             };
-    }
+    }   
+    console.log(serviceItems)
 
     const DropItem = useCallback(async(e,i)=>{
         setDeleted(true);

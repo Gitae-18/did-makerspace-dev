@@ -4,13 +4,19 @@ import { useSelector } from "react-redux";
 import { useNavigate,useLocation } from 'react-router-dom';
 import styled from "styled-components";
 import { PreUri, Method, CommonHeader} from "../../CommonCode";
+import Paging2 from "./Paging2";
 export default function TableType5e() {
     const { token } = useSelector(state => state.user);
     const [currentPage,setCurrentPage] = useState(1);
     const postPerPage = 10;
     const history = useNavigate();
     const location = useLocation();
+    const [count,setCount] = useState(0);
     const [data,setData] = useState([]);
+
+    const sethandlePage = (e) =>{
+      setCurrentPage(e);
+    }
     const onItem = (e,index) =>{
       const mentoring_no = e.mentor_application_no;
         history('/mentorcontrol/mentorapplication/detail',{state:{no:mentoring_no}});
@@ -71,25 +77,7 @@ export default function TableType5e() {
         </tbody>
       </table>
       <div className="page_control">
-        <div className="btn_first btn-s">
-          <img src="/images/backward-solid.svg" alt="처음으로" />
-        </div>
-        <div className="btn_prev">
-          <img src="/images/caret-left-solid.svg" alt="이전으로" />
-        </div>
-        <ol className="btn_page_num">
-          <li className="on">1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
-        </ol>
-        <div className="btn_next">
-          <img src="/images/caret-right-solid.svg" alt="다음으로" />
-        </div>
-        <div className="btn_last btn-s">
-          <img src="/images/forward-solid.svg" alt="끝으로" />
-        </div>
+            <Paging2 page={currentPage} setPage={sethandlePage} count={count}/>
       </div>
     </div>
   );

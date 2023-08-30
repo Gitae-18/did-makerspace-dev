@@ -12,7 +12,8 @@ export default function MentorApplicationAdd() {
   const location = useLocation();
   const history = useNavigate();
   const url = location.pathname;
-  const no = location.state.no[0].mentor_application_no;
+  const no = location.pathname.includes('edit')?location.state.no[0].mentor_application_no:location.pathname.length>1?location.state.no[0].mentor_application_no:location.state.no;
+  console.log(no);
   const edit = location.state.edit;
   const [openModal,setOpenModal] = useState(false);
   const [address,setAddress] = useState('');
@@ -217,7 +218,6 @@ export default function MentorApplicationAdd() {
   
     return new Blob([arrayBuffer], { type: mimeString });
   }
-  console.log(editInput);
   const updateData = useCallback(async()=>{
     CommonHeader.authorization = token;
     const response = await fetch(PreUri + '/mentoring/'+no+'/mentorapplication',{
@@ -244,7 +244,6 @@ export default function MentorApplicationAdd() {
     for (let i = 0; i<files.length; i++){
     
       const file = files[i];
-      console.log(file)
       if(file.type==="image/png"||file.type==='image/jpg')
       {
         
@@ -259,7 +258,10 @@ export default function MentorApplicationAdd() {
        
       }
     }
-    const res = await fetch(PreUri + '/mentoring/'+no+'/mentorfiles',{
+    if(files.length===fileNo.length){
+    for(let i = 0 ; i < files.length; i++)
+    {
+    const res = await fetch(PreUri + '/mentoring/'+no+'/mentorfiles?no=' + (i+1),{
       method:Method.put, 
        headers:{authorization:token},
         body:formData,
@@ -267,9 +269,35 @@ export default function MentorApplicationAdd() {
     if(!res.ok){
       return(alert(getRspMsg(res.status)))
      };
+    }
+    }
+    /* const n = Math.min(files.length, fileNo.length);
+    for (let i = 1; i < n; i++) {
+      const res = await fetch(PreUri + '/mentoring/' + no + '/mentorfiles?no=' + i, {
+        method: Method.put,
+        headers: { authorization: token },
+        body: files[i],
+      });
+    
+      if (!res.ok) {
+        return alert(getRspMsg(res.status));
+      }
+    }
+    
+    // POST 요청 보내기
+    for (let i = n; i < files.length; i++) {
+      const res = await fetch(PreUri + '/mentoring/' + no + '/mentorfiles', {
+        method: Method.post,
+        headers: { authorization: token },
+        body: files[i],
+      });
+    
+      if (!res.ok) {
+        return alert(getRspMsg(res.status));
+      }
+  } */
     setOpenModal(true);
   })
-  console.log(inputs);
   const sendData  = useCallback(async()=>{
     CommonHeader.authorization = token;
     const response = await fetch(PreUri + '/mentoring/mentorapplication',{
@@ -311,7 +339,7 @@ export default function MentorApplicationAdd() {
        
       }
     }
-    const res = await fetch(PreUri + '/mentoring/'+no+'/mentorfiles',{
+    const res = await fetch(PreUri + '/mentoring/'+(no+1)+'/mentorfiles',{
       method:Method.post, 
        headers:{authorization:token},
         body:formData,
@@ -352,6 +380,7 @@ export default function MentorApplicationAdd() {
       major2:json.major,
       fedu2:json.final_education,
     }))
+    console.log(json);
     setEditAddress(json.address);
     const updateRadioButtonaList = radioButtonList.map(item => {
       if(json.specialization.includes(item.text)){
@@ -388,6 +417,7 @@ export default function MentorApplicationAdd() {
       headers:CommonHeader
     })
     const json = await response.json();
+    console.log(json)
     const formattedFiles = json.map(file => {
       return {
         ...file,
@@ -398,8 +428,9 @@ export default function MentorApplicationAdd() {
   },[no])
   
   const getFile = useCallback(async()=>{
+    console.log(no)
     if(no!==undefined){
-    const res = await fetch(PreUri + '/mentoring/' + no + '/files', {
+    const res = await fetch(PreUri + '/mentoring/' + no + '/mentorfiles', {
       method: Method.get, 
     })
     const fileList = await res.json();
@@ -411,9 +442,12 @@ export default function MentorApplicationAdd() {
   },[no])
   useEffect(()=>{
     getUserInfo();
+    if(edit==="Y")
+    {
     getEditData();
     getFileNo();
     getFile();
+    }
   },[getUserInfo,getEditData,getFileNo,getFile])
   let DownloadMyFileItems = [];
   if (fileNo && fileNo.length > 0) {
@@ -432,16 +466,14 @@ export default function MentorApplicationAdd() {
       </StyledDiv>
     );
   }
-    return (
-      
+    return (      
       <section className="section_input_text_type1 section_input_text_type1d section_input_text_type1e" style={{marginLeft:'20px',width:'1250px',marginTop:'20px',border:"1px solid #d3d3d3",padding:'40px 40px'}}>
       <div className="title_wrap">
         <h1 style={{position:"relative",top:"-30px",fontSize:"18px"}}>신청자 정보</h1>
       </div>
-        <div className="title_wrap">
-      </div>
-      {edit==="Y"?
-      <>
+      {
+        edit==="Y"?
+        <>
         <ul className="text_wrap">
         <li >
           <StyledLabel htmlFor="text08">*이름</StyledLabel>
@@ -571,7 +603,9 @@ export default function MentorApplicationAdd() {
       {openModal && <PopupSaveMentoring visible={openModal} closable={true} onclose={onClose} url={url}/>}
       <StyledBtn onClick={(e)=>history(-1)}>이전</StyledBtn>
       </div>
-      </>:
+      </>
+      :
+      edit!=="Y"?
       <>
       <ul className="text_wrap">
         <li >
@@ -699,7 +733,7 @@ export default function MentorApplicationAdd() {
       {openModal && <PopupSaveMentoring visible={openModal} closable={true} onclose={onClose} url={url}/>}
       <StyledBtn onClick={(e)=>history(-1)}>이전</StyledBtn>
       </div>
-      </>}
+      </>:null}
     </section>
     );
 }

@@ -235,7 +235,7 @@ let DownloadMyFileItems = [];
           />
         </li>
         <li className="textarea_wrap"  style={{"height":"300px"}}>
-          <label htmlFor="text02">내용</label>
+          <label htmlFor="text02" style={{lineHeight:"300px"}}>내용</label>
           <textarea
             name="text02"
             id="text02"

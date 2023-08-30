@@ -109,11 +109,28 @@ export default function Classedulist({no}) {
   const setPage = (e) =>{
     setCurrentPage(e);
   }
+  const getClasslist = useCallback(async()=>{
+    CommonHeader.authorization = token;
+
+    let uri = PreUri + '/classedu/listup'
+     
+    const response = await fetch(uri,{
+      method:Method.get,
+      headers:CommonHeader,
+    })
+    if(!response.ok) {
+      console.log('잘못된 접근입니다.');
+      return;
+    }
+    const json = await response.json();
+
+    setData(json);
+  },[token])
  const onBtnClick = (e) =>{
    let item ;
-  if(currentPost[0]!==undefined){
-   item = currentPost[0].program_no;
-    
+  if(data[0]!==undefined){
+   item = data[0].program_no;
+   console.log(item)
   }
   else{
    item = 0;  
@@ -132,7 +149,8 @@ const DropItem = useCallback(async(e,i)=>{
 
   useEffect(()=>{
     getReservList();
-  },[getReservList,token])
+    getClasslist();
+  },[getReservList,getClasslist,token])
 
   return (
     <div className="table_wrap table_type2">

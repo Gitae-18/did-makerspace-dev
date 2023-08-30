@@ -15,6 +15,9 @@ const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'upload/newmentoring')
     },
+    destination: function (req, file, cb) {
+        cb(null, 'upload/newmentor')
+      },
     filename: function (req, file, cb) {
       cb(null, file.originalname)
     }
@@ -83,7 +86,7 @@ router.get('/mentor_specific',async(req,res,next)=>{
  
     try{
      item = await MentorApplication.findOne({
-         attributes: ['mentor_application_no','address','name','department','status','reject','major','final_education','specialization','email','phone_number','text','created_at'],
+         attributes: ['mentor_application_no','address','user_no','name','department','status','reject','major','final_education','specialization','email','phone_number','text','created_at'],
          where:{mentor_application_no:mentoring_no},
      })
     }
@@ -130,6 +133,32 @@ router.put('/mentor_reject',verifyToken,async(req,res,next)=>{
         return res.status(errorCode.internalServerError).json({});
     }
     res.status(errorCode.ok).json({});
+})
+router.post('/mentorstore',verifyToken,async(req,res,next)=>{
+    let body = req.body;
+    const mentor_no = req.query.mentor_no;
+    const keywords = body.keyword.join();
+    let user_no = req.decoded.user_no;
+    let item;
+    try{
+        item = await Mentor.create({
+            user_no:mentor_no,
+            permission_flag:body.permission_flag,
+            keyword:keywords,
+            mentor_profile:body.mentor_profile,
+            introduction:body.introduction,
+            field:body.field,
+            name:body.name,
+            created_user_no:user_no,
+            updated_user_no:user_no,
+        }
+        )
+    }
+    catch(error){
+        console.log(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json({item});
 })
 router.put('/status_change',verifyToken,async(req,res,next)=>{
     let body = req.body;
@@ -285,6 +314,8 @@ router.post('/mentorapplication',verifyToken,async(req,res,nex)=>{
             email:body.email,
             phone_number:body.num,
             status:'A',
+            address:body.address_detail,
+            text:body.text,
         })
     }
     catch(error){
@@ -568,7 +599,7 @@ router.post('/:mentoring_no/mentorfiles',verifyToken,upload.array('files'), asyn
         let inputResult;
         try {
             inputResult = await MentorFile.create({
-                mentoring_application_no:mentoring_no,
+                mentor_application_no:mentoring_no,
                 original_name: req.files[i].originalname,
                 name: req.files[i].filename,
                 type: req.files[i].mimetype,
@@ -588,12 +619,14 @@ router.post('/:mentoring_no/mentorfiles',verifyToken,upload.array('files'), asyn
 router.put('/:mentoring_no/mentorfiles',verifyToken,upload.array('files'), async(req, res, next) =>{
     let user_no = req.decoded.user_no;
     let mentoring_no = req.params.mentoring_no;
+    let attached_file_no = req.query.no;
     if(req.files.length>0)
     {
         makedir('upload/newmentor');
     }
+    let inputResult;
     for(let i = 0; i<req.files.length;i++){
-        let inputResult;
+        let attached_file_no = i + 1;
         try {
             inputResult = await MentorFile.update({
                 mentoring_application_no:mentoring_no,
@@ -605,7 +638,8 @@ router.put('/:mentoring_no/mentorfiles',verifyToken,upload.array('files'), async
                 created_user_no: user_no,
                 updated_user_no: user_no,
             },
-            {where:{mentor_application_no:mentoring_no}}
+            {where:[{mentor_application_no:mentoring_no},{attached_file_no:attached_file_no}
+            ]}
             );
       
         } catch (error) {
@@ -676,7 +710,7 @@ router.get('/:mentoring_no/mentorfilesno',async (req, res, next) => {
         console.error(error);
         return res.status(errorCode.internalServerError).json({});
     } 
-   
+    console.log(mentor_application_no)
     res.status(errorCode.ok).json(files);
 
 })
@@ -697,7 +731,7 @@ router.get('/:mentoring_no/files',async (req, res, next) => {
 });
 router.get('/:mentoring_no/mentorfiles',async (req, res, next) => {
     let mentor_application_no = req.params.mentoring_no;
-   
+
     let files = await SelectMentorFileInfo(mentor_application_no);
     if (!files) {
         return res.status(errorCode.internalServerError).json({});

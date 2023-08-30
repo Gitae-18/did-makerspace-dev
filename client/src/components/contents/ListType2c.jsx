@@ -19,7 +19,7 @@ export default function ListType2c() {
   const [count,setCount] = useState(0);
   const [currentPage,setCurrentPage] = useState(1);
 
-  const postPerPage = 10;
+  const postPerPage = 8;
   const indexOfLastPost = currentPage * postPerPage
   const indexOfFirstPost = indexOfLastPost - postPerPage;
   const currentPost = data.slice(indexOfFirstPost, indexOfLastPost)

@@ -55,6 +55,8 @@ import { MentoringReportContainer } from './containers/Mentoring/MentoringReport
 import { MentoringAddContainer } from './containers/Mentoring/MentoringAddContainer';
 import { MentorApplicationContainer } from './containers/Mentoring/MentorApplicationContainer';
 import { MentorApplicationDetailContainer } from './containers/Mentoring/MentorApplicationDetailContainer';
+import { MentoringReportAddContainer } from './containers/Mentoring/MentoringReportAddContainer';
+import { ArchiveUpdateContainer } from './containers/reference/ArchiveUpdateContainer';
 import './css/common-s.css';
 import './css/style-s.css';
 import TableType2a_a from './components/contents/TableType2a_a';
@@ -172,7 +174,7 @@ const App = () => {
         <Route path="/mentoring" element = {<MentoringContainer/>}/>
         <Route path="/mentoring/*" element = {<MentoringDetailContainer/>}/>
         <Route path="/mentoring/report/*" element = {<MentoringReportContainer/>}/>
-        <Route path="/mentoring/report/add" element = {<MentoringAddContainer/>}/>
+        <Route path="/mentoring/report/add" element = {<MentoringReportAddContainer/>}/>
         <Route path="/umentoring/*" element = {<MentoringContainer/>}/>
         <Route path="/umentoringapplication" element = {<UMentoringApplication/>}/>
         <Route path="/umentoring/detail" element = {<MentoringDetailContainer/>}/>
@@ -190,6 +192,7 @@ const App = () => {
         <Route path="/archive/basic" element = {<Contact3/>}/>
         <Route path="/archive/basic/addbasic" element = {<BasicStudyContianer/>}/>
         <Route path="/archive/control" element = {<ArchiveManageContainer/>}/>
+        <Route path="/archive/update" element = {<ArchiveUpdateContainer/>}/>
         <Route path="/notice/*" element = {<NoticeContainer/>}/>
         <Route path="/notice/addnotice" element = {<NoticeAddContainer/>}/>
         <Route path="/notice/notice/detail" element = {<NoticeDetailContainer/>}/>
@@ -204,7 +207,6 @@ const App = () => {
         <Route path='/mentorcontrol/mentorapplication/add' element = {<MentorApplicationContainer/>}/>
         <Route path='/mentorcontrol/mentorapplication/detail' element = {<MentorApplicationDetailContainer/>}/>
         <Route path='/mentorcontrol/mentorauthority' element = {<MentorAuthority/>}/>
-        {/* <Route path='/mentorcontrol/mentoringreport' element = {<MentoringReport/>}/> */}
         <Route path='/mentorcontrol/mentoringreport/detail' element = {<MentoringReportDetail/>}/>
         <Route path='/educontrol' element = {<EduAddContainer/>}/>
         <Route path='/classcontrol' element = {<ClassAddContainer/>}/>

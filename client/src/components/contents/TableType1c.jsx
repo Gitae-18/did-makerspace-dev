@@ -61,7 +61,10 @@ const TableType1c = () => {
     setSearchItem(filterData);
     setCurrentPage(1)
   }
- setSearch('');
+  if(search=== null || search === '')
+  {
+    setSearch('');
+  }
 },[search])
 
 const activeEnter = (e) => {
@@ -69,6 +72,7 @@ const activeEnter = (e) => {
     onSearch(e);
   }
 }
+console.log(data);
   return (
     <div className="table_wrap table_type1">
       <div className="table_extra">

@@ -116,6 +116,7 @@ router.post('/archives',verifyToken,async(req,res,next)=>{
     }
     res.status(errorCode.ok).json(result);
 })
+
 router.get('/onlist',async(req,res,next)=>{
     let body = req.body;
     let archive_no = req.query.archive_no;
@@ -370,4 +371,120 @@ router.get('/:archive_no/filesno',async (req, res, next) => {
     res.status(errorCode.ok).json(files);
 
 });
+router.get('/:archive_no/editinfo',async(req,res,next)=>{
+    let body = req.body;
+    const no = req.params.archive_no;
+    let inputResult;
+    try{
+       inputResult = await Archive.findOne({
+        attributes:['archive_no','content','file_type','attached_file','url','title'],
+        where:{archive_no:no},
+        raw:true,
+       })
+    }
+    catch(error){
+       console.log(error);
+       return res.status(errorCode.internalServerError).json({});
+    }
+     res.json(inputResult);
+   })
+   router.put('/:archive_no/update_archive',verifyToken,async(req,res,next)=>{
+    let body = req.body;
+    let user_no = req.decoded.user_no;
+    let archive_no = req.params.archive_no;
+    const url = req.body.url;
+    console.log(url)
+    let inputResult;
+    try{
+        inputResult  = await Archive.update({
+          title:body.title,
+          content:body.content,
+          url:'https://www.youtube.com/embed/' + url.slice(-11),
+        },
+         {where:{archive_no}})
+    }
+   
+    catch(error){
+        console.log(error)
+        return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(inputResult);
+})
+
+router.get('/:archive_no/filesno',async (req, res, next) => {
+    let archive_no = req.params.archive_no;
+   
+
+    let files
+    try{
+     files= await ArchiveFile.findAll({
+        attributes:['attached_file_no','original_name','path','type','filesize'],
+        where:{archive_no}
+    });
+    }  
+    catch (error) {
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    } 
+    
+
+    res.status(errorCode.ok).json(files);
+
+});
+router.put('/:archive_no/files',verifyToken,upload.array('imageFiles'), async(req, res, next) => {
+    const archive_no = req.params.archive_no;
+    let user_no = req.decoded.user_no;
+
+    for(let i = 0; i<req.files.length;i++){
+        let inputResult;
+        try {
+            inputResult = await ArchiveFile.update({
+                archive_no,
+                original_name: req.files[i].originalname,
+                name: req.files[i].filename,
+                type: req.files[i].mimetype,
+                path: req.files[i].path,
+                filesize:req.files[i].size,
+                created_user_no: user_no,
+                updated_user_no: user_no,
+            },{
+                where:{archive_no}
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(errorCode.internalServerError).json({});
+        }
+    }
+    res.status(errorCode.ok).json({});
+})
+router.put('/:archive_no/nofiles',verifyToken,upload.array('Files'), async(req, res, next) =>{
+    let user_no = req.decoded.user_no;
+    let archive_no = req.params.archive_no;
+
+    if(req.files.length>0)
+    {
+        makedir('upload/newarchive');
+    }
+    for(let i = 0; i<req.files.length;i++){
+        let inputResult;
+        try {
+            inputResult = await ArchiveFile.update({
+                archive_no,
+                original_name: req.files[i].originalname,
+                name: req.files[i].filename,
+                type: req.files[i].mimetype,
+                path: req.files[i].path,
+                filesize:req.files[i].size,
+                created_user_no: user_no,
+                updated_user_no: user_no,
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(errorCode.internalServerError).json({});
+        }
+    }
+
+
+    res.status(errorCode.ok).json({});
+})
 module.exports = router;

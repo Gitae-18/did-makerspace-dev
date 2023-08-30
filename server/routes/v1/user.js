@@ -415,7 +415,6 @@ router.get('/myinfo', verifyToken, async (req, res, next) => {
 router.put('/myinfo', verifyToken, async (req, res, next) => {
     const user_no = req.decoded.user_no;
     const body = req.body;
-
     let findResult;
     try {
         findResult = await User.findOne({
@@ -705,7 +704,7 @@ router.post('/login', async (req, res, next) => {
     try {
         findResult = await User.findOne({
             attributes: ['user_no', 'login_jwt', 'login_jwt_exfire','email','salt','name','zip','address','company_no','created_user_no','updated_user_no','authority_level',
-            'email_confirm_flag','created_at','updated_at','deleted_at','address_detail','password'],
+            'email_confirm_flag','created_at','updated_at','deleted_at','address_detail','password',],
             where: { email: user_id }
         });
     } catch (error) {

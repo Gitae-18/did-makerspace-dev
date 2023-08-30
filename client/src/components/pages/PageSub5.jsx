@@ -12,6 +12,7 @@ import MentoringDetail from "../contents/Mentoring/MentoringDetail";
 import MentoringReport from "../contents/Mentoring/MentoringReport";
 import MentoringAddComponent from "../contents/Mentoring/MentoringAdd";
 import MentoringReportDetail from "../contents/Mentoring/MentoringReportDetail";
+import MentoringReportAdd from "../contents/Mentoring/MentoringReportAdd";
 export default function Mentoring({location,history}) {
     /* const [value,setValue] = useState(""); */
     const dispatch = useDispatch();
@@ -140,10 +141,26 @@ export default function Mentoring({location,history}) {
     return(
       <>
       <div id="sub_page_wrap">
-        <SubSideMenu title={"멘토링보고서"}></SubSideMenu>
+        <SubSideMenu title={"멘토링"}></SubSideMenu>
         <div className="sub_page_inner_wrap">
           <div className="sub_inner">
             <MentoringAddComponent/>
+          </div>
+        </div>
+      </div>
+      <div className="sub_page_outer">
+      </div>
+      </>
+    )
+  }
+  export const MentoringReportAd = () =>{
+    return(
+      <>
+      <div id="sub_page_wrap">
+        <SubSideMenu title={"멘토링보고서"}></SubSideMenu>
+        <div className="sub_page_inner_wrap">
+          <div className="sub_inner">
+            <MentoringReportAdd/>
           </div>
         </div>
       </div>

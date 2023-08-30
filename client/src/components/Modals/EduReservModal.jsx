@@ -41,6 +41,7 @@ function EduReservModal({ classname, visible, onclose, closable, no }) {
       setReservList(json);
       setCount(json.length);
  },[])
+ console.log(reservList)
  useEffect(()=>{
     getReservList();
  },[getReservList])

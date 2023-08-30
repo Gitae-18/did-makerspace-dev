@@ -71,7 +71,7 @@ const UserMenu = ({authority_level,path,viewDepth}) => {
     return(
           <ol className='menu_dep2'>
             <li onClick={(e)=>onClick2(e,0)}><NavLink to={'/mentoring'}>멘토링</NavLink></li>
-            <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/notcomplete'}>멘토 검색</NavLink></li> 
+            <li onClick={(e)=>onClick2(e,1)}><NavLink to={'/mentorcontrol/mentorapplication'}>전문멘토신청</NavLink></li> 
           </ol>
     )
   }

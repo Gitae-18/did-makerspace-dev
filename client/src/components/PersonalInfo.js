@@ -20,7 +20,7 @@ export default function ({ onNext, onChangeCheckbox, value }) {
 
 	return (
 		<div id="wrap" className="wrap join1">
-			<div className="content_wrap">
+			<div className="content_wrap" stlye={{height:'1200px'}}>
 				<div className="inner_wrap">
 					<div className="box box1">
 						<h2>이용약관</h2>

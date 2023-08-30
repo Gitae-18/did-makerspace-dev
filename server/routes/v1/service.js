@@ -203,6 +203,26 @@ router.post('/:service_no/running', verifyToken, async (req, res, next) => {
     
     res.status(errorCode.ok).json({ service_element_no });
 });
+router.put('/:service_no/update', verifyToken, async(req,res,next)=>{
+    let body = req.body;
+    let user_no = req.decoded.user_no;
+    const no = req.params.service_no;
+    let updateData;
+    try{
+        updateData = await ServiceElement.update({
+            support_content:body.support_content,
+            support_result:body.support_result,
+            updated_user_no:user_no,
+        },
+        {where:{service_no:no}}
+        )
+        
+    }
+    catch(error){
+     console.error(error); return res.status(errorCode.internalServerError).json({});
+    }
+    res.status(errorCode.ok).json(inputResult);
+})
 router.delete('/:service_no/dropitem', verifyToken, async (req, res, next) => {
     const service_no  = req.params.service_no;
 
@@ -381,8 +401,10 @@ router.get('/', verifyToken, async (req, res, next) => {
     
     Service.hasOne(User, {foreignKey: 'user_no', sourceKey: 'user_no'});
     Service.hasOne(ServiceApplication, {foreignKey: 'service_no', sourceKey: 'service_no'});
+    let com_no ;
+ 
     let itemsQuery = {
-        attributes: ['service_no', 'user_no', 'title', 'progress', 'status', 'created_at', 'updated_at'],
+        attributes: ['service_no', 'user_no', 'title', 'progress', 'status', 'created_at', 'updated_at',],
         include: [{
             model: User, 
             attributes: ['name'],
@@ -401,7 +423,26 @@ router.get('/', verifyToken, async (req, res, next) => {
         raw: true,
 
     }
-  
+    try {
+        com_no = await User.findOne({
+        attributes:['company_no'],
+        where:{user_no}
+        })
+    }
+    catch(error){
+        console.log(error);
+    }
+    let companyNum = com_no.dataValues;
+    let companyName ;
+    try{
+        companyName = await Company.findOne({
+            attributes:['name'],
+            where:{company_no:companyNum.company_no}
+        })
+    }
+    catch(error){
+        console.log(error);
+    }
     if (query.where) { itemsQuery.where = query.where; }
     if (query.include) { itemsQuery.include.push(query.include); }
    
@@ -429,7 +470,7 @@ router.get('/', verifyToken, async (req, res, next) => {
         total_page,
         current_page: offset/limit+1,
         offset,
-        limit, items, }
+        limit, items, companyName}
         
     return res.status(errorCode.ok).json(result);
    
@@ -2899,7 +2940,26 @@ router.delete('/:service_no/element/:element_no/attempt/:attempt_no/material_usa
     return res.status(result).json();
 });
  
+router.get('/:service_no/content',verifyToken,async(req,res,next)=>{
+    let service_no = req.params.service_no;
 
+    let serviceElement;
+    try {
+        serviceElement = await ServiceElement.findAll({
+            attributes: ['service_element_no','support_content', 'support_result','service_category_no'],
+            where:[{
+             service_no   
+            }
+        ]
+        })
+    }
+
+    catch(error){
+        console.error(error);
+        return res.status(errorCode.internalServerError).json({});
+    }
+    return res.status(errorCode.ok).json(serviceElement);
+})
 router.get('/:service_no/done', verifyToken, async (req, res, next) => {
     let body = req.body;
     let service_no = req.params.service_no;

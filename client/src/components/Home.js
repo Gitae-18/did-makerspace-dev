@@ -8,6 +8,7 @@ import Modal from './Modals/Modal'
 import PopupModalHome from './Modals/PopupModalHome';
 import PopupModalAbout from './Modals/PopupModalAbout';
 import ClassHomeModal from './Modals/ClassHomeModal';
+import ClassHomeModal2 from './Modals/ClassHomeModal2';
 import { CommonHeader,PreUri, Method } from '../CommonCode';
 import '../css/common-s.css';
 import '../css/style-s.css';
@@ -38,13 +39,13 @@ function Home() {
         const MainBanner = () => {
           const [modalVisible,setModalVisible] = useState(true);
           const [modalControl1,setModalControl1] = useState(true);
+          const [classPopModal,setClassPopModal] = useState(true);
           const [modalSet,setModalSet] = useState(true);
           const [classModal,setClassModal] = useState(true);
           const [data,setData] = useState("");
-          const [classdata,setClassdata] = useState("");
+          const [classdata,setClassdata] = useState([]);
           const videoRef = useRef(null);
-          
-        
+          const classno = classdata.map((item,i)=> item.program_no)
           const closeModal = () =>{
             setModalVisible(false);
           }
@@ -57,6 +58,9 @@ function Home() {
           const closeModal4 = () => {
             setClassModal(false);
           }
+          const closeModal5 = () => {
+            setClassPopModal(false);
+          }
             const getRecentProgram = useCallback(async()=>{
               let requri = PreUri + '/classedu/recentprogram';
               const response = await fetch(requri,{
@@ -68,9 +72,9 @@ function Home() {
             return;
             }
             const json = await response.json();
+            console.log(json);
             setClassdata(json);
             },[])
-            console.log(classdata)
             const getRecentNotice = useCallback(async() =>{
               let requri = PreUri + '/notice/recentnotice';
               const response = await fetch(requri,{
@@ -110,7 +114,14 @@ function Home() {
               {modalVisible && (<Modal visible={modalVisible} closable={true} maskClosable={true} setModalVisible={setModalVisible}onClose={closeModal} isLoggedIn={isLoggedIn}></Modal>)}
               {modalSet &&(<PopupModalAbout visible={modalSet} closable={true} maskClosable={true} onClose={closeModal3} isLoggedIn={isLoggedIn}/>)}
               {modalControl1 && data && (<PopupModalHome visible={modalControl1} closable={true} maskClosable={true} onClose={closeModal2} isLoggedIn={isLoggedIn} token={token} no={data.notice_no}/>)}
-              {classModal && classdata && (<ClassHomeModal visible={classModal} closable={true} maskClosable={true} onClose={closeModal4} isLoggedIn={isLoggedIn} no={classdata.program_no}/>)}
+              {classModal && classdata && classno.length>0 ?
+              <ClassHomeModal visible={classModal} closable={true} maskClosable={true} onClose={closeModal4} isLoggedIn={isLoggedIn} no={classno[0]}/>
+              :null
+              }
+              {classPopModal && classdata && classno.length>0 ?
+               <ClassHomeModal2 visible={classPopModal} closable={true} maskClosable={true} onClose={closeModal5} isLoggedIn={isLoggedIn} no={classno[1]}/>
+               :null
+              }
                 <div className="text_part">
                   <h2>
                     <span>DID</span> Digital Factory in Daejeon 

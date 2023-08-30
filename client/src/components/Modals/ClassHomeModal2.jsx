@@ -6,7 +6,7 @@ import ImageGetHomeProgram from "../sections/ImageGetHomeProgram";
 import { CommonHeader, PreUri, Method } from "../../CommonCode";
 import "../../css/ModalStyle.css";
 
-function ClassHomeModal({
+function ClassHomeModal2({
   className,
   onClose,
   maskClosable,
@@ -30,7 +30,7 @@ function ClassHomeModal({
     if (visitedBeforeDate !== null) {
       // 날짜가 같을 경우 노출
       if (parseInt(visitedBeforeDate) === currentDate) {
-        localStorage.removeItem('ClassCookie');
+        localStorage.removeItem('ClassPCookie');
         onClose(true);
       }
       // 날짜가 다를 경우 비노출
@@ -52,7 +52,7 @@ function ClassHomeModal({
       const expiry = new Date();
       expiry.setDate(expiry.getDate() + 1);
       const expiryDate = expiry.getDate();
-      localStorage.setItem('ClassCookie', expiryDate);
+      localStorage.setItem('ClassPCookie', expiryDate);
     }
   }
 const [isMounted, setIsMounted] = useState(false);
@@ -118,7 +118,7 @@ const [isMounted, setIsMounted] = useState(false);
   );
 }
 
-ClassHomeModal.propTypes = {
+ClassHomeModal2.propTypes = {
   visible: PropTypes.bool,
 };
 
@@ -149,6 +149,7 @@ const ImgStyle = styled.div`
   height: 500px;
   box-sizing: border-box;
   border: solid #000000 2px;
+
 `;
 const Imgtag = styled.img`
   width: 50px;
@@ -207,6 +208,8 @@ const ModalInner = styled.div`
   transform: translateX(50%);
   margin: 0 auto;
   padding: 40px 20px;
+  left:500px;
+  position:relative;
 `;
 
-export default React.memo(ClassHomeModal);
+export default React.memo(ClassHomeModal2);

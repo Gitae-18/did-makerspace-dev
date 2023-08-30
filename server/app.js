@@ -100,6 +100,13 @@ if (!fs.existsSync('upload/newmentoring')) {
         }
     });
 }
+if (!fs.existsSync('upload/newmentor')) {
+    mkdirp.sync('upload/newmentor', (error) => {
+        if (error) {
+            console.error(error);
+        }
+    });
+}
 /*
 fs.readdir('uploads/temp', (error) => {
   if (error) {

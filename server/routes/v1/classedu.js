@@ -252,6 +252,26 @@ router.get('/classedulist',async(req,res,next)=>{
 
     res.status(errorCode.ok).json(result);
 })
+
+router.get('/listup',verifyToken,async(req,res,next)=>{
+    let body = req.body;
+   
+    let result ;
+    try{
+        result = await ClasseduProgram.findAll({
+            attributes:['program_no','type','hit','content','title','cost','pay_flag','place','class_period_start','class_period_end','application_period_start','application_period_end','limit_number','popup_flag'],
+            order:[['created_at','DESC']],
+            paranoid:false,
+            raw:true,
+        })
+    }
+    catch(error){
+        console.log(error)
+        return res.status(errorCode.internalServerError).json({});
+    }
+
+    res.status(errorCode.ok).json(result);
+})
 /* router.post('/classadd',async(req,res,next)=>{
     let body = req.body;
     const input = req.body;
@@ -368,17 +388,16 @@ router.put('/:program_no/update_program',verifyToken,async(req,res,next)=>{
     let body = req.body;
     let user_no = req.decoded.user_no;
     let program_no = req.params.program_no;
-
+    console.log(body);
     let inputResult;
     try{
         inputResult  = await ClasseduProgram.update({
            title:body.title,
-           type:body.type,
            content:body.content,
            pay_flag:body.pay_flag,
            class_period_start:body.class_period_start,
            class_period_end:body.class_period_end,
-           application_period_start:body.application_period_end,
+           application_period_start:body.application_period_start,
            application_period_end:body.application_period_end,
            place:body.place,
            limit_number:body.limit_number,
@@ -434,11 +453,11 @@ router.get('/recentprogram',async(req,res,next)=>{
 
     let result;
     try{
-        result = await ClasseduProgram.findOne({
+        result = await ClasseduProgram.findAll({
             attributes:['program_no'],
             where:{popup_flag:"Y"},
             order:[['created_at','DESC']],
-            limit:1,
+            limit:2,
             raw:false,
         })
     }

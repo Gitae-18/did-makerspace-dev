@@ -27,7 +27,7 @@ const onEdit = async() =>{
         mentoring_no = 0;
       }
       
-      history('/mentorcontrol/mentorapplication/add',{state:{no:mentoring_no,edit:'Y',}});
+      history('/mentorcontrol/mentorapplication/add?edit',{state:{no:mentoring_no,edit:'Y',}});
 }
 const onMove = useCallback(async() => {
     let mentoring_no;
@@ -36,7 +36,7 @@ const onMove = useCallback(async() => {
         headers:CommonHeader,
       })
       const json = await response.json();
-      console.log(json);
+      console.log(json)
       if(json.length>0){
         mentoring_no = json;
       }
@@ -45,6 +45,7 @@ const onMove = useCallback(async() => {
       }
     history('/mentorcontrol/mentorapplication/add',{state:{no:mentoring_no}})
 },[])
+
 const getApplication = useCallback(async()=>{
     const response = await fetch(PreUri+'/mentoring/mentorapplist',{
       method:Method.get,
@@ -98,7 +99,7 @@ return(
       <span>신청서를 검토중입니다 .</span>
       </div>
     </div>
-  ) :
+  ) :mydata.status === "R" ?
   (
     <div style={{ position: 'absolute', left: '33%', top: '100%', transform: 'translate(50%, 50%)' }}>
       <img src="/images/logo_ci.png" alt="no-img" />
@@ -107,7 +108,7 @@ return(
       <span style={{ fontSize: '16px', fontWeight: 400 ,textAlign:'center'}}>신청서를 재검토중입니다 .</span>
       </div>
     </div>
-  )// mydata 값이 있으나 status가 "Y" 또는 "N"이 아닐 경우 null을 반환하여 아무것도 표시하지 않음
+  ):null// mydata 값이 있으나 status가 "Y" 또는 "N"이 아닐 경우 null을 반환하여 아무것도 표시하지 않음
 ) : (
   <StyledBtn onClick={onMove}>신청하기</StyledBtn> // mydata 값이 없을 경우 신청하기 버튼 표시
 )} 

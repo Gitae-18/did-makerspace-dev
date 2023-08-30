@@ -11,28 +11,81 @@ export default function ({
 	const [hiddenUserPostcode, setHiddenUserPostcode] = useState(true);
 	const [hiddenCompanyPostcode, setHiddenCompanyPostcode] = useState(true);
 
+	const [address,setAddress] = useState('');
+	const [addressDetail,setAddressDetail] = useState('');
+	const [isOpenPost,setIsOpenPost] = useState(false);
+
 	const userComplete = useCallback((data) => {
 		onCompletePostcode(true, data);
 		setHiddenUserPostcode(true);
 	}, [onCompletePostcode]);
 
+	const onCompletePost = (data) => {
+		let fullAddr = data.address;
+		let extraAddr = '';
+	
+		if (data.addressType === 'R') {
+		  if (data.bname !== '') {
+			extraAddr += data.bname;
+		  }
+		  if (data.buildingName !== '') {
+			extraAddr += extraAddr !== '' ? `, ${data.buildingName}` : data.buildingName;
+		  }
+		  fullAddr += extraAddr !== '' ? ` (${extraAddr})` : '';
+		}
+	
+		setAddress(data.zonecode);
+		setAddressDetail(fullAddr);
+		setIsOpenPost(false);
+	  };
+	  const postCodeStyle = {
+		display: 'block',
+		position: 'relative',
+		overflow:'hidden',
+		right:'0px',
+		top: '0%',
+		width: '450px',
+		height: '400px',
+		padding: '10px',
+	  };
 	const companyComplete = useCallback((data) => {
 		onCompletePostcode(false, data);
 		setHiddenCompanyPostcode(true);
 	}, [onCompletePostcode]);
 
 	function UserPostcode() {
-		return (hiddenUserPostcode) ? (<></>) : (<DaumPostcode onComplete={userComplete} width="100%" height="444px" />);
+		return (hiddenUserPostcode) ? (<></>) : (<div><DaumPostcode onComplete={userComplete} width="100%" height="444px" /></div>);
 	}
 
 	function CompanyPostcode() {
-		return (hiddenCompanyPostcode) ? (<></>) : (<DaumPostcode onComplete={companyComplete} width="100%" height="444px" />);
+		return (hiddenCompanyPostcode) ? (<></>) : (<div><DaumPostcode onComplete={companyComplete} width="100%" height="444px" /></div>);
 	}
-
+	
+	const setStyle = () =>{
+		const innerstyle = document.getElementById("innerStyle");
+		innerstyle.style.height = '1600px';
+	}
+	const setStyle2 = () =>{
+		const innerstyle = document.getElementById("innerStyle");
+		innerstyle.style.height = '2100px';
+	}
+	const handleCompanyPostcodeSearch = () => {
+		setHiddenCompanyPostcode(false);
+		const innerstyle = document.getElementById("innerStyle");
+		innerstyle.style.height = '200px';
+	  };
+	const setCloseStyle = () =>{
+		const innerstyle = document.getElementById("innerStyle");
+		innerstyle.style.height = '1200px';
+	}
+	const setCloseStyle2 = () =>{
+		const innerstyle = document.getElementById("innerStyle");
+		innerstyle.style.height = '1600px';
+	}
 	return (
 		<div id="wrap" className="wrap myInfo1">
 			<div className="content_wrap">
-				<div className="inner_wrap">
+				<div  id="innerStyle" className="inner_wrap">
 					<h2>내 정보</h2>
 					<span>*필수입력</span>
 					<form onSubmit={onSubmit}>
@@ -75,14 +128,14 @@ export default function ({
 									<tr>
 										<th>*우편번호</th>
 										<td>
-											<input type="text" className="short" maxLength={6} value={value.user.zip ? value.user.zip : ''} name="user.zip" disabled />
-											<button type="button" onClick={() => setHiddenUserPostcode(false)}>우편번호 검색</button>
+											<input type="text" className="short" maxLength={6} value={value.user.zip ? value.user.zip : ''} name="user.zip" />
+											<button type="button" onClick={() =>{setHiddenUserPostcode(false);setStyle()}}>우편번호 검색</button>
 										</td>
 									</tr>
 									<tr hidden={hiddenUserPostcode}>
 										<th></th>
 										<td className="close">
-											<button type="button" className="close_btn" onClick={() => setHiddenUserPostcode(true)}> </button>
+											<button type="button" className="close_btn" onClick={() => {setHiddenUserPostcode(true);setCloseStyle()}}> </button>
 										</td>
 									</tr>
 									<tr hidden={hiddenUserPostcode}>
@@ -94,7 +147,7 @@ export default function ({
 									<tr className="enter"></tr>
 									<tr>
 										<th>*주소</th>
-										<td><input type="text" className="middle" maxLength={100} value={value.user.address ? value.user.address : ''} name="user.address" disabled /></td>
+										<td><input type="text" className="middle" maxLength={100} value={value.user.address ? value.user.address : ''} name="user.address"  /></td>
 									</tr>
 									<tr className="enter"></tr>
 									<tr>
@@ -137,13 +190,13 @@ export default function ({
 										<th>우편번호</th>
 										<td>
 											<input type="text" className="short" maxLength={6} value={value.company.zip ? value.company.zip : ''} name="company.zip" disabled />
-											<button type="button" onClick={() => setHiddenCompanyPostcode(false)}>우편번호 검색</button>
+											<button type="button" onClick={() =>{setHiddenCompanyPostcode(false);setStyle2()}}>우편번호 검색</button>
 										</td>
 									</tr>
 									<tr hidden={hiddenCompanyPostcode}>
 										<th></th>
 										<td className="close">
-											<button type="button" className="close_btn" onClick={() => setHiddenCompanyPostcode(true)}> </button>
+											<button type="button" className="close_btn" onClick={() => {setHiddenCompanyPostcode(true);setCloseStyle2()}}> </button>
 										</td>
 									</tr>
 									<tr hidden={hiddenCompanyPostcode}>

@@ -16,11 +16,12 @@ export default function ListType2b() {
   const [search,setSearch] = useState('');
   const [currentPage,setCurrentPage] = useState(1);
   const [itemList,setItemList] = useState([]);
+  const [searchItem,setSearchItem] = useState([]);
   const postPerPage = 10;
 
   const indexOfLastPost = currentPage * postPerPage
   const indexOfFirstPost = indexOfLastPost - postPerPage;
-  const currentPost = itemList.slice(indexOfFirstPost, indexOfLastPost)
+  const currentPost = searchItem.slice(indexOfFirstPost, indexOfLastPost)
   const title="원목 트레이 만들기"
   const type = "edu";
   const getItemList = useCallback(async()=>{
@@ -36,11 +37,11 @@ export default function ListType2b() {
       return(alert(getRspMsg(response.status)))
     }
     const json = await response.json();
-
+    setSearchItem(json);
     setItemList(json);
     setCount(json.length);
-  },[token])
- 
+  },[])
+  console.log(search)
   const onItem = useCallback(async(e,index)=>{
     const hit_cnt = e.hit;
     const program_no = e.program_no;
@@ -76,7 +77,7 @@ export default function ListType2b() {
     e.preventDefault();
     setSearch(e.target.value);
   }
- 
+  console.log(itemList)
   const onSearch = useCallback(async(e) =>{
     e.preventDefault();
     
@@ -88,23 +89,29 @@ export default function ListType2b() {
       });
       const json = await response.json(); 
       setItemList(json);
+      setSearchItem(json);
+      setCount(json.length);
     }
     else{
-      const filterData = itemList.filter((item) => item.title.includes(search))
-      setItemList(filterData)
+      const filterData = itemList.filter((item) => item.title.includes(search.toLocaleLowerCase())) 
+      setSearchItem(filterData);
+      setCount(filterData.length);
       setCurrentPage(1)
     }
-   setSearch('');
-
+    if(search=== null || search === '')
+    {
+      setSearch('');
+    }
   },[search])
+  console.log(searchItem)
   const activeEnter = (e) => {
     if(e.key === "Enter") {
       onSearch(e);
     }
   }
   let no;
-  for(let i = 0; i<itemList.length;i++){
-    no = itemList[i].program_no;
+  for(let i = 0; i<searchItem.length;i++){
+    no = searchItem[i].program_no;
   }
 
   const getFile = useCallback(async()=>{
@@ -147,12 +154,12 @@ export default function ListType2b() {
     <div className="table_extra">
     <StyledBtn2 onClick={onMove}>내 예약정보</StyledBtn2>
       <div className="table_search">
-       <input type="text" name="" id="" placeholder="제목을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange} style={{width:'155px'}}/>
+       <input type="text" name="" id="" placeholder="제목을 입력하세요" onKeyDown={(e) => activeEnter(e)} onChange={onChange}/>
           <StyledBtn onClick={(e)=>onSearch(e)} >검색</StyledBtn>
       </div>
       </div>
       <ol>
-        {currentPost!==undefined?currentPost.map((item,index)=>(
+        {searchItem.length>0?currentPost.map((item,index)=>(
         
         <li key={index}>
         <ImageGetProgramList attachFile={item.attached_file} no={item.attached_file==="Y"&&item.type==="edu"?item.program_no:0} token={token} CommonHeader={CommonHeader} onItem={(e)=>onItem(item,index)} />

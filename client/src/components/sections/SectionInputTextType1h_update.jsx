@@ -219,7 +219,7 @@ function dataURLToBlob(dataURL) {
             onChange={onTitleChange}
           />
         </li>
-        <li className="textarea_wrap" style={{"height":"300px"}}>
+        <li className="textarea_wrap" style={{"height":"400px"}}>
           <label htmlFor="text02">내용</label>
            <div className="editor_wrap">
           <Editor 
