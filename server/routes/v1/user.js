@@ -548,7 +548,8 @@ router.put('/myinfo', verifyToken, async (req, res, next) => {
 router.put('/password', verifyToken, async (req, res, next) => {
     const user_no = req.decoded.user_no;
     const body = req.body;
-
+    
+    console.log(service_no);
     if (body.password === undefined || body.new_password === undefined) {
         return res.status(errorCode.badRequest).json({
             message: '데이터가 부족합니다.'
