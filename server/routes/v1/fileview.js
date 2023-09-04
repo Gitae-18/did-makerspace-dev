@@ -30,7 +30,8 @@ router.get('/:fileview_no/faqfile', async (req, res, next) => {
     }
 
     let file_data = files[0].dataValues;
-
+    if(file_data!==undefined)
+    {
     const path = "upload/newfaq/";
     const file_name = path + file_data.name;
 
@@ -38,13 +39,12 @@ router.get('/:fileview_no/faqfile', async (req, res, next) => {
     let encode = Buffer.from(file).toString('base64');
 
     let params = [file, encode];
-  /*   if(file.length>0)
-    {
+   
     return res.set({ "Content-Type": "image/*" }).send({ file });
     }
     else{
-        return null;
-    } */
+        res.status(errorCode.ok).json({});
+    }
 
 });
 router.get('/:fileview_no/noticefile',async (req, res, next) => {
@@ -63,22 +63,22 @@ router.get('/:fileview_no/noticefile',async (req, res, next) => {
         return res.status(errorCode.internalServerError).json({});
     }
 
-   /*  let file_data = files[0].dataValues;
-  
+    let file_data = files[0].dataValues;
+    if(file_data==undefined)
+    {
     const path = "upload/newnotice/";
     const file_name = path + file_data.name;
 
     let file = fs.readFileSync(`${file_name}`, 'binary')
     let encode = Buffer.from(file).toString('base64');
-    let params = [file, encode]; */
-   /*  if(file.length>0)
-    {
+    let params = [file, encode];
+
     return res.set({ "Content-Type": "image/*" }).send({ file });
     }
     else{
-        return null;
-    } */
-    res.status(errorCode.ok).json({});
+        res.status(errorCode.ok).json({});
+    }
+   
 });
 router.get('/:fileview_no/classedufile'/* ,verifyToken */, async (req, res, next) => {
     let program_no = req.params.fileview_no;
@@ -97,10 +97,10 @@ router.get('/:fileview_no/classedufile'/* ,verifyToken */, async (req, res, next
         return res.status(errorCode.internalServerError).json({});
     }
     let file_data
-    if(file_data)
-    {
+ 
     file_data = files[0].dataValues;
-    console.log(file_data);
+    if(file_data!==undefined)
+    {
     const path = "upload/newprogram/";
     const file_name = path + file_data.name;
     let file = fs.readFileSync(`${file_name}`, 'binary')
@@ -131,6 +131,8 @@ router.get('/:fileview_no/classeducontent', async (req, res, next) => {
     }
 
     let file_data = [];
+    if(file_data!==undefined)
+    {
     const path = "upload/newprogram/";
     file_data = files.map((item,index)=>(
        path + item.dataValues.name
@@ -141,14 +143,11 @@ router.get('/:fileview_no/classeducontent', async (req, res, next) => {
       const data = fs.readFileSync(item, 'binary');
       return data
     });
-   /*  console.log(file);
-    if(file.length>0)
-    {
     return res.set({ "Content-Type": "image/*" }).send({ file });
     }
     else{
         return null;
-    } */
+    }
 });
 
 
@@ -171,7 +170,8 @@ router.get('/:fileview_no/archivefile', async (req, res, next) => {
     }
 
     let file_data = files[0].dataValues;
-
+    if(file_data!==undefined)
+    {
     const path = "upload/newarchive/";
     const file_name = path + file_data.name;
  
@@ -179,12 +179,10 @@ router.get('/:fileview_no/archivefile', async (req, res, next) => {
     let encode = Buffer.from(file).toString('base64');
 
     let params = [file, encode];
-   /*  if(file_data !== undefined)
-    {
     return res.set({ "Content-Type": "image/*" }).send({ file });
     }
     else{
         return null;
-    } */
+    }
 });
 module.exports = router;
