@@ -22,7 +22,7 @@ export default function ImageGetProgramListProgram({no,token,attachFile,onItem})
       <>
         { attachFile === "N"?
           <img src="/images/Noimg.png" alt="no"/>:
-          <div className="image_part"><img src={"data:image/*;base64,"+ fileurl2}  alt="no-image" style={{"width":"180px","height":"210px"}} onClick={onItem}/></div>
+          <div className="image_part"><img src={fileurl2?"data:image/*;base64,"+ fileurl2:'/images/Noimg.png'}  alt="no-image" style={{"width":"180px","height":"210px"}} onClick={onItem}/></div>
         }
         </>
     )

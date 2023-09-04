@@ -50,7 +50,7 @@ export default function ImageHomeNotice({no,token}){
         getFileName();
       },[])
     return(
-        <StyledDiv className="image_part"><StyledImg src={"data:image/*;base64,"+ fileurl2}  alt="no-image"/></StyledDiv>
+        <StyledDiv className="image_part"><StyledImg src={fileurl2?"data:image/*;base64,"+ fileurl2:'/images/Noimg.png'}  alt="no-image"/></StyledDiv>
     )
 }
 

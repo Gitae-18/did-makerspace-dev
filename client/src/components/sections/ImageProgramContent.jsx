@@ -36,7 +36,7 @@ export default function ImageProgramContent({no,token,attachFile,content}){
     return(
         <>
             {fileurl2 && fileurl2.map((item,index)=>(
-                <div className="image_part" style={{display:'flex',marginTop:'50px'}}><img src={"data:image/*;base64," + item}  alt="no-image" style={{"width":"600px","height":"800px"}}/></div>
+                <div className="image_part" style={{display:'flex',marginTop:'50px'}}><img src={/* "data:image/*;base64," + item */'/images/Noimg.png'}  alt="no-image" style={{"width":"600px","height":"800px"}}/></div>
             ))}
             
         </>
