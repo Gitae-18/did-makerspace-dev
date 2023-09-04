@@ -119,6 +119,33 @@ async function UpdateStatus(user_no, service_no, progress, status, check_user_no
 };
 
 
+router.put('/:service_no/running', verifyToken, async (req, res, next) => {
+    const body = req.body;
+    const user_no = req.decoded.user_no;
+    const service_no = req.params.service_no;
+    const authority_level = req.decoded.authority_level;
+
+    let service_element_no = Number(body.service_element_no);
+    if (service_element_no > 0) {
+        // 1.1 내용 수정
+        let updateResult;
+        try {
+            updateResult = await ServiceElement.update({
+                start_date: body.start_date,
+                end_date: body.end_date,
+                support_content: body.support_content,
+                support_result: body.support_result,
+                updated_user_no: user_no,
+            }, {
+                where: { service_element_no },
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(errorCode.internalServerError).json({});
+        }
+    }    
+    res.status(errorCode.ok).json({ service_element_no });
+});
 router.post('/:service_no/running', verifyToken, async (req, res, next) => {
     const body = req.body;
     const user_no = req.decoded.user_no;
@@ -443,37 +470,54 @@ router.get('/', verifyToken, async (req, res, next) => {
         console.log(error);
         return res.status(errorCode.internalServerError).json({});
     }
-    const users = items.map((item) => item.user_no) ;
+    const users = items.map((item) => item.user_no);
     const promises = users.map(async (userNo) => {
         try {
           const comNo = await User.findOne({
             attributes: ['company_no'],
             where: { user_no: userNo },
-          });
+          });          
+          if (comNo === null || comNo.company_no === null) {
+            return comNo; // 'company_no'가 null인 경우 1 반환
+          }    
+          else { 
           return comNo;
+          }
         } catch (error) {
           console.log(error);
-          return null; // 에러 처리 필요
+          return 1; // 에러 처리 필요
         }
       });
       
       const companyNumbers = await Promise.all(promises);
-    let companyNum = companyNumbers.map((items) => items.dataValues);
-    let companyName ;
+      let companyNum = companyNumbers.map((items) => {
+        if (items.dataValues === null || items.dataValues.company_no === null) {
+          return { company_no: 1 }; // 'dataValues'가 null인 경우 1로 교체
+        }
+        return { company_no: items.dataValues.company_no };
+      });
+
+    let companyName = [] ;
     const companyNoArray = companyNum.map((element) => element.company_no);
+    
     try{        
-        companyName = await Company.findAll({
-            attributes:['name'],
-            where: {
-                company_no: {
-                    [Op.in]: companyNoArray
+        for (const companyNo of companyNoArray) {
+            const company = await Company.findOne({
+                attributes: ['name'],
+                where: {
+                    company_no: companyNo
                 }
+            });
+            
+            if (company) {
+                companyName.push(company.name);
             }
-        });        
+        } 
     }
     catch(error){
         console.log(error);
     }
+    console.log(companyName);
     for (let i = 0; i < items.length; i++) {
         items[i]['username'] = items[i]['user.name'];
         delete items[i]['user.name'];
