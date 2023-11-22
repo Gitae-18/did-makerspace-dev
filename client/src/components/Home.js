@@ -40,6 +40,7 @@ function Home() {
           const [modalVisible,setModalVisible] = useState(true);
           const [modalControl1,setModalControl1] = useState(true);
           const [classPopModal,setClassPopModal] = useState(true);
+          const [accelerationData, setAccelerationData] = useState({ x: 0, y: 0, z: 0 });
           const [modalSet,setModalSet] = useState(true);
           const [classModal,setClassModal] = useState(true);
           const [data,setData] = useState("");
@@ -61,6 +62,28 @@ function Home() {
           const closeModal5 = () => {
             setClassPopModal(false);
           }
+          const fetchData = async () => {
+            try {
+              const response = await fetch('  ', {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              });
+          
+              // 서버 응답에서 데이터를 추출하거나, 필요에 따라 응답을 처리할 수 있습니다.
+              const data = await response.json();
+              //setAccelerationData(data);
+              console.log('Received acceleration data:', data);
+            } catch (error) {
+              console.error('Error fetching acceleration data:', error);
+            }
+          };
+        useEffect(()=> {              
+              const intervalId = setInterval(fetchData, 1000); // 1초마다 데이터 업데이트
+          
+              return () => clearInterval(intervalId); // 컴포넌트가 언마운트되면 interval 정리
+        },[])
             const getRecentProgram = useCallback(async()=>{
               let requri = PreUri + '/classedu/recentprogram';
               const response = await fetch(requri,{
@@ -136,6 +159,7 @@ function Home() {
              
                 </div>
               </div>
+              
               <div className="sns_map">
               <IcoImg src="/images/facebook_ico.png" onClick={()=>onSiteMove("https://www.facebook.com/didmakerspace")} className='blog'  style={{"cursor":"pointer"}}/>
               <IcoImg src="/images/blog_ico.png" onClick={()=>onSiteMove("https://blog.naver.com/didmakerspace")} className='blog'  style={{"cursor":"pointer"}}/>
@@ -151,6 +175,12 @@ function Home() {
     
         return (
           <div id="pageIndex">
+            <div>
+            <h2>Acceleration Data</h2>
+            <p>X: {accelerationData.x}</p>
+            <p>Y: {accelerationData.y}</p>
+            <p>Z: {accelerationData.z}</p>
+        </div>
             <MainBanner></MainBanner>
          {/*    <SectionTextType1
               title="DID 주요 서비스"
