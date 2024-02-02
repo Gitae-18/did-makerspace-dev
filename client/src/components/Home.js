@@ -175,12 +175,6 @@ function Home() {
     
         return (
           <div id="pageIndex">
-            <div>
-            <h2>Acceleration Data</h2>
-            <p>X: {accelerationData.x}</p>
-            <p>Y: {accelerationData.y}</p>
-            <p>Z: {accelerationData.z}</p>
-        </div>
             <MainBanner></MainBanner>
          {/*    <SectionTextType1
               title="DID 주요 서비스"
