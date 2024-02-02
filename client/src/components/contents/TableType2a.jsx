@@ -125,8 +125,9 @@ export default function TableType2a() {
   }
 
   const onReservClick = (e) =>{
-    const categoryNo = e.equipment_category_no;
-    history('/eqreservation/equip/selectreserv?categoryNo=' + categoryNo,{state:{category:categoryNo}})
+    /* const categoryNo = e.equipment_category_no;
+    history('/eqreservation/equip/selectreserv?categoryNo=' + categoryNo,{state:{category:categoryNo}}) */
+    alert("현재 시스템 정비중으로 인해 장비예약이 불가합니다.");
   }
   console.log()
   useEffect(()=>{
@@ -182,7 +183,7 @@ export default function TableType2a() {
                 </td>
                  {visible&&<VideoModal visible={visible} closable={true} maskClosable={true} onClose={closeModal} modelName={reservationList[i].model_name} src={link}/>}  
                  <td className="res_btn">
-                    {modelname[i] === item.model_name  ? ( <StyledBtn3 onClick={(e) => onReservClick(item,i)}>예약하기</StyledBtn3>
+                    {modelname[i] === item.model_name  ? ( <StyledBtn3 onClick={(e) => onReservClick(/* item,i */)}>예약하기</StyledBtn3>
                     ) : (
                    <StyledBtn3>예약불가</StyledBtn3>
                    )}
